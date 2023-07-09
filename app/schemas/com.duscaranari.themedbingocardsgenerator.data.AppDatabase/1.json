@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5ac003b577e6b6d05e403a486e24ba6f",
+    "entities": [
+      {
+        "tableName": "theme_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`theme_id` TEXT NOT NULL, `theme_name` TEXT NOT NULL, `theme_picture` TEXT NOT NULL, PRIMARY KEY(`theme_id`))",
+        "fields": [
+          {
+            "fieldPath": "themeId",
+            "columnName": "theme_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "themeName",
+            "columnName": "theme_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "themePicture",
+            "columnName": "theme_picture",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "theme_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "character_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`character_id` TEXT NOT NULL, `character_theme_id` TEXT NOT NULL, `character_name` TEXT NOT NULL, `character_picture` TEXT NOT NULL, PRIMARY KEY(`character_id`))",
+        "fields": [
+          {
+            "fieldPath": "characterId",
+            "columnName": "character_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "characterThemeId",
+            "columnName": "character_theme_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "characterName",
+            "columnName": "character_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "characterPicture",
+            "columnName": "character_picture",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "character_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5ac003b577e6b6d05e403a486e24ba6f')"
+    ]
+  }
+}
