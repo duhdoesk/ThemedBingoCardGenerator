@@ -12,7 +12,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -30,7 +29,7 @@ fun AppNavigation() {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = AppScreens.values().find {
         it.name == backStackEntry?.destination?.route
-    } ?: AppScreens.HomeScreen
+    } ?: AppScreens.Home
 
     Scaffold(
         topBar = {
@@ -43,23 +42,23 @@ fun AppNavigation() {
 
         NavHost(
             navController = navController,
-            startDestination = AppScreens.ThemesScreen.name,
+            startDestination = AppScreens.Home.name,
             modifier = Modifier.padding(innerPadding)
         ) {
 
-            composable(AppScreens.AboutScreen.name) {
+            composable(AppScreens.About.name) {
                 AboutScreen(navController)
             }
 
-            composable(AppScreens.CardScreen.name) {
+            composable(AppScreens.Card.name) {
                 CardScreen(navController)
             }
 
-            composable(AppScreens.HomeScreen.name) {
+            composable(AppScreens.Home.name) {
                 HomeScreen(navController)
             }
 
-            composable(AppScreens.ThemesScreen.name) {
+            composable(AppScreens.Themes.name) {
                 ThemesScreen(navController)
             }
         }
