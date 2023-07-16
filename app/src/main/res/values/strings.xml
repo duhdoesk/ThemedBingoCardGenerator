@@ -1,3 +1,14 @@
 <resources>
+
+<!--    COMMON -->
     <string name="app_name">Themed Bingo Cards Generator</string>
+    <string name="logo">Logo</string>
+
+
+<!--    HOME SCREEN -->
+    <string name="built_by">Built by ES apps</string>
+    <string name="about_us">About Us</string>
+    <string name="play">Play</string>
+
+
 </resources>

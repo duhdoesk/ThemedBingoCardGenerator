@@ -1,11 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.home
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,10 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -30,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +39,7 @@ fun HomeScreen(navController: NavHostController) {
     val windowInfo = rememberWindowInfo()
     when (windowInfo.screenWidthInfo) {
         is WindowInfo.WindowType.Compact -> CompactHomeScreen(navController)
-        else -> ExpandedHomeScreen(navController)
+        else -> MediumHomeScreen(navController)
     }
 }
 
@@ -58,14 +52,9 @@ fun CompactHomeScreen(navController: NavHostController) {
             .background(MaterialTheme.colorScheme.background)
     ) {
 
-        Image(
-            painter = painterResource(id = R.drawable.compact_screen_logo),
-            contentDescription = "Logo",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.3f)
-                .shadow(16.dp)
+        LogoPicture(
+            maxWidth = 1f,
+            maxHeight = 0.3f
         )
 
         Column(
@@ -76,22 +65,7 @@ fun CompactHomeScreen(navController: NavHostController) {
                 .padding(16.dp)
         ) {
 
-            Text(
-                text = "Themed Bingo Cards Generator",
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-
-            Text(
-                text = "Built by ES apps",
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-
+            HeaderLabels()
             Spacer(modifier = Modifier.height(40.dp))
 
             Row(
@@ -99,33 +73,159 @@ fun CompactHomeScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxWidth()
             ) {
 
-                HomeCard(
-                    label = "About Us",
-                    icon = R.drawable.baseline_groups_24,
-                    onClick = { navController.navigate(AppScreens.About.name) },
-                    modifier = Modifier
+                HomeCardsRow(
+                    navController = navController, modifier = Modifier
                         .weight(1f)
                         .padding(28.dp)
                 )
-
-                HomeCard(
-                    label = "Play",
-                    icon = R.drawable.baseline_emoji_nature_24,
-                    onClick = { navController.navigate(AppScreens.Themes.name) },
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(28.dp),
-
-                    )
             }
         }
     }
 }
 
 @Composable
-fun ExpandedHomeScreen(navController: NavHostController) {
-    Text(text = "Expanded")
+fun MediumHomeScreen(navController: NavHostController) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+
+        LogoPicture(
+            maxWidth = 0.4f,
+            maxHeight = 1f
+        )
+
+        Column(
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+
+            HeaderLabels()
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.fillMaxWidth(0.7f)
+            ) {
+
+                HomeCardsRow(
+                    navController = navController,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(28.dp)
+                )
+            }
+        }
+    }
 }
+
+
+// COMMON COMPOSABLE FUNCTIONS
+
+@Composable
+fun LogoPicture(
+    maxWidth: Float,
+    maxHeight: Float
+) {
+    Image(
+        painter = painterResource(id = R.drawable.compact_screen_logo),
+        contentDescription = stringResource(id = R.string.logo),
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .fillMaxWidth(maxWidth)
+            .fillMaxHeight(maxHeight)
+            .shadow(16.dp)
+    )
+}
+
+@Composable
+fun HeaderLabels() {
+    Text(
+        text = stringResource(id = R.string.app_name),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier
+            .fillMaxWidth()
+    )
+
+    Text(
+        text = stringResource(id = R.string.built_by),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.labelLarge,
+        modifier = Modifier
+            .fillMaxWidth()
+    )
+}
+
+@Composable
+fun HomeCard(
+    label: String,
+    icon: Int,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+
+    Card(
+        elevation = CardDefaults.cardElevation(8.dp),
+        modifier = modifier.clickable { onClick() }
+    ) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            Icon(
+                painter = painterResource(id = icon),
+                contentDescription = label,
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .aspectRatio(1.1f)
+                    .padding(8.dp)
+            )
+
+            Row(
+                modifier = Modifier.background(MaterialTheme.colorScheme.primary)
+            ) {
+
+                Text(
+                    text = label,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun HomeCardsRow(
+    modifier: Modifier = Modifier,
+    navController: NavHostController
+) {
+    HomeCard(
+        label = stringResource(id = R.string.about_us),
+        icon = R.drawable.baseline_groups_24,
+        onClick = { navController.navigate(AppScreens.About.name) },
+        modifier = modifier
+    )
+
+    HomeCard(
+        label = stringResource(id = R.string.play),
+        icon = R.drawable.baseline_emoji_nature_24,
+        onClick = { navController.navigate(AppScreens.Themes.name) },
+        modifier = modifier
+    )
+}
+
+
+// PREVIEW FUNCTIONS
 
 @Composable
 @Preview(showSystemUi = true)
@@ -195,7 +295,7 @@ fun CompactPreview() {
                         .weight(1f)
                         .padding(28.dp),
 
-                )
+                    )
             }
         }
     }
@@ -206,49 +306,60 @@ fun CompactPreview() {
     showSystemUi = true,
     device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=landscape"
 )
-fun ExpandedPreview() {
-
-}
-
-@Composable
-fun HomeCard(
-    label: String,
-    icon: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-
-    Card(
-        elevation = CardDefaults.cardElevation(8.dp),
-        modifier = modifier.clickable { onClick() }
+fun MediumPreview() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
+        Image(
+            painter = painterResource(id = R.drawable.compact_screen_logo),
+            contentDescription = stringResource(id = R.string.logo),
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth(0.4f)
+                .fillMaxHeight()
+                .shadow(16.dp)
+        )
+
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
 
-            Icon(
-                painter = painterResource(id = icon),
-                contentDescription = label,
-                modifier = Modifier
-                    .fillMaxWidth(1f)
-                    .aspectRatio(1.1f)
-                    .padding(8.dp)
-            )
+            HeaderLabels()
+
+            Spacer(modifier = Modifier.height(40.dp))
 
             Row(
-                modifier = Modifier.background(MaterialTheme.colorScheme.primary)
+                horizontalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.fillMaxWidth()
             ) {
 
-                Text(
-                    text = label,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                HomeCard(
+                    label = stringResource(id = R.string.about_us),
+                    icon = R.drawable.baseline_groups_24,
+                    onClick = { },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 4.dp)
+                        .weight(1f)
+                        .padding(28.dp)
+                )
+
+                HomeCard(
+                    label = stringResource(id = R.string.play),
+                    icon = R.drawable.baseline_emoji_nature_24,
+                    onClick = { },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(28.dp)
                 )
             }
         }
     }
 }
+
