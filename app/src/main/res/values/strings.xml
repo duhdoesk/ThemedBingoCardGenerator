@@ -11,4 +11,9 @@
     <string name="play">Play</string>
 
 
+<!--    ABOUT SCREEN -->
+    <string name="mobile_apps_development">"mobile apps development"</string>
+    <string name="about_desc">"ES stands for Eduardo Scaranari. I'm a Software Engineering student living in São Paulo - Brazil, looking for finding some room in the mobile market by providing well constructed apps for entertainment."</string>
+    <string name="find_me">"find me on social media"</string>
+
 </resources>
