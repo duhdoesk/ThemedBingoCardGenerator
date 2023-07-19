@@ -47,7 +47,7 @@ fun AppNavigation() {
         ) {
 
             composable(AppScreens.About.name) {
-                AboutScreen(navController)
+                AboutScreen()
             }
 
             composable(AppScreens.Card.name) {
