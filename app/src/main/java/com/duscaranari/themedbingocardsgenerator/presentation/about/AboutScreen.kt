@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
@@ -69,8 +68,6 @@ fun CompactAboutScreen() {
             Modifier.height(40.dp))
 
         SocialMedia(
-            provideLinks(),
-            provideUriHandler(),
             Modifier.padding(top = 8.dp))
     }
 }
@@ -78,6 +75,23 @@ fun CompactAboutScreen() {
 @Composable
 fun MediumAboutScreen() {
 
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start,
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        Logo(
+            Modifier.weight(1f))
+
+        Description(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 8.dp))
+
+        SocialMedia(
+            Modifier.weight(1f))
+    }
 }
 
 
@@ -111,18 +125,20 @@ fun Logo(modifier: Modifier = Modifier) {
 @Composable
 fun Description(modifier: Modifier = Modifier) {
 
-    Text(
-        text = stringResource(id = R.string.about_desc),
-        textAlign = TextAlign.Justify,
-        modifier = modifier
-    )
+    Column(modifier = modifier) {
+
+        Text(
+            text = stringResource(id = R.string.about_desc),
+            textAlign = TextAlign.Justify
+        )
+    }
 }
 
 @Composable
 fun SocialMedia(
-    links: List<Link>,
-    uriHandler: UriHandler,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    links: List<Link> = getLinks(),
+    uriHandler: UriHandler = getUriHandler()
 ) {
 
     Column(
@@ -174,46 +190,9 @@ fun SocialMedia(
 }
 
 
-// PREVIEW FUNCTIONS
-
-@Composable
-@Preview(showSystemUi = true)
-fun CompactPreview() {
-
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
-
-        Logo()
-
-        Description(
-            Modifier.padding(24.dp))
-
-        Spacer(
-            Modifier.height(40.dp))
-
-        SocialMedia(
-            provideLinks(),
-            provideUriHandler(),
-            Modifier.padding(top = 8.dp))
-    }
-}
-
-@Composable
-@Preview(
-    showSystemUi = true,
-    device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=landscape"
-)
-fun MediumPreview() {
-
-}
-
-
 // UTILS
 
-fun provideLinks(): List<Link> {
+fun getLinks(): List<Link> {
 
     return listOf(
         Link(
@@ -231,6 +210,6 @@ fun provideLinks(): List<Link> {
 }
 
 @Composable
-fun provideUriHandler(): UriHandler {
+fun getUriHandler(): UriHandler {
     return LocalUriHandler.current
 }
