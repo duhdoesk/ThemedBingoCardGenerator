@@ -8,7 +8,8 @@ import androidx.navigation.NavHostController
 @Composable
 fun CardScreen(
     navController: NavHostController,
-    cardViewModel: CardViewModel = hiltViewModel()
+    cardViewModel: CardViewModel = hiltViewModel(),
+    themeId: String
 ) {
-    Text(text = "Card Screen")
+    Text(text = "Card Screen $themeId")
 }

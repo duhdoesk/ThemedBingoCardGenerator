@@ -28,7 +28,7 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = AppScreens.values().find {
-        it.name == backStackEntry?.destination?.route
+        it.name == backStackEntry?.destination?.route?.substringBefore("/")
     } ?: AppScreens.Home
 
     Scaffold(
@@ -50,8 +50,11 @@ fun AppNavigation() {
                 AboutScreen()
             }
 
-            composable(AppScreens.Card.name) {
-                CardScreen(navController)
+            composable("${AppScreens.Card.name}/{themeId}") { navBackStackEntry ->
+                val themeId = navBackStackEntry.arguments?.getString("themeId")
+                themeId?.let {
+                    CardScreen(navController = navController, themeId = it)
+                }
             }
 
             composable(AppScreens.Home.name) {
