@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -72,16 +73,18 @@ fun ThemesScreen(
 fun CompactThemesScreen(navController: NavHostController, state: ThemesState.Ready) {
 
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
 
         TopLabel()
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         ThemesLazyVerticalGrid(
             themes = state.themesList,
             columns = 2,
+            modifier = Modifier.fillMaxSize(),
             onClick = { theme ->
                 navController.navigate("${AppScreens.Card.name}/${theme.themeId}")
             })
@@ -91,6 +94,24 @@ fun CompactThemesScreen(navController: NavHostController, state: ThemesState.Rea
 @Composable
 fun MediumThemesScreen(navController: NavHostController, state: ThemesState.Ready) {
 
+    Column(
+        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+    ) {
+
+        Row {
+            TopLabel()
+        }
+
+        Spacer(Modifier.height(8.dp))
+
+        ThemesLazyVerticalGrid(
+            themes = state.themesList,
+            columns = 5,
+            modifier = Modifier.fillMaxSize(),
+            onClick = { theme ->
+                navController.navigate("${AppScreens.Card.name}/${theme.themeId}")
+            })
+    }
 }
 
 @Composable
@@ -100,10 +121,8 @@ fun TopLabel(modifier: Modifier = Modifier) {
 
         Text(
             text = "Select a theme:",
-            modifier = Modifier
-                .fillMaxWidth(),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleMedium
         )
     }
 }
@@ -164,7 +183,7 @@ fun ThemesCard(
                 placeholder = painterResource(id = R.drawable.compact_screen_logo),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1f)
+                    .aspectRatio(1.1f)
             )
 
             Row(modifier = Modifier.background(MaterialTheme.colorScheme.primary)) {
