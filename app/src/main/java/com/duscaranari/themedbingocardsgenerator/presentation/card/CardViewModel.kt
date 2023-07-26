@@ -23,7 +23,6 @@ class CardViewModel @Inject constructor(
     private val _cardState = MutableStateFlow<CardState>(CardState.Loading)
     val cardState = _cardState.asStateFlow()
 
-    private var themesList: List<Theme> = emptyList()
     private lateinit var currentTheme: Theme
     private var themeCharacters: List<Character> = emptyList()
     private var drawnCharacters: List<Character> = emptyList()
@@ -36,15 +35,11 @@ class CardViewModel @Inject constructor(
     private fun loadData(themeId: String) {
 
         viewModelScope.launch {
-            themesList = themeRepository.getAllThemes()
+
+            themeRepository.getThemeById(themeId)?.let { currentTheme = it }
             themeCharacters = characterRepository.getThemeCharacters(themeId)
         }
-            .invokeOnCompletion {
-                themesList.find { theme -> theme.themeId == themeId }
-                    ?.let { currentTheme = it }
-
-                drawNewCard()
-            }
+            .invokeOnCompletion { drawNewCard() }
     }
 
     fun drawNewCard() {
