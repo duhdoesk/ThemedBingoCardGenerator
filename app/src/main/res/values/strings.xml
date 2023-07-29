@@ -16,4 +16,10 @@
     <string name="about_desc">"ES stands for Eduardo Scaranari. I'm a Software Engineering student living in São Paulo - Brazil, looking for finding some room in the mobile market by providing well constructed apps for entertainment."</string>
     <string name="find_me">"find me on social media"</string>
 
+
+<!--    CARD SCREEN -->
+    <string name="selected_theme">"Tema Escolhido:"</string>
+    <string name="new_card">"Nova Cartela"</string>
+    <string name="insert_your_name">"Insira seu nome"</string>
+
 </resources>

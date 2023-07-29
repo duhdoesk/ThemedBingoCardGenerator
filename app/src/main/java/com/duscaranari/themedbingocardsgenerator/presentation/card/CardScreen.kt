@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -44,13 +45,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
@@ -81,7 +82,10 @@ fun CardScreen(
                     cardViewModel
                 )
 
-                else -> CardMediumScreen(state)
+                else -> CardMediumScreen(
+                    state,
+                    cardViewModel
+                )
             }
         }
     }
@@ -139,8 +143,53 @@ fun CardCompactScreen(
 }
 
 @Composable
-fun CardMediumScreen(state: CardState.Ready) {
+fun CardMediumScreen(state: CardState.Ready, cardViewModel: CardViewModel) {
 
+    Column(
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+
+            CardScreenHeader(
+                theme = state.currentTheme,
+                textAlignment = TextAlign.Start,
+                horizontalAlignment = Alignment.Start
+            )
+
+            CardScreenName(
+                onChange = { user -> cardViewModel.updateCurrentUser(user) },
+                currentUser = state.currentUser
+            )
+        }
+
+        Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+
+            CardScreenLazyVerticalGrid(
+                characters = state.drawnCharacters,
+                columns = 9
+            )
+        }
+
+        Row(
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
+        ) {
+
+            NewCardButton(
+                onClick = { cardViewModel.drawNewCard() }
+            )
+        }
+    }
 }
 
 
@@ -162,7 +211,7 @@ fun CardScreenHeader(
     ) {
 
         Text(
-            text = "Tema Escolhido:",
+            text = stringResource(id = R.string.selected_theme),
             style = MaterialTheme.typography.labelMedium,
             textAlign = textAlignment
         )
@@ -326,7 +375,7 @@ fun NewCardButton(
             )
 
             Text(
-                text = "Nova Cartela",
+                text = stringResource(id = R.string.new_card),
                 modifier = Modifier
                     .padding(start = 4.dp)
             )
@@ -363,7 +412,7 @@ fun NameDialog(
                         }
                     },
 
-                    label = { Text(text = "Insira seu nome") },
+                    label = { Text(text = stringResource(id = R.string.insert_your_name)) },
 
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done
