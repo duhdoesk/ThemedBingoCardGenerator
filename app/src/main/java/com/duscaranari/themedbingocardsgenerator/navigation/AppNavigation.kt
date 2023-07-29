@@ -12,6 +12,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -75,7 +76,9 @@ fun ThemedBingoAppBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        title = {Text(currentScreen.name) },
+        title = {
+            Text(stringResource(id = currentScreen.stringResource))
+        },
         modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {

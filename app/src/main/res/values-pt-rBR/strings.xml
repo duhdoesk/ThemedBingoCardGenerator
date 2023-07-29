@@ -12,4 +12,8 @@
     <string name="selected_theme">Tema selecionado</string>
     <string name="new_card">Nova Cartela</string>
     <string name="insert_your_name">Insira seu nome</string>
+    <string name="home_screen">Início</string>
+    <string name="about_screen">Sobre</string>
+    <string name="themes_screen">Temas</string>
+    <string name="card_screen">Cartela</string>
 </resources>

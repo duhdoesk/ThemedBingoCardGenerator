@@ -5,6 +5,13 @@
     <string name="logo">Logo</string>
 
 
+<!--    SCREENS -->
+    <string name="home_screen">Home</string>
+    <string name="about_screen">About</string>
+    <string name="themes_screen">Themes</string>
+    <string name="card_screen">Card</string>
+
+
 <!--    HOME SCREEN -->
     <string name="built_by">Developed by ES apps</string>
     <string name="about_us">About</string>
