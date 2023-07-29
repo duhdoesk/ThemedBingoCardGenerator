@@ -1,25 +1,30 @@
 <resources>
 
 <!--    COMMON -->
-    <string name="app_name">Themed Bingo Cards Generator</string>
+    <string name="app_name">Themed Bingo</string>
     <string name="logo">Logo</string>
 
 
 <!--    HOME SCREEN -->
-    <string name="built_by">Built by ES apps</string>
-    <string name="about_us">About Us</string>
+    <string name="built_by">Developed by ES apps</string>
+    <string name="about_us">About</string>
     <string name="play">Play</string>
 
 
 <!--    ABOUT SCREEN -->
     <string name="mobile_apps_development">"mobile apps development"</string>
-    <string name="about_desc">"ES stands for Eduardo Scaranari. I'm a Software Engineering student living in São Paulo - Brazil, looking for finding some room in the mobile market by providing well constructed apps for entertainment."</string>
-    <string name="find_me">"find me on social media"</string>
 
+    <string name="about_desc">"Hello. My name is Eduardo. I'm a Software Engineering student living in São Paulo - Brazil, looking for finding some room in the mobile market by providing well constructed apps for entertainment."</string>
+
+    <string name="find_me">my social media</string>
+
+
+<!--    THEMES SCREEN-->
+    <string name="available_themes">Available themes</string>
 
 <!--    CARD SCREEN -->
-    <string name="selected_theme">"Tema Escolhido:"</string>
-    <string name="new_card">"Nova Cartela"</string>
-    <string name="insert_your_name">"Insira seu nome"</string>
+    <string name="selected_theme">Selected Theme</string>
+    <string name="new_card">New Card</string>
+    <string name="insert_your_name">Insert your name</string>
 
 </resources>
