@@ -9,6 +9,7 @@ sealed class CardState {
 
     data class Ready(
         val currentTheme: Theme,
-        val drawnCharacters: List<Character>
+        val drawnCharacters: List<Character>,
+        val currentUser: String = ""
     ) : CardState()
 }

@@ -30,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -62,9 +63,7 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 
 @Composable
 fun CardScreen(
-    navController: NavHostController,
-    cardViewModel: CardViewModel = hiltViewModel(),
-    themeId: String
+    cardViewModel: CardViewModel = hiltViewModel()
 ) {
 
     when (val state = cardViewModel.cardState.collectAsState().value) {
@@ -77,8 +76,12 @@ fun CardScreen(
 
             when (windowInfo.screenWidthInfo) {
 
-                is WindowInfo.WindowType.Compact -> CardCompactScreen(navController, state, cardViewModel)
-                else -> CardMediumScreen(navController, state)
+                is WindowInfo.WindowType.Compact -> CardCompactScreen(
+                    state,
+                    cardViewModel
+                )
+
+                else -> CardMediumScreen(state)
             }
         }
     }
@@ -91,7 +94,6 @@ SCREENS
 
 @Composable
 fun CardCompactScreen(
-    navController: NavHostController,
     state: CardState.Ready,
     cardViewModel: CardViewModel
 ) {
@@ -120,6 +122,8 @@ fun CardCompactScreen(
         Spacer(Modifier.height(16.dp))
 
         CardScreenName(
+            onChange = { user -> cardViewModel.updateCurrentUser(user) },
+            currentUser = state.currentUser,
             modifier = Modifier
                 .padding(horizontal = 32.dp)
         )
@@ -135,7 +139,7 @@ fun CardCompactScreen(
 }
 
 @Composable
-fun CardMediumScreen(navController: NavHostController, state: CardState.Ready) {
+fun CardMediumScreen(state: CardState.Ready) {
 
 }
 
@@ -263,10 +267,11 @@ fun CardScreenCards(character: Character) {
 
 @Composable
 fun CardScreenName(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onChange: (newUser: String) -> Unit,
+    currentUser: String
 ) {
 
-    var username by remember { mutableStateOf("Eduardo") }
     val showDialog = remember { mutableStateOf(false) }
 
     OutlinedCard(
@@ -287,7 +292,7 @@ fun CardScreenName(
             )
 
             Text(
-                text = username,
+                text = currentUser,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 4.dp)
@@ -296,8 +301,8 @@ fun CardScreenName(
 
         if (showDialog.value) {
             NameDialog(
-                username = username,
-                onChange = { username = it },
+                currentUser = currentUser,
+                onChange = { onChange(it) },
                 onDismiss = { showDialog.value = false })
         }
     }
@@ -331,7 +336,7 @@ fun NewCardButton(
 
 @Composable
 fun NameDialog(
-    username: String,
+    currentUser: String,
     onChange: (newUsername: String) -> Unit,
     onDismiss: (boolean: Boolean) -> Unit
 ) {
@@ -340,7 +345,9 @@ fun NameDialog(
         onDismissRequest = { onDismiss(false) }
     ) {
 
-        Card() {
+        var newUser by remember { mutableStateOf(currentUser) }
+
+        Card {
 
             Column(
                 horizontalAlignment = Alignment.End,
@@ -348,10 +355,13 @@ fun NameDialog(
             ) {
 
                 TextField(
-                    value = username,
+                    value = newUser,
 
                     onValueChange = {
-                        if (it.length <= 20) { onChange(it) } },
+                        if (it.length <= 20) {
+                            newUser = it
+                        }
+                    },
 
                     label = { Text(text = "Insira seu nome") },
 
@@ -360,8 +370,19 @@ fun NameDialog(
                     ),
 
                     keyboardActions = KeyboardActions(
-                        onDone = { onDismiss(false) })
+                        onDone = {
+                            onChange(newUser)
+                            onDismiss(false)
+                        })
                 )
+
+                TextButton(onClick = {
+                    onChange(newUser)
+                    onDismiss(false)
+                }) {
+
+                    Text("OK")
+                }
             }
         }
     }

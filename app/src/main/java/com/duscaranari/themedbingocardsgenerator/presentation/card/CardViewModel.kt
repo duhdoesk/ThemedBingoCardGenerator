@@ -46,9 +46,29 @@ class CardViewModel @Inject constructor(
 
         drawnCharacters = themeCharacters.shuffled().subList(0, 9)
 
-        _cardState.value = CardState.Ready(
-            currentTheme = currentTheme,
-            drawnCharacters = drawnCharacters
-        )
+        when (val state = cardState.value) {
+
+            is CardState.Loading -> {
+                _cardState.value = CardState.Ready(
+                    currentTheme = currentTheme,
+                    drawnCharacters = drawnCharacters
+                )
+            }
+
+            is CardState.Ready -> {
+                _cardState.value = state.copy(
+                    drawnCharacters = drawnCharacters
+                )
+            }
+        }
+    }
+
+    fun updateCurrentUser(user: String) {
+
+        if (_cardState.value is CardState.Ready) {
+            _cardState.value = (cardState.value as CardState.Ready).copy(
+                currentUser = user
+            )
+        }
     }
 }
