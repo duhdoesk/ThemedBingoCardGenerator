@@ -75,7 +75,7 @@ fun ThemedBingoAppBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        title = { Text(currentScreen.name) },
+        title = { Text(currentScreen.portuguese) },
         modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {
