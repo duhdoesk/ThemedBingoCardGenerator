@@ -1,5 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.themes
 
+import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +40,11 @@ import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 @Composable
 fun ThemesScreen(
@@ -58,12 +65,14 @@ fun ThemesScreen(
 
                 is WindowInfo.WindowType.Compact -> CompactThemesScreen(
                     navController = navController,
-                    state = state
+                    state = state,
+                    context = LocalContext.current
                 )
 
                 else -> MediumThemesScreen(
                     navController = navController,
-                    state = state
+                    state = state,
+                    context = LocalContext.current
                 )
             }
         }
@@ -71,7 +80,11 @@ fun ThemesScreen(
 }
 
 @Composable
-fun CompactThemesScreen(navController: NavHostController, state: ThemesState.Ready) {
+fun CompactThemesScreen(
+    navController: NavHostController,
+    state: ThemesState.Ready,
+    context: Context
+) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,13 +100,14 @@ fun CompactThemesScreen(navController: NavHostController, state: ThemesState.Rea
             columns = 2,
             modifier = Modifier.fillMaxSize(),
             onClick = { theme ->
+                showInterstitialAd(context)
                 navController.navigate("${AppScreens.Card.name}/${theme.themeId}")
             })
     }
 }
 
 @Composable
-fun MediumThemesScreen(navController: NavHostController, state: ThemesState.Ready) {
+fun MediumThemesScreen(navController: NavHostController, state: ThemesState.Ready, context: Context) {
 
     Column(
         modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
@@ -110,6 +124,7 @@ fun MediumThemesScreen(navController: NavHostController, state: ThemesState.Read
             columns = 5,
             modifier = Modifier.fillMaxSize(),
             onClick = { theme ->
+                showInterstitialAd(context)
                 navController.navigate("${AppScreens.Card.name}/${theme.themeId}")
             })
     }
