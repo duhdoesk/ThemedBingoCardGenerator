@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.navigation
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,6 +22,7 @@ import com.duscaranari.themedbingocardsgenerator.presentation.about.AboutScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.card.CardScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.themes.ThemesScreen
+import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,6 +40,10 @@ fun AppNavigation() {
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() })
+        },
+
+        bottomBar = {
+            AdmobBanner(modifier = Modifier.fillMaxWidth())
         }
     ) { innerPadding ->
 
