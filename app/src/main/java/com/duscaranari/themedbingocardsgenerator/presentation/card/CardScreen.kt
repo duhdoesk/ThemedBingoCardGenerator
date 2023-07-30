@@ -285,11 +285,11 @@ fun CardScreenCards(character: Character) {
                         painter = painterResource(id = R.drawable.hexagon),
                         contentDescription = "Hexagon",
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier.size(36.dp)
                     )
 
                     Text(
-                        text = character.characterId,
+                        text = character.characterCardId,
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontWeight = FontWeight.Bold
                     )

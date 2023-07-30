@@ -18,5 +18,8 @@ data class Character(
     val characterName: String,
 
     @ColumnInfo(name = "character_picture")
-    val characterPicture: String
+    val characterPicture: String,
+
+    @ColumnInfo(name = "character_card_id")
+    val characterCardId: String
 )
