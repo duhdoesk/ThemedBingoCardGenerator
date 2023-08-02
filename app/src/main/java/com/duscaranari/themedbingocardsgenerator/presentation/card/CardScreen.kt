@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,7 +42,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -51,14 +51,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.model.Character
 import com.duscaranari.themedbingocardsgenerator.model.Theme
+import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.ui.theme.DevicePreviews
+import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
+import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 
 @Composable
@@ -72,21 +75,53 @@ fun CardScreen(
 
         is CardState.Ready -> {
 
-            val windowInfo = rememberWindowInfo()
+            when (rememberDeviceOrientation()) {
 
-            when (windowInfo.screenWidthInfo) {
+                is DeviceOrientation.Landscape ->
+                    LandscapeCardScreen(state, cardViewModel)
 
-                is WindowInfo.WindowType.Compact -> CardCompactScreen(
-                    state,
-                    cardViewModel
-                )
-
-                else -> CardMediumScreen(
-                    state,
-                    cardViewModel
-                )
+                else ->
+                    PortraitCardScreen(state, cardViewModel)
             }
         }
+    }
+}
+
+@Composable
+fun PortraitCardScreen(state: CardState.Ready, cardViewModel: CardViewModel) {
+
+    when (rememberWindowInfo().screenHeightInfo) {
+
+        is WindowInfo.WindowType.Compact ->
+            CardPortraitCompactScreen(
+                state,
+                cardViewModel
+            )
+
+        else ->
+            CardPortraitExpandedScreen(
+                state,
+                cardViewModel
+            )
+    }
+}
+
+@Composable
+fun LandscapeCardScreen(state: CardState.Ready, cardViewModel: CardViewModel) {
+
+    when (rememberWindowInfo().screenWidthInfo) {
+
+        is WindowInfo.WindowType.Compact ->
+            CardPortraitCompactScreen(
+                state,
+                cardViewModel
+            )
+
+        else ->
+            CardPortraitExpandedScreen(
+                state,
+                cardViewModel
+            )
     }
 }
 
@@ -96,7 +131,7 @@ SCREENS
  */
 
 @Composable
-fun CardCompactScreen(
+fun CardPortraitCompactScreen(
     state: CardState.Ready,
     cardViewModel: CardViewModel
 ) {
@@ -142,53 +177,69 @@ fun CardCompactScreen(
 }
 
 @Composable
-fun CardMediumScreen(state: CardState.Ready, cardViewModel: CardViewModel) {
+fun CardPortraitExpandedScreen(
+    state: CardState.Ready,
+    cardViewModel: CardViewModel
+) {
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Row(modifier = Modifier.fillMaxSize()) {
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+                .weight(1f)
+                .fillMaxHeight()
         ) {
 
-            CardScreenHeader(
-                theme = state.currentTheme,
-                textAlignment = TextAlign.Start,
-                horizontalAlignment = Alignment.Start
-            )
+            CardScreenHeader(theme = state.currentTheme)
+
+            Spacer(Modifier.height(24.dp))
 
             CardScreenName(
                 onChange = { user -> cardViewModel.updateCurrentUser(user) },
                 currentUser = state.currentUser
             )
-        }
 
-        Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-
-            CardScreenLazyVerticalGrid(
-                characters = state.drawnCharacters,
-                columns = 9
-            )
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.End,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp)
-        ) {
+            Spacer(Modifier.height(24.dp))
 
             NewCardButton(
                 onClick = { cardViewModel.drawNewCard() }
             )
         }
+
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxHeight()
+                .aspectRatio(0.9f)
+        ) {
+
+            CardScreenLazyVerticalGrid(
+                characters = state.drawnCharacters,
+                columns = 3,
+                modifier = Modifier
+                    .padding(32.dp)
+            )
+        }
     }
+}
+
+@Composable
+fun CardLandscapeCompactScreen(
+    state: CardState.Ready,
+    cardViewModel: CardViewModel
+) {
+
+}
+
+@Composable
+fun CardLandscapeExpandedScreen(
+    state: CardState.Ready,
+    cardViewModel: CardViewModel
+) {
+
 }
 
 
@@ -253,32 +304,54 @@ fun CardScreenCards(character: Character) {
     Card(
         elevation = CardDefaults.cardElevation(4.dp),
         border = CardDefaults.outlinedCardBorder(),
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
         ) {
 
-            Box(contentAlignment = Alignment.BottomEnd) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
 
-                AsyncImage(
+//                AsyncImage(
+//                    model = ImageRequest.Builder(LocalContext.current)
+//                        .data(character.characterPicture)
+//                        .crossfade(true)
+//                        .scale(Scale.FILL)
+//                        .build(),
+//                    contentScale = ContentScale.Fit,
+//                    contentDescription = "Theme Picture",
+//                    placeholder = painterResource(id = R.drawable.compact_screen_logo),
+//                    modifier = Modifier
+//                        .align(Alignment.Center)
+//                        .aspectRatio(1.1f)
+//                )
+
+                LoadingImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(character.characterPicture)
                         .crossfade(true)
                         .scale(Scale.FILL)
                         .build(),
-                    contentScale = ContentScale.Fit,
-                    contentDescription = "Theme Picture",
-                    placeholder = painterResource(id = R.drawable.compact_screen_logo),
+                    contentDescription = "Character Picture",
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .align(Alignment.Center)
                         .aspectRatio(1.1f)
-                )
+                        .padding(16.dp)
+                ) {
+
+                }
 
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier.padding(4.dp)
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .align(Alignment.BottomEnd)
                 ) {
 
                     Image(
@@ -296,7 +369,11 @@ fun CardScreenCards(character: Character) {
                 }
             }
 
-            Row(modifier = Modifier.background(MaterialTheme.colorScheme.primary)) {
+            Row(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.primary)
+                    .fillMaxWidth()
+            ) {
 
                 Text(
                     text = character.characterName,
@@ -434,4 +511,22 @@ fun NameDialog(
             }
         }
     }
+}
+
+
+// PREVIEWS
+
+@DevicePreviews
+@Composable
+fun CardPreview() {
+
+    CardScreenCards(
+        character = Character(
+            characterCardId = "1",
+            characterName = "Test",
+            characterPicture = "Test",
+            characterId = "1",
+            characterThemeId = "1"
+        )
+    )
 }
