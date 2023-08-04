@@ -10,16 +10,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -60,7 +58,7 @@ import com.duscaranari.themedbingocardsgenerator.model.Character
 import com.duscaranari.themedbingocardsgenerator.model.Theme
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
-import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
+import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
@@ -148,15 +146,13 @@ fun CardPortraitUniversalScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
 
         CardScreenHeader(theme = state.currentTheme)
-
-        Spacer(Modifier.heightIn(min = 8.dp, max = 16.dp))
 
         CardScreenLazyVerticalGrid(
             characters = state.drawnCharacters,
@@ -165,14 +161,10 @@ fun CardPortraitUniversalScreen(
                 .widthIn(max = 600.dp)
         )
 
-        Spacer(Modifier.heightIn(min = 8.dp, max = 16.dp))
-
         CardScreenName(
             onChange = { onUpdateCurrentUser(it) },
             currentUser = state.currentUser,
         )
-
-        Spacer(Modifier.heightIn(min = 16.dp, max = 32.dp))
 
         NewCardButton(
             onClick = { onDrawNewCard() }
@@ -196,6 +188,46 @@ fun CardLandscapeExpandedScreen(
     state: CardState.Ready
 ) {
 
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+        ) {
+
+            CardScreenLazyVerticalGrid(
+                characters = state.drawnCharacters,
+                columns = 3,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .widthIn(max = 600.dp)
+            )
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(32.dp),
+            modifier = Modifier
+        ) {
+
+            CardScreenHeader(theme = state.currentTheme)
+
+            CardScreenName(
+                onChange = { onUpdateCurrentUser(it) },
+                currentUser = state.currentUser
+            )
+
+            NewCardButton(
+                onClick = { onDrawNewCard() }
+            )
+        }
+    }
 }
 
 
@@ -241,6 +273,31 @@ fun CardScreenLazyVerticalGrid(
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(columns),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(8.dp)
+        ) {
+
+            for (character in characters) {
+                item {
+                    CardScreenCards(character)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CardScreenLazyHorizontalGrid(
+    characters: List<Character>,
+    rows: Int,
+    modifier: Modifier = Modifier,
+) {
+
+    Column(modifier = modifier) {
+
+        LazyHorizontalGrid(
+            rows = GridCells.Fixed(rows),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(8.dp)
@@ -459,21 +516,34 @@ fun NameDialog(
 
 // PREVIEWS
 
-@PortraitPreviews
+//@PortraitPreviews
+//@Composable
+//fun PortraitPreview() {
+//
+//    val characters = getRawListOfCharacters()
+//
+//    CardPortraitScreen(
+//        onUpdateCurrentUser = { },
+//        onDrawNewCard = { },
+//        state = CardState.Ready(
+//            currentTheme = Theme(
+//                themeId = "1",
+//                themeName = "Bears",
+//                themePicture = ""
+//            ),
+//            currentUser = "Dwight Schrute",
+//            drawnCharacters = characters
+//        )
+//    )
+//}
+
+@LandscapePreviews
 @Composable
-fun PortraitPreview() {
+fun LandscapePreview() {
 
-    val character = Character(
-        characterThemeId = "1",
-        characterId = "1",
-        characterPicture = "",
-        characterName = "Character",
-        characterCardId = "1"
-    )
+    val characters = getRawListOfCharacters()
 
-    val characters = List(9) { character }
-
-    CardPortraitScreen(
+    CardLandscapeScreen(
         onUpdateCurrentUser = { },
         onDrawNewCard = { },
         state = CardState.Ready(
@@ -486,4 +556,18 @@ fun PortraitPreview() {
             drawnCharacters = characters
         )
     )
+
+}
+
+fun getRawListOfCharacters(): List<Character> {
+
+    val character = Character(
+        characterThemeId = "1",
+        characterId = "1",
+        characterPicture = "",
+        characterName = "Character",
+        characterCardId = "1"
+    )
+
+    return List(9) { character }
 }
