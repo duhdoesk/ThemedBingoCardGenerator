@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -48,6 +50,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -59,6 +62,7 @@ import com.duscaranari.themedbingocardsgenerator.model.Theme
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
+import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
@@ -114,17 +118,17 @@ fun CardLandscapeScreen(
     onDrawNewCard: () -> Unit
 ) {
 
-    when (rememberWindowInfo().screenWidthInfo) {
+    when (rememberWindowInfo().screenHeightInfo) {
 
-        is WindowInfo.WindowType.Expanded ->
-            CardLandscapeExpandedScreen(
+        is WindowInfo.WindowType.Compact ->
+            CardLandscapeCompactScreen(
                 state = state,
                 onUpdateCurrentUser = { onUpdateCurrentUser(it) },
                 onDrawNewCard = onDrawNewCard
             )
 
         else ->
-            CardLandscapeCompactScreen(
+            CardLandscapeExpandedScreen(
                 state = state,
                 onUpdateCurrentUser = { onUpdateCurrentUser(it) },
                 onDrawNewCard = onDrawNewCard
@@ -146,7 +150,10 @@ fun CardPortraitUniversalScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(
+            space = 16.dp,
+            alignment = Alignment.CenterVertically
+        ),
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
@@ -179,6 +186,52 @@ fun CardLandscapeCompactScreen(
     state: CardState.Ready
 ) {
 
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            CardScreenLazyHorizontalGrid(
+                characters = state.drawnCharacters,
+                rows = 3,
+                spacing = 4.dp,
+                modifier = Modifier
+                    .fillMaxHeight(),
+                cardModifier = Modifier
+                    .fillMaxHeight()
+                    .aspectRatio(1.2f)
+            )
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(
+                space = 16.dp,
+                alignment = Alignment.CenterVertically
+            ),
+            modifier = Modifier
+                .fillMaxHeight()
+        ) {
+
+            CardScreenHeader(theme = state.currentTheme)
+
+            CardScreenName(
+                onChange = { onUpdateCurrentUser(it) },
+                currentUser = state.currentUser
+            )
+
+            NewCardButton(
+                onClick = { onDrawNewCard() }
+            )
+        }
+    }
 }
 
 @Composable
@@ -201,13 +254,23 @@ fun CardLandscapeExpandedScreen(
             modifier = Modifier
         ) {
 
-            CardScreenLazyVerticalGrid(
+            CardScreenLazyHorizontalGrid(
                 characters = state.drawnCharacters,
-                columns = 3,
+                rows = 3,
+                spacing = 8.dp,
                 modifier = Modifier
                     .padding(16.dp)
-                    .widthIn(max = 600.dp)
+                    .heightIn(max = 600.dp),
+                cardModifier = Modifier
+                    .fillMaxHeight()
+                    .aspectRatio(1f),
             )
+
+            CardScreenName(
+                onChange = { onUpdateCurrentUser(it) },
+                currentUser = state.currentUser
+            )
+
         }
 
         Column(
@@ -217,11 +280,6 @@ fun CardLandscapeExpandedScreen(
         ) {
 
             CardScreenHeader(theme = state.currentTheme)
-
-            CardScreenName(
-                onChange = { onUpdateCurrentUser(it) },
-                currentUser = state.currentUser
-            )
 
             NewCardButton(
                 onClick = { onDrawNewCard() }
@@ -280,7 +338,12 @@ fun CardScreenLazyVerticalGrid(
 
             for (character in characters) {
                 item {
-                    CardScreenCards(character)
+                    CardScreenCards(
+                        character,
+                        cardModifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(0.9f)
+                    )
                 }
             }
         }
@@ -292,20 +355,25 @@ fun CardScreenLazyHorizontalGrid(
     characters: List<Character>,
     rows: Int,
     modifier: Modifier = Modifier,
+    cardModifier: Modifier = Modifier,
+    spacing: Dp
 ) {
 
     Column(modifier = modifier) {
 
         LazyHorizontalGrid(
             rows = GridCells.Fixed(rows),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(spacing),
+            verticalArrangement = Arrangement.spacedBy(spacing),
+            contentPadding = PaddingValues(spacing)
         ) {
 
             for (character in characters) {
                 item {
-                    CardScreenCards(character)
+                    CardScreenCards(
+                        character = character,
+                        cardModifier = cardModifier
+                    )
                 }
             }
         }
@@ -313,13 +381,15 @@ fun CardScreenLazyHorizontalGrid(
 }
 
 @Composable
-fun CardScreenCards(character: Character) {
+fun CardScreenCards(
+    character: Character,
+    cardModifier: Modifier = Modifier
+) {
 
     Card(
         elevation = CardDefaults.cardElevation(4.dp),
         border = CardDefaults.outlinedCardBorder(),
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = cardModifier
     ) {
 
         Column(
@@ -330,6 +400,7 @@ fun CardScreenCards(character: Character) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .weight(1f)
             ) {
 
                 LoadingImage(
@@ -342,7 +413,7 @@ fun CardScreenCards(character: Character) {
                     modifier = Modifier
                         .align(Alignment.Center)
                         .aspectRatio(1.1f)
-                        .padding(16.dp)
+                        .padding(8.dp)
                 ) {
 
                 }
@@ -516,26 +587,26 @@ fun NameDialog(
 
 // PREVIEWS
 
-//@PortraitPreviews
-//@Composable
-//fun PortraitPreview() {
-//
-//    val characters = getRawListOfCharacters()
-//
-//    CardPortraitScreen(
-//        onUpdateCurrentUser = { },
-//        onDrawNewCard = { },
-//        state = CardState.Ready(
-//            currentTheme = Theme(
-//                themeId = "1",
-//                themeName = "Bears",
-//                themePicture = ""
-//            ),
-//            currentUser = "Dwight Schrute",
-//            drawnCharacters = characters
-//        )
-//    )
-//}
+@PortraitPreviews
+@Composable
+fun PortraitPreview() {
+
+    val characters = getRawListOfCharacters()
+
+    CardPortraitScreen(
+        onUpdateCurrentUser = { },
+        onDrawNewCard = { },
+        state = CardState.Ready(
+            currentTheme = Theme(
+                themeId = "1",
+                themeName = "Bears",
+                themePicture = ""
+            ),
+            currentUser = "Dwight Schrute",
+            drawnCharacters = characters
+        )
+    )
+}
 
 @LandscapePreviews
 @Composable
