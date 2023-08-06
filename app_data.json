@@ -1,0 +1,530 @@
+{
+   "app_name": "Themed Bingo Cards Generator",
+   "app_data_version": "1.0",
+   "app_data": [
+      {
+         "theme_id": "1",
+         "theme_name": "Bichos",
+         "theme_picture": "https://img.freepik.com/free-vector/wild-animal-cartoon-character-forest-scene_1308-55371.jpg?w=2000",
+         "theme_characters": [
+            {
+               "character_id": "1",
+               "character_name": "Formiga",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/ant.png"
+            },
+            {
+               "character_id": "2",
+               "character_name": "Morcego",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bat.png"
+            },
+            {
+               "character_id": "3",
+               "character_name": "Abelha",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bee.png"
+            },
+            {
+               "character_id": "4",
+               "character_name": "Besouro",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/beetle.png"
+            },
+            {
+               "character_id": "5",
+               "character_name": "Passarinho",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bullfinch.png"
+            },
+            {
+               "character_id": "6",
+               "character_name": "Borboleta",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/butterfly.png"
+            },
+            {
+               "character_id": "7",
+               "character_name": "Gato",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/cat.png"
+            },
+            {
+               "character_id": "8",
+               "character_name": "Camaleão",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/chameleon.png"
+            },
+            {
+               "character_id": "9",
+               "character_name": "Peixe Palhaço",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/clown-fish.png"
+            },
+            {
+               "character_id": "10",
+               "character_name": "Vaquinha",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/cow.png"
+            },
+            {
+               "character_id": "11",
+               "character_name": "Carangueijo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/crab.png"
+            },
+            {
+               "character_id": "12",
+               "character_name": "Crocodilo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/crocodile.png"
+            },
+            {
+               "character_id": "13",
+               "character_name": "Cervo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/deer.png"
+            },
+            {
+               "character_id": "14",
+               "character_name": "Dinossauro",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/dinosaur.png"
+            },
+            {
+               "character_id": "15",
+               "character_name": "Cachorro",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/dog.png"
+            },
+            {
+               "character_id": "16",
+               "character_name": "Golfinho",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/dolphin.png"
+            },
+            {
+               "character_id": "17",
+               "character_name": "Pato",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/ducky.png"
+            },
+            {
+               "character_id": "18",
+               "character_name": "Gafanhoto",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/earwig.png"
+            },
+            {
+               "character_id": "19",
+               "character_name": "Elefante",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/elephant.png"
+            },
+            {
+               "character_id": "20",
+               "character_name": "Vagalume",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/firefly.png"
+            },
+            {
+               "character_id": "21",
+               "character_name": "Flamingo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/flamingo.png"
+            },
+            {
+               "character_id": "22",
+               "character_name": "Raposa",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/fox.png"
+            },
+            {
+               "character_id": "23",
+               "character_name": "Sapo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/frog.png"
+            },
+            {
+               "character_id": "24",
+               "character_name": "Girafa",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/giraffe.png"
+            },
+            {
+               "character_id": "25",
+               "character_name": "Galinha",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/hen.png"
+            },
+            {
+               "character_id": "26",
+               "character_name": "Hipopótamo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/hippo.png"
+            },
+            {
+               "character_id": "27",
+               "character_name": "Cavalo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/horse.png"
+            },
+            {
+               "character_id": "28",
+               "character_name": "Água-viva",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/jellyfish.png"
+            },
+            {
+               "character_id": "29",
+               "character_name": "Coala",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/koala.png"
+            },
+            {
+               "character_id": "30",
+               "character_name": "Joaninha",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/ladybug.png"
+            },
+            {
+               "character_id": "31",
+               "character_name": "Leão",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/lion.png"
+            },
+            {
+               "character_id": "32",
+               "character_name": "Lagarto",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/lizard.png"
+            },
+            {
+               "character_id": "33",
+               "character_name": "Lagosta",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/lobster.png"
+            },
+            {
+               "character_id": "34",
+               "character_name": "Macaco",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/monkey.png"
+            },
+            {
+               "character_id": "35",
+               "character_name": "Rato",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/mouse.png"
+            },
+            {
+               "character_id": "36",
+               "character_name": "Polvo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/octopus.png"
+            },
+            {
+               "character_id": "37",
+               "character_name": "Coruja",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/owl.png"
+            },
+            {
+               "character_id": "38",
+               "character_name": "Panda",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/panda.png"
+            },
+            {
+               "character_id": "39",
+               "character_name": "Pinguim",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/penguin.png"
+            },
+            {
+               "character_id": "40",
+               "character_name": "Porquinho",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/pig.png"
+            },
+            {
+               "character_id": "41",
+               "character_name": "Coelho",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bunny.png"
+            },
+            {
+               "character_id": "42",
+               "character_name": "Cavalo Marinho",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/seahorse.png"
+            },
+            {
+               "character_id": "43",
+               "character_name": "Tubarão",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/shark.png"
+            },
+            {
+               "character_id": "44",
+               "character_name": "Ovelha",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/sheep.png"
+            },
+            {
+               "character_id": "45",
+               "character_name": "Preguiça",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/sloth.png"
+            },
+            {
+               "character_id": "46",
+               "character_name": "Caramujo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/snail.png"
+            },
+            {
+               "character_id": "47",
+               "character_name": "Cobra",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/snake.png"
+            },
+            {
+               "character_id": "48",
+               "character_name": "Esquilo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/squirrel.png"
+            },
+            {
+               "character_id": "49",
+               "character_name": "Estrela do Mar",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/starfish.png"
+            },
+            {
+               "character_id": "50",
+               "character_name": "Tigresa",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/tiger.png"
+            },
+            {
+               "character_id": "51",
+               "character_name": "Tucano",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/toucan.png"
+            },
+            {
+               "character_id": "52",
+               "character_name": "Tartaruga",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/turtle.png"
+            },
+            {
+               "character_id": "53",
+               "character_name": "Baleia",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/whale.png"
+            },
+            {
+               "character_id": "54",
+               "character_name": "Lobo",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/wolf.png"
+            },
+            {
+               "character_id": "55",
+               "character_name": "Capivara",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/capivara.png"
+            },
+            {
+               "character_id": "56",
+               "character_name": "Canguru",
+               "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/kangaroo.png"
+            }
+         ]
+      },
+      {
+         "theme_id": "2",
+         "theme_name": "Frutas",
+         "theme_picture": "https://img.freepik.com/free-vector/tropical-fruits-background_24908-60487.jpg?w=2000",
+         "theme_characters": [
+            {
+               "character_id": "1",
+               "character_name": "Abacaxi",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866518.png"
+            },
+            {
+               "character_id": "2",
+               "character_name": "Abacate",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/2079/2079249.png"
+            },
+            {
+               "character_id": "3",
+               "character_name": "Amora",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791358.png"
+            },
+            {
+               "character_id": "4",
+               "character_name": "Banana",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/2909/2909808.png"
+            },
+            {
+               "character_id": "5",
+               "character_name": "Caju",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5501/5501125.png"
+            },
+            {
+               "character_id": "6",
+               "character_name": "Carambola",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3137/3137132.png"
+            },
+            {
+               "character_id": "7",
+               "character_name": "Cacau",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5080/5080856.png"
+            },
+            {
+               "character_id": "8",
+               "character_name": "Avelã",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/2079/2079309.png"
+            },
+            {
+               "character_id": "9",
+               "character_name": "Figo",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/4055/4055142.png"
+            },
+            {
+               "character_id": "10",
+               "character_name": "Framboesa",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791310.png"
+            },
+            {
+               "character_id": "11",
+               "character_name": "Goiaba",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5402/5402118.png"
+            },
+            {
+               "character_id": "12",
+               "character_name": "Graviola",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5854/5854055.png"
+            },
+            {
+               "character_id": "13",
+               "character_name": "Jabuticaba",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6136/6136104.png"
+            },
+            {
+               "character_id": "14",
+               "character_name": "Kiwi",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/415/415756.png"
+            },
+            {
+               "character_id": "15",
+               "character_name": "Laranja",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791312.png"
+            },
+            {
+               "character_id": "16",
+               "character_name": "Limão",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866584.png"
+            },
+            {
+               "character_id": "17",
+               "character_name": "Lichia",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/2548/2548555.png"
+            },
+            {
+               "character_id": "18",
+               "character_name": "Mamão",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866557.png"
+            },
+            {
+               "character_id": "19",
+               "character_name": "Melancia",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791301.png"
+            },
+            {
+               "character_id": "20",
+               "character_name": "Marmelo",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3944/3944226.png"
+            },
+            {
+               "character_id": "21",
+               "character_name": "Nectarina",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791317.png"
+            },
+            {
+               "character_id": "22",
+               "character_name": "Nêspera",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/4891/4891255.png"
+            },
+            {
+               "character_id": "23",
+               "character_name": "Pera",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3944/3944178.png"
+            },
+            {
+               "character_id": "24",
+               "character_name": "Pêssego",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866552.png"
+            },
+            {
+               "character_id": "25",
+               "character_name": "Romã",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/4031/4031074.png"
+            },
+            {
+               "character_id": "26",
+               "character_name": "Tâmara",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3944/3944223.png"
+            },
+            {
+               "character_id": "27",
+               "character_name": "Tangerina",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6458/6458109.png"
+            },
+            {
+               "character_id": "28",
+               "character_name": "Uva",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3620/3620931.png"
+            },
+            {
+               "character_id": "29",
+               "character_name": "Açaí",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5917/5917321.png"
+            },
+            {
+               "character_id": "30",
+               "character_name": "Acerola",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3137/3137057.png"
+            },
+            {
+               "character_id": "31",
+               "character_name": "Caqui",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5402/5402252.png"
+            },
+            {
+               "character_id": "32",
+               "character_name": "Fruta do Conde",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/8645/8645393.png"
+            },
+            {
+               "character_id": "33",
+               "character_name": "Cereja",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/2460/2460503.png"
+            },
+            {
+               "character_id": "34",
+               "character_name": "Coco",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3167/3167391.png"
+            },
+            {
+               "character_id": "35",
+               "character_name": "Pistache",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5501/5501281.png"
+            },
+            {
+               "character_id": "36",
+               "character_name": "Groselha",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6106/6106859.png"
+            },
+            {
+               "character_id": "37",
+               "character_name": "Jaca",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6135/6135896.png"
+            },
+            {
+               "character_id": "38",
+               "character_name": "Maçã",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/415/415733.png"
+            },
+            {
+               "character_id": "39",
+               "character_name": "Manga",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1135/1135559.png"
+            },
+            {
+               "character_id": "40",
+               "character_name": "Maracujá",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791364.png"
+            },
+            {
+               "character_id": "41",
+               "character_name": "Melão",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/1515/1515045.png"
+            },
+            {
+               "character_id": "42",
+               "character_name": "Morango",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/590/590772.png"
+            },
+            {
+               "character_id": "43",
+               "character_name": "Pitanga",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/6498/6498613.png"
+            },
+            {
+               "character_id": "44",
+               "character_name": "Pitaya",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/7875/7875204.png"
+            },
+            {
+               "character_id": "45",
+               "character_name": "Guaraná",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/5854/5854040.png"
+            },
+            {
+               "character_id": "46",
+               "character_name": "Uva Verde",
+               "character_picture": "https://cdn-icons-png.flaticon.com/512/3347/3347414.png"
+            }
+         ]
+      }
+   ]
+}
