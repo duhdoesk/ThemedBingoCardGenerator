@@ -3,14 +3,18 @@ package com.duscaranari.themedbingocardsgenerator.presentation.about
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,8 +34,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
-import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
+import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 data class Link(
     val label: String,
@@ -42,16 +47,14 @@ data class Link(
 @Composable
 fun AboutScreen() {
 
-    val windowInfo = rememberWindowInfo()
-
-    when (windowInfo.screenWidthInfo) {
-        is WindowInfo.WindowType.Compact -> CompactAboutScreen()
-        else -> MediumAboutScreen()
+    when (rememberDeviceOrientation()) {
+        is DeviceOrientation.Portrait -> PortraitAboutScreen()
+        else -> LandscapeAboutScreen()
     }
 }
 
 @Composable
-fun CompactAboutScreen() {
+fun PortraitAboutScreen() {
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -62,35 +65,59 @@ fun CompactAboutScreen() {
         Logo()
 
         Description(
-            Modifier.padding(24.dp))
+            Modifier.padding(24.dp)
+        )
 
         Spacer(
-            Modifier.height(40.dp))
+            Modifier.height(40.dp)
+        )
 
         SocialMedia(
-            Modifier.padding(top = 8.dp))
+            Modifier.padding(top = 8.dp)
+        )
     }
 }
 
 @Composable
-fun MediumAboutScreen() {
+fun LandscapeAboutScreen() {
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
 
-        Logo(
-            Modifier.weight(1f))
-
-        Description(
+        Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 8.dp))
+                .heightIn(min = 360.dp, max = 480.dp)
+                .widthIn(min = 480.dp, max = 600.dp)
+                .padding(8.dp)
+        ) {
 
-        SocialMedia(
-            Modifier.weight(1f))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Logo(
+                    Modifier.weight(1f)
+                )
+
+                SocialMedia(
+                    Modifier.weight(1f)
+                )
+            }
+
+            Row {
+
+                Description(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+        }
     }
 }
 
@@ -212,4 +239,14 @@ fun getLinks(): List<Link> {
 @Composable
 fun getUriHandler(): UriHandler {
     return LocalUriHandler.current
+}
+
+
+// PREVIEWS
+
+@LandscapePreviews
+@Composable
+fun LandscapeAboutScreenPreview() {
+
+    LandscapeAboutScreen()
 }
