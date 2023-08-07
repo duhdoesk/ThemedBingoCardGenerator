@@ -1,7 +1,10 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.themes
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.duscaranari.themedbingocardsgenerator.model.AppData
 import com.duscaranari.themedbingocardsgenerator.model.Theme
 import com.duscaranari.themedbingocardsgenerator.repository.ThemeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ThemesViewModel @Inject constructor(
-    private val themeRepository: ThemeRepository) : ViewModel() {
+    private val themeRepository: ThemeRepository
+) : ViewModel() {
 
     private val _themesState = MutableStateFlow<ThemesState>(ThemesState.Loading)
     val themesState = _themesState.asStateFlow()
