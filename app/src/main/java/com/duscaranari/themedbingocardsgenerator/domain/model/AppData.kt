@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "data_table")
-data class Data (
+data class AppData (
 
     @PrimaryKey
     @ColumnInfo(name = "app_name")

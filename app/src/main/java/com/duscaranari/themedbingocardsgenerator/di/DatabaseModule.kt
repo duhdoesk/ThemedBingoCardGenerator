@@ -2,6 +2,7 @@ package com.duscaranari.themedbingocardsgenerator.di
 
 import android.content.Context
 import androidx.room.Room
+import com.duscaranari.themedbingocardsgenerator.data.AppDataDao
 import com.duscaranari.themedbingocardsgenerator.data.AppDatabase
 import com.duscaranari.themedbingocardsgenerator.data.CharacterDao
 import com.duscaranari.themedbingocardsgenerator.data.ThemeDao
@@ -25,16 +26,21 @@ class DatabaseModule {
                 AppDatabase::class.java,
                 "appDatabase"
             )
-            .createFromAsset("Themed Bingo Card Generator.db")
+//            .createFromAsset("Themed Bingo Card Generator.db")
             .build()
 
     @Singleton
     @Provides
-    fun providesThemeDao(appDatabase: AppDatabase) : ThemeDao =
+    fun provideAppDataDao(appDatabase: AppDatabase) : AppDataDao =
+        appDatabase.appDataDao()
+
+    @Singleton
+    @Provides
+    fun provideThemeDao(appDatabase: AppDatabase) : ThemeDao =
         appDatabase.themeDao()
 
     @Singleton
     @Provides
-    fun providesCharacterDao(appDatabase: AppDatabase) : CharacterDao =
+    fun provideCharacterDao(appDatabase: AppDatabase) : CharacterDao =
         appDatabase.characterDao()
 }
