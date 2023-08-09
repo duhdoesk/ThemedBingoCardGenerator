@@ -1,9 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.network
 
-import com.duscaranari.themedbingocardsgenerator.model.AppData
-import kotlinx.coroutines.flow.Flow
+import com.duscaranari.themedbingocardsgenerator.network.model.DataNetworkEntity
+import retrofit2.Response
 
 interface ApiHelper {
 
-    fun getAppData(): Flow<AppData>
+    suspend fun getAppData(): Response<DataNetworkEntity>
 }

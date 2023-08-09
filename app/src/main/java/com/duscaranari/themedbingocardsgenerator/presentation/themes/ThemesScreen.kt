@@ -35,7 +35,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo

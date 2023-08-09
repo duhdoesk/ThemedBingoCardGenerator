@@ -1,11 +1,11 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.themes
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.model.AppData
-import com.duscaranari.themedbingocardsgenerator.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
+import com.duscaranari.themedbingocardsgenerator.network.NetworkRepository
+import com.duscaranari.themedbingocardsgenerator.network.util.Resource
 import com.duscaranari.themedbingocardsgenerator.repository.ThemeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ThemesViewModel @Inject constructor(
-    private val themeRepository: ThemeRepository
+    private val themeRepository: ThemeRepository,
+    private val networkRepository: NetworkRepository
 ) : ViewModel() {
 
     private val _themesState = MutableStateFlow<ThemesState>(ThemesState.Loading)
@@ -34,7 +35,23 @@ class ThemesViewModel @Inject constructor(
         }
     }
 
+    private fun getNetworkData() {
+
+        viewModelScope.launch {
+
+            networkRepository.getAppData().let {
+
+                if (it.isSuccessful) {
+                    Log.d("RETROFIT TEST", Resource.success(it.body()).toString())
+                } else {
+                    Log.d("RETROFIT TEST", it.errorBody().toString())
+                }
+            }
+        }
+    }
+
     init {
         loadThemes()
+        getNetworkData()
     }
 }

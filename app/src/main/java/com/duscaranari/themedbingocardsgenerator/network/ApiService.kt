@@ -1,7 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.network
 
-import com.duscaranari.themedbingocardsgenerator.model.AppData
-import retrofit2.Call
+import com.duscaranari.themedbingocardsgenerator.network.model.DataNetworkEntity
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -9,7 +9,7 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("app_data.json")
-    suspend fun getAppData() : AppData
+    suspend fun getAppData() : Response<DataNetworkEntity>
 }
 
 object RetrofitInstance {

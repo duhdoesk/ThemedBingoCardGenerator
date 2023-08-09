@@ -2,7 +2,7 @@ package com.duscaranari.themedbingocardsgenerator.data
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.duscaranari.themedbingocardsgenerator.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 
 @Dao
 interface ThemeDao {

@@ -57,8 +57,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.model.Character
-import com.duscaranari.themedbingocardsgenerator.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews

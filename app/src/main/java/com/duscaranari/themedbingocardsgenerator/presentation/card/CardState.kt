@@ -1,7 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.card
 
-import com.duscaranari.themedbingocardsgenerator.model.Character
-import com.duscaranari.themedbingocardsgenerator.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 
 sealed class CardState {
 

@@ -3,8 +3,8 @@ package com.duscaranari.themedbingocardsgenerator.presentation.card
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.model.Character
-import com.duscaranari.themedbingocardsgenerator.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.repository.CharacterRepository
 import com.duscaranari.themedbingocardsgenerator.repository.ThemeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

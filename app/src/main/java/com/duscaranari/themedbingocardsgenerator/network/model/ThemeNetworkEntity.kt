@@ -1,11 +1,11 @@
-package com.duscaranari.themedbingocardsgenerator.model
+package com.duscaranari.themedbingocardsgenerator.network.model
 
 import com.google.gson.annotations.SerializedName
 
-data class AppTheme(
+data class ThemeNetworkEntity(
 
     @field:SerializedName("theme_characters")
-    val themeCharacters: List<ThemeCharacter>,
+    val characterNetworkEntities: List<CharacterNetworkEntity>,
 
     @field:SerializedName("theme_id")
     val themeId: String,
