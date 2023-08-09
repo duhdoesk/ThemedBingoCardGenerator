@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
-import com.duscaranari.themedbingocardsgenerator.repository.CharacterRepository
-import com.duscaranari.themedbingocardsgenerator.repository.ThemeRepository
+import com.duscaranari.themedbingocardsgenerator.domain.repository.CharacterRepository
+import com.duscaranari.themedbingocardsgenerator.domain.repository.ThemeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

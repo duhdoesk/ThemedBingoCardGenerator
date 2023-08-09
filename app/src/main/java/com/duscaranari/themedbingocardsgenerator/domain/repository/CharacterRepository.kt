@@ -1,6 +1,7 @@
-package com.duscaranari.themedbingocardsgenerator.repository
+package com.duscaranari.themedbingocardsgenerator.domain.repository
 
 import com.duscaranari.themedbingocardsgenerator.data.CharacterDao
+import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import javax.inject.Inject
 
 class CharacterRepository @Inject constructor(
@@ -15,4 +16,10 @@ class CharacterRepository @Inject constructor(
 
     suspend fun getCharacterById(characterId: String) =
         characterDao.getCharacterById(characterId)
+
+    suspend fun clearCharactersTable() =
+        characterDao.clearCharacterTable()
+
+    suspend fun insertCharacters(characters: List<Character>) =
+        characterDao.insertCharacters(characters)
 }
