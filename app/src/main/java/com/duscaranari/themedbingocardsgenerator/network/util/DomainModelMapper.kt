@@ -9,7 +9,7 @@ import com.duscaranari.themedbingocardsgenerator.network.model.ThemeNetworkEntit
 
 class DomainModelMapper {
 
-    fun mapAppDataFromNetworkEntity(dataNetworkEntity: DataNetworkEntity) : AppData {
+    fun mapAppDataFromNetworkEntity(dataNetworkEntity: DataNetworkEntity): AppData {
 
         return AppData(
             appName = dataNetworkEntity.appName,
@@ -17,7 +17,7 @@ class DomainModelMapper {
         )
     }
 
-    fun mapThemeFromNetworkEntity(themeNetworkEntity: ThemeNetworkEntity) : Theme {
+    fun mapThemeFromNetworkEntity(themeNetworkEntity: ThemeNetworkEntity): Theme {
 
         return Theme(
             themeId = themeNetworkEntity.themeId,
@@ -29,7 +29,7 @@ class DomainModelMapper {
     fun mapCharacterFromNetworkEntity(
         characterNetworkEntity: CharacterNetworkEntity,
         themeNetworkEntity: ThemeNetworkEntity
-        ) : Character {
+    ): Character {
 
         return Character(
             characterId = "t${themeNetworkEntity.themeId}e${characterNetworkEntity.characterId}",

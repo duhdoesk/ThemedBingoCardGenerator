@@ -17,6 +17,6 @@ class ThemeRepository @Inject constructor(
     suspend fun clearThemeTable() =
         themeDao.clearThemeTable()
 
-    suspend fun insertThemes(themes: List<Theme>) =
-        themeDao.insertThemes(themes)
+    suspend fun insertThemes(theme: Theme) =
+        themeDao.insert(theme)
 }

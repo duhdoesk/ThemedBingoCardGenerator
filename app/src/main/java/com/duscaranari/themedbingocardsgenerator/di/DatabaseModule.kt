@@ -26,7 +26,7 @@ class DatabaseModule {
                 AppDatabase::class.java,
                 "appDatabase"
             )
-//            .createFromAsset("Themed Bingo Card Generator.db")
+            .createFromAsset("db.db")
             .build()
 
     @Singleton

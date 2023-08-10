@@ -11,9 +11,6 @@ class AppDataRepository @Inject constructor(
     suspend fun getAppData(): AppData =
         appDataDao.getAppData()
 
-    suspend fun clearAppDataTable() =
-        appDataDao.clearAppDataTable()
-
     suspend fun insertAppData(appData: AppData) =
         appDataDao.insertAppData(appData)
 }

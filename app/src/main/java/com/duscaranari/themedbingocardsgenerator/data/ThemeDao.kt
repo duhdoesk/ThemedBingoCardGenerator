@@ -27,5 +27,5 @@ interface ThemeDao {
 //    INSERT
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertThemes(themes: List<Theme>)
+    suspend fun insert(theme: Theme)
 }

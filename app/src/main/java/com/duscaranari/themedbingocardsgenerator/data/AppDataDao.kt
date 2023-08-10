@@ -16,12 +16,6 @@ interface AppDataDao {
     suspend fun getAppData(): AppData
 
 
-//    DELETE
-
-    @Query("DELETE from data_table")
-    suspend fun clearAppDataTable()
-
-
 //    INSERT
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
