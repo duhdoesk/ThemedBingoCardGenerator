@@ -19,11 +19,11 @@ interface AppDataDao {
 //    DELETE
 
     @Query("DELETE from data_table")
-    fun clearAppDataTable()
+    suspend fun clearAppDataTable()
 
 
 //    INSERT
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAppData(appData: AppData)
+    suspend fun insertAppData(appData: AppData)
 }

@@ -3,6 +3,7 @@ package com.duscaranari.themedbingocardsgenerator.network.di
 import com.duscaranari.themedbingocardsgenerator.network.ApiHelper
 import com.duscaranari.themedbingocardsgenerator.network.ApiHelperImpl
 import com.duscaranari.themedbingocardsgenerator.network.ApiService
+import com.duscaranari.themedbingocardsgenerator.network.util.DomainModelMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,4 +41,8 @@ object RetrofitModule {
     @Singleton
     @Provides
     fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
+
+    @Singleton
+    @Provides
+    fun provideDomainModelMapper() : DomainModelMapper = DomainModelMapper()
 }

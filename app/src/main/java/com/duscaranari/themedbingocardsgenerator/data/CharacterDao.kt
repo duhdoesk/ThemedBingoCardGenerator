@@ -24,11 +24,11 @@ interface CharacterDao {
 //    DELETE
 
     @Query("DELETE from character_table")
-    fun clearCharacterTable()
+    suspend fun clearCharacterTable()
 
 
 //    INSERT
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCharacters(characters: List<Character>)
+    suspend fun insertCharacters(characters: List<Character>)
 }

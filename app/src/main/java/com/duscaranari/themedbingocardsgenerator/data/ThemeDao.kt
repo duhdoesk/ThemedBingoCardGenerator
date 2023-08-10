@@ -21,11 +21,11 @@ interface ThemeDao {
 //    DELETE
 
     @Query("DELETE from theme_table")
-    fun clearThemeTable()
+    suspend fun clearThemeTable()
 
 
 //    INSERT
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertThemes(themes: List<Theme>)
+    suspend fun insertThemes(themes: List<Theme>)
 }
