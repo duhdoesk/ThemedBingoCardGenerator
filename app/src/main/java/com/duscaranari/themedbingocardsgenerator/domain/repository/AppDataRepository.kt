@@ -8,7 +8,7 @@ class AppDataRepository @Inject constructor(
     private val appDataDao: AppDataDao
 ) {
 
-    suspend fun getAppData(): AppData =
+    suspend fun getAppData(): AppData? =
         appDataDao.getAppData()
 
     suspend fun insertAppData(appData: AppData) =

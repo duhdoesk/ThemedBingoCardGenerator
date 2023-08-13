@@ -2,19 +2,25 @@ package com.duscaranari.themedbingocardsgenerator.presentation.themes
 
 import android.app.Activity
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -57,6 +63,12 @@ fun ThemesScreen(
         is ThemesState.Loading ->
             LoadingScreen()
 
+        is ThemesState.NoData -> {
+            NoDataScreen(
+                onRefresh = { themesViewModel.checkData() }
+            )
+        }
+
         is ThemesState.Ready -> {
 
             val windowInfo = rememberWindowInfo()
@@ -80,6 +92,40 @@ fun ThemesScreen(
 }
 
 @Composable
+fun NoDataScreen(
+    onRefresh: () -> Unit
+) {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(
+            space = 16.dp,
+            alignment = Alignment.CenterVertically),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Image(
+            painter = painterResource(id = R.drawable.sad_tiger),
+            contentDescription = stringResource(id = R.string.sad_cartoon_tiger_caption),
+            contentScale = ContentScale.Fit,
+            modifier = Modifier.size(240.dp)
+        )
+
+        Text(
+            text = stringResource(id = R.string.no_data_message),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.width(300.dp)
+        )
+
+        Button(
+            onClick = { onRefresh() }
+        ) {
+            Text(stringResource(id = R.string.refresh))
+        }
+    }
+}
+
+@Composable
 fun CompactThemesScreen(
     navController: NavHostController,
     state: ThemesState.Ready,
@@ -90,20 +136,30 @@ fun CompactThemesScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(vertical = 16.dp)
     ) {
 
-        TopLabel()
-        Spacer(modifier = Modifier.height(8.dp))
+        TopLabel(modifier = Modifier.padding(horizontal = 16.dp))
+
         ThemesLazyVerticalGrid(
             themes = state.themesList,
             columns = 2,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth().weight(1f).padding(horizontal = 16.dp, vertical = 8.dp),
             onClick = { theme ->
                 showInterstitialAd(context)
                 navController.navigate("${AppScreens.Card.name}/${theme.themeId}")
             })
+
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Image(
+                painter = painterResource(id = R.drawable.squirrel_looking_up),
+                contentDescription = "Squirrel looking up",
+                modifier = Modifier.size(160.dp),
+                contentScale = ContentScale.Fit
+            )
+        }
     }
+
 }
 
 @Composable
@@ -119,14 +175,26 @@ fun MediumThemesScreen(navController: NavHostController, state: ThemesState.Read
 
         Spacer(Modifier.height(8.dp))
 
-        ThemesLazyVerticalGrid(
-            themes = state.themesList,
-            columns = 5,
-            modifier = Modifier.fillMaxSize(),
-            onClick = { theme ->
-                showInterstitialAd(context)
-                navController.navigate("${AppScreens.Card.name}/${theme.themeId}")
-            })
+        Row {
+
+            ThemesLazyVerticalGrid(
+                themes = state.themesList,
+                columns = 4,
+                modifier = Modifier.fillMaxHeight().weight(1f),
+                onClick = { theme ->
+                    showInterstitialAd(context)
+                    navController.navigate("${AppScreens.Card.name}/${theme.themeId}")
+                })
+
+            Image(
+                painter = painterResource(id = R.drawable.smiling_tiger),
+                contentDescription = "Smiling tiger",
+                modifier = Modifier.size(160.dp),
+                contentScale = ContentScale.Fit
+            )
+        }
+
+
     }
 }
 

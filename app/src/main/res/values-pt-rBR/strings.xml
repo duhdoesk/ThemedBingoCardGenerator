@@ -9,6 +9,7 @@
     <string name="about_desc">Olá. Meu nome é Eduardo. Sou um estudante de Engenharia de Software morando em São Paulo - Brasil, procurando encontrar espaço no mercado de desenvolvimento móvel fornecendo aplicativos bem construídos para entretenimento.</string>
     <string name="find_me">minhas redes sociais</string>
     <string name="available_themes">Temas disponíveis</string>
+    <string name="no_data_message">Ops! Não conseguimos baixar a biblioteca de temas. Por favor, conecte-se à internet e clique no botão abaixo.</string>
     <string name="selected_theme">Tema selecionado</string>
     <string name="new_card">Nova Cartela</string>
     <string name="insert_your_name">Insira seu nome</string>
@@ -16,4 +17,6 @@
     <string name="about_screen">Sobre</string>
     <string name="themes_screen">Temas</string>
     <string name="card_screen">Cartela</string>
+    <string name="sad_cartoon_tiger_caption">Tigre triste.</string>
+    <string name="refresh">Atualizar</string>
 </resources>

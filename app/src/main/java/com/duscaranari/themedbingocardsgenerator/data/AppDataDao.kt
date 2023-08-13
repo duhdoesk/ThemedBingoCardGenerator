@@ -13,7 +13,7 @@ interface AppDataDao {
 //    QUERY
 
     @Query("SELECT * from data_table")
-    suspend fun getAppData(): AppData
+    suspend fun getAppData(): AppData?
 
 
 //    INSERT

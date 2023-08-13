@@ -20,18 +20,21 @@
 
 <!--    ABOUT SCREEN -->
     <string name="mobile_apps_development">"mobile apps development"</string>
-
     <string name="about_desc">"Hello. My name is Eduardo. I'm a Software Engineering student living in São Paulo - Brazil, looking to find some room in the mobile market by providing well constructed apps for entertainment."</string>
-
     <string name="find_me">my social media</string>
 
 
 <!--    THEMES SCREEN-->
     <string name="available_themes">Available themes</string>
+    <string name="no_data_message">"Ops! We haven't been able to download the themes library. Please, connect to the Internet and click Refresh to try again."</string>
+    <string name="sad_cartoon_tiger_caption">Sad Cartoon Tiger</string>
+    <string name="refresh">Refresh</string>
+
 
 <!--    CARD SCREEN -->
     <string name="selected_theme">Selected Theme</string>
     <string name="new_card">New Card</string>
     <string name="insert_your_name">Insert your name</string>
+
 
 </resources>

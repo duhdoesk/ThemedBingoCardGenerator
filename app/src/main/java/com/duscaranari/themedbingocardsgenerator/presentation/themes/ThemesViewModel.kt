@@ -32,30 +32,62 @@ class ThemesViewModel @Inject constructor(
     val themesState = _themesState.asStateFlow()
 
     init {
-        checkForUpdates()
+        checkData()
     }
 
-    private fun checkForUpdates() {
+    fun checkData() {
+
         viewModelScope.launch {
-            val networkData = getNetworkData()
-            if (networkData == null) {
-                loadThemes()
+
+            var networkData: DataNetworkEntity? = try {
+                getNetworkData()
+            } catch (e: Exception) {
+                null
+            }
+
+            val localData: AppData? = getLocalData()
+
+            /*
+            if both return data, we check for updates
+             */
+            if (localData != null && networkData != null) {
+                checkForUpdates(localData, networkData)
+            }
+
+            /*
+            if both return null, we show "no internet connection" message.
+             */
+            else if (localData == null && networkData == null) {
+                _themesState.value = ThemesState.NoData
                 return@launch
             }
 
-            val localData = getLocalData()
-            val isUpdated = isUpdated(networkData, localData)
-
-            if (!isUpdated) {
+            /*
+            if only local data returns null, we update it
+             */
+            else if (localData == null && networkData != null) {
                 updateLocalData(networkData)
             }
 
+            /*
+            then we load local data - when we have it
+             */
             loadThemes()
+        }
+
+    }
+
+    private suspend fun checkForUpdates(localData: AppData, networkData: DataNetworkEntity) {
+
+        if (localData.dataVersion != networkData.dataVersion) {
+            updateLocalData(networkData)
         }
     }
 
     private suspend fun updateLocalData(networkData: DataNetworkEntity) {
+
         withContext(Dispatchers.IO) {
+
             clearDatabase()
 
             insertAppData(domainModelMapper.mapAppDataFromNetworkEntity(networkData))
@@ -82,13 +114,6 @@ class ThemesViewModel @Inject constructor(
         appDataRepository.insertAppData(appData)
     }
 
-    private fun isUpdated(networkData: DataNetworkEntity, localData: AppData): Boolean {
-        val networkDataVersion = networkData.dataVersion
-        val localDataVersion = localData.dataVersion
-
-        return networkDataVersion == localDataVersion
-    }
-
     private suspend fun getNetworkData(): DataNetworkEntity? {
         val response = networkRepository.getAppData()
 
@@ -97,19 +122,17 @@ class ThemesViewModel @Inject constructor(
         } else null
     }
 
-    private suspend fun getLocalData(): AppData {
+    private suspend fun getLocalData(): AppData? {
         return appDataRepository.getAppData()
-    }
-
-    private fun loadThemes() {
-        viewModelScope.launch {
-            val themes = themeRepository.getAllThemes()
-            _themesState.value = ThemesState.Ready(themes)
-        }
     }
 
     private suspend fun clearDatabase() {
         themeRepository.clearThemeTable()
         characterRepository.clearCharactersTable()
+    }
+
+    private suspend fun loadThemes() {
+        val themes = themeRepository.getAllThemes()
+        _themesState.value = ThemesState.Ready(themes)
     }
 }
