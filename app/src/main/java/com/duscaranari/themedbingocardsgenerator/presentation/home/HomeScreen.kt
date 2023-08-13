@@ -126,7 +126,7 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit) {
 
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
             ) {
 
                 HomeCardsRow(
