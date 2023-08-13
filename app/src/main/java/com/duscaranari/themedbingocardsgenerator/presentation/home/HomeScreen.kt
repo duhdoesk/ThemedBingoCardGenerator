@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -26,25 +29,30 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
-import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
-import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
+import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
+import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
-    val windowInfo = rememberWindowInfo()
-    when (windowInfo.screenWidthInfo) {
-        is WindowInfo.WindowType.Compact -> CompactHomeScreen(navController)
-        else -> MediumHomeScreen(navController)
+
+    when (rememberDeviceOrientation()) {
+        is DeviceOrientation.Portrait ->
+            PortraitHomeScreen(onNavigate = { navController.navigate(it) })
+
+        else ->
+            LandscapeHomeScreen(onNavigate = { navController.navigate(it) })
     }
 }
 
 @Composable
-fun CompactHomeScreen(navController: NavHostController) {
+fun PortraitHomeScreen(onNavigate: (route: String) -> Unit) {
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -61,12 +69,20 @@ fun CompactHomeScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .fillMaxSize()
+                .weight(1f)
                 .padding(16.dp)
         ) {
 
             HeaderLabels()
-            Spacer(modifier = Modifier.height(40.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.smiling_squirrel),
+                contentDescription = "Smiling Squirrel",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .size(132.dp)
+                    .padding(vertical = 16.dp)
+            )
 
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -74,9 +90,10 @@ fun CompactHomeScreen(navController: NavHostController) {
             ) {
 
                 HomeCardsRow(
-                    navController = navController, modifier = Modifier
-                        .weight(1f)
-                        .padding(28.dp)
+                    onNavigate = { onNavigate(it) },
+                    modifier = Modifier
+                        .widthIn(min = 280.dp, max = 360.dp)
+                        .padding(horizontal = 28.dp)
                 )
             }
         }
@@ -84,7 +101,7 @@ fun CompactHomeScreen(navController: NavHostController) {
 }
 
 @Composable
-fun MediumHomeScreen(navController: NavHostController) {
+fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -109,14 +126,14 @@ fun MediumHomeScreen(navController: NavHostController) {
 
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth(0.7f)
+                modifier = Modifier.fillMaxWidth()
             ) {
 
                 HomeCardsRow(
-                    navController = navController,
+                    onNavigate = { onNavigate(it) },
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(28.dp)
+                        .widthIn(min = 280.dp, max = 360.dp)
+                        .padding(horizontal = 28.dp)
                 )
             }
         }
@@ -207,19 +224,37 @@ fun HomeCard(
 @Composable
 fun HomeCardsRow(
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    onNavigate: (route: String) -> Unit
 ) {
-    HomeCard(
-        label = stringResource(id = R.string.about_us),
-        icon = R.drawable.baseline_groups_24,
-        onClick = { navController.navigate(AppScreens.About.name) },
-        modifier = modifier
-    )
 
-    HomeCard(
-        label = stringResource(id = R.string.play),
-        icon = R.drawable.baseline_emoji_nature_24,
-        onClick = { navController.navigate(AppScreens.Themes.name) },
-        modifier = modifier
-    )
+    Row(modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(
+            space = 16.dp,
+            alignment = Alignment.CenterHorizontally
+        )) {
+
+        HomeCard(
+            label = stringResource(id = R.string.about_us),
+            icon = R.drawable.baseline_groups_24,
+            onClick = { onNavigate(AppScreens.About.name) },
+            modifier = Modifier.weight(1f)
+        )
+
+        HomeCard(
+            label = stringResource(id = R.string.play),
+            icon = R.drawable.baseline_emoji_nature_24,
+            onClick = { onNavigate(AppScreens.Themes.name) },
+            modifier = Modifier.weight(1f)
+        )
+    }
+
+}
+
+
+// PREVIEWS
+
+@LandscapePreviews
+@Composable
+fun ScreenPreview() {
+    LandscapeHomeScreen(onNavigate = { })
 }
