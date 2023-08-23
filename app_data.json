@@ -1,6 +1,6 @@
 {
    "app_name": "Themed Bingo Cards Generator",
-   "app_data_version": "1.0",
+   "app_data_version": "1.1",
    "app_data": [
       {
          "theme_id": "1",
@@ -523,6 +523,293 @@
                "character_id": "46",
                "character_name": "Uva Verde",
                "character_picture": "https://cdn-icons-png.flaticon.com/512/3347/3347414.png"
+            }
+         ]
+      },
+      {
+         "theme_id": "3",
+         "theme_name": "Emojis",
+         "theme_picture": "https://i.imgur.com/NBCGgDj.jpg",
+         "theme_characters": [
+            {
+               "character_id": "1",
+               "character_name": "Surpreso",
+               "character_picture": "https://i.imgur.com/uw1M0cc.gifv"
+            },
+            {
+               "character_id": "2",
+               "character_name": "Transparente",
+               "character_picture": "https://i.imgur.com/4vVJPc7.gifv"
+            },
+            {
+               "character_id": "3",
+               "character_name": "Enjoado",
+               "character_picture": "https://i.imgur.com/AEdW4mi.gifv"
+            },
+            {
+               "character_id": "4",
+               "character_name": "Beijo na Bochecha",
+               "character_picture": "https://i.imgur.com/c5r2WSP.gifv"
+            },
+            {
+               "character_id": "5",
+               "character_name": "Cowboy",
+               "character_picture": "https://i.imgur.com/TLyYKv5.gifv"
+            },
+            {
+               "character_id": "6",
+               "character_name": "Abraço",
+               "character_picture": "https://i.imgur.com/lVftdIT.gifv"
+            },
+            {
+               "character_id": "7",
+               "character_name": "Congelado",
+               "character_picture": "https://i.imgur.com/M170UC7.gifv"
+            },
+            {
+               "character_id": "8",
+               "character_name": "Bufando",
+               "character_picture": "https://i.imgur.com/ZtSQjUq.gifv"
+            },
+            {
+               "character_id": "9",
+               "character_name": "Festejando",
+               "character_picture": "https://i.imgur.com/ESnkVGb.gifv"
+            },
+            {
+               "character_id": "10",
+               "character_name": "Preocupado",
+               "character_picture": "https://i.imgur.com/AncHAcO.gifv"
+            },
+            {
+               "character_id": "11",
+               "character_name": "Gato Surpreso",
+               "character_picture": "https://i.imgur.com/aXZo5An.gifv"
+            },
+            {
+               "character_id": "12",
+               "character_name": "Radiante",
+               "character_picture": "https://i.imgur.com/32SjOFq.gifv"
+            },
+            {
+               "character_id": "13",
+               "character_name": "Palhaço",
+               "character_picture": "https://i.imgur.com/Jqbh2BM.gifv"
+            },
+            {
+               "character_id": "14",
+               "character_name": "Disfarce",
+               "character_picture": "https://i.imgur.com/0UlPDgL.gifv"
+            },
+            {
+               "character_id": "15",
+               "character_name": "Palavrão",
+               "character_picture": "https://i.imgur.com/kqnA4Up.gifv"
+            },
+            {
+               "character_id": "16",
+               "character_name": "Nervoso",
+               "character_picture": "https://i.imgur.com/rnhyoHZ.gifv"
+            },
+            {
+               "character_id": "17",
+               "character_name": "Inocente",
+               "character_picture": "https://i.imgur.com/qrWHeEU.gifv"
+            },
+            {
+               "character_id": "18",
+               "character_name": "Diabinho",
+               "character_picture": "https://i.imgur.com/gVXdNIY.gifv"
+            },
+            {
+               "character_id": "19",
+               "character_name": "Vomitando",
+               "character_picture": "https://i.imgur.com/6aVLiwj.gifv"
+            },
+            {
+               "character_id": "20",
+               "character_name": "Explodindo",
+               "character_picture": "https://i.imgur.com/8v21rhO.gifv"
+            },
+            {
+               "character_id": "21",
+               "character_name": "Mala",
+               "character_picture": "https://i.imgur.com/xN0Ar3H.gifv"
+            },
+            {
+               "character_id": "22",
+               "character_name": "Desconfiado",
+               "character_picture": "https://i.imgur.com/tQP9mud.gifv"
+            },
+            {
+               "character_id": "23",
+               "character_name": "Dormindo",
+               "character_picture": "https://i.imgur.com/0sVGues.gifv"
+            },
+            {
+               "character_id": "24",
+               "character_name": "Apaixonado",
+               "character_picture": "https://i.imgur.com/VO1ye5Z.gifv"
+            },
+            {
+               "character_id": "25",
+               "character_name": "Revirando os Olhos",
+               "character_picture": "https://i.imgur.com/Ve1SSbL.gifv"
+            },
+            {
+               "character_id": "26",
+               "character_name": "Travesso",
+               "character_picture": "https://i.imgur.com/ue22UUa.gifv"
+            },
+            {
+               "character_id": "27",
+               "character_name": "Satisfeito",
+               "character_picture": "https://i.imgur.com/3rxn0nn.gifv"
+            },
+            {
+               "character_id": "28",
+               "character_name": "Incrédulo",
+               "character_picture": "https://i.imgur.com/f99hWSH.gifv"
+            },
+            {
+               "character_id": "29",
+               "character_name": "Sorriso Amarelo",
+               "character_picture": "https://i.imgur.com/0mx7EZv.gifv"
+            },
+            {
+               "character_id": "30",
+               "character_name": "Gargalhada",
+               "character_picture": "https://i.imgur.com/TMQPLZX.gifv"
+            },
+            {
+               "character_id": "31",
+               "character_name": "Sorridente",
+               "character_picture": "https://i.imgur.com/fjes1ny.gifv"
+            },
+            {
+               "character_id": "32",
+               "character_name": "Boca Fechada",
+               "character_picture": "https://i.imgur.com/HMuvIA0.gifv"
+            },
+            {
+               "character_id": "33",
+               "character_name": "De Ponta-Cabeça",
+               "character_picture": "https://i.imgur.com/RttoRrL.gifv"
+            },
+            {
+               "character_id": "34",
+               "character_name": "Derretendo",
+               "character_picture": "https://i.imgur.com/1EUKP6l.gifv"
+            },
+            {
+               "character_id": "35",
+               "character_name": "Sentido",
+               "character_picture": "https://i.imgur.com/1wh4KXA.gifv"
+            },
+            {
+               "character_id": "36",
+               "character_name": "Entediado",
+               "character_picture": "https://i.imgur.com/cgGqXDY.gifv"
+            },
+            {
+               "character_id": "37",
+               "character_name": "Fofocando",
+               "character_picture": "https://i.imgur.com/jTSrhnN.gifv"
+            },
+            {
+               "character_id": "38",
+               "character_name": "Desapontado",
+               "character_picture": "https://i.imgur.com/5vjre9m.gifv"
+            },
+            {
+               "character_id": "39",
+               "character_name": "Morri",
+               "character_picture": "https://i.imgur.com/YmEZMH2.gifv"
+            },
+            {
+               "character_id": "40",
+               "character_name": "Lamentando",
+               "character_picture": "https://i.imgur.com/MRWSk7S.gifv"
+            },
+            {
+               "character_id": "41",
+               "character_name": "Assustado",
+               "character_picture": "https://i.imgur.com/vP4lT0K.gifv"
+            },
+            {
+               "character_id": "42",
+               "character_name": "Tô Rico",
+               "character_picture": "https://i.imgur.com/XAHbc7m.gifv"
+            },
+            {
+               "character_id": "43",
+               "character_name": "Careta",
+               "character_picture": "https://i.imgur.com/jOSWazH.gifv"
+            },
+            {
+               "character_id": "44",
+               "character_name": "Rindo",
+               "character_picture": "https://i.imgur.com/hr3sjF2.gifv"
+            },
+            {
+               "character_id": "45",
+               "character_name": "Sorrindo",
+               "character_picture": "https://i.imgur.com/zgo1a47.gifv"
+            },
+            {
+               "character_id": "46",
+               "character_name": "Língua de Fora",
+               "character_picture": "https://i.imgur.com/JoXdNeS.gifv"
+            },
+            {
+               "character_id": "47",
+               "character_name": "Desinteressado",
+               "character_picture": "https://i.imgur.com/QVBClgH.gifv"
+            },
+            {
+               "character_id": "48",
+               "character_name": "Mandando Beijo",
+               "character_picture": "https://i.imgur.com/ceaQsRK.gifv"
+            },
+            {
+               "character_id": "49",
+               "character_name": "Analisando",
+               "character_picture": "https://i.imgur.com/IoVNyDj.gifv"
+            },
+            {
+               "character_id": "50",
+               "character_name": "Apaixonado",
+               "character_picture": "https://i.imgur.com/HAFMy7N.gifv"
+            },
+            {
+               "character_id": "51",
+               "character_name": "Bêbado",
+               "character_picture": "https://i.imgur.com/pK8mDHj.gifv"
+            },
+            {
+               "character_id": "52",
+               "character_name": "Segredo",
+               "character_picture": "https://i.imgur.com/SgBRGsr.gifv"
+            },
+            {
+               "character_id": "53",
+               "character_name": "Julgando",
+               "character_picture": "https://i.imgur.com/GCrFS63.gifv"
+            },
+            {
+               "character_id": "54",
+               "character_name": "Cansado",
+               "character_picture": "https://i.imgur.com/E7u2RpM.gifv"
+            },
+            {
+               "character_id": "55",
+               "character_name": "Emocionado",
+               "character_picture": "https://i.imgur.com/iXF9lhj.gifv"
+            },
+            {
+               "character_id": "56",
+               "character_name": "Beijão",
+               "character_picture": "https://i.imgur.com/tdc8QYH.gifv"
             }
          ]
       }
