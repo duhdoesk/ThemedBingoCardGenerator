@@ -11,7 +11,7 @@ class CharacterRepository @Inject constructor(
     suspend fun getAllCharacters() =
         characterDao.getAllCharacters()
 
-    suspend fun getThemeCharacters(themeId: String) =
+    suspend fun getThemeCharacters(themeId: String): List<Character>? =
         characterDao.getThemeCharacters(themeId)
 
     suspend fun getCharacterById(characterId: String) =

@@ -6,6 +6,7 @@ import com.duscaranari.themedbingocardsgenerator.data.AppDataDao
 import com.duscaranari.themedbingocardsgenerator.data.AppDatabase
 import com.duscaranari.themedbingocardsgenerator.data.CharacterDao
 import com.duscaranari.themedbingocardsgenerator.data.ThemeDao
+import com.duscaranari.themedbingocardsgenerator.data.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,4 +44,9 @@ class DatabaseModule {
     @Provides
     fun provideCharacterDao(appDatabase: AppDatabase) : CharacterDao =
         appDatabase.characterDao()
+
+    @Singleton
+    @Provides
+    fun provideUserDao(appDatabase: AppDatabase) : UserDao =
+        appDatabase.userDao()
 }

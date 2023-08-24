@@ -106,7 +106,7 @@ fun CardPortraitScreen(
 
     CardPortraitUniversalScreen(
         onUpdateCurrentUser = { onUpdateCurrentUser(it) },
-        onDrawNewCard = { onDrawNewCard() },
+        onDrawNewCard = onDrawNewCard,
         state = state
     )
 }
@@ -340,7 +340,7 @@ fun CardScreenLazyVerticalGrid(
                 item {
                     CardScreenCards(
                         character,
-                        cardModifier = Modifier
+                        modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(0.9f)
                     )
@@ -372,7 +372,7 @@ fun CardScreenLazyHorizontalGrid(
                 item {
                     CardScreenCards(
                         character = character,
-                        cardModifier = cardModifier
+                        modifier = cardModifier
                     )
                 }
             }
@@ -383,13 +383,13 @@ fun CardScreenLazyHorizontalGrid(
 @Composable
 fun CardScreenCards(
     character: Character,
-    cardModifier: Modifier = Modifier
+    modifier: Modifier = Modifier
 ) {
 
     Card(
         elevation = CardDefaults.cardElevation(4.dp),
         border = CardDefaults.outlinedCardBorder(),
-        modifier = cardModifier
+        modifier = modifier
     ) {
 
         Column(
@@ -601,7 +601,8 @@ fun PortraitPreview() {
                 themePicture = ""
             ),
             currentUser = "Dwight Schrute",
-            drawnCharacters = characters
+            drawnCharacters = characters,
+            themeCharacters = characters
         )
     )
 }
@@ -622,7 +623,8 @@ fun LandscapePreview() {
                 themePicture = ""
             ),
             currentUser = "Dwight Schrute",
-            drawnCharacters = characters
+            drawnCharacters = characters,
+            themeCharacters = characters
         )
     )
 

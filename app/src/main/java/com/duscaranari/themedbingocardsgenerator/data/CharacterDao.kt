@@ -15,7 +15,7 @@ interface CharacterDao {
     suspend fun getAllCharacters() : List<Character>
 
     @Query("SELECT * from character_table where character_theme_id =:themeId")
-    suspend fun getThemeCharacters(themeId: String) : List<Character>
+    suspend fun getThemeCharacters(themeId: String) : List<Character>?
 
     @Query("SELECT * from character_table where character_id =:characterId")
     suspend fun getCharacterById(characterId: String) : Character

@@ -8,8 +8,9 @@ sealed class CardState {
     object Loading : CardState()
 
     data class Ready(
-        val currentTheme: Theme,
-        val drawnCharacters: List<Character>,
-        val currentUser: String = ""
+        var currentTheme: Theme,
+        var themeCharacters: List<Character>,
+        var drawnCharacters: List<Character>,
+        var currentUser: String = ""
     ) : CardState()
 }
