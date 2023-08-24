@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.themes
 
-import android.app.Activity
 import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -47,10 +46,6 @@ import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingS
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 @Composable
 fun ThemesScreen(

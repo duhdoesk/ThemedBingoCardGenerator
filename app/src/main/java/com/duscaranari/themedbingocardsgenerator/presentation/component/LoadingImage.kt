@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.component
 
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -8,8 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import coil.ImageLoader
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 
 /**
  * Composable to load images from the backend, while displaying a loader.
@@ -34,10 +39,29 @@ fun LoadingImage(
     colorFilter: ColorFilter? = null,
     loader: @Composable () -> Unit = { CircularProgressIndicator() }
 ) {
-    val painter = rememberAsyncImagePainter(model)
+
+    val painter = rememberAsyncImagePainter(
+        model = model,
+        imageLoader = ImageLoader
+            .Builder(LocalContext.current)
+            .components {
+                when {
+                    Build.VERSION.SDK_INT >= 28 -> {
+                        add(ImageDecoderDecoder.Factory())
+                    }
+
+                    else -> {
+                        add(GifDecoder.Factory())
+                    }
+                }
+            }
+            .build()
+    )
+
     if (painter.state is AsyncImagePainter.State.Loading) {
         loader()
     }
+
     Image(
         modifier = modifier,
         painter = painter,
