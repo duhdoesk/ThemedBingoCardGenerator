@@ -27,12 +27,11 @@ class CardViewModel @Inject constructor(
     private val _cardState = MutableStateFlow<CardState>(CardState.Loading)
     val cardState = _cardState.asStateFlow()
 
-    init {
-        val themeId = checkNotNull(savedStateHandle["themeId"]).toString()
-        loadData(themeId)
-    }
+    init { loadData() }
 
-    private fun loadData(themeId: String) {
+    private fun loadData() {
+
+        val themeId = checkNotNull(savedStateHandle["themeId"]).toString()
 
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -60,10 +59,7 @@ class CardViewModel @Inject constructor(
                 )
             }
 
-            else -> {
-                val themeId = checkNotNull(savedStateHandle["themeId"]).toString()
-                loadData(themeId)
-            }
+            else -> { loadData() }
         }
     }
 
@@ -85,10 +81,7 @@ class CardViewModel @Inject constructor(
                     )
                 }
 
-                else -> {
-                    val themeId = checkNotNull(savedStateHandle["themeId"]).toString()
-                    loadData(themeId)
-                }
+                else -> { loadData() }
             }
         }
     }
