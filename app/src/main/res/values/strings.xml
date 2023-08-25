@@ -38,6 +38,10 @@
     <string name="insert_your_name">Insert your name</string>
 
 
+<!--    CHARACTER SCREEN -->
+    <string name="available_characters">Available Characters</string>
+
+
 <!--    LOADING SCREEN -->
     <string name="loading">Loading...</string>
 

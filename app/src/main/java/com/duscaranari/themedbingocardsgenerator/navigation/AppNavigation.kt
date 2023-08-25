@@ -56,7 +56,7 @@ fun AppNavigation() {
             }
 
             composable("${AppScreens.Card.name}/{themeId}") {
-                CardScreen()
+                CardScreen(navController)
             }
 
             composable(AppScreens.Home.name) {

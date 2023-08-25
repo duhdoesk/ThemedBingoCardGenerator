@@ -54,11 +54,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
+import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
@@ -69,7 +71,10 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 
 @Composable
-fun CardScreen(cardViewModel: CardViewModel = hiltViewModel()) {
+fun CardScreen(
+    navController: NavHostController,
+    cardViewModel: CardViewModel = hiltViewModel()
+) {
 
     when (val state = cardViewModel.cardState.collectAsState().value) {
         is CardState.Loading ->
@@ -83,14 +88,24 @@ fun CardScreen(cardViewModel: CardViewModel = hiltViewModel()) {
                     CardLandscapeScreen(
                         state = state,
                         onUpdateCurrentUser = { cardViewModel.updateCurrentUser(it) },
-                        onDrawNewCard = { cardViewModel.drawNewCard() }
+                        onDrawNewCard = { cardViewModel.drawNewCard() },
+                        onNavToCharactersScreen = {
+                            navController.navigate(
+                                "${AppScreens.Character.name}/${state.currentTheme.themeId}"
+                            )
+                        }
                     )
 
                 else ->
                     CardPortraitScreen(
                         state = state,
                         onUpdateCurrentUser = { cardViewModel.updateCurrentUser(it) },
-                        onDrawNewCard = { cardViewModel.drawNewCard() }
+                        onDrawNewCard = { cardViewModel.drawNewCard() },
+                        onNavToCharactersScreen = {
+                            navController.navigate(
+                                "${AppScreens.Character.name}/${state.currentTheme.themeId}"
+                            )
+                        }
                     )
             }
         }
@@ -101,13 +116,15 @@ fun CardScreen(cardViewModel: CardViewModel = hiltViewModel()) {
 fun CardPortraitScreen(
     state: CardState.Ready,
     onUpdateCurrentUser: (user: String) -> Unit,
-    onDrawNewCard: () -> Unit
+    onDrawNewCard: () -> Unit,
+    onNavToCharactersScreen: () -> Unit
 ) {
 
     CardPortraitUniversalScreen(
         onUpdateCurrentUser = { onUpdateCurrentUser(it) },
         onDrawNewCard = onDrawNewCard,
-        state = state
+        state = state,
+        onNavToCharactersScreen = onNavToCharactersScreen
     )
 }
 
@@ -115,7 +132,8 @@ fun CardPortraitScreen(
 fun CardLandscapeScreen(
     state: CardState.Ready,
     onUpdateCurrentUser: (user: String) -> Unit,
-    onDrawNewCard: () -> Unit
+    onDrawNewCard: () -> Unit,
+    onNavToCharactersScreen: () -> Unit
 ) {
 
     when (rememberWindowInfo().screenHeightInfo) {
@@ -124,14 +142,16 @@ fun CardLandscapeScreen(
             CardLandscapeCompactScreen(
                 state = state,
                 onUpdateCurrentUser = { onUpdateCurrentUser(it) },
-                onDrawNewCard = onDrawNewCard
+                onDrawNewCard = onDrawNewCard,
+                onNavToCharactersScreen = onNavToCharactersScreen
             )
 
         else ->
             CardLandscapeExpandedScreen(
                 state = state,
                 onUpdateCurrentUser = { onUpdateCurrentUser(it) },
-                onDrawNewCard = onDrawNewCard
+                onDrawNewCard = onDrawNewCard,
+                onNavToCharactersScreen = onNavToCharactersScreen
             )
     }
 }
@@ -145,7 +165,8 @@ SCREENS
 fun CardPortraitUniversalScreen(
     onUpdateCurrentUser: (user: String) -> Unit,
     onDrawNewCard: () -> Unit,
-    state: CardState.Ready
+    state: CardState.Ready,
+    onNavToCharactersScreen: () -> Unit
 ) {
 
     Column(
@@ -166,6 +187,7 @@ fun CardPortraitUniversalScreen(
             columns = 3,
             modifier = Modifier
                 .widthIn(max = 600.dp)
+                .clickable { onNavToCharactersScreen() }
         )
 
         CardScreenName(
@@ -183,7 +205,8 @@ fun CardPortraitUniversalScreen(
 fun CardLandscapeCompactScreen(
     onUpdateCurrentUser: (user: String) -> Unit,
     onDrawNewCard: () -> Unit,
-    state: CardState.Ready
+    state: CardState.Ready,
+    onNavToCharactersScreen: () -> Unit
 ) {
 
     Row(
@@ -203,7 +226,8 @@ fun CardLandscapeCompactScreen(
                 rows = 3,
                 spacing = 4.dp,
                 modifier = Modifier
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .clickable { onNavToCharactersScreen() },
                 cardModifier = Modifier
                     .fillMaxHeight()
                     .aspectRatio(1.2f)
@@ -238,7 +262,8 @@ fun CardLandscapeCompactScreen(
 fun CardLandscapeExpandedScreen(
     onUpdateCurrentUser: (user: String) -> Unit,
     onDrawNewCard: () -> Unit,
-    state: CardState.Ready
+    state: CardState.Ready,
+    onNavToCharactersScreen: () -> Unit
 ) {
 
     Row(
@@ -260,7 +285,8 @@ fun CardLandscapeExpandedScreen(
                 spacing = 8.dp,
                 modifier = Modifier
                     .padding(16.dp)
-                    .heightIn(max = 600.dp),
+                    .heightIn(max = 600.dp)
+                    .clickable { onNavToCharactersScreen() },
                 cardModifier = Modifier
                     .fillMaxHeight()
                     .aspectRatio(1f),
@@ -592,8 +618,6 @@ fun PortraitPreview() {
     val characters = getRawListOfCharacters()
 
     CardPortraitScreen(
-        onUpdateCurrentUser = { },
-        onDrawNewCard = { },
         state = CardState.Ready(
             currentTheme = Theme(
                 themeId = "1",
@@ -603,7 +627,10 @@ fun PortraitPreview() {
             currentUser = "Dwight Schrute",
             drawnCharacters = characters,
             themeCharacters = characters
-        )
+        ),
+        onUpdateCurrentUser = { },
+        onDrawNewCard = { },
+        onNavToCharactersScreen = { },
     )
 }
 
@@ -616,6 +643,7 @@ fun LandscapePreview() {
     CardLandscapeScreen(
         onUpdateCurrentUser = { },
         onDrawNewCard = { },
+        onNavToCharactersScreen = { },
         state = CardState.Ready(
             currentTheme = Theme(
                 themeId = "1",
@@ -627,7 +655,6 @@ fun LandscapePreview() {
             themeCharacters = characters
         )
     )
-
 }
 
 fun getRawListOfCharacters(): List<Character> {
