@@ -429,18 +429,23 @@ fun CardScreenCards(
                     .weight(1f)
             ) {
 
-                LoadingImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(character.characterPicture)
-                        .crossfade(true)
-                        .scale(Scale.FILL)
-                        .build(),
-                    contentDescription = "Character Picture",
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .aspectRatio(1.1f)
-                        .padding(8.dp)
-                )
+                Box(contentAlignment = Alignment.Center) {
+
+                    LoadingImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(character.characterPicture)
+                            .crossfade(true)
+                            .scale(Scale.FILL)
+                            .build(),
+                        contentDescription = "Character Picture",
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .aspectRatio(1.1f)
+                            .padding(8.dp)
+                    )
+                }
+
+
 
                 Box(
                     contentAlignment = Alignment.Center,
