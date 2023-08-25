@@ -1,7 +1,10 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.characters
 
+import android.os.Build
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,10 +20,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.ImageLoader
+import coil.compose.AsyncImage
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
@@ -99,17 +107,31 @@ fun CharacterScreenCard(
         modifier = modifier
     ) {
 
-        LoadingImage(
+        AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(character.characterPicture)
                 .crossfade(true)
                 .scale(Scale.FILL)
                 .build(),
+            placeholder = painterResource(id = R.drawable.compact_screen_logo),
             contentDescription = "Character Picture",
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(12.dp))
-                .fillMaxWidth()
-                .weight(1f)
+                .fillMaxSize(),
+            imageLoader = ImageLoader
+                .Builder(LocalContext.current)
+                .components {
+                    when {
+                        Build.VERSION.SDK_INT >= 28 -> {
+                            add(ImageDecoderDecoder.Factory())
+                        }
+
+                        else -> {
+                            add(GifDecoder.Factory())
+                        }
+                    }
+                }
+                .build()
         )
 
         Text(
