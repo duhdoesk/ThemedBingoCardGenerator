@@ -1,5 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.home
 
+import android.app.Application
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,16 +18,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -84,18 +93,11 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit) {
                     .padding(vertical = 16.dp)
             )
 
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-
-                HomeCardsRow(
-                    onNavigate = { onNavigate(it) },
-                    modifier = Modifier
-                        .widthIn(min = 280.dp, max = 360.dp)
-                        .padding(horizontal = 28.dp)
-                )
-            }
+            HomeButtons(
+                onNavigate = { onNavigate(it) },
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
         }
     }
 }
@@ -126,7 +128,9 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit) {
 
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
             ) {
 
                 HomeCardsRow(
@@ -227,11 +231,13 @@ fun HomeCardsRow(
     onNavigate: (route: String) -> Unit
 ) {
 
-    Row(modifier = modifier,
+    Row(
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(
             space = 16.dp,
             alignment = Alignment.CenterHorizontally
-        )) {
+        )
+    ) {
 
         HomeCard(
             label = stringResource(id = R.string.about_us),
@@ -250,11 +256,57 @@ fun HomeCardsRow(
 
 }
 
+@Composable
+fun HomeButtons(
+    modifier: Modifier = Modifier,
+    onNavigate: (route: String) -> Unit
+) {
+
+    val buttonModifier = Modifier
+        .widthIn(min = 160.dp, max = 240.dp)
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Button(
+            onClick = { onNavigate(AppScreens.Themes.name) },
+            modifier = buttonModifier,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary
+            )
+        ) {
+            Text(text = AppScreens.Card.name)
+        }
+
+        Button(
+            onClick = {
+
+            },
+            modifier = buttonModifier,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
+        ) {
+            Text(text = AppScreens.Themes.name)
+        }
+
+        TextButton(
+            onClick = { onNavigate(AppScreens.About.name) },
+            modifier = buttonModifier
+        ) {
+            Text(text = AppScreens.About.name)
+        }
+    }
+}
+
 
 // PREVIEWS
 
-@LandscapePreviews
+@PortraitPreviews
 @Composable
 fun ScreenPreview() {
-    LandscapeHomeScreen(onNavigate = { })
+    PortraitHomeScreen(onNavigate = { })
 }

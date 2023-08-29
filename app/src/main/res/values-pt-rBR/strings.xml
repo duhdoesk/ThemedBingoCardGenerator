@@ -19,7 +19,8 @@
     <string name="card_screen">Cartela</string>
     <string name="sad_cartoon_tiger_caption">Tigre triste.</string>
     <string name="refresh">Atualizar</string>
-    <string name="loading">Carregando...</string>
+    <string name="loading">Carregando…</string>
     <string name="character_screen">Personagens do Tema</string>
     <string name="available_characters">Personagens Disponíveis</string>
+    <string name="draw_error">"Ops! Não conseguimos encontrar os dados do tema que você escolheu. Por favor, tente novamente em alguns minutos."</string>
 </resources>
