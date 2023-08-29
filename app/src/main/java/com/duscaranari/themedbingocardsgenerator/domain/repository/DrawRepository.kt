@@ -11,6 +11,9 @@ class DrawRepository @Inject constructor(
     suspend fun createNewDraw(draw: Draw): Long =
         drawDao.createNewDraw(draw)
 
+    suspend fun getDrawById(drawId: Long): Draw? =
+        drawDao.getDrawById(drawId)
+
     suspend fun finishDraw(drawId: Long) =
         drawDao.finishDraw(drawId)
 

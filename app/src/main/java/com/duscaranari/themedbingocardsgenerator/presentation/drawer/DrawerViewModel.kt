@@ -40,37 +40,49 @@ class DrawerViewModel @Inject constructor(
     private fun checkSavedState() {
         viewModelScope.launch(Dispatchers.IO) {
             val activeDraw = getActiveDraw()
-            if (activeDraw != null) resumeActiveDraw(activeDraw) else startNewDraw()
+            if (activeDraw != null) refreshDrawState(activeDraw.drawId) else startNewDraw()
         }
     }
 
-    private suspend fun resumeActiveDraw(activeDraw: Draw) {
+    private suspend fun refreshDrawState(drawId: Long) {
 
-        val theme = getThemeById(activeDraw.themeId)
-        val themeCharacters = getThemeCharacters(activeDraw.themeId)
+        val draw = getDrawById(drawId)
 
-        if (theme == null || themeCharacters == null) {
+        if (draw != null) {
+
+            val theme = getThemeById(draw.themeId)
+            val themeCharacters = getThemeCharacters(draw.themeId)
+
+            if (theme == null || themeCharacters == null) {
+
+                _drawerUiState.value = DrawerUiState.Error(
+                    errorMessage = R.string.draw_error
+                )
+            } else {
+
+                val drawnCharactersIdList = draw.drawnCharactersIdList.split(",")
+
+                _drawerUiState.value = DrawerUiState.Success(
+                    drawId = draw.drawId,
+                    isFinished = draw.drawCompleted,
+                    theme = theme,
+                    themeCharacters = themeCharacters,
+                    drawnCharacters = themeCharacters.filter {
+                        it.characterId in drawnCharactersIdList
+                    },
+                    availableCharacters = themeCharacters.filterNot {
+                        it.characterId in drawnCharactersIdList
+                    }
+                )
+            }
+        } else {
 
             _drawerUiState.value = DrawerUiState.Error(
                 errorMessage = R.string.draw_error
             )
-        } else {
-
-            val drawnCharactersIdList = activeDraw.drawnCharactersIdList.split(",")
-
-            _drawerUiState.value = DrawerUiState.Success(
-                drawId = activeDraw.drawId,
-                isFinished = activeDraw.drawCompleted,
-                theme = theme,
-                themeCharacters = themeCharacters,
-                drawnCharacters = themeCharacters.filter {
-                    it.characterId in drawnCharactersIdList
-                },
-                availableCharacters = themeCharacters.filterNot {
-                    it.characterId in drawnCharactersIdList
-                }
-            )
         }
+
+
     }
 
     private suspend fun startNewDraw() {
@@ -94,14 +106,7 @@ class DrawerViewModel @Inject constructor(
 
             val drawId = createNewDraw(draw)
 
-            _drawerUiState.value = DrawerUiState.Success(
-                drawId = drawId,
-                isFinished = false,
-                theme = theme,
-                themeCharacters = themeCharacters,
-                availableCharacters = themeCharacters,
-                drawnCharacters = null
-            )
+            refreshDrawState(drawId)
         }
     }
 
@@ -118,18 +123,20 @@ class DrawerViewModel @Inject constructor(
 
                 is DrawerUiState.Success -> {
 
-                    val state = (uiState as DrawerUiState.Success)
-                    val nextCharacter = state.availableCharacters?.shuffled()?.first()
+                    val nextCharacter = state.availableCharacters.shuffled().first()
 
                     setDrawnElementsIds(
                         drawId = state.drawId,
-                        drawnCharactersIds = getDrawnElementsIds(state.drawId) + ",${nextCharacter?.characterId}"
+                        drawnCharactersIds = getDrawnElementsIds(state.drawId) + ",${nextCharacter.characterId}"
                     )
 
-                    getActiveDraw()?.let {
-                        resumeActiveDraw(it)
+                    if (state.availableCharacters.size - state.drawnCharacters.size == 1) {
+                        finishDraw(state.drawId)
                     }
+
+                    refreshDrawState(state.drawId)
                 }
+
                 else -> {
 
                     return@launch
@@ -138,10 +145,29 @@ class DrawerViewModel @Inject constructor(
         }
     }
 
+    fun finishDraw() {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val state = uiState.value) {
+
+                is DrawerUiState.Success -> {
+                    finishDraw(state.drawId)
+                    refreshDrawState(state.drawId)
+                }
+
+                else -> return@launch
+            }
+        }
+    }
+
 
     /**
      * Repository Functions
      */
+
+    private suspend fun getDrawById(drawId: Long): Draw? {
+        return drawRepository.getDrawById(drawId)
+    }
 
     private suspend fun getActiveDraw(): Draw? {
         return drawRepository.getActiveDraw()
@@ -153,14 +179,6 @@ class DrawerViewModel @Inject constructor(
 
     private suspend fun createNewDraw(draw: Draw): Long {
         return drawRepository.createNewDraw(draw)
-    }
-
-    private suspend fun getDrawThemeId(drawId: Long): String {
-        return drawRepository.getDrawThemeId(drawId)
-    }
-
-    private suspend fun setDrawThemeId(drawId: Long, themeId: String)  {
-        drawRepository.setDrawThemeId(drawId, themeId)
     }
 
     private suspend fun getDrawnElementsIds(drawId: Long): String {

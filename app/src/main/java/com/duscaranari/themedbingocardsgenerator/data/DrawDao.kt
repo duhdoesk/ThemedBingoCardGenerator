@@ -12,6 +12,9 @@ interface DrawDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createNewDraw(draw: Draw) : Long
 
+    @Query("SELECT * FROM draw_table WHERE draw_id = :drawId")
+    suspend fun getDrawById(drawId: Long): Draw?
+
     @Query("UPDATE draw_table SET draw_completed = 1 WHERE draw_id = :drawId")
     suspend fun finishDraw(drawId: Long)
 

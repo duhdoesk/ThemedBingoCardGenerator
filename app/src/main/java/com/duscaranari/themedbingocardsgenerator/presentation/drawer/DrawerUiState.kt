@@ -27,8 +27,8 @@ sealed class DrawerUiState {
         val drawId: Long,
         val isFinished: Boolean = false,
         val theme: Theme?,
-        val themeCharacters: List<Character>?,
-        val drawnCharacters: List<Character>?,
-        val availableCharacters: List<Character>?
+        val themeCharacters: List<Character>,
+        val drawnCharacters: List<Character>,
+        val availableCharacters: List<Character>
     ) : DrawerUiState()
 }
