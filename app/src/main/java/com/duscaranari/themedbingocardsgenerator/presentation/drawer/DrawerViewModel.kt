@@ -1,7 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.drawer
 
-import androidx.compose.material3.DrawerState
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,18 +29,19 @@ class DrawerViewModel @Inject constructor(
     val uiState = _drawerUiState.asStateFlow()
 
     init {
-        setupUiState()
+        checkSavedState()
     }
 
-    private fun setupUiState() {
+
+    /**
+     * UI Logic
+     */
+
+    private fun checkSavedState() {
         viewModelScope.launch(Dispatchers.IO) {
             val activeDraw = getActiveDraw()
             if (activeDraw != null) resumeActiveDraw(activeDraw) else startNewDraw()
         }
-    }
-
-    private suspend fun getActiveDraw(): Draw? {
-        return drawRepository.getActiveDraw()
     }
 
     private suspend fun resumeActiveDraw(activeDraw: Draw) {
@@ -86,6 +85,7 @@ class DrawerViewModel @Inject constructor(
                 errorMessage = R.string.draw_error
             )
         } else {
+
             val draw = Draw(
                 themeId = themeId,
                 drawnCharactersIdList = "",
@@ -105,8 +105,70 @@ class DrawerViewModel @Inject constructor(
         }
     }
 
+
+    /**
+     * Business Logic
+     */
+
+    fun drawNextCharacter() {
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            when (val state = uiState.value) {
+
+                is DrawerUiState.Success -> {
+
+                    val state = (uiState as DrawerUiState.Success)
+                    val nextCharacter = state.availableCharacters?.shuffled()?.first()
+
+                    setDrawnElementsIds(
+                        drawId = state.drawId,
+                        drawnCharactersIds = getDrawnElementsIds(state.drawId) + ",${nextCharacter?.characterId}"
+                    )
+
+                    getActiveDraw()?.let {
+                        resumeActiveDraw(it)
+                    }
+                }
+                else -> {
+
+                    return@launch
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Repository Functions
+     */
+
+    private suspend fun getActiveDraw(): Draw? {
+        return drawRepository.getActiveDraw()
+    }
+
+    private suspend fun finishDraw(drawId: Long) {
+        drawRepository.finishDraw(drawId)
+    }
+
     private suspend fun createNewDraw(draw: Draw): Long {
         return drawRepository.createNewDraw(draw)
+    }
+
+    private suspend fun getDrawThemeId(drawId: Long): String {
+        return drawRepository.getDrawThemeId(drawId)
+    }
+
+    private suspend fun setDrawThemeId(drawId: Long, themeId: String)  {
+        drawRepository.setDrawThemeId(drawId, themeId)
+    }
+
+    private suspend fun getDrawnElementsIds(drawId: Long): String {
+        return drawRepository.getDrawnElementsIds(drawId)
+    }
+
+    private suspend fun setDrawnElementsIds(drawId: Long, drawnCharactersIds: String) {
+        drawRepository.setDrawnElementsIds(drawId, drawnCharactersIds)
     }
 
     private suspend fun getThemeById(themeId: String): Theme? {

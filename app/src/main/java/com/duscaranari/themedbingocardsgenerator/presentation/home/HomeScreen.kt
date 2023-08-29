@@ -290,7 +290,7 @@ fun HomeButtons(
                 containerColor = MaterialTheme.colorScheme.secondary
             )
         ) {
-            Text(text = AppScreens.Themes.name)
+            Text(text = AppScreens.Drawer.name)
         }
 
         TextButton(
