@@ -18,5 +18,8 @@ enum class AppScreens (val stringResource: Int) {
         stringResource = R.string.themes_screen),
 
     Character(
-        stringResource = R.string.character_screen)
+        stringResource = R.string.character_screen),
+
+    Drawer(
+        stringResource = R.string.drawer_screen)
 }

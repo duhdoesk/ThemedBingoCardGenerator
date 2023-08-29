@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.duscaranari.themedbingocardsgenerator.presentation.about.AboutScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.card.CardScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.characters.CharacterScreen
+import com.duscaranari.themedbingocardsgenerator.presentation.drawer.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.themes.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
@@ -63,12 +64,16 @@ fun AppNavigation() {
                 HomeScreen(navController)
             }
 
-            composable(AppScreens.Themes.name) {
+            composable("${AppScreens.Themes.name}/{screen}") {
                 ThemesScreen(navController)
             }
 
             composable("${AppScreens.Character.name}/{themeId}") {
                 CharacterScreen()
+            }
+
+            composable("${AppScreens.Drawer.name}/{themeId}") {
+                DrawerScreen(navController)
             }
         }
     }

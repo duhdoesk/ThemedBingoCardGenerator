@@ -11,7 +11,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.model.User
 @Database(
     entities =[AppData::class, Theme::class, Character::class, User::class, Draw::class],
     exportSchema = false,
-    version = 2
+    version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
 

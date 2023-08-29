@@ -42,13 +42,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
-import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
+
+    showInterstitialAd(LocalContext.current)
 
     when (rememberDeviceOrientation()) {
         is DeviceOrientation.Portrait ->
@@ -272,7 +274,7 @@ fun HomeButtons(
     ) {
 
         Button(
-            onClick = { onNavigate(AppScreens.Themes.name) },
+            onClick = { onNavigate("${AppScreens.Themes.name}/${AppScreens.Card.name}") },
             modifier = buttonModifier,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary
@@ -282,9 +284,7 @@ fun HomeButtons(
         }
 
         Button(
-            onClick = {
-
-            },
+            onClick = { onNavigate("${AppScreens.Themes.name}/${AppScreens.Drawer.name}") },
             modifier = buttonModifier,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondary

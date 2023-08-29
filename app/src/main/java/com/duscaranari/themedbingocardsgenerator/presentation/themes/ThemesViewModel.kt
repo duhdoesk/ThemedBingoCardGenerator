@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.themes
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.network.util.DomainModelMapper
@@ -25,11 +26,14 @@ class ThemesViewModel @Inject constructor(
     private val networkRepository: NetworkRepository,
     private val appDataRepository: AppDataRepository,
     private val characterRepository: CharacterRepository,
-    private val domainModelMapper: DomainModelMapper
+    private val domainModelMapper: DomainModelMapper,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _themesState = MutableStateFlow<ThemesState>(ThemesState.Loading)
     val themesState = _themesState.asStateFlow()
+
+    val screen = checkNotNull(savedStateHandle["screen"]).toString()
 
     init {
         checkData()
