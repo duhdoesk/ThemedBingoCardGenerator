@@ -44,6 +44,9 @@
 
     <!--    DRAW SCREEN -->
     <string name="draw_error">"Oops! We could not find the data of the theme you selected. Please, try again in a few minutes."</string>
+    <string name="drawn">Drawn</string>
+    <string name="draw_next_character">Draw</string>
+    <string name="finish_draw">Finish</string>
 
 
     <!--    LOADING SCREEN -->

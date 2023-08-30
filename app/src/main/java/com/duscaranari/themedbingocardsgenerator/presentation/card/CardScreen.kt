@@ -63,6 +63,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
@@ -660,17 +661,4 @@ fun LandscapePreview() {
             themeCharacters = characters
         )
     )
-}
-
-fun getRawListOfCharacters(): List<Character> {
-
-    val character = Character(
-        characterThemeId = "1",
-        characterId = "1",
-        characterPicture = "",
-        characterName = "Character",
-        characterCardId = "1"
-    )
-
-    return List(9) { character }
 }

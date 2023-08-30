@@ -25,4 +25,7 @@
     <string name="draw_error">"Ops! Não conseguimos encontrar os dados do tema que você escolheu. Por favor, tente novamente em alguns minutos."</string>
     <string name="drawer_screen">Sorteador</string>
     <string name="try_again">Tentar Novamente</string>
+    <string name="drawn">Sorteados</string>
+    <string name="draw_next_character">Sortear</string>
+    <string name="finish_draw">Finalizar</string>
 </resources>

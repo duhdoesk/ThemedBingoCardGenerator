@@ -61,17 +61,22 @@ class DrawerViewModel @Inject constructor(
             } else {
 
                 val drawnCharactersIdList = draw.drawnCharactersIdList.split(",")
+                val drawnCharactersList = mutableListOf<Character>()
+
+                for (id in drawnCharactersIdList) {
+                    themeCharacters.find { it.characterId == id }?.let {
+                        drawnCharactersList.add(it)
+                    }
+                }
 
                 _drawerUiState.value = DrawerUiState.Success(
                     drawId = draw.drawId,
                     isFinished = draw.drawCompleted,
                     theme = theme,
                     themeCharacters = themeCharacters,
-                    drawnCharacters = themeCharacters.filter {
-                        it.characterId in drawnCharactersIdList
-                    },
+                    drawnCharacters = drawnCharactersList,
                     availableCharacters = themeCharacters.filterNot {
-                        it.characterId in drawnCharactersIdList
+                        it in drawnCharactersList
                     }
                 )
             }
