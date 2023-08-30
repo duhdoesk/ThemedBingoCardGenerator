@@ -37,7 +37,7 @@ class DrawerViewModel @Inject constructor(
      * UI Logic
      */
 
-    private fun checkSavedState() {
+    fun checkSavedState() {
         viewModelScope.launch(Dispatchers.IO) {
             val activeDraw = getActiveDraw()
             if (activeDraw != null) refreshDrawState(activeDraw.drawId) else startNewDraw()

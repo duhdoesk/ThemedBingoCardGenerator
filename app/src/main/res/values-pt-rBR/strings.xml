@@ -24,4 +24,5 @@
     <string name="available_characters">Personagens Disponíveis</string>
     <string name="draw_error">"Ops! Não conseguimos encontrar os dados do tema que você escolheu. Por favor, tente novamente em alguns minutos."</string>
     <string name="drawer_screen">Sorteador</string>
+    <string name="try_again">Tentar Novamente</string>
 </resources>

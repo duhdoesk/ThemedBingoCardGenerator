@@ -50,4 +50,8 @@
     <string name="loading">Loading…</string>
 
 
+    <!--    ERROR SCREEN -->
+    <string name="try_again">Try Again</string>
+
+
 </resources>

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +22,10 @@ import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 
 @Composable
-fun ErrorScreen(errorMessage: Int) {
+fun ErrorScreen(
+    errorMessage: Int,
+    onTryAgain: () -> Unit
+) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,6 +48,12 @@ fun ErrorScreen(errorMessage: Int) {
             text = stringResource(id = errorMessage),
             textAlign = TextAlign.Center
         )
+
+        Spacer(Modifier.height(24.dp))
+
+        Button(onClick = onTryAgain) {
+            Text(text = stringResource(id = R.string.try_again))
+        }
     }
 }
 
@@ -55,5 +65,7 @@ fun ErrorScreen(errorMessage: Int) {
 @PortraitPreviews
 @Composable
 fun ErrorScreenPreview() {
-    ErrorScreen(errorMessage = R.string.draw_error)
+    ErrorScreen(
+        errorMessage = R.string.draw_error,
+        onTryAgain = { })
 }
