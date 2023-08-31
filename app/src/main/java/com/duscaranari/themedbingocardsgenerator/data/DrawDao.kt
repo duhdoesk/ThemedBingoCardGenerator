@@ -18,14 +18,8 @@ interface DrawDao {
     @Query("UPDATE draw_table SET draw_completed = 1 WHERE draw_id = :drawId")
     suspend fun finishDraw(drawId: Long)
 
-    @Query("SELECT * FROM draw_table WHERE draw_completed = 0 LIMIT 1")
-    suspend fun getActiveDraw(): Draw?
-
-    @Query("SELECT draw_theme_id FROM draw_table WHERE draw_id = :drawId")
-    suspend fun getDrawThemeId(drawId: Long): String
-
-    @Query("UPDATE draw_table SET draw_theme_id = :themeId WHERE draw_id = :drawId")
-    suspend fun setDrawThemeId(drawId: Long, themeId: String)
+    @Query("SELECT * FROM draw_table ORDER BY draw_id DESC LIMIT 1")
+    suspend fun getLastDraw(): Draw?
 
     @Query("SELECT draw_characters_id FROM draw_table WHERE draw_id = :drawId")
     suspend fun getDrawnElementsIds(drawId: Long): String

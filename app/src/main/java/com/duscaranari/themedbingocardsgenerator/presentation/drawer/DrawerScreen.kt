@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.drawer
 
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +11,7 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,9 +38,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.presentation.component.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.component.getImageLoader
 import com.duscaranari.themedbingocardsgenerator.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.presentation.component.getRawTheme
@@ -53,6 +57,8 @@ fun DrawerScreen(
     drawerViewModel: DrawerViewModel = hiltViewModel()
 ) {
 
+    var showDialog by remember { mutableStateOf(false) }
+
     when (val state = drawerViewModel.uiState.collectAsState().value) {
 
         is DrawerUiState.Loading ->
@@ -64,23 +70,49 @@ fun DrawerScreen(
                 onTryAgain = { drawerViewModel.checkSavedState() }
             )
 
+        is DrawerUiState.NotStarted -> {
+            ThemesScreen(themes = state.themes, onClick = { drawerViewModel.startNewDraw(it) })
+        }
+
         is DrawerUiState.Success -> {
             when (rememberDeviceOrientation()) {
                 is DeviceOrientation.Portrait -> PortraitDrawerScreen(
                     onNavigate = { },
                     onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
-                    onFinishDraw = { drawerViewModel.finishDraw() },
+                    onFinishDraw = { showDialog = true },
+                    onStartNewDraw = { drawerViewModel.stateNotStarted() },
                     state = state
                 )
 
                 is DeviceOrientation.Landscape -> LandscapeDrawerScreen(
                     onNavigate = { },
                     onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
-                    onFinishDraw = { drawerViewModel.finishDraw() },
+                    onFinishDraw = { showDialog = true },
                     state = state
                 )
             }
         }
+    }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Are you sure you want to delete this?") },
+            text = { Text("This action cannot be undone") },
+            confirmButton = {
+                TextButton(onClick = {
+                    drawerViewModel.finishDraw()
+                    showDialog = false
+                }) {
+                    Text("Delete it".uppercase())
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text("Cancel".uppercase())
+                }
+            },
+        )
     }
 }
 
@@ -94,6 +126,7 @@ fun PortraitDrawerScreen(
     onNavigate: () -> Unit,
     onDrawNextCharacter: () -> Unit,
     onFinishDraw: () -> Unit,
+    onStartNewDraw: () -> Unit,
     state: DrawerUiState.Success
 ) {
 
@@ -104,6 +137,7 @@ fun PortraitDrawerScreen(
                 onNavigate = onNavigate,
                 onDrawNextCharacter = onDrawNextCharacter,
                 onFinishDraw = onFinishDraw,
+                onStartNewDraw = onStartNewDraw,
                 state = state
             )
 
@@ -122,6 +156,7 @@ fun PortraitCompactScreen(
     onNavigate: () -> Unit,
     onDrawNextCharacter: () -> Unit,
     onFinishDraw: () -> Unit,
+    onStartNewDraw: () -> Unit,
     state: DrawerUiState.Success
 ) {
 
@@ -185,19 +220,12 @@ fun PortraitCompactScreen(
 
             Spacer(Modifier.height(32.dp))
 
-            Button(
-                onClick = onDrawNextCharacter,
-                modifier = Modifier.width(200.dp)
-            ) {
-                Text(text = stringResource(id = R.string.draw_next_character))
-            }
-
-            TextButton(
-                onClick = onFinishDraw,
-                modifier = Modifier.width(200.dp)
-            ) {
-                Text(text = stringResource(id = R.string.finish_draw))
-            }
+            DrawerButtons(
+                isFinished = state.isFinished,
+                onDrawNextCharacter = onDrawNextCharacter,
+                onFinishDraw = onFinishDraw,
+                onStartNewDraw = onStartNewDraw
+            )
 
             Spacer(Modifier.height(16.dp))
 
@@ -210,7 +238,9 @@ fun PortraitCompactScreen(
 
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
             ) {
 
                 for (c in state.drawnCharacters.reversed()) {
@@ -311,6 +341,7 @@ fun PortraitPreview() {
         onNavigate = { },
         onDrawNextCharacter = { },
         onFinishDraw = { },
+        onStartNewDraw = { },
         state = DrawerUiState.Success(
             drawId = 1,
             isFinished = false,

@@ -9,6 +9,13 @@ import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 sealed class DrawerUiState {
 
     /**
+     * When there is no Draw running
+     */
+    data class NotStarted(
+        val themes: List<Theme>
+    ) : DrawerUiState()
+
+    /**
      * When is loading data to set up the Ui State
      */
     object Loading : DrawerUiState()

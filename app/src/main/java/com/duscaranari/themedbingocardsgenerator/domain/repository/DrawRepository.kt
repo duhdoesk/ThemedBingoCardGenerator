@@ -17,14 +17,8 @@ class DrawRepository @Inject constructor(
     suspend fun finishDraw(drawId: Long) =
         drawDao.finishDraw(drawId)
 
-    suspend fun getActiveDraw(): Draw? =
-        drawDao.getActiveDraw()
-
-    suspend fun getDrawThemeId(drawId: Long): String =
-        drawDao.getDrawThemeId(drawId)
-
-    suspend fun setDrawThemeId(drawId: Long, themeId: String) =
-        drawDao.setDrawThemeId(drawId, themeId)
+    suspend fun getLastDraw(): Draw? =
+        drawDao.getLastDraw()
 
     suspend fun getDrawnElementsIds(drawId: Long): String =
         drawDao.getDrawnElementsIds(drawId)

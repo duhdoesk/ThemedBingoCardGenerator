@@ -28,4 +28,5 @@
     <string name="drawn">Sorteados</string>
     <string name="draw_next_character">Sortear</string>
     <string name="finish_draw">Finalizar</string>
+    <string name="start_new_draw">Novo Sorteio</string>
 </resources>

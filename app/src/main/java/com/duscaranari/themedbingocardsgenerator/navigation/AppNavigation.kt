@@ -72,7 +72,7 @@ fun AppNavigation() {
                 CharacterScreen()
             }
 
-            composable("${AppScreens.Drawer.name}/{themeId}") {
+            composable(AppScreens.Drawer.name){
                 DrawerScreen(navController)
             }
         }

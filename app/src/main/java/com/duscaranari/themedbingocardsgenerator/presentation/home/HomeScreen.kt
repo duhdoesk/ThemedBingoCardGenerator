@@ -274,11 +274,9 @@ fun HomeButtons(
         }
 
         Button(
-            onClick = { onNavigate("${AppScreens.Themes.name}/${AppScreens.Drawer.name}") },
+            onClick = { onNavigate(AppScreens.Drawer.name) },
             modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.secondary
-            )
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
         ) {
             Text(text = AppScreens.Drawer.name)
         }

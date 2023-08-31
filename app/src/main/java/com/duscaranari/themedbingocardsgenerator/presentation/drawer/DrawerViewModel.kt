@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.drawer
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.R
@@ -21,8 +20,7 @@ import javax.inject.Inject
 class DrawerViewModel @Inject constructor(
     private val drawRepository: DrawRepository,
     private val themeRepository: ThemeRepository,
-    private val characterRepository: CharacterRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val characterRepository: CharacterRepository
 ) : ViewModel() {
 
     private val _drawerUiState = MutableStateFlow<DrawerUiState>(DrawerUiState.Loading)
@@ -39,8 +37,10 @@ class DrawerViewModel @Inject constructor(
 
     fun checkSavedState() {
         viewModelScope.launch(Dispatchers.IO) {
-            val activeDraw = getActiveDraw()
-            if (activeDraw != null) refreshDrawState(activeDraw.drawId) else startNewDraw()
+            when (val lastDraw = getLastDraw()) {
+                null -> _drawerUiState.value = DrawerUiState.NotStarted(themes = getAllThemes())
+                else -> refreshDrawState(lastDraw.drawId)
+            }
         }
     }
 
@@ -85,33 +85,6 @@ class DrawerViewModel @Inject constructor(
             _drawerUiState.value = DrawerUiState.Error(
                 errorMessage = R.string.draw_error
             )
-        }
-
-
-    }
-
-    private suspend fun startNewDraw() {
-
-        val themeId = checkNotNull(savedStateHandle["themeId"]).toString()
-        val theme = getThemeById(themeId)
-        val themeCharacters = getThemeCharacters(themeId)
-
-        if (theme == null || themeCharacters == null) {
-
-            _drawerUiState.value = DrawerUiState.Error(
-                errorMessage = R.string.draw_error
-            )
-        } else {
-
-            val draw = Draw(
-                themeId = themeId,
-                drawnCharactersIdList = "",
-                drawCompleted = false
-            )
-
-            val drawId = createNewDraw(draw)
-
-            refreshDrawState(drawId)
         }
     }
 
@@ -165,6 +138,39 @@ class DrawerViewModel @Inject constructor(
         }
     }
 
+    fun stateNotStarted() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _drawerUiState.value = DrawerUiState.NotStarted(themes = getAllThemes())
+        }
+    }
+
+    fun startNewDraw(themeId: String) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val theme = getThemeById(themeId)
+            val themeCharacters = getThemeCharacters(themeId)
+
+            if (theme == null || themeCharacters == null) {
+
+                _drawerUiState.value = DrawerUiState.Error(
+                    errorMessage = R.string.draw_error
+                )
+            } else {
+
+                val draw = Draw(
+                    themeId = themeId,
+                    drawnCharactersIdList = "",
+                    drawCompleted = false
+                )
+
+                val drawId = createNewDraw(draw)
+
+                refreshDrawState(drawId)
+            }
+        }
+    }
+
 
     /**
      * Repository Functions
@@ -174,8 +180,8 @@ class DrawerViewModel @Inject constructor(
         return drawRepository.getDrawById(drawId)
     }
 
-    private suspend fun getActiveDraw(): Draw? {
-        return drawRepository.getActiveDraw()
+    private suspend fun getLastDraw(): Draw? {
+        return drawRepository.getLastDraw()
     }
 
     private suspend fun finishDraw(drawId: Long) {
@@ -192,6 +198,10 @@ class DrawerViewModel @Inject constructor(
 
     private suspend fun setDrawnElementsIds(drawId: Long, drawnCharactersIds: String) {
         drawRepository.setDrawnElementsIds(drawId, drawnCharactersIds)
+    }
+
+    private suspend fun getAllThemes(): List<Theme> {
+        return themeRepository.getAllThemes()
     }
 
     private suspend fun getThemeById(themeId: String): Theme? {

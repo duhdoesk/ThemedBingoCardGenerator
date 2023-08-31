@@ -11,6 +11,12 @@ fun getRawTheme(): Theme {
     )
 }
 
+fun getRawListOfThemes() : List<Theme> {
+    return List(9) {
+        getRawTheme()
+    }
+}
+
 fun getRawListOfCharacters(): List<Character> {
 
     val character = Character(
