@@ -125,11 +125,9 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit) {
                     .padding(top = 16.dp)
             ) {
 
-                HomeCardsRow(
+                HomeButtons(
                     onNavigate = { onNavigate(it) },
-                    modifier = Modifier
-                        .widthIn(min = 280.dp, max = 360.dp)
-                        .padding(horizontal = 28.dp)
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }
@@ -215,37 +213,6 @@ fun HomeCard(
             }
         }
     }
-}
-
-@Composable
-fun HomeCardsRow(
-    modifier: Modifier = Modifier,
-    onNavigate: (route: String) -> Unit
-) {
-
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(
-            space = 16.dp,
-            alignment = Alignment.CenterHorizontally
-        )
-    ) {
-
-        HomeCard(
-            label = stringResource(id = R.string.about_us),
-            icon = R.drawable.baseline_groups_24,
-            onClick = { onNavigate(AppScreens.About.name) },
-            modifier = Modifier.weight(1f)
-        )
-
-        HomeCard(
-            label = stringResource(id = R.string.play),
-            icon = R.drawable.baseline_emoji_nature_24,
-            onClick = { onNavigate(AppScreens.Themes.name) },
-            modifier = Modifier.weight(1f)
-        )
-    }
-
 }
 
 @Composable
