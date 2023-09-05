@@ -3,10 +3,13 @@ package com.duscaranari.themedbingocardsgenerator.presentation.drawer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -35,6 +38,7 @@ import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingS
 import com.duscaranari.themedbingocardsgenerator.presentation.component.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.presentation.component.getRawTheme
+import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
@@ -79,6 +83,7 @@ fun DrawerScreen(
                     onNavigate = { },
                     onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
                     onFinishDraw = { showDialog = true },
+                    onStartNewDraw = { drawerViewModel.stateNotStarted() },
                     state = state
                 )
             }
@@ -109,7 +114,7 @@ fun DrawerScreen(
 
 
 /**
- * PORTRAIT FUNCTIONS
+ * PORTRAIT FUNCTION
  */
 
 @Composable
@@ -174,37 +179,20 @@ fun PortraitDrawerScreen(
 
                 DrawerDrawnText(Modifier.fillMaxWidth())
 
-                LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 120.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                DrawerLazyGrid(
+                    characters = state.drawnCharacters.reversed(),
                     modifier = Modifier
                         .weight(2f)
                         .fillMaxWidth()
                         .padding(top = 4.dp)
-                ) {
-
-                    for (c in state.drawnCharacters.reversed()) {
-                        item {
-                            Card {
-                                Text(
-                                    text = c.characterName.uppercase(),
-                                    textAlign = TextAlign.Center,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                                )
-                            }
-                        }
-                    }
-                }
+                )
             }
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth().height(50.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp)
             ) {
                 AdmobBanner()
             }
@@ -214,7 +202,7 @@ fun PortraitDrawerScreen(
 
 
 /**
- * LANDSCAPE FUNCTIONS
+ * LANDSCAPE FUNCTION
  */
 
 @Composable
@@ -222,47 +210,88 @@ fun LandscapeDrawerScreen(
     onNavigate: () -> Unit,
     onDrawNextCharacter: () -> Unit,
     onFinishDraw: () -> Unit,
+    onStartNewDraw: () -> Unit,
     state: DrawerUiState.Success
 ) {
 
-    when (rememberWindowInfo().screenWidthInfo) {
+    val character = state.drawnCharacters.lastOrNull()
 
-        is WindowInfo.WindowType.Compact ->
-            LandscapeCompactScreen(
-                onNavigate = onNavigate,
-                onDrawNextCharacter = onDrawNextCharacter,
-                onFinishDraw = onFinishDraw,
-                state = state
-            )
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
 
-        else ->
-            LandscapeMediumScreen(
-                onNavigate = onNavigate,
-                onDrawNextCharacter = onDrawNextCharacter,
-                onFinishDraw = onFinishDraw,
-                state = state
-            )
+        Row(
+            modifier = Modifier
+                .sizeIn(
+                    maxWidth = 1000.dp,
+                    maxHeight = 600.dp
+                )
+                .padding(4.dp)
+        ) {
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+            ) {
+
+                DrawerDrawnText(Modifier.fillMaxWidth())
+
+                DrawerLazyGrid(
+                    characters = state.drawnCharacters.reversed(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp)
+                        .heightIn(max = 500.dp)
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1.5f)
+            ) {
+
+                DrawerCounterText(
+                    text = "${state.drawnCharacters.size} / ${state.themeCharacters.size}",
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                character?.let { DrawerCharacterImageAndName(character = it) }
+            }
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .heightIn(max = 500.dp)
+                    .weight(1.5f)
+            ) {
+
+                DrawerThemeText(
+                    text = state.theme?.themeName.orEmpty(),
+                    modifier = Modifier.fillMaxWidth(0.6f)
+                )
+
+                Spacer(Modifier.weight(1f))
+
+                DrawerButtons(
+                    isFinished = state.isFinished,
+                    onDrawNextCharacter = onDrawNextCharacter,
+                    onFinishDraw = onFinishDraw,
+                    onStartNewDraw = onStartNewDraw
+                )
+
+                Spacer(Modifier.weight(1f))
+
+                Column(Modifier.height(55.dp)) {
+                    AdmobBanner()
+                }
+            }
+        }
     }
-}
-
-@Composable
-fun LandscapeCompactScreen(
-    onNavigate: () -> Unit,
-    onDrawNextCharacter: () -> Unit,
-    onFinishDraw: () -> Unit,
-    state: DrawerUiState.Success
-) {
-
-}
-
-@Composable
-fun LandscapeMediumScreen(
-    onNavigate: () -> Unit,
-    onDrawNextCharacter: () -> Unit,
-    onFinishDraw: () -> Unit,
-    state: DrawerUiState.Success
-) {
-
 }
 
 
@@ -270,10 +299,31 @@ fun LandscapeMediumScreen(
  * PREVIEWS
  */
 
+/**
 @PortraitPreviews
 @Composable
 fun PortraitPreview() {
-    PortraitDrawerScreen(
+PortraitDrawerScreen(
+onNavigate = { },
+onDrawNextCharacter = { },
+onFinishDraw = { },
+onStartNewDraw = { },
+state = DrawerUiState.Success(
+drawId = 1,
+isFinished = true,
+theme = getRawTheme(),
+themeCharacters = getRawListOfCharacters(),
+availableCharacters = getRawListOfCharacters().subList(0, 8),
+drawnCharacters = getRawListOfCharacters().subList(0, 8)
+)
+)
+}
+ */
+
+@LandscapePreviews
+@Composable
+fun LandscapePreviews() {
+    LandscapeDrawerScreen(
         onNavigate = { },
         onDrawNextCharacter = { },
         onFinishDraw = { },

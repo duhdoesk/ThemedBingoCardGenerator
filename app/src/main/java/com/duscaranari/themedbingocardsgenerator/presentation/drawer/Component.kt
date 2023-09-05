@@ -3,11 +3,15 @@ package com.duscaranari.themedbingocardsgenerator.presentation.drawer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -20,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -94,8 +99,8 @@ fun DrawerCharacterImageAndName(
                 .sizeIn(
                     minWidth = 240.dp,
                     maxWidth = 320.dp,
-                    minHeight = 240.dp,
-                    maxHeight = 280.dp
+                    minHeight = 200.dp,
+                    maxHeight = 240.dp
                 ),
             imageLoader = getImageLoader(LocalContext.current)
         )
@@ -121,7 +126,7 @@ fun DrawerButtons(
         true -> {
             Button(
                 onClick = onStartNewDraw,
-                modifier = Modifier.width(200.dp),
+                modifier = Modifier.width(160.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.error,
                     contentColor = MaterialTheme.colorScheme.onError
@@ -134,16 +139,47 @@ fun DrawerButtons(
         false -> {
             Button(
                 onClick = onDrawNextCharacter,
-                modifier = Modifier.width(200.dp)
+                modifier = Modifier.width(160.dp)
             ) {
                 Text(text = stringResource(id = R.string.draw_next_character))
             }
 
             TextButton(
                 onClick = onFinishDraw,
-                modifier = Modifier.width(200.dp)
+                modifier = Modifier.width(160.dp)
             ) {
                 Text(text = stringResource(id = R.string.finish_draw))
+            }
+        }
+    }
+}
+
+@Composable
+fun DrawerLazyGrid(
+    characters: List<Character>,
+    modifier: Modifier = Modifier
+) {
+
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 120.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = modifier
+    ) {
+
+        for (c in characters) {
+            item {
+                Card {
+                    Text(
+                        text = c.characterName.uppercase(),
+                        textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    )
+                }
             }
         }
     }
