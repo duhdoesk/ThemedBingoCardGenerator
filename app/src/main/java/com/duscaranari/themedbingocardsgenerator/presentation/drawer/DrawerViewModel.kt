@@ -9,6 +9,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.domain.repository.CharacterRepository
 import com.duscaranari.themedbingocardsgenerator.domain.repository.DrawRepository
 import com.duscaranari.themedbingocardsgenerator.domain.repository.ThemeRepository
+import com.duscaranari.themedbingocardsgenerator.util.funLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +28,7 @@ class DrawerViewModel @Inject constructor(
     val uiState = _drawerUiState.asStateFlow()
 
     init {
+        funLogger("init")
         checkSavedState()
     }
 
@@ -36,7 +38,9 @@ class DrawerViewModel @Inject constructor(
      */
 
     fun checkSavedState() {
+        funLogger("checkSavedState")
         viewModelScope.launch(Dispatchers.IO) {
+
             when (val lastDraw = getLastDraw()) {
                 null -> _drawerUiState.value = DrawerUiState.NotStarted(themes = getAllThemes())
                 else -> refreshDrawState(lastDraw.drawId)
@@ -45,6 +49,7 @@ class DrawerViewModel @Inject constructor(
     }
 
     private suspend fun refreshDrawState(drawId: Long) {
+        funLogger("refreshDrawState")
 
         val draw = getDrawById(drawId)
 
@@ -68,6 +73,20 @@ class DrawerViewModel @Inject constructor(
                         drawnCharactersList.add(it)
                     }
                 }
+
+                when (val state = _drawerUiState.value) {
+                    is DrawerUiState.Success -> {
+                        if (!state.isFinished &&
+                            drawnCharactersList.size == themeCharacters.size &&
+                            _drawerUiState.value !is DrawerUiState.NotStarted
+                        ) {
+                            finishDraw()
+                        }
+                    }
+
+                    else -> { }
+                }
+
 
                 _drawerUiState.value = DrawerUiState.Success(
                     drawId = draw.drawId,
@@ -94,7 +113,7 @@ class DrawerViewModel @Inject constructor(
      */
 
     fun drawNextCharacter() {
-
+        funLogger("drawNextCharacter")
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val state = uiState.value) {
@@ -108,10 +127,6 @@ class DrawerViewModel @Inject constructor(
                         drawnCharactersIds = getDrawnElementsIds(state.drawId) + ",${nextCharacter.characterId}"
                     )
 
-                    if (state.availableCharacters.size - state.drawnCharacters.size == 1) {
-                        finishDraw(state.drawId)
-                    }
-
                     refreshDrawState(state.drawId)
                 }
 
@@ -124,7 +139,7 @@ class DrawerViewModel @Inject constructor(
     }
 
     fun finishDraw() {
-
+        funLogger("finishDraw")
         viewModelScope.launch(Dispatchers.IO) {
             when (val state = uiState.value) {
 
@@ -139,13 +154,15 @@ class DrawerViewModel @Inject constructor(
     }
 
     fun stateNotStarted() {
+        funLogger("stateNotStarted")
         viewModelScope.launch(Dispatchers.IO) {
+            _drawerUiState.value = DrawerUiState.Loading
             _drawerUiState.value = DrawerUiState.NotStarted(themes = getAllThemes())
         }
     }
 
     fun startNewDraw(themeId: String) {
-
+        funLogger("startNewDraw")
         viewModelScope.launch(Dispatchers.IO) {
 
             val theme = getThemeById(themeId)
