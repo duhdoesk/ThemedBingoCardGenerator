@@ -109,8 +109,8 @@ dependencies {
     // Splash Screen
     implementation 'androidx.core:core-splashscreen:1.0.1'
 
-    // Qonversion
-    implementation 'io.qonversion.android.sdk:sdk:6.0.1'
+    // Billing Library
+    implementation "com.android.billingclient:billing-ktx:6.0.1"
 }
 
 kapt {
