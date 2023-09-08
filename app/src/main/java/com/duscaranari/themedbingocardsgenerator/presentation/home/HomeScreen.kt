@@ -2,21 +2,19 @@ package com.duscaranari.themedbingocardsgenerator.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -36,11 +35,12 @@ import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
 
-//    showInterstitialAd(LocalContext.current)
+    showInterstitialAd(LocalContext.current)
 
     when (rememberDeviceOrientation()) {
         is DeviceOrientation.Portrait ->
@@ -173,49 +173,6 @@ fun HeaderLabels() {
 }
 
 @Composable
-fun HomeCard(
-    label: String,
-    icon: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-
-    Card(
-        elevation = CardDefaults.cardElevation(8.dp),
-        modifier = modifier.clickable { onClick() }
-    ) {
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Icon(
-                painter = painterResource(id = icon),
-                contentDescription = label,
-                modifier = Modifier
-                    .fillMaxWidth(1f)
-                    .aspectRatio(1.1f)
-                    .padding(8.dp)
-            )
-
-            Row(
-                modifier = Modifier.background(MaterialTheme.colorScheme.primary)
-            ) {
-
-                Text(
-                    text = label,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 4.dp)
-                )
-            }
-        }
-    }
-}
-
-@Composable
 fun HomeButtons(
     modifier: Modifier = Modifier,
     onNavigate: (route: String) -> Unit
@@ -242,10 +199,16 @@ fun HomeButtons(
 
         Button(
             onClick = { onNavigate(AppScreens.Drawer.name) },
+            enabled = false,
             modifier = buttonModifier,
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
         ) {
             Text(text = AppScreens.Drawer.name)
+            Icon(
+                imageVector = Icons.Default.Lock,
+                contentDescription = "Lock",
+                modifier = Modifier.padding(start = 6.dp)
+            )
         }
 
         TextButton(
