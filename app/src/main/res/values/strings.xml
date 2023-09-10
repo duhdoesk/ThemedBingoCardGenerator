@@ -61,5 +61,8 @@
     <!--    ERROR SCREEN -->
     <string name="try_again">Try Again</string>
 
+    <!--    SUBS SCREEN -->
+    <string name="subs_screen">Subscriptions</string>
+
 
 </resources>

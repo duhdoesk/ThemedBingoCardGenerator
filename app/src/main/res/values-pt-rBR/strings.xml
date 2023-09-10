@@ -33,4 +33,5 @@
     <string name="finish_draw_dialog_body">Você não poderá desfazer esta ação.</string>
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
+    <string name="subs_screen">Assinaturas</string>
 </resources>

@@ -24,6 +24,7 @@ import com.duscaranari.themedbingocardsgenerator.presentation.card.CardScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.characters.CharacterScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.drawer.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.home.HomeScreen
+import com.duscaranari.themedbingocardsgenerator.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.themes.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 
@@ -48,7 +49,7 @@ fun AppNavigation() {
 
         NavHost(
             navController = navController,
-            startDestination = AppScreens.Home.name,
+            startDestination = AppScreens.Subs.name,
             modifier = Modifier.padding(innerPadding)
         ) {
 
@@ -74,6 +75,10 @@ fun AppNavigation() {
 
             composable(AppScreens.Drawer.name){
                 DrawerScreen(navController)
+            }
+
+            composable(AppScreens.Subs.name) {
+                SubsScreen()
             }
         }
     }
