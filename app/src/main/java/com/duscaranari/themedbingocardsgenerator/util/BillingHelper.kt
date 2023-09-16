@@ -1,4 +1,4 @@
-package com.ad_coding.recipesapp
+package com.duscaranari.themedbingocardsgenerator.util
 
 import android.app.Activity
 import android.util.Log
@@ -10,18 +10,24 @@ import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.ConsumeResponseListener
+import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.ProductDetailsResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
+import com.android.billingclient.api.queryProductDetails
 import com.google.common.collect.ImmutableList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.withContext
 
 class BillingHelper(
     private val activity: Activity
 ) {
+
     private val _subscriptions = MutableStateFlow<List<String>>(emptyList())
     val subscriptions = _subscriptions.asStateFlow()
 
@@ -47,7 +53,7 @@ class BillingHelper(
             .setPurchaseToken(purchase.purchaseToken)
             .build()
 
-        val listener = ConsumeResponseListener { billingResult, s -> }
+        val listener = ConsumeResponseListener { _, _ -> }
 
         billingClient.consumeAsync(consumeParams, listener)
 
@@ -164,6 +170,29 @@ class BillingHelper(
         }
     }
 
+    fun getProductsDetails(): MutableList<ProductDetails> {
+        var pDetailsList = mutableListOf<ProductDetails>()
+        val queryProductDetailsParams =
+            QueryProductDetailsParams.newBuilder()
+                .setProductList(
+                    ImmutableList.of(
+                        QueryProductDetailsParams.Product.newBuilder()
+                            .setProductId("drawer_access")
+                            .setProductType(BillingClient.ProductType.SUBS)
+                            .build()))
+                .build()
+
+        billingClient.queryProductDetailsAsync(queryProductDetailsParams) {
+                billingResult,
+                productDetailsList ->
+            // check billingResult
+            // process returned productDetailsList
+            pDetailsList = productDetailsList
+        }
+
+        return pDetailsList
+    }
+
     private fun querySubscriptionPlans(
         subscriptionPlanId: String,
     ) {
@@ -172,7 +201,7 @@ class BillingHelper(
                 .setProductList(
                     ImmutableList.of(
                         QueryProductDetailsParams.Product.newBuilder()
-                            .setProductId("drinks")
+                            .setProductId("drawer_access")
                             .setProductType(BillingClient.ProductType.SUBS)
                             .build(),
                     )
