@@ -49,7 +49,7 @@ fun AppNavigation() {
 
         NavHost(
             navController = navController,
-            startDestination = AppScreens.Subs.name,
+            startDestination = AppScreens.Home.name,
             modifier = Modifier.padding(innerPadding)
         ) {
 

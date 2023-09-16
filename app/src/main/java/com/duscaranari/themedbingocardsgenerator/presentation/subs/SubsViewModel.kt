@@ -17,7 +17,6 @@ class SubsViewModel @Inject constructor() : ViewModel() {
     fun billingClientSetup(activity: Activity): BillingHelper {
         val billingHelper = BillingHelper(activity)
         billingHelper.billingSetup()
-        billingHelper.hasSubscription()
 
         return billingHelper
     }

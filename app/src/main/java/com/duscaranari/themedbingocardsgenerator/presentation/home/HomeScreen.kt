@@ -1,8 +1,10 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.home
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -20,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -29,30 +34,45 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
+import com.duscaranari.themedbingocardsgenerator.presentation.subs.SubsViewModel
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(
+    navController: NavHostController,
+    subsViewModel: SubsViewModel = hiltViewModel()
+) {
 
-    showInterstitialAd(LocalContext.current)
+//    showInterstitialAd(LocalContext.current)
+
+    val activity = LocalContext.current as Activity
+    val billingHelper = subsViewModel.billingClientSetup(activity)
+    val currentSubscription = billingHelper.subscriptions.collectAsState().value
 
     when (rememberDeviceOrientation()) {
         is DeviceOrientation.Portrait ->
-            PortraitHomeScreen(onNavigate = { navController.navigate(it) })
+            PortraitHomeScreen(
+                onNavigate = { navController.navigate(it) },
+                currentSubscription
+            )
 
         else ->
-            LandscapeHomeScreen(onNavigate = { navController.navigate(it) })
+            LandscapeHomeScreen(
+                onNavigate = { navController.navigate(it) },
+                currentSubscription
+            )
     }
 }
 
 @Composable
-fun PortraitHomeScreen(onNavigate: (route: String) -> Unit) {
+fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, currentSubscription: List<String>) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,15 +107,20 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit) {
 
             HomeButtons(
                 onNavigate = { onNavigate(it) },
+                currentSubscription = currentSubscription,
                 modifier = Modifier
                     .fillMaxWidth()
             )
+        }
+
+        if (!currentSubscription.contains("drawer_access")) {
+            SubscriptionButton(onNavigate = { onNavigate(it) })
         }
     }
 }
 
 @Composable
-fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit) {
+fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, currentSubscription: List<String>) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -126,9 +151,14 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit) {
             ) {
 
                 HomeButtons(
+                    modifier = Modifier.fillMaxWidth(),
                     onNavigate = { onNavigate(it) },
-                    modifier = Modifier.fillMaxWidth()
+                    currentSubscription = currentSubscription
                 )
+            }
+
+            if (!currentSubscription.contains("drawer_access")) {
+                SubscriptionButton(onNavigate = { onNavigate(it) })
             }
         }
     }
@@ -175,7 +205,8 @@ fun HeaderLabels() {
 @Composable
 fun HomeButtons(
     modifier: Modifier = Modifier,
-    onNavigate: (route: String) -> Unit
+    onNavigate: (route: String) -> Unit,
+    currentSubscription: List<String>
 ) {
 
     val buttonModifier = Modifier
@@ -199,16 +230,19 @@ fun HomeButtons(
 
         Button(
             onClick = { onNavigate(AppScreens.Drawer.name) },
-            enabled = false,
+            enabled = (currentSubscription.contains("drawer_access")),
             modifier = buttonModifier,
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
         ) {
             Text(text = AppScreens.Drawer.name)
-            Icon(
-                imageVector = Icons.Default.Lock,
-                contentDescription = "Lock",
-                modifier = Modifier.padding(start = 6.dp)
-            )
+
+            if (!currentSubscription.contains("drawer_access")) {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = "Lock",
+                    modifier = Modifier.padding(start = 6.dp)
+                )
+            }
         }
 
         TextButton(
@@ -220,11 +254,35 @@ fun HomeButtons(
     }
 }
 
+@Composable
+fun SubscriptionButton(onNavigate: (route: String) -> Unit) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        TextButton(
+            onClick = { onNavigate(AppScreens.Subs.name) },
+            modifier = Modifier
+                .widthIn(min = 160.dp, max = 240.dp)
+                .padding(8.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.ShoppingCart,
+                contentDescription = "Lock",
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
+            Text(
+                text = stringResource(id = R.string.drawer_unlock),
+                modifier = Modifier.padding(horizontal = 4.dp))
+        }
+    }
+}
+
 
 // PREVIEWS
 
 @PortraitPreviews
 @Composable
 fun ScreenPreview() {
-    PortraitHomeScreen(onNavigate = { })
+    PortraitHomeScreen(onNavigate = { }, currentSubscription = emptyList())
 }
