@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.navigation
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -8,7 +7,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -26,11 +24,11 @@ import com.duscaranari.themedbingocardsgenerator.presentation.drawer.DrawerScree
 import com.duscaranari.themedbingocardsgenerator.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.themes.ThemesScreen
-import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
+import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppNavigation() {
+fun AppNavigation(billingHelper: BillingHelper, subscribed: Boolean) {
 
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -62,7 +60,10 @@ fun AppNavigation() {
             }
 
             composable(AppScreens.Home.name) {
-                HomeScreen(navController)
+                HomeScreen(
+                    navController,
+                    subscribed
+                )
             }
 
             composable("${AppScreens.Themes.name}/{screen}") {
@@ -78,7 +79,9 @@ fun AppNavigation() {
             }
 
             composable(AppScreens.Subs.name) {
-                SubsScreen()
+                SubsScreen(
+                    billingHelper
+                )
             }
         }
     }

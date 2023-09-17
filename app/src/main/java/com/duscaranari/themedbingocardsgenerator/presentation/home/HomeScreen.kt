@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.home
 
-import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,40 +22,26 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
-import com.duscaranari.themedbingocardsgenerator.presentation.subs.SubsViewModel
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
-import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    subsViewModel: SubsViewModel = hiltViewModel()
+    subscribed: Boolean
 ) {
-
-    val activity = LocalContext.current as Activity
-    val billingHelper = subsViewModel.billingClientSetup(activity)
-    val currentSubscription = billingHelper.subscriptions.collectAsState().value
-    val subscribed = currentSubscription.contains("drawer_access")
-
-    if (!subscribed) {
-        showInterstitialAd(LocalContext.current)
-    }
 
     when (rememberDeviceOrientation()) {
         is DeviceOrientation.Portrait ->

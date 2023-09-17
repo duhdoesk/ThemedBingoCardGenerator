@@ -6,12 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
+import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,11 +21,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        MobileAds.initialize(this) {}
+        MobileAds.initialize(this)
 
-        MobileAds.setRequestConfiguration(
-            RequestConfiguration.Builder().setTestDeviceIds(listOf("emulator-5554")).build()
-        )
+        val billingHelper = BillingHelper(this)
+        billingHelper.billingSetup()
+
+        val currentSubscription = billingHelper.subscriptions.value
+        val subscribed = currentSubscription.contains("drawer_access")
+
+        if (!subscribed) {
+            showInterstitialAd(this)
+        }
 
         setContent {
             ThemedBingoCardsGeneratorTheme {
@@ -34,7 +40,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    App()
+                    App(
+                        billingHelper,
+                        subscribed
+                    )
                 }
             }
         }
@@ -42,6 +51,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun App() {
-    AppNavigation()
+fun App(billingHelper: BillingHelper, subscribed: Boolean) {
+    AppNavigation(
+        billingHelper,
+        subscribed
+    )
 }
