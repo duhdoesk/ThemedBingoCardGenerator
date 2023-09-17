@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
@@ -50,29 +49,32 @@ fun HomeScreen(
     subsViewModel: SubsViewModel = hiltViewModel()
 ) {
 
-//    showInterstitialAd(LocalContext.current)
-
     val activity = LocalContext.current as Activity
     val billingHelper = subsViewModel.billingClientSetup(activity)
     val currentSubscription = billingHelper.subscriptions.collectAsState().value
+    val subscribed = currentSubscription.contains("drawer_access")
+
+    if (!subscribed) {
+        showInterstitialAd(LocalContext.current)
+    }
 
     when (rememberDeviceOrientation()) {
         is DeviceOrientation.Portrait ->
             PortraitHomeScreen(
                 onNavigate = { navController.navigate(it) },
-                currentSubscription
+                subscribed
             )
 
         else ->
             LandscapeHomeScreen(
                 onNavigate = { navController.navigate(it) },
-                currentSubscription
+                subscribed
             )
     }
 }
 
 @Composable
-fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, currentSubscription: List<String>) {
+fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -107,20 +109,20 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, currentSubscription:
 
             HomeButtons(
                 onNavigate = { onNavigate(it) },
-                currentSubscription = currentSubscription,
+                subscribed = subscribed,
                 modifier = Modifier
                     .fillMaxWidth()
             )
         }
 
-        if (!currentSubscription.contains("drawer_access")) {
+        if (!subscribed) {
             SubscriptionButton(onNavigate = { onNavigate(it) })
         }
     }
 }
 
 @Composable
-fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, currentSubscription: List<String>) {
+fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -153,11 +155,11 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, currentSubscription
                 HomeButtons(
                     modifier = Modifier.fillMaxWidth(),
                     onNavigate = { onNavigate(it) },
-                    currentSubscription = currentSubscription
+                    subscribed = subscribed
                 )
             }
 
-            if (!currentSubscription.contains("drawer_access")) {
+            if (!subscribed) {
                 SubscriptionButton(onNavigate = { onNavigate(it) })
             }
         }
@@ -206,7 +208,7 @@ fun HeaderLabels() {
 fun HomeButtons(
     modifier: Modifier = Modifier,
     onNavigate: (route: String) -> Unit,
-    currentSubscription: List<String>
+    subscribed: Boolean
 ) {
 
     val buttonModifier = Modifier
@@ -230,13 +232,13 @@ fun HomeButtons(
 
         Button(
             onClick = { onNavigate(AppScreens.Drawer.name) },
-            enabled = (currentSubscription.contains("drawer_access")),
+            enabled = (subscribed),
             modifier = buttonModifier,
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
         ) {
             Text(text = AppScreens.Drawer.name)
 
-            if (!currentSubscription.contains("drawer_access")) {
+            if (!subscribed) {
                 Icon(
                     imageVector = Icons.Default.Lock,
                     contentDescription = "Lock",
@@ -284,5 +286,5 @@ fun SubscriptionButton(onNavigate: (route: String) -> Unit) {
 @PortraitPreviews
 @Composable
 fun ScreenPreview() {
-    PortraitHomeScreen(onNavigate = { }, currentSubscription = emptyList())
+    PortraitHomeScreen(onNavigate = { }, subscribed = true)
 }
