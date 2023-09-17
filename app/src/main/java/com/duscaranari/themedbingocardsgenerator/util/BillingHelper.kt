@@ -131,6 +131,9 @@ class BillingHelper(
     fun checkSubscriptionStatus(
         subscriptionPlanId: String,
     ) {
+
+        Log.d("Billing", "checkSubscriptionStatus called")
+
         val queryPurchaseParams = QueryPurchasesParams.newBuilder()
             .setProductType(BillingClient.ProductType.SUBS)
             .build()

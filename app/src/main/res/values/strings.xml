@@ -64,6 +64,13 @@
 
     <!--    SUBS SCREEN -->
     <string name="subs_screen">Subscriptions</string>
-
-
+    <string name="plan">Plans</string>
+    <string name="plan_desc">"Pick a subscription plan and enjoy the best version of the app, getting access to drawer and being free of ads."</string>
+    <string name="monthly_plan">Monthly Plan</string>
+    <string name="trimester_plan">Trimester Plan</string>
+    <string name="yearly_plan">Yearly Plan</string>
+    <string name="monthly_plan_desc">"Get access to drawer feature and stay free of ads for a full month"</string>
+    <string name="trimester_plan_desc">"Get access to drawer feature and stay free of ads for three months"</string>
+    <string name="yearly_plan_desc">"Get access to drawer feature and stay free of ads for a year"</string>
+    <string name="best_option">"BEST OPTION"</string>
 </resources>

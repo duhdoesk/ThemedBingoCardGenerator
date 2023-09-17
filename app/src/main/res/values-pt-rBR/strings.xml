@@ -35,4 +35,13 @@
     <string name="cancel">Cancelar</string>
     <string name="subs_screen">Assinaturas</string>
     <string name="drawer_unlock">Libere o Sorteador</string>
+    <string name="plan">Planos</string>
+    <string name="plan_desc">"Escolha um plano de assinatura e aproveite o acesso ao Sorteador, além de ficar livre de anúncios."</string>
+    <string name="monthly_plan">Mensal</string>
+    <string name="trimester_plan">Trimestral</string>
+    <string name="yearly_plan">Anual</string>
+    <string name="monthly_plan_desc">"Obtenha acesso ao Sorteador e fique livre de anúncios por um mês"</string>
+    <string name="trimester_plan_desc">"Obtenha acesso ao Sorteador e fique livre de anúncios por três meses"</string>
+    <string name="yearly_plan_desc">"Obtenha acesso ao Sorteador e fique livre de anúncios por um ano"</string>
+    <string name="best_option">"MELHOR ESCOLHA"</string>
 </resources>
