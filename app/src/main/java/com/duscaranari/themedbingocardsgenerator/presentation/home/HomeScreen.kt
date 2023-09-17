@@ -212,7 +212,7 @@ fun HomeButtons(
                 containerColor = MaterialTheme.colorScheme.primary
             )
         ) {
-            Text(text = AppScreens.Card.name)
+            Text(text = stringResource(id = AppScreens.Card.stringResource))
         }
 
         Button(
@@ -221,7 +221,7 @@ fun HomeButtons(
             modifier = buttonModifier,
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
         ) {
-            Text(text = AppScreens.Drawer.name)
+            Text(text = stringResource(id = AppScreens.Drawer.stringResource))
 
             if (!subscribed) {
                 Icon(
@@ -236,7 +236,7 @@ fun HomeButtons(
             onClick = { onNavigate(AppScreens.About.name) },
             modifier = buttonModifier
         ) {
-            Text(text = AppScreens.About.name)
+            Text(text = stringResource(id = AppScreens.About.stringResource))
         }
     }
 }

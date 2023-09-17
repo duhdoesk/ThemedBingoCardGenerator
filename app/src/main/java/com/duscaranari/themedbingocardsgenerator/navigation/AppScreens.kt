@@ -6,7 +6,7 @@ import com.duscaranari.themedbingocardsgenerator.R
 enum class AppScreens (val stringResource: Int) {
 
     About(
-        stringResource = R.string.card_screen),
+        stringResource = R.string.about_screen),
 
     Card(
         stringResource = R.string.card_screen),
