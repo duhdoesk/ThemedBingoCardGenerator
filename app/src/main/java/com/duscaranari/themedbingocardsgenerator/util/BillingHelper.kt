@@ -11,7 +11,6 @@ import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.ConsumeResponseListener
 import com.android.billingclient.api.ProductDetails
-import com.android.billingclient.api.ProductDetailsResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
@@ -20,16 +19,16 @@ import com.android.billingclient.api.queryProductDetails
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
+
+const val SUBS_ID = "drawer_access"
 
 class BillingHelper(
     private val activity: Activity
 ) {
 
     private val _subscriptions = MutableStateFlow<List<String>>(emptyList())
-    val subscriptions = _subscriptions.asStateFlow()
 
     private val purchaseUpdateListener = PurchasesUpdatedListener { result, purchases ->
         if (result.responseCode == BillingResponseCode.OK && purchases != null) {
@@ -81,6 +80,7 @@ class BillingHelper(
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(result: BillingResult) {
                 if (result.responseCode == BillingResponseCode.OK) {
+                    Log.d("BILLING SETUP", BillingResponseCode.OK.toString())
                     hasSubscription()
                 }
             }
@@ -132,8 +132,6 @@ class BillingHelper(
         subscriptionPlanId: String,
     ) {
 
-        Log.d("Billing", "checkSubscriptionStatus called")
-
         val queryPurchaseParams = QueryPurchasesParams.newBuilder()
             .setProductType(BillingClient.ProductType.SUBS)
             .build()
@@ -173,29 +171,6 @@ class BillingHelper(
         }
     }
 
-    fun getProductsDetails(): MutableList<ProductDetails> {
-        var pDetailsList = mutableListOf<ProductDetails>()
-        val queryProductDetailsParams =
-            QueryProductDetailsParams.newBuilder()
-                .setProductList(
-                    ImmutableList.of(
-                        QueryProductDetailsParams.Product.newBuilder()
-                            .setProductId("drawer_access")
-                            .setProductType(BillingClient.ProductType.SUBS)
-                            .build()))
-                .build()
-
-        billingClient.queryProductDetailsAsync(queryProductDetailsParams) {
-                billingResult,
-                productDetailsList ->
-            // check billingResult
-            // process returned productDetailsList
-            pDetailsList = productDetailsList
-        }
-
-        return pDetailsList
-    }
-
     private fun querySubscriptionPlans(
         subscriptionPlanId: String,
     ) {
@@ -204,7 +179,7 @@ class BillingHelper(
                 .setProductList(
                     ImmutableList.of(
                         QueryProductDetailsParams.Product.newBuilder()
-                            .setProductId("drawer_access")
+                            .setProductId(SUBS_ID)
                             .setProductType(BillingClient.ProductType.SUBS)
                             .build(),
                     )
@@ -240,5 +215,85 @@ class BillingHelper(
                 }
             }
         }
+    }
+
+    suspend fun processPurchases(): List<ProductDetails>? {
+        val productList = ArrayList<QueryProductDetailsParams.Product>()
+
+        productList.add(
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(SUBS_ID)
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build()
+        )
+
+        val params = QueryProductDetailsParams.newBuilder()
+        params.setProductList(productList)
+
+        // leverage queryProductDetails Kotlin extension function
+        val productDetailsResult = withContext(Dispatchers.IO) {
+            billingClient.queryProductDetails(params.build())
+        }
+
+        // Process the result.
+        return productDetailsResult.productDetailsList
+    }
+
+    fun isSubscribed(): Boolean {
+
+        var subscribed  = false
+        val queryPurchaseParams = QueryPurchasesParams.newBuilder()
+            .setProductType(BillingClient.ProductType.SUBS)
+            .build()
+
+        billingClient.queryPurchasesAsync(queryPurchaseParams) { result, purchases ->
+            when (result.responseCode) {
+                BillingResponseCode.OK -> {
+                    Log.d("BILLING", BillingResponseCode.OK.toString())
+                    for (purchase in purchases) {
+                        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
+                            purchase.products.contains(SUBS_ID)
+                        ) {
+                            subscribed = true
+                            return@queryPurchasesAsync
+                        }
+                    }
+                }
+
+                BillingResponseCode.USER_CANCELED -> {
+                    // User canceled the purchase
+                    Log.d("Billing", result.debugMessage)
+                }
+
+                else -> {
+                    // Handle other error cases
+                    Log.d("Billing", result.debugMessage)
+                }
+            }
+        }
+
+        return subscribed
+    }
+
+    suspend fun getProductDetailsList(): List<ProductDetails>? {
+        val productList = ArrayList<QueryProductDetailsParams.Product>()
+
+        productList.add(
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(SUBS_ID)
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build()
+        )
+
+        val params = QueryProductDetailsParams.newBuilder()
+        params.setProductList(productList)
+
+        // leverage queryProductDetails Kotlin extension function
+        val productDetailsResult = withContext(Dispatchers.IO) {
+            billingClient.queryProductDetails(params.build())
+        }
+
+        // Process the result.
+        return productDetailsResult.productDetailsList
     }
 }

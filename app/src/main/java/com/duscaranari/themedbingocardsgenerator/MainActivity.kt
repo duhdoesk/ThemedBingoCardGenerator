@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
@@ -18,31 +21,55 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        /**
+         * Ads Config
+         */
         MobileAds.initialize(this)
 
-        val billingHelper = BillingHelper(this)
-        billingHelper.billingSetup()
+        val req = RequestConfiguration
+            .Builder()
+            .setTestDeviceIds(listOf("BFD15F0D985847E95433306355594EE5"))
+            .build()
 
-        val currentSubscription = billingHelper.subscriptions.value
-        val subscribed = currentSubscription.contains("drawer_access")
+        MobileAds.setRequestConfiguration(req)
 
-        if (!subscribed) {
-            showInterstitialAd(this)
-        }
-
+        /**
+         * Composable setup
+         */
         setContent {
             ThemedBingoCardsGeneratorTheme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    App(
-                        billingHelper,
-                        subscribed
+
+                    /**
+                     * Billing config ++ subscription check
+                     */
+                    val billingHelper = remember { BillingHelper(this) }
+                    val subscribed = remember { mutableStateOf(true) }
+
+                    LaunchedEffect(key1 = true) {
+                        billingHelper.billingSetup()
+
+                        subscribed.value = billingHelper.isSubscribed()
+
+                        if (!subscribed.value) {
+                            showInterstitialAd(this@MainActivity)
+                        }
+                    }
+
+                    /**
+                     * App calling
+                     */
+                    ThemedBingoApp(
+                        billingHelper = billingHelper,
+                        subscribed = subscribed.value
                     )
                 }
             }
@@ -51,7 +78,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun App(billingHelper: BillingHelper, subscribed: Boolean) {
+fun ThemedBingoApp(billingHelper: BillingHelper, subscribed: Boolean) {
     AppNavigation(
         billingHelper,
         subscribed
