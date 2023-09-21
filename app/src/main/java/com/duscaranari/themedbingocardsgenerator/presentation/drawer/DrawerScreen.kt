@@ -187,15 +187,6 @@ fun PortraitDrawerScreen(
                         .padding(top = 4.dp)
                 )
             }
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp)
-            ) {
-                AdmobBanner()
-            }
         }
     }
 }
@@ -285,10 +276,6 @@ fun LandscapeDrawerScreen(
                 )
 
                 Spacer(Modifier.weight(1f))
-
-                Column(Modifier.height(55.dp)) {
-                    AdmobBanner()
-                }
             }
         }
     }
