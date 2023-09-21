@@ -16,19 +16,25 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.queryProductDetails
+import com.duscaranari.themedbingocardsgenerator.TAG
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 
 const val SUBS_ID = "drawer_access"
 
-class BillingHelper(
-    private val activity: Activity
-) {
+sealed class Subscribed() {
+    object Loading: Subscribed()
+    data class Checked(val subscribed: Boolean): Subscribed()
+}
 
-    private val _subscriptions = MutableStateFlow<List<String>>(emptyList())
+class BillingHelper(private val activity: Activity) {
+
+    private val _subscribed = MutableStateFlow<Subscribed>(Subscribed.Loading)
+    val subscribed = _subscribed.asStateFlow()
 
     private val purchaseUpdateListener = PurchasesUpdatedListener { result, purchases ->
         if (result.responseCode == BillingResponseCode.OK && purchases != null) {
@@ -37,8 +43,10 @@ class BillingHelper(
             }
         } else if (result.responseCode == BillingResponseCode.USER_CANCELED) {
             // User canceled the purchase
+            Log.d(TAG, "User canceled the purchase")
         } else {
             // Handle other error cases
+            Log.d(TAG, result.debugMessage)
         }
     }
 
@@ -65,11 +73,7 @@ class BillingHelper(
 
                 billingClient.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
                     if (billingResult.responseCode == BillingResponseCode.OK) {
-                        _subscriptions.update {
-                            val newList = it.toMutableList()
-                            newList.addAll(purchase.products)
-                            newList
-                        }
+                        _subscribed.value = Subscribed.Checked(true)
                     }
                 }
             }
@@ -77,11 +81,12 @@ class BillingHelper(
     }
 
     fun billingSetup() {
+        Log.d(TAG, "billingSetup called")
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(result: BillingResult) {
                 if (result.responseCode == BillingResponseCode.OK) {
-                    Log.d("BILLING SETUP", BillingResponseCode.OK.toString())
-                    hasSubscription()
+                    Log.d(TAG, "billingSetup success")
+                    isSubscribed()
                 }
             }
 
@@ -91,46 +96,7 @@ class BillingHelper(
         })
     }
 
-    fun hasSubscription() {
-        val queryPurchaseParams = QueryPurchasesParams.newBuilder()
-            .setProductType(BillingClient.ProductType.SUBS)
-            .build()
-
-        billingClient.queryPurchasesAsync(
-            queryPurchaseParams
-        ) { result, purchases ->
-            when (result.responseCode) {
-                BillingResponseCode.OK -> {
-                    for (purchase in purchases) {
-                        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-                            // User has an active subscription
-                            _subscriptions.update {
-                                val newList = it.toMutableList()
-                                newList.addAll(purchase.products)
-                                newList
-                            }
-                            return@queryPurchasesAsync
-                        }
-                    }
-                }
-
-                BillingResponseCode.USER_CANCELED -> {
-                    // User canceled the purchase
-                }
-
-                else -> {
-                    // Handle other error cases
-                }
-            }
-
-            // User does not have an active subscription
-
-        }
-    }
-
-    fun checkSubscriptionStatus(
-        subscriptionPlanId: String,
-    ) {
+    private fun isSubscribed() {
 
         val queryPurchaseParams = QueryPurchasesParams.newBuilder()
             .setProductType(BillingClient.ProductType.SUBS)
@@ -142,15 +108,11 @@ class BillingHelper(
             when (result.responseCode) {
                 BillingResponseCode.OK -> {
                     for (purchase in purchases) {
-                        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED && purchase.products.contains(
-                                subscriptionPlanId
-                            )
+                        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
+                            purchase.products.contains(SUBS_ID)
                         ) {
-                            _subscriptions.update {
-                                val newList = it.toMutableList()
-                                newList.addAll(purchase.products)
-                                newList
-                            }
+                            Log.d(TAG, "purchase success")
+                            _subscribed.value = Subscribed.Checked(true)
                             return@queryPurchasesAsync
                         }
                     }
@@ -158,20 +120,20 @@ class BillingHelper(
 
                 BillingResponseCode.USER_CANCELED -> {
                     // User canceled the purchase
-                    Log.d("Billing", result.debugMessage)
+                    Log.d(TAG, result.debugMessage)
                 }
 
                 else -> {
                     // Handle other error cases
-                    Log.d("Billing", result.debugMessage)
+                    Log.d(TAG, result.debugMessage)
                 }
             }
-            // User does not have an active subscription
-            querySubscriptionPlans(subscriptionPlanId)
+
+            _subscribed.value = Subscribed.Checked(false)
         }
     }
 
-    private fun querySubscriptionPlans(
+    fun querySubscriptionPlans(
         subscriptionPlanId: String,
     ) {
         val queryProductDetailsParams =
@@ -215,64 +177,6 @@ class BillingHelper(
                 }
             }
         }
-    }
-
-    suspend fun processPurchases(): List<ProductDetails>? {
-        val productList = ArrayList<QueryProductDetailsParams.Product>()
-
-        productList.add(
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId(SUBS_ID)
-                .setProductType(BillingClient.ProductType.SUBS)
-                .build()
-        )
-
-        val params = QueryProductDetailsParams.newBuilder()
-        params.setProductList(productList)
-
-        // leverage queryProductDetails Kotlin extension function
-        val productDetailsResult = withContext(Dispatchers.IO) {
-            billingClient.queryProductDetails(params.build())
-        }
-
-        // Process the result.
-        return productDetailsResult.productDetailsList
-    }
-
-    fun isSubscribed(): Boolean {
-
-        var subscribed  = false
-        val queryPurchaseParams = QueryPurchasesParams.newBuilder()
-            .setProductType(BillingClient.ProductType.SUBS)
-            .build()
-
-        billingClient.queryPurchasesAsync(queryPurchaseParams) { result, purchases ->
-            when (result.responseCode) {
-                BillingResponseCode.OK -> {
-                    Log.d("BILLING", BillingResponseCode.OK.toString())
-                    for (purchase in purchases) {
-                        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
-                            purchase.products.contains(SUBS_ID)
-                        ) {
-                            subscribed = true
-                            return@queryPurchasesAsync
-                        }
-                    }
-                }
-
-                BillingResponseCode.USER_CANCELED -> {
-                    // User canceled the purchase
-                    Log.d("Billing", result.debugMessage)
-                }
-
-                else -> {
-                    // Handle other error cases
-                    Log.d("Billing", result.debugMessage)
-                }
-            }
-        }
-
-        return subscribed
     }
 
     suspend fun getProductDetailsList(): List<ProductDetails>? {

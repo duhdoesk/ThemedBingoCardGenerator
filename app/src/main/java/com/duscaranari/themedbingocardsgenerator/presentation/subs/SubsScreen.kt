@@ -64,7 +64,7 @@ fun PortraitSubsScreen(billingHelper: BillingHelper) {
         Spacer(modifier = Modifier.height(24.dp))
 
         SubsPlanCardsColumn(
-            onClick = { billingHelper.checkSubscriptionStatus(it) }
+            onClick = { billingHelper.querySubscriptionPlans(it) }
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -96,7 +96,7 @@ fun LandscapeSubsScreen(billingHelper: BillingHelper) {
 
         Column(Modifier.weight(0.7f)) {
             SubsPlanCardsColumn(
-                onClick = { billingHelper.checkSubscriptionStatus(it) }
+                onClick = { billingHelper.querySubscriptionPlans(it) }
             )
         }
     }

@@ -1,6 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,16 +9,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
+import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.Subscribed
 import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import okhttp3.internal.wait
+
+const val TAG = "BILLING"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -52,25 +62,30 @@ class MainActivity : ComponentActivity() {
                      * Billing config ++ subscription check
                      */
                     val billingHelper = remember { BillingHelper(this) }
-                    val subscribed = remember { mutableStateOf(true) }
+                    val subscribed = billingHelper.subscribed.collectAsState().value
 
                     LaunchedEffect(key1 = true) {
                         billingHelper.billingSetup()
-
-                        subscribed.value = billingHelper.isSubscribed()
-
-                        if (!subscribed.value) {
-                            showInterstitialAd(this@MainActivity)
-                        }
                     }
 
-                    /**
-                     * App calling
-                     */
-                    ThemedBingoApp(
-                        billingHelper = billingHelper,
-                        subscribed = subscribed.value
-                    )
+                    when (subscribed) {
+                        is Subscribed.Checked -> {
+                            if (!subscribed.subscribed) {
+                                showInterstitialAd(this)
+                            }
+
+                            /**
+                             * App calling
+                             */
+                            ThemedBingoApp(
+                                billingHelper = billingHelper,
+                                subscribed = subscribed.subscribed
+                            )
+                        }
+                        else -> {
+                            LoadingScreen()
+                        }
+                    }
                 }
             }
         }
