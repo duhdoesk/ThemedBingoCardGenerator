@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.presentation.about.AboutScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.card.CardScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.characters.CharacterScreen
@@ -28,7 +29,11 @@ import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppNavigation(billingHelper: BillingHelper, subscribed: Boolean) {
+fun AppNavigation(
+    billingHelper: BillingHelper,
+    subscribed: Boolean,
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+) {
 
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -80,7 +85,8 @@ fun AppNavigation(billingHelper: BillingHelper, subscribed: Boolean) {
 
             composable(AppScreens.Subs.name) {
                 SubsScreen(
-                    billingHelper
+                    billingHelper,
+                    offerDetails
                 )
             }
         }

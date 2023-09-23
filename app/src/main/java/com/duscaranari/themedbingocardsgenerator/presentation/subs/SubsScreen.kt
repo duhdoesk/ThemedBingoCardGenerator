@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
@@ -22,7 +23,8 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
 fun SubsScreen(
-    billingHelper: BillingHelper
+    billingHelper: BillingHelper,
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
 ) {
 
     Box(
@@ -31,15 +33,18 @@ fun SubsScreen(
     ) {
 
         when (rememberDeviceOrientation()) {
-            is DeviceOrientation.Portrait -> PortraitSubsScreen(billingHelper)
-            else -> LandscapeSubsScreen(billingHelper)
+            is DeviceOrientation.Portrait -> PortraitSubsScreen(billingHelper, offerDetails)
+            else -> LandscapeSubsScreen(billingHelper, offerDetails)
         }
     }
 
 }
 
 @Composable
-fun PortraitSubsScreen(billingHelper: BillingHelper) {
+fun PortraitSubsScreen(
+    billingHelper: BillingHelper,
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+) {
 
     Column(
         modifier = Modifier.sizeIn(
@@ -64,7 +69,8 @@ fun PortraitSubsScreen(billingHelper: BillingHelper) {
         Spacer(modifier = Modifier.height(24.dp))
 
         SubsPlanCardsColumn(
-            onClick = { billingHelper.querySubscriptionPlans(it) }
+            onClick = { billingHelper.querySubscriptionPlans(it) },
+            offerDetails = offerDetails
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -72,7 +78,10 @@ fun PortraitSubsScreen(billingHelper: BillingHelper) {
 }
 
 @Composable
-fun LandscapeSubsScreen(billingHelper: BillingHelper) {
+fun LandscapeSubsScreen(
+    billingHelper: BillingHelper,
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+) {
 
     Row(
         modifier = Modifier.sizeIn(
@@ -96,7 +105,8 @@ fun LandscapeSubsScreen(billingHelper: BillingHelper) {
 
         Column(Modifier.weight(0.7f)) {
             SubsPlanCardsColumn(
-                onClick = { billingHelper.querySubscriptionPlans(it) }
+                onClick = { billingHelper.querySubscriptionPlans(it) },
+                offerDetails = offerDetails
             )
         }
     }

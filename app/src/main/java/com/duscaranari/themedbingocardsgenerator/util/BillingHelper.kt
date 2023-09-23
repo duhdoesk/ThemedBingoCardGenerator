@@ -11,6 +11,7 @@ import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.ConsumeResponseListener
 import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.ProductDetails.SubscriptionOfferDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
@@ -18,23 +19,28 @@ import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.queryProductDetails
 import com.duscaranari.themedbingocardsgenerator.TAG
 import com.google.common.collect.ImmutableList
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 const val SUBS_ID = "drawer_access"
 
-sealed class Subscribed() {
-    object Loading: Subscribed()
-    data class Checked(val subscribed: Boolean): Subscribed()
+sealed class Subscription() {
+    object Loading: Subscription()
+
+    data class Checked(
+        val subscribed: Boolean,
+        val offerDetails: List<SubscriptionOfferDetails>?
+    ): Subscription()
 }
 
 class BillingHelper(private val activity: Activity) {
 
-    private val _subscribed = MutableStateFlow<Subscribed>(Subscribed.Loading)
-    val subscribed = _subscribed.asStateFlow()
+    private val _subscription = MutableStateFlow<Subscription>(Subscription.Loading)
+    val subscribed = _subscription.asStateFlow()
 
     private val purchaseUpdateListener = PurchasesUpdatedListener { result, purchases ->
         if (result.responseCode == BillingResponseCode.OK && purchases != null) {
@@ -73,7 +79,7 @@ class BillingHelper(private val activity: Activity) {
 
                 billingClient.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
                     if (billingResult.responseCode == BillingResponseCode.OK) {
-                        _subscribed.value = Subscribed.Checked(true)
+                        _subscription.value = Subscription.Checked(true, null)
                     }
                 }
             }
@@ -112,7 +118,7 @@ class BillingHelper(private val activity: Activity) {
                             purchase.products.contains(SUBS_ID)
                         ) {
                             Log.d(TAG, "purchase success")
-                            _subscribed.value = Subscribed.Checked(true)
+                            _subscription.value = Subscription.Checked(true, null)
                             return@queryPurchasesAsync
                         }
                     }
@@ -129,7 +135,10 @@ class BillingHelper(private val activity: Activity) {
                 }
             }
 
-            _subscribed.value = Subscribed.Checked(false)
+            CoroutineScope(Dispatchers.IO).launch {
+                _subscription.value = Subscription.Checked(false, getSubsOfferDetails())
+            }
+
         }
     }
 
@@ -179,7 +188,7 @@ class BillingHelper(private val activity: Activity) {
         }
     }
 
-    suspend fun getProductDetailsList(): List<ProductDetails>? {
+    private suspend fun getSubsOfferDetails(): List<ProductDetails.SubscriptionOfferDetails>? {
         val productList = ArrayList<QueryProductDetailsParams.Product>()
 
         productList.add(
@@ -198,6 +207,6 @@ class BillingHelper(private val activity: Activity) {
         }
 
         // Process the result.
-        return productDetailsResult.productDetailsList
+        return productDetailsResult.productDetailsList?.first()?.subscriptionOfferDetails
     }
 }

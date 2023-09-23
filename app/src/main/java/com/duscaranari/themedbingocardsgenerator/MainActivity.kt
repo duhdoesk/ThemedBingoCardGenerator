@@ -1,7 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,22 +9,18 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
-import com.duscaranari.themedbingocardsgenerator.util.Subscribed
+import com.duscaranari.themedbingocardsgenerator.util.Subscription
 import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import okhttp3.internal.wait
 
 const val TAG = "BILLING"
 
@@ -69,9 +64,9 @@ class MainActivity : ComponentActivity() {
                     }
 
                     when (subscribed) {
-                        is Subscribed.Checked -> {
+                        is Subscription.Checked -> {
                             if (!subscribed.subscribed) {
-                                showInterstitialAd(this)
+//                                showInterstitialAd(this)
                             }
 
                             /**
@@ -79,7 +74,8 @@ class MainActivity : ComponentActivity() {
                              */
                             ThemedBingoApp(
                                 billingHelper = billingHelper,
-                                subscribed = subscribed.subscribed
+                                subscribed = subscribed.subscribed,
+                                offerDetails = subscribed.offerDetails
                             )
                         }
                         else -> {
@@ -93,9 +89,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ThemedBingoApp(billingHelper: BillingHelper, subscribed: Boolean) {
+fun ThemedBingoApp(
+    billingHelper: BillingHelper,
+    subscribed: Boolean,
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+) {
     AppNavigation(
         billingHelper,
-        subscribed
+        subscribed,
+        offerDetails
     )
 }
