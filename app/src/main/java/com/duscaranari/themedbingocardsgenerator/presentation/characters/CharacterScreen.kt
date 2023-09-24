@@ -1,18 +1,21 @@
 package com.duscaranari.themedbingocardsgenerator.presentation.characters
 
 import android.os.Build
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.ImageLoader
@@ -33,7 +37,6 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
-import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
@@ -56,29 +59,35 @@ fun CharacterScreen(characterViewModel: CharacterViewModel = hiltViewModel()) {
 @Composable
 fun PortraitCharacterScreen(charactersList: List<Character>) {
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
 
-        Text(
-            text = stringResource(id = R.string.available_characters),
-            modifier = Modifier
-                .padding(8.dp)
-        )
+        Column(modifier = Modifier.sizeIn(maxWidth = 600.dp, maxHeight = 1000.dp)) {
 
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 160.dp),
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxSize()
-        ) {
+            Text(
+                text = stringResource(id = R.string.available_characters),
+                modifier = Modifier
+                    .padding(8.dp)
+            )
 
-            for (character in charactersList) {
-                item {
-                    CharacterScreenCard(
-                        character = character,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(8.dp)
-                    )
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(minSize = 160.dp),
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxSize()
+            ) {
+
+                for (character in charactersList) {
+                    item {
+                        CharacterScreenCard(
+                            character = character,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(8.dp)
+                        )
+                    }
                 }
             }
         }
@@ -88,6 +97,39 @@ fun PortraitCharacterScreen(charactersList: List<Character>) {
 @Composable
 fun LandscapeCharacterScreen(charactersList: List<Character>) {
 
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+
+        Column(modifier = Modifier.sizeIn(maxWidth = 1000.dp, maxHeight = 600.dp)) {
+
+            Text(
+                text = stringResource(id = R.string.available_characters),
+                modifier = Modifier
+                    .padding(8.dp)
+            )
+
+            LazyHorizontalGrid(
+                rows = GridCells.Adaptive(minSize = 100.dp),
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxSize()
+            ) {
+
+                for (character in charactersList) {
+                    item {
+                        CharacterScreenCard(
+                            character = character,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(8.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 
@@ -105,6 +147,7 @@ fun CharacterScreenCard(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
+            .aspectRatio(1.2f)
     ) {
 
         AsyncImage(
@@ -117,7 +160,7 @@ fun CharacterScreenCard(
             contentDescription = "Character Picture",
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(12.dp))
-                .fillMaxSize(),
+                .weight(1f),
             imageLoader = ImageLoader
                 .Builder(LocalContext.current)
                 .components {
@@ -135,8 +178,10 @@ fun CharacterScreenCard(
         )
 
         Text(
-            text = "${ character.characterCardId }. ${ character.characterName}",
+            text = "${character.characterCardId}. ${character.characterName}",
             textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.fillMaxWidth()
         )
     }
@@ -148,22 +193,24 @@ fun CharacterScreenCard(
  */
 
 @PortraitPreviews
+@LandscapePreviews
 @Composable
-fun PortraitCharacterScreenPreview() {
-    PortraitCharacterScreen(charactersList = provideCharacterList())
-}
+fun CharacterScreenPreview() {
 
-//@LandscapePreviews
-//@Composable
-//fun LandscapeCharacterScreenPreview() {
-//
-//}
+    when (rememberDeviceOrientation()) {
+        is DeviceOrientation.Portrait ->
+            PortraitCharacterScreen(charactersList = provideCharacterList())
+
+        else ->
+            LandscapeCharacterScreen(charactersList = provideCharacterList())
+    }
+}
 
 fun provideCharacterList(): List<Character> {
 
     val character = Character(
         characterId = "1",
-        characterName = "Melancia Amarela",
+        characterName = "Melancia Azul",
         characterCardId = "1",
         characterThemeId = "1",
         characterPicture = "https://duhdoesk.github.io/bingo-bichinhos/img/ant.png"
