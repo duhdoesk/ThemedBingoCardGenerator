@@ -32,6 +32,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -43,6 +44,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -70,6 +72,7 @@ import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import kotlin.random.Random
 
 @Composable
 fun CardScreen(
@@ -432,21 +435,29 @@ fun CardScreenCards(
 
                 Box(contentAlignment = Alignment.Center) {
 
-                    LoadingImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(character.characterPicture)
-                            .crossfade(true)
-                            .scale(Scale.FILL)
-                            .build(),
-                        contentDescription = "Character Picture",
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .aspectRatio(1.1f)
-                            .padding(8.dp)
-                    )
+                    Surface(
+                        color = Color(
+                            blue = Random.nextInt(160, 256),
+                            red = Random.nextInt(160, 256),
+                            green = Random.nextInt(160, 256),
+                            alpha = 255
+                        ),
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        LoadingImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(character.characterPicture)
+                                .crossfade(true)
+                                .scale(Scale.FILL)
+                                .build(),
+                            contentDescription = "Character Picture",
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .aspectRatio(1.1f)
+                                .padding(8.dp)
+                        )
+                    }
                 }
-
-
 
                 Box(
                     contentAlignment = Alignment.Center,

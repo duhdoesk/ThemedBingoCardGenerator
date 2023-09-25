@@ -41,21 +41,7 @@ fun LoadingImage(
 ) {
 
     val painter = rememberAsyncImagePainter(
-        model = model,
-        imageLoader = ImageLoader
-            .Builder(LocalContext.current)
-            .components {
-                when {
-                    Build.VERSION.SDK_INT >= 28 -> {
-                        add(ImageDecoderDecoder.Factory())
-                    }
-
-                    else -> {
-                        add(GifDecoder.Factory())
-                    }
-                }
-            }
-            .build()
+        model = model
     )
 
     if (painter.state is AsyncImagePainter.State.Loading) {
