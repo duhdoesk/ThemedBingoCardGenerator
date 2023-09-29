@@ -812,6 +812,283 @@
                "character_picture": "https://i.imgur.com/tdc8QYH.gif"
             }
          ]
+      },
+      {
+         "theme_id": "4",
+         "theme_name": "Objetos",
+         "theme_picture": "https://i.imgur.com/EpmnFmz.jpg",
+         "theme_characters": [
+            {
+               "character_id": "1",
+               "character_name": "Chave",
+               "character_picture": "https://i.imgur.com/TQDiK6r.jpg"
+            },
+            {
+               "character_id": "2",
+               "character_name": "Relógio",
+               "character_picture": "https://i.imgur.com/1VrdWpg.jpg"
+            },
+            {
+               "character_id": "3",
+               "character_name": "Notebook",
+               "character_picture": "https://i.imgur.com/x9q54AR.jpg"
+            },
+            {
+               "character_id": "4",
+               "character_name": "Mouse",
+               "character_picture": "https://i.imgur.com/vQHIshw.jpg"
+            },
+            {
+               "character_id": "5",
+               "character_name": "CD",
+               "character_picture": "https://i.imgur.com/TKKynfl.jpg"
+            },
+            {
+               "character_id": "6",
+               "character_name": "Fita Cassete",
+               "character_picture": "https://i.imgur.com/dyNQ6WO.jpg"
+            },
+            {
+               "character_id": "7",
+               "character_name": "Telefone",
+               "character_picture": "https://i.imgur.com/Cx4ZkL2.jpg"
+            },
+            {
+               "character_id": "8",
+               "character_name": "Microfone",
+               "character_picture": "https://i.imgur.com/YcHELOc.jpg"
+            },
+            {
+               "character_id": "9",
+               "character_name": "Coroa",
+               "character_picture": "https://i.imgur.com/5GWgKQU.jpg"
+            },
+            {
+               "character_id": "10",
+               "character_name": "Patins",
+               "character_picture": "https://i.imgur.com/Y0dfYnK.jpg"
+            },
+            {
+               "character_id": "11",
+               "character_name": "Guarda-chuva",
+               "character_picture": "https://i.imgur.com/PlVEqfo.jpg"
+            },
+            {
+               "character_id": "12",
+               "character_name": "Fone de Ouvido",
+               "character_picture": "https://i.imgur.com/AO6dKHn.jpg"
+            },
+            {
+               "character_id": "13",
+               "character_name": "Rádio",
+               "character_picture": "https://i.imgur.com/679jX9a.jpg"
+            },
+            {
+               "character_id": "14",
+               "character_name": "TV",
+               "character_picture": "https://i.imgur.com/HDdqLx2.jpg"
+            },
+            {
+               "character_id": "15",
+               "character_name": "Antena",
+               "character_picture": "https://i.imgur.com/WZVRSQ5.jpg"
+            },
+            {
+               "character_id": "16",
+               "character_name": "Anel",
+               "character_picture": "https://i.imgur.com/tTb3teE.jpg"
+            },
+            {
+               "character_id": "17",
+               "character_name": "Câmera Fotográfica",
+               "character_picture": "https://i.imgur.com/jIhMsEH.jpg"
+            },
+            {
+               "character_id": "18",
+               "character_name": "Boné",
+               "character_picture": "https://i.imgur.com/VSMAy9d.jpg"
+            },
+            {
+               "character_id": "19",
+               "character_name": "Sino",
+               "character_picture": "https://i.imgur.com/CdkE0Jq.jpg"
+            },
+            {
+               "character_id": "20",
+               "character_name": "Lanterna",
+               "character_picture": "https://i.imgur.com/PYsX2av.jpg"
+            },
+            {
+               "character_id": "21",
+               "character_name": "Lâmpada",
+               "character_picture": "https://i.imgur.com/rMQVHtD.jpg"
+            },
+            {
+               "character_id": "22",
+               "character_name": "Vela",
+               "character_picture": "https://i.imgur.com/kjaRKcX.jpg"
+            },
+            {
+               "character_id": "23",
+               "character_name": "Caderno",
+               "character_picture": "https://i.imgur.com/EpmnFmz.jpg"
+            },
+            {
+               "character_id": "24",
+               "character_name": "Leque",
+               "character_picture": "https://i.imgur.com/EHhW1jl.jpg"
+            },
+            {
+               "character_id": "25",
+               "character_name": "Balança",
+               "character_picture": "https://i.imgur.com/MATb8JI.jpg"
+            },
+            {
+               "character_id": "26",
+               "character_name": "Cadeira",
+               "character_picture": "https://i.imgur.com/CofWVcS.jpg"
+            },
+            {
+               "character_id": "27",
+               "character_name": "Balde",
+               "character_picture": "https://i.imgur.com/OU4dtX0.jpg"
+            },
+            {
+               "character_id": "28",
+               "character_name": "Serrote",
+               "character_picture": "https://i.imgur.com/R4USriy.jpg"
+            },
+            {
+               "character_id": "29",
+               "character_name": "Chave de Fenda",
+               "character_picture": "https://i.imgur.com/pclrgJ8.jpg"
+            },
+            {
+               "character_id": "30",
+               "character_name": "Lupa",
+               "character_picture": "https://i.imgur.com/TSsQc1g.jpg"
+            },
+            {
+               "character_id": "31",
+               "character_name": "Luneta",
+               "character_picture": "https://i.imgur.com/dcuBG40.jpg"
+            },
+            {
+               "character_id": "32",
+               "character_name": "Alfinete",
+               "character_picture": "https://i.imgur.com/JEusti1.jpg"
+            },
+            {
+               "character_id": "33",
+               "character_name": "Livros",
+               "character_picture": "https://i.imgur.com/MdmIqni.jpg"
+            },
+            {
+               "character_id": "34",
+               "character_name": "Sabão",
+               "character_picture": "https://i.imgur.com/xQOFlCd.jpg"
+            },
+            {
+               "character_id": "35",
+               "character_name": "Camisa",
+               "character_picture": "https://i.imgur.com/oh89pPW.jpg"
+            },
+            {
+               "character_id": "36",
+               "character_name": "Martelo",
+               "character_picture": "https://i.imgur.com/jhOSDDw.png"
+            },
+            {
+               "character_id": "37",
+               "character_name": "Bolsa",
+               "character_picture": "https://i.imgur.com/A7FInJS.jpg"
+            },
+            {
+               "character_id": "38",
+               "character_name": "Ímã",
+               "character_picture": "https://i.imgur.com/IIwPRXn.png"
+            },
+            {
+               "character_id": "39",
+               "character_name": "Anzol",
+               "character_picture": "https://i.imgur.com/qrGhl88.png"
+            },
+            {
+               "character_id": "40",
+               "character_name": "Vestido",
+               "character_picture": "https://i.imgur.com/dXc5WRk.jpg"
+            },
+            {
+               "character_id": "41",
+               "character_name": "Luvas",
+               "character_picture": "https://i.imgur.com/2QgimFT.jpg"
+            },
+            {
+               "character_id": "42",
+               "character_name": "Espelho",
+               "character_picture": "https://i.imgur.com/CPBylwP.jpg"
+            },
+            {
+               "character_id": "43",
+               "character_name": "Tesoura",
+               "character_picture": "https://i.imgur.com/1NjfJJ1.jpg"
+            },
+            {
+               "character_id": "44",
+               "character_name": "Sapato",
+               "character_picture": "https://i.imgur.com/f7t1NSi.jpg"
+            },
+            {
+               "character_id": "45",
+               "character_name": "Pincel",
+               "character_picture": "https://i.imgur.com/UCympxw.jpg"
+            },
+            {
+               "character_id": "46",
+               "character_name": "Chuveiro",
+               "character_picture": "https://i.imgur.com/e4j4jNQ.jpg"
+            },
+            {
+               "character_id": "47",
+               "character_name": "Sacolas",
+               "character_picture": "https://i.imgur.com/3xfOr8E.jpg"
+            },
+            {
+               "character_id": "48",
+               "character_name": "Escada",
+               "character_picture": "https://i.imgur.com/JUu6J4e.jpg"
+            },
+            {
+               "character_id": "49",
+               "character_name": "Óculos",
+               "character_picture": "https://i.imgur.com/pzb9BqD.jpg"
+            },
+            {
+               "character_id": "50",
+               "character_name": "Mochila",
+               "character_picture": "https://i.imgur.com/Nb7YL7E.jpg"
+            },
+            {
+               "character_id": "51",
+               "character_name": "Banheira",
+               "character_picture": "https://i.imgur.com/gyUfCBd.jpg"
+            },
+            {
+               "character_id": "52",
+               "character_name": "Tênis",
+               "character_picture": "https://i.imgur.com/yS6CI09.jpg"
+            },
+            {
+               "character_id": "53",
+               "character_name": "Régua",
+               "character_picture": "https://i.imgur.com/Ywz9jfu.jpg"
+            },
+            {
+               "character_id": "54",
+               "character_name": "Corrente",
+               "character_picture": "https://i.imgur.com/PewnuqH.jpg"
+            }
+         ]
       }
    ]
 }
