@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                     when (subscribed) {
                         is Subscription.Checked -> {
                             if (!subscribed.subscribed) {
-//                                showInterstitialAd(this)
+                                showInterstitialAd(this)
                             }
 
                             /**
