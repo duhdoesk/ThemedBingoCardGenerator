@@ -22,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -158,6 +159,7 @@ fun CharacterScreenCard(
                 .build(),
             placeholder = painterResource(id = R.drawable.compact_screen_logo),
             contentDescription = "Character Picture",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(12.dp))
                 .weight(1f),

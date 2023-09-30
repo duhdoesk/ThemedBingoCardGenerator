@@ -93,7 +93,7 @@ fun DrawerCharacterImageAndName(
                 .build(),
             placeholder = painterResource(id = R.drawable.compact_screen_logo),
             contentDescription = "Character Picture",
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(12.dp))
                 .sizeIn(

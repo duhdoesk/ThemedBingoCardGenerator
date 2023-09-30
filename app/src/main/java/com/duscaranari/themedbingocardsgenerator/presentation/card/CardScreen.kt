@@ -454,7 +454,7 @@ fun CardScreenCards(
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .aspectRatio(1.1f)
-                                .padding(8.dp)
+//                                .padding(8.dp)
                         )
                     }
                 }
