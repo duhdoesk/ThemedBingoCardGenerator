@@ -31,6 +31,8 @@ const val SUBS_ID = "drawer_access"
 sealed class Subscription() {
     object Loading: Subscription()
 
+    object Error: Subscription()
+
     data class Checked(
         val subscribed: Boolean,
         val offerDetails: List<SubscriptionOfferDetails>?
@@ -98,6 +100,7 @@ class BillingHelper(private val activity: Activity) {
 
             override fun onBillingServiceDisconnected() {
                 // Handle billing service disconnection
+                _subscription.value = Subscription.Error
             }
         })
     }

@@ -45,8 +45,8 @@
     <!--    CHARACTER SCREEN -->
     <string name="available_characters">Available Characters</string>
 
+
     <!--    DRAW SCREEN -->
-    <string name="draw_error">"Oops! We could not find the data of the theme you selected. Please, try again in a few minutes."</string>
     <string name="drawn">Drawn</string>
     <string name="draw_next_character">Draw</string>
     <string name="finish_draw">Finish</string>
@@ -61,6 +61,9 @@
 
     <!--    ERROR SCREEN -->
     <string name="try_again">Try Again</string>
+    <string name="draw_error">"Oops! We could not find the data of the theme you selected. Please, try again in a few minutes."</string>
+    <string name="billing_error">"Oops! We could not connect to Google Play. Please, try again in a few minutes."</string>
+
 
     <!--    SUBS SCREEN -->
     <string name="subs_screen">Subscriptions</string>

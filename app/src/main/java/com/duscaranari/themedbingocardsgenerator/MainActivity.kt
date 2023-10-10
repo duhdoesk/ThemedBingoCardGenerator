@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
+import com.duscaranari.themedbingocardsgenerator.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
@@ -76,6 +77,12 @@ class MainActivity : ComponentActivity() {
                                 billingHelper = billingHelper,
                                 subscribed = subscribed.subscribed,
                                 offerDetails = subscribed.offerDetails
+                            )
+                        }
+                        is Subscription.Error -> {
+                            ErrorScreen(
+                                errorMessage = R.string.billing_error,
+                                onTryAgain = { billingHelper.billingSetup() }
                             )
                         }
                         else -> {
