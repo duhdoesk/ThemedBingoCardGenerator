@@ -95,6 +95,9 @@ class BillingHelper(private val activity: Activity) {
                 if (result.responseCode == BillingResponseCode.OK) {
                     Log.d(TAG, "billingSetup success")
                     isSubscribed()
+                } else {
+                    Log.d(TAG, result.debugMessage)
+                    _subscription.value = Subscription.Error
                 }
             }
 
