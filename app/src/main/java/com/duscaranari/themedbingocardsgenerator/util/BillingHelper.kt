@@ -213,6 +213,12 @@ class BillingHelper(private val activity: Activity) {
         }
 
         // Process the result.
-        return productDetailsResult.productDetailsList?.first()?.subscriptionOfferDetails
+        with(productDetailsResult.productDetailsList) {
+            if (!this.isNullOrEmpty()) {
+                return productDetailsResult.productDetailsList?.first()?.subscriptionOfferDetails
+            } else {
+                return emptyList()
+            }
+        }
     }
 }

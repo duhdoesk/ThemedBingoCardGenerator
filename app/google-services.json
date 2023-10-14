@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746232526782",
+    "project_id": "themed-bingo",
+    "storage_bucket": "themed-bingo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746232526782:android:659e21c95f4bc4cf3fabef",
+        "android_client_info": {
+          "package_name": "com.duscaranari.themedbingocardsgenerator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2m926H-cTKIvGPYEGt2SxRju7iC072Tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
