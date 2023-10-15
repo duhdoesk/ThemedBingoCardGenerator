@@ -2,6 +2,7 @@ package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
@@ -93,15 +94,15 @@ fun DrawerCharacterImageAndName(
                 .build(),
             placeholder = painterResource(id = R.drawable.compact_screen_logo),
             contentDescription = "Character Picture",
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(12.dp))
                 .sizeIn(
-                    minWidth = 240.dp,
                     maxWidth = 320.dp,
-                    minHeight = 200.dp,
-                    maxHeight = 240.dp
-                ),
+                    maxHeight = 320.dp
+                )
+                .aspectRatio(1f)
+                .padding(vertical = 2.dp),
             imageLoader = getImageLoader(LocalContext.current)
         )
 

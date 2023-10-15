@@ -34,6 +34,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.T
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getRawTheme
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
+import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -141,7 +142,7 @@ fun PortraitDrawerScreen(
                     .padding(8.dp)
             ) {
 
-                Spacer(Modifier.weight(1f))
+                Spacer(Modifier.weight(0.5f))
 
                 DrawerThemeText(
                     text = state.theme?.themeName.orEmpty(),
@@ -277,26 +278,24 @@ fun LandscapeDrawerScreen(
  * PREVIEWS
  */
 
-/**
 @PortraitPreviews
 @Composable
 fun PortraitPreview() {
-PortraitDrawerScreen(
-onNavigate = { },
-onDrawNextCharacter = { },
-onFinishDraw = { },
-onStartNewDraw = { },
-state = DrawerUiState.Success(
-drawId = 1,
-isFinished = true,
-theme = getRawTheme(),
-themeCharacters = getRawListOfCharacters(),
-availableCharacters = getRawListOfCharacters().subList(0, 8),
-drawnCharacters = getRawListOfCharacters().subList(0, 8)
-)
-)
+    PortraitDrawerScreen(
+        onNavigate = { },
+        onDrawNextCharacter = { },
+        onFinishDraw = { },
+        onStartNewDraw = { },
+        state = DrawerUiState.Success(
+            drawId = 1,
+            isFinished = true,
+            theme = getRawTheme(),
+            themeCharacters = getRawListOfCharacters(),
+            availableCharacters = getRawListOfCharacters().subList(0, 8),
+            drawnCharacters = getRawListOfCharacters().subList(0, 8)
+        )
+    )
 }
- */
 
 @LandscapePreviews
 @Composable
