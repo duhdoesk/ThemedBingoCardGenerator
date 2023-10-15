@@ -12,9 +12,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.android.billingclient.api.ProductDetails
+import com.duscaranari.themedbingocardsgenerator.network.util.DataUpdate
 import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
-import com.duscaranari.themedbingocardsgenerator.presentation.component.ErrorScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.Subscription
@@ -22,11 +23,15 @@ import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 const val TAG = "BILLING"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var dataUpdate: DataUpdate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +65,12 @@ class MainActivity : ComponentActivity() {
                     val billingHelper = remember { BillingHelper(this) }
                     val subscribed = billingHelper.subscribed.collectAsState().value
 
+                    /**
+                     * Billing Setup ++ check for possible data updates.
+                     */
                     LaunchedEffect(key1 = true) {
                         billingHelper.billingSetup()
+                        dataUpdate.checkForUpdates()
                     }
 
                     when (subscribed) {

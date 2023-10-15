@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.presentation.component
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

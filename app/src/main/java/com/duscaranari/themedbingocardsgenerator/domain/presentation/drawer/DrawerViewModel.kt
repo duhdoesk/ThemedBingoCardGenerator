@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.presentation.drawer
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,7 +28,7 @@ class DrawerViewModel @Inject constructor(
     val uiState = _drawerUiState.asStateFlow()
 
     init {
-        funLogger("init")
+        funLogger("DrawerViewModel init")
         checkSavedState()
     }
 
@@ -38,7 +38,7 @@ class DrawerViewModel @Inject constructor(
      */
 
     fun checkSavedState() {
-        funLogger("checkSavedState")
+        funLogger("DrawerViewModel checkSavedState")
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val lastDraw = getLastDraw()) {

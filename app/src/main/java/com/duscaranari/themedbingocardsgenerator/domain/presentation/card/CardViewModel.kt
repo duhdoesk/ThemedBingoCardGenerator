@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.presentation.card
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.card
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

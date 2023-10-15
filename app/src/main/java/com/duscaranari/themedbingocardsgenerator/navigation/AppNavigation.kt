@@ -18,13 +18,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.android.billingclient.api.ProductDetails
-import com.duscaranari.themedbingocardsgenerator.presentation.about.AboutScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.card.CardScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.characters.CharacterScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.drawer.DrawerScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.home.HomeScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.subs.SubsScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.themes.ThemesScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.about.AboutScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.CardScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.characters.CharacterScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.DrawerScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.themes.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
 
 @OptIn(ExperimentalMaterial3Api::class)

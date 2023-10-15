@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.presentation.subs
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.subs
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

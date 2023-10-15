@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.presentation.themes
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.themes
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -41,7 +41,7 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
-import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 

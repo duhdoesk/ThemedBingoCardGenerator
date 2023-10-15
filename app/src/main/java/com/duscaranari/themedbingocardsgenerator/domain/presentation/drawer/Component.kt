@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.presentation.drawer
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,7 +31,7 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
-import com.duscaranari.themedbingocardsgenerator.presentation.component.getImageLoader
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getImageLoader
 
 @Composable
 fun DrawerThemeText(

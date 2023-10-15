@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.duscaranari.themedbingocardsgenerator.presentation.card
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -64,9 +64,9 @@ import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
-import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingImage
-import com.duscaranari.themedbingocardsgenerator.presentation.component.LoadingScreen
-import com.duscaranari.themedbingocardsgenerator.presentation.component.getRawListOfCharacters
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingImage
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
