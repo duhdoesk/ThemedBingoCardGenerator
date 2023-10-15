@@ -216,20 +216,25 @@ fun HomeButtons(
         }
 
         Button(
-            onClick = { onNavigate(AppScreens.Drawer.name) },
-            enabled = (subscribed),
+            onClick = {
+                if (subscribed) { onNavigate(AppScreens.Drawer.name) }
+                else { onNavigate(AppScreens.Subs.name) }
+            },
             modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            )
         ) {
-            Text(text = stringResource(id = AppScreens.Drawer.stringResource))
-
             if (!subscribed) {
                 Icon(
                     imageVector = Icons.Default.Lock,
                     contentDescription = "Lock",
-                    modifier = Modifier.padding(start = 6.dp)
+                    modifier = Modifier.padding(end = 6.dp)
                 )
             }
+
+            Text(text = stringResource(id = AppScreens.Drawer.stringResource))
         }
 
         TextButton(
@@ -260,7 +265,8 @@ fun SubscriptionButton(onNavigate: (route: String) -> Unit) {
             )
             Text(
                 text = stringResource(id = R.string.drawer_unlock),
-                modifier = Modifier.padding(horizontal = 4.dp))
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
         }
     }
 }
