@@ -190,7 +190,7 @@ fun SocialMedia(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .width(200.dp)
-                        .padding(start = 4.dp)
+                        .padding(6.dp)
                 ) {
 
                     Image(
