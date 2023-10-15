@@ -84,7 +84,7 @@ class DrawerViewModel @Inject constructor(
                         }
                     }
 
-                    else -> { }
+                    else -> {}
                 }
 
 
@@ -186,6 +186,26 @@ class DrawerViewModel @Inject constructor(
                 refreshDrawState(drawId)
             }
         }
+    }
+
+    fun getStringOfDrawnCharacters(): String {
+        var drawnString = "*CONFERÊNCIA*\n"
+        var count = 1
+
+        when (val thisUiState = uiState.value) {
+            is DrawerUiState.Success -> {
+                for (character in thisUiState.drawnCharacters) {
+                    drawnString = drawnString + "\n" +
+                            "*$count* - ${character.characterName} (${character.characterCardId})"
+
+                    count += 1
+                }
+            }
+
+            else -> {}
+        }
+
+        return drawnString
     }
 
 

@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -158,14 +159,15 @@ fun DrawerButtons(
 @Composable
 fun DrawerLazyGrid(
     characters: List<Character>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 120.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
-        modifier = modifier
+        modifier = modifier.clickable { onClick() }
     ) {
 
         for (c in characters) {

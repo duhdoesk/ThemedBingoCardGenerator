@@ -23,7 +23,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ClipboardManager
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -43,6 +46,8 @@ fun DrawerScreen(
     navController: NavHostController,
     drawerViewModel: DrawerViewModel = hiltViewModel()
 ) {
+
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -68,6 +73,9 @@ fun DrawerScreen(
                     onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
                     onFinishDraw = { showDialog = true },
                     onStartNewDraw = { drawerViewModel.stateNotStarted() },
+                    onCopyString = {
+                        clipboardManager.setText(AnnotatedString(drawerViewModel.getStringOfDrawnCharacters()))
+                    },
                     state = state
                 )
 
@@ -76,6 +84,9 @@ fun DrawerScreen(
                     onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
                     onFinishDraw = { showDialog = true },
                     onStartNewDraw = { drawerViewModel.stateNotStarted() },
+                    onCopyString = {
+                        clipboardManager.setText(AnnotatedString(drawerViewModel.getStringOfDrawnCharacters()))
+                    },
                     state = state
                 )
             }
@@ -115,6 +126,7 @@ fun PortraitDrawerScreen(
     onDrawNextCharacter: () -> Unit,
     onFinishDraw: () -> Unit,
     onStartNewDraw: () -> Unit,
+    onCopyString: () -> Unit,
     state: DrawerUiState.Success
 ) {
 
@@ -173,6 +185,7 @@ fun PortraitDrawerScreen(
 
                 DrawerLazyGrid(
                     characters = state.drawnCharacters.reversed(),
+                    onClick = onCopyString,
                     modifier = Modifier
                         .weight(2f)
                         .fillMaxWidth()
@@ -194,6 +207,7 @@ fun LandscapeDrawerScreen(
     onDrawNextCharacter: () -> Unit,
     onFinishDraw: () -> Unit,
     onStartNewDraw: () -> Unit,
+    onCopyString: () -> Unit,
     state: DrawerUiState.Success
 ) {
 
@@ -224,6 +238,7 @@ fun LandscapeDrawerScreen(
 
                 DrawerLazyGrid(
                     characters = state.drawnCharacters.reversed(),
+                    onClick = onCopyString,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(4.dp)
@@ -273,7 +288,6 @@ fun LandscapeDrawerScreen(
     }
 }
 
-
 /**
  * PREVIEWS
  */
@@ -286,6 +300,7 @@ fun PortraitPreview() {
         onDrawNextCharacter = { },
         onFinishDraw = { },
         onStartNewDraw = { },
+        onCopyString = { },
         state = DrawerUiState.Success(
             drawId = 1,
             isFinished = true,
@@ -305,6 +320,7 @@ fun LandscapePreviews() {
         onDrawNextCharacter = { },
         onFinishDraw = { },
         onStartNewDraw = { },
+        onCopyString = { },
         state = DrawerUiState.Success(
             drawId = 1,
             isFinished = true,
