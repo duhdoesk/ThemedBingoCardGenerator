@@ -458,27 +458,6 @@ fun CardScreenCards(
                         )
                     }
                 }
-
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .align(Alignment.BottomEnd)
-                ) {
-
-                    Image(
-                        painter = painterResource(id = R.drawable.hexagon),
-                        contentDescription = "Hexagon",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                        modifier = Modifier.size(36.dp)
-                    )
-
-                    Text(
-                        text = character.characterCardId,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
             }
 
             Row(
