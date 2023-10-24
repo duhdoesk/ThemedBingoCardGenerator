@@ -42,6 +42,7 @@ import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 
@@ -140,18 +141,16 @@ fun CompactThemesScreen(
         ThemesLazyVerticalGrid(
             themes = state.themesList,
             columns = 2,
-            modifier = Modifier.fillMaxWidth().weight(1f).padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             onClick = { theme ->
                 navController.navigate("${screen}/${theme.themeId}")
             })
 
         Box(modifier = Modifier.fillMaxWidth()) {
-            Image(
-                painter = painterResource(id = R.drawable.squirrel_looking_up),
-                contentDescription = "Squirrel looking up",
-                modifier = Modifier.size(160.dp),
-                contentScale = ContentScale.Fit
-            )
+            AdmobBanner()
         }
     }
 
@@ -180,7 +179,9 @@ fun MediumThemesScreen(
             ThemesLazyVerticalGrid(
                 themes = state.themesList,
                 columns = 4,
-                modifier = Modifier.fillMaxHeight().weight(1f),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f),
                 onClick = { theme ->
                     navController.navigate("${screen}/${theme.themeId}")
                 })
