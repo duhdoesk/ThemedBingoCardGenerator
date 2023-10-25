@@ -45,4 +45,5 @@
     <string name="yearly_plan_desc">"Obtenha acesso ao Sorteador e fique livre de anúncios por um ano"</string>
     <string name="best_option">"MELHOR ESCOLHA"</string>
     <string name="billing_error">"Ops! Não conseguimos estabelecer uma conexão com a Google Play. Por favor, tente novamente em alguns minutos."</string>
+    <string name="rotate_your_device">"Por favor, vire seu dispositivo."</string>
 </resources>

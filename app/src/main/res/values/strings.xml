@@ -65,6 +65,10 @@
     <string name="billing_error">"Oops! We could not connect to Google Play. Please, try again in a few minutes."</string>
 
 
+    <!--    ROTATE SCREEN -->
+    <string name="rotate_your_device">"Please, rotate your device."</string>
+
+
     <!--    SUBS SCREEN -->
     <string name="subs_screen">Subscriptions</string>
     <string name="plan">Plans</string>
