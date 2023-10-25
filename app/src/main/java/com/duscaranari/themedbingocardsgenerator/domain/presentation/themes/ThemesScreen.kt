@@ -72,14 +72,12 @@ fun ThemesScreen(
                 is WindowInfo.WindowType.Compact -> CompactThemesScreen(
                     navController = navController,
                     state = state,
-                    context = LocalContext.current,
                     screen = themesViewModel.screen
                 )
 
                 else -> MediumThemesScreen(
                     navController = navController,
                     state = state,
-                    context = LocalContext.current,
                     screen = themesViewModel.screen
                 )
             }
@@ -125,7 +123,6 @@ fun NoDataScreen(
 fun CompactThemesScreen(
     navController: NavHostController,
     state: ThemesState.Ready,
-    context: Context,
     screen: String
 ) {
 
@@ -160,7 +157,6 @@ fun CompactThemesScreen(
 fun MediumThemesScreen(
     navController: NavHostController,
     state: ThemesState.Ready,
-    context: Context,
     screen: String
 ) {
 

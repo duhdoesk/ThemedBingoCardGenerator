@@ -128,7 +128,6 @@ fun DrawerButtons(
         true -> {
             Button(
                 onClick = onStartNewDraw,
-                modifier = Modifier.width(160.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.error,
                     contentColor = MaterialTheme.colorScheme.onError

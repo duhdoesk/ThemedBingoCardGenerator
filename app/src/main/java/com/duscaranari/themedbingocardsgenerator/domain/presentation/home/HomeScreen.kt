@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -34,6 +35,7 @@ import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
+import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -68,13 +70,8 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean)
             .background(MaterialTheme.colorScheme.background)
     ) {
 
-        LogoPicture(
-            maxWidth = 1f,
-            maxHeight = 0.3f
-        )
-
         Column(
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .weight(1f)
@@ -102,6 +99,9 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean)
 
         if (!subscribed) {
             SubscriptionButton(onNavigate = { onNavigate(it) })
+            Row(Modifier.height(60.dp)) {
+                AdmobBanner()
+            }
         }
     }
 }
