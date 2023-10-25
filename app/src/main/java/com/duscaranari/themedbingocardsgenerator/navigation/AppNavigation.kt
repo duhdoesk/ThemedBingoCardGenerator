@@ -72,7 +72,7 @@ fun AppNavigation(
             }
 
             composable("${AppScreens.Themes.name}/{screen}") {
-                ThemesScreen(navController)
+                ThemesScreen(navController, subscribed)
             }
 
             composable("${AppScreens.Character.name}/{themeId}") {

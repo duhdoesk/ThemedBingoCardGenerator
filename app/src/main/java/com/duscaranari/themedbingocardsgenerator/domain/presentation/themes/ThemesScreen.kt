@@ -49,6 +49,7 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 @Composable
 fun ThemesScreen(
     navController: NavHostController,
+    subscribed: Boolean,
     themesViewModel: ThemesViewModel = hiltViewModel()
 ) {
 
@@ -72,7 +73,8 @@ fun ThemesScreen(
                 is WindowInfo.WindowType.Compact -> CompactThemesScreen(
                     navController = navController,
                     state = state,
-                    screen = themesViewModel.screen
+                    screen = themesViewModel.screen,
+                    subscribed = subscribed
                 )
 
                 else -> MediumThemesScreen(
@@ -123,7 +125,8 @@ fun NoDataScreen(
 fun CompactThemesScreen(
     navController: NavHostController,
     state: ThemesState.Ready,
-    screen: String
+    screen: String,
+    subscribed: Boolean
 ) {
 
     Column(
@@ -146,8 +149,10 @@ fun CompactThemesScreen(
                 navController.navigate("${screen}/${theme.themeId}")
             })
 
-        Box(modifier = Modifier.fillMaxWidth()) {
-            AdmobBanner()
+        if (!subscribed) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                AdmobBanner()
+            }
         }
     }
 
@@ -189,8 +194,6 @@ fun MediumThemesScreen(
                 contentScale = ContentScale.Fit
             )
         }
-
-
     }
 }
 
