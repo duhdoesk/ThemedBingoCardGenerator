@@ -25,7 +25,10 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.Draw
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.themes.ThemesScreen
+import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,6 +50,11 @@ fun AppNavigation(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() })
+        },
+        bottomBar = {
+            if (!subscribed && rememberDeviceOrientation() == DeviceOrientation.Portrait) {
+                AdmobBanner()
+            }
         }
     ) { innerPadding ->
 

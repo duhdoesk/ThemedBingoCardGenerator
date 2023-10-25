@@ -99,9 +99,6 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean)
 
         if (!subscribed) {
             SubscriptionButton(onNavigate = { onNavigate(it) })
-            Row(Modifier.height(60.dp)) {
-                AdmobBanner()
-            }
         }
     }
 }

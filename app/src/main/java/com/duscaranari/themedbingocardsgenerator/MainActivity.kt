@@ -19,7 +19,6 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.L
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.Subscription
-import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,9 +74,6 @@ class MainActivity : ComponentActivity() {
 
                     when (subscribed) {
                         is Subscription.Checked -> {
-                            if (!subscribed.subscribed) {
-                                showInterstitialAd(this)
-                            }
 
                             /**
                              * App calling

@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.characters
 
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,14 +26,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.ImageLoader
 import coil.compose.AsyncImage
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getImageLoader
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
@@ -71,7 +68,7 @@ fun PortraitCharacterScreen(charactersList: List<Character>) {
             )
 
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 160.dp),
+                columns = GridCells.Adaptive(minSize = 120.dp),
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxSize()
@@ -145,7 +142,6 @@ fun CharacterScreenCard(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .aspectRatio(1.2f)
     ) {
 
         AsyncImage(
@@ -156,30 +152,18 @@ fun CharacterScreenCard(
                 .build(),
             placeholder = painterResource(id = R.drawable.compact_screen_logo),
             contentDescription = "Character Picture",
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(12.dp))
-                .weight(1f),
-            imageLoader = ImageLoader
-                .Builder(LocalContext.current)
-                .components {
-                    when {
-                        Build.VERSION.SDK_INT >= 28 -> {
-                            add(ImageDecoderDecoder.Factory())
-                        }
-
-                        else -> {
-                            add(GifDecoder.Factory())
-                        }
-                    }
-                }
-                .build()
+                .fillMaxWidth()
+                .aspectRatio(1f),
+            imageLoader = getImageLoader(LocalContext.current)
         )
 
         Text(
-            text = "${character.characterCardId}. ${character.characterName}",
+            text = character.characterName,
             textAlign = TextAlign.Center,
-            maxLines = 1,
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.fillMaxWidth()
         )

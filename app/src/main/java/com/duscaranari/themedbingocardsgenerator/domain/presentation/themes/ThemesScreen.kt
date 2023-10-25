@@ -45,6 +45,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.L
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 
 @Composable
 fun ThemesScreen(
@@ -52,6 +53,8 @@ fun ThemesScreen(
     subscribed: Boolean,
     themesViewModel: ThemesViewModel = hiltViewModel()
 ) {
+
+    val context = LocalContext.current
 
     when (val state = themesViewModel.themesState.collectAsState().value) {
 
@@ -74,13 +77,16 @@ fun ThemesScreen(
                     navController = navController,
                     state = state,
                     screen = themesViewModel.screen,
-                    subscribed = subscribed
+                    subscribed = subscribed,
+                    context = context
                 )
 
                 else -> MediumThemesScreen(
                     navController = navController,
                     state = state,
-                    screen = themesViewModel.screen
+                    screen = themesViewModel.screen,
+                    subscribed = subscribed,
+                    context = context
                 )
             }
         }
@@ -126,7 +132,8 @@ fun CompactThemesScreen(
     navController: NavHostController,
     state: ThemesState.Ready,
     screen: String,
-    subscribed: Boolean
+    subscribed: Boolean,
+    context: Context
 ) {
 
     Column(
@@ -146,14 +153,11 @@ fun CompactThemesScreen(
                 .weight(1f)
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             onClick = { theme ->
+                if (!subscribed) {
+                    showInterstitialAd(context)
+                }
                 navController.navigate("${screen}/${theme.themeId}")
             })
-
-        if (!subscribed) {
-            Box(modifier = Modifier.fillMaxWidth()) {
-                AdmobBanner()
-            }
-        }
     }
 
 }
@@ -162,7 +166,9 @@ fun CompactThemesScreen(
 fun MediumThemesScreen(
     navController: NavHostController,
     state: ThemesState.Ready,
-    screen: String
+    screen: String,
+    subscribed: Boolean,
+    context: Context
 ) {
 
     Column(
@@ -184,6 +190,9 @@ fun MediumThemesScreen(
                     .fillMaxHeight()
                     .weight(1f),
                 onClick = { theme ->
+                    if (!subscribed) {
+                        showInterstitialAd(context)
+                    }
                     navController.navigate("${screen}/${theme.themeId}")
                 })
 
