@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
+import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
@@ -60,214 +61,6 @@ fun HomeScreen(
     }
 }
 
-@Composable
-fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean) {
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .weight(1f)
-                .padding(16.dp)
-        ) {
-
-            HeaderLabels()
-
-            Image(
-                painter = painterResource(id = R.drawable.smiling_squirrel),
-                contentDescription = "Smiling Squirrel",
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .size(132.dp)
-                    .padding(vertical = 16.dp)
-            )
-
-            HomeButtons(
-                onNavigate = { onNavigate(it) },
-                subscribed = subscribed,
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-        }
-
-        if (!subscribed) {
-            SubscriptionButton(onNavigate = { onNavigate(it) })
-        }
-    }
-}
-
-@Composable
-fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-
-        LogoPicture(
-            maxWidth = 0.4f,
-            maxHeight = 1f
-        )
-
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-        ) {
-
-            HeaderLabels()
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp)
-            ) {
-
-                HomeButtons(
-                    modifier = Modifier.fillMaxWidth(),
-                    onNavigate = { onNavigate(it) },
-                    subscribed = subscribed
-                )
-            }
-
-            if (!subscribed) {
-                SubscriptionButton(onNavigate = { onNavigate(it) })
-            }
-        }
-    }
-}
-
-
-// COMMON COMPOSABLE FUNCTIONS
-
-@Composable
-fun LogoPicture(
-    maxWidth: Float,
-    maxHeight: Float
-) {
-    Image(
-        painter = painterResource(id = R.drawable.compact_screen_logo),
-        contentDescription = stringResource(id = R.string.logo),
-        contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .fillMaxWidth(maxWidth)
-            .fillMaxHeight(maxHeight)
-            .shadow(16.dp)
-    )
-}
-
-@Composable
-fun HeaderLabels() {
-    Text(
-        text = stringResource(id = R.string.app_name),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier
-            .fillMaxWidth()
-    )
-
-    Text(
-        text = stringResource(id = R.string.built_by),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.labelLarge,
-        modifier = Modifier
-            .fillMaxWidth()
-    )
-}
-
-@Composable
-fun HomeButtons(
-    modifier: Modifier = Modifier,
-    onNavigate: (route: String) -> Unit,
-    subscribed: Boolean
-) {
-
-    val buttonModifier = Modifier
-        .widthIn(min = 160.dp, max = 240.dp)
-
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        Button(
-            onClick = { onNavigate("${AppScreens.Themes.name}/${AppScreens.Card.name}") },
-            modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            )
-        ) {
-            Text(text = stringResource(id = AppScreens.Card.stringResource))
-        }
-
-        Button(
-            onClick = {
-                if (subscribed) { onNavigate(AppScreens.Drawer.name) }
-                else { onNavigate(AppScreens.Subs.name) }
-            },
-            modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            )
-        ) {
-            if (!subscribed) {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = "Lock",
-                    modifier = Modifier.padding(end = 6.dp)
-                )
-            }
-
-            Text(text = stringResource(id = AppScreens.Drawer.stringResource))
-        }
-
-        TextButton(
-            onClick = { onNavigate(AppScreens.About.name) },
-            modifier = buttonModifier
-        ) {
-            Text(text = stringResource(id = AppScreens.About.stringResource))
-        }
-    }
-}
-
-@Composable
-fun SubscriptionButton(onNavigate: (route: String) -> Unit) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        TextButton(
-            onClick = { onNavigate(AppScreens.Subs.name) },
-            modifier = Modifier
-                .widthIn(min = 160.dp, max = 240.dp)
-                .padding(8.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.ShoppingCart,
-                contentDescription = "Lock",
-                modifier = Modifier.padding(horizontal = 4.dp)
-            )
-            Text(
-                text = stringResource(id = R.string.drawer_unlock),
-                modifier = Modifier.padding(horizontal = 4.dp)
-            )
-        }
-    }
-}
-
 
 // PREVIEWS
 
@@ -275,4 +68,10 @@ fun SubscriptionButton(onNavigate: (route: String) -> Unit) {
 @Composable
 fun ScreenPreview() {
     PortraitHomeScreen(onNavigate = { }, subscribed = true)
+}
+
+@LandscapePreviews
+@Composable
+fun LandscapePreviews() {
+    LandscapeHomeScreen(onNavigate = { }, subscribed = true)
 }
