@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -78,7 +79,7 @@ fun DrawerDrawnText(
 
 @Composable
 fun DrawerCharacterImageAndName(
-    character: Character,
+    character: Character?,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -87,32 +88,56 @@ fun DrawerCharacterImageAndName(
         modifier = modifier
     ) {
 
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(character.characterPicture)
-                .crossfade(true)
-                .scale(Scale.FILL)
-                .build(),
-            placeholder = painterResource(id = R.drawable.compact_screen_logo),
-            contentDescription = "Character Picture",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .clip(shape = RoundedCornerShape(12.dp))
-                .sizeIn(
-                    maxWidth = 320.dp,
-                    maxHeight = 320.dp
-                )
-                .aspectRatio(1f)
-                .padding(vertical = 2.dp),
-            imageLoader = getImageLoader(LocalContext.current)
-        )
+        if (character == null) {
+            Image(
+                painter = painterResource(id = R.drawable.waving_octopus),
+                contentDescription = "Character Picture",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(12.dp))
+                    .sizeIn(
+                        maxWidth = 320.dp,
+                        maxHeight = 320.dp
+                    )
+                    .aspectRatio(1f)
+                    .padding(vertical = 2.dp)
+            )
 
-        Text(
-            text = character.characterName,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.fillMaxWidth()
-        )
+            Text(
+                text = stringResource(id = R.string.start_drawing),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.fillMaxWidth()
+            )
+        } else {
+
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(character.characterPicture)
+                    .crossfade(true)
+                    .scale(Scale.FILL)
+                    .build(),
+                placeholder = painterResource(id = R.drawable.compact_screen_logo),
+                contentDescription = "Character Picture",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(12.dp))
+                    .sizeIn(
+                        maxWidth = 320.dp,
+                        maxHeight = 320.dp
+                    )
+                    .aspectRatio(1f)
+                    .padding(vertical = 2.dp),
+                imageLoader = getImageLoader(LocalContext.current)
+            )
+
+            Text(
+                text = character.characterName,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
 

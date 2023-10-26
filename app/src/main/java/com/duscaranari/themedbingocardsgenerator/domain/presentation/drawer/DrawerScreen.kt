@@ -168,7 +168,7 @@ fun PortraitDrawerScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                character?.let { DrawerCharacterImageAndName(character = it) }
+                DrawerCharacterImageAndName(character = character)
 
                 Spacer(Modifier.height(32.dp))
 

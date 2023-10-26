@@ -46,4 +46,5 @@
     <string name="best_option">"MELHOR ESCOLHA"</string>
     <string name="billing_error">"Ops! Não conseguimos estabelecer uma conexão com a Google Play. Por favor, tente novamente em alguns minutos."</string>
     <string name="rotate_your_device">"Por favor, vire seu dispositivo."</string>
+    <string name="start_drawing">"Clique em Sortear para começar."</string>
 </resources>

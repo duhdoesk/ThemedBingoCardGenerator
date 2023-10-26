@@ -53,6 +53,7 @@
     <string name="start_new_draw">Start New Draw</string>
     <string name="finish_draw_dialog_title">Are you sure you want to finish the current draw?</string>
     <string name="finish_draw_dialog_body">This action cannot be undone.</string>
+    <string name="start_drawing">"Click Draw to start."</string>
 
 
     <!--    LOADING SCREEN -->
