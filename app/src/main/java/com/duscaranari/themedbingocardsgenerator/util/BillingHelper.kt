@@ -29,14 +29,14 @@ import kotlinx.coroutines.withContext
 const val SUBS_ID = "drawer_access"
 
 sealed class Subscription() {
-    object Loading: Subscription()
+    object Loading : Subscription()
 
-    object Error: Subscription()
+    object Error : Subscription()
 
     data class Checked(
         val subscribed: Boolean,
         val offerDetails: List<SubscriptionOfferDetails>?
-    ): Subscription()
+    ) : Subscription()
 }
 
 class BillingHelper(private val activity: Activity) {
@@ -72,17 +72,15 @@ class BillingHelper(private val activity: Activity) {
 
         billingClient.consumeAsync(consumeParams, listener)
 
-        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-            if (!purchase.isAcknowledged) {
-                val acknowledgePurchaseParams = AcknowledgePurchaseParams
-                    .newBuilder()
-                    .setPurchaseToken(purchase.purchaseToken)
-                    .build()
+        if (!purchase.isAcknowledged) {
+            val acknowledgePurchaseParams = AcknowledgePurchaseParams
+                .newBuilder()
+                .setPurchaseToken(purchase.purchaseToken)
+                .build()
 
-                billingClient.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
-                    if (billingResult.responseCode == BillingResponseCode.OK) {
-                        _subscription.value = Subscription.Checked(true, null)
-                    }
+            billingClient.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
+                if (billingResult.responseCode == BillingResponseCode.OK) {
+                    _subscription.value = Subscription.Checked(true, null)
                 }
             }
         }
