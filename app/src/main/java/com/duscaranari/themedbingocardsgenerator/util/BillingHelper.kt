@@ -64,6 +64,11 @@ class BillingHelper(private val activity: Activity) {
         .build()
 
     private fun handlePurchase(purchase: Purchase) {
+
+        Log.d("Purchase", "Iniciando fluxo.")
+        Log.d("Purchase State", purchase.purchaseState.toString())
+        Log.d("Purchase Acknowledged", purchase.isAcknowledged.toString())
+
         val consumeParams = ConsumeParams.newBuilder()
             .setPurchaseToken(purchase.purchaseToken)
             .build()
@@ -73,6 +78,11 @@ class BillingHelper(private val activity: Activity) {
         billingClient.consumeAsync(consumeParams, listener)
 
         if (!purchase.isAcknowledged) {
+
+            Log.d("Purchase", "Iniciando fluxo nao reconhecido.")
+            Log.d("Purchase State", purchase.purchaseState.toString())
+            Log.d("Purchase Acknowledged", purchase.isAcknowledged.toString())
+
             val acknowledgePurchaseParams = AcknowledgePurchaseParams
                 .newBuilder()
                 .setPurchaseToken(purchase.purchaseToken)
@@ -82,6 +92,10 @@ class BillingHelper(private val activity: Activity) {
                 if (billingResult.responseCode == BillingResponseCode.OK) {
                     _subscription.value = Subscription.Checked(true, null)
                 }
+
+                Log.d("Purchase", "Terminando fluxo - dentro do metodo acknowledge.")
+                Log.d("Purchase State", purchase.purchaseState.toString())
+                Log.d("Purchase Acknowledged", purchase.isAcknowledged.toString())
             }
         }
     }
@@ -216,6 +230,22 @@ class BillingHelper(private val activity: Activity) {
                 return productDetailsResult.productDetailsList?.first()?.subscriptionOfferDetails
             } else {
                 return emptyList()
+            }
+        }
+    }
+
+    fun queryPurchases() {
+        val params = QueryPurchasesParams.newBuilder()
+            .setProductType(BillingClient.ProductType.SUBS)
+
+        // uses queryPurchasesAsync Kotlin extension function
+        billingClient.queryPurchasesAsync(params.build()) { result, purchases ->
+            when (result.responseCode) {
+                BillingResponseCode.OK -> {
+                    for (purchase in purchases) {
+                        handlePurchase(purchase)
+                    }
+                }
             }
         }
     }

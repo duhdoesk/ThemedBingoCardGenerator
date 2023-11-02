@@ -31,6 +31,12 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var dataUpdate: DataUpdate
+    override fun onResume() {
+        super.onResume()
+        val billingHelper = BillingHelper(this)
+        billingHelper.billingSetup()
+        billingHelper.queryPurchases()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +65,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     /**
-                     * Billing config ++ subscription check
+                     * Subscription check
                      */
                     val billingHelper = remember { BillingHelper(this) }
                     val subscribed = billingHelper.subscribed.collectAsState().value
@@ -69,6 +75,8 @@ class MainActivity : ComponentActivity() {
                      */
                     LaunchedEffect(key1 = true) {
                         billingHelper.billingSetup()
+                        billingHelper.queryPurchases()
+
                         dataUpdate.checkForUpdates()
                     }
 
@@ -84,12 +92,14 @@ class MainActivity : ComponentActivity() {
                                 offerDetails = subscribed.offerDetails
                             )
                         }
+
                         is Subscription.Error -> {
                             ErrorScreen(
                                 errorMessage = R.string.billing_error,
                                 onTryAgain = { billingHelper.billingSetup() }
                             )
                         }
+
                         else -> {
                             LoadingScreen()
                         }
