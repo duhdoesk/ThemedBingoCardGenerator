@@ -1,6 +1,6 @@
 {
   "app_name": "Themed Bingo Cards Generator",
-  "app_data_version": "1.3.1",
+  "app_data_version": "1.4",
   "app_data": [
     {
       "theme_id": "1",
@@ -1344,6 +1344,293 @@
           "character_id": "50",
           "character_name": "Albie ET",
           "character_picture": "https://i.imgur.com/RwHW2aQ.jpg"
+        }
+      ]
+    },
+    {
+      "theme_id": "6",
+      "theme_name": "Países",
+      "theme_picture": "https://i.imgur.com/qond926.jpg",
+      "theme_characters": [
+        {
+          "character_id": "1",
+          "character_name": "África do Sul",
+          "character_picture": "https://i.imgur.com/v72rIeC.png"
+        },
+        {
+          "character_id": "2",
+          "character_name": "Alemanha",
+          "character_picture": "https://i.imgur.com/de2biFM.png"
+        },
+        {
+          "character_id": "3",
+          "character_name": "Angola",
+          "character_picture": "https://i.imgur.com/XRt5biR.png"
+        },
+        {
+          "character_id": "4",
+          "character_name": "Arábia Saudita",
+          "character_picture": "https://i.imgur.com/8C2Ij4i.png"
+        },
+        {
+          "character_id": "5",
+          "character_name": "Argentina",
+          "character_picture": "https://i.imgur.com/kMU5Jsr.png"
+        },
+        {
+          "character_id": "6",
+          "character_name": "Austrália",
+          "character_picture": "https://i.imgur.com/A7Aaqp6.png"
+        },
+        {
+          "character_id": "7",
+          "character_name": "Áustria",
+          "character_picture": "https://i.imgur.com/ojhXn2t.png"
+        },
+        {
+          "character_id": "8",
+          "character_name": "Bahamas",
+          "character_picture": "https://i.imgur.com/GoUTsDz.png"
+        },
+        {
+          "character_id": "9",
+          "character_name": "Bélgica",
+          "character_picture": "https://i.imgur.com/AwZmD3C.png"
+        },
+        {
+          "character_id": "10",
+          "character_name": "Brasil",
+          "character_picture": "https://i.imgur.com/WlFzjBg.png"
+        },
+        {
+          "character_id": "11",
+          "character_name": "Camarões",
+          "character_picture": "https://i.imgur.com/eBwMjvq.png"
+        },
+        {
+          "character_id": "12",
+          "character_name": "Canadá",
+          "character_picture": "https://i.imgur.com/nauRHuO.png"
+        },
+        {
+          "character_id": "13",
+          "character_name": "Chile",
+          "character_picture": "https://i.imgur.com/Z9DmKll.png"
+        },
+        {
+          "character_id": "14",
+          "character_name": "China",
+          "character_picture": "https://i.imgur.com/JsMyDJP.png"
+        },
+        {
+          "character_id": "15",
+          "character_name": "Coréia do Norte",
+          "character_picture": "https://i.imgur.com/PAKHgAW.png"
+        },
+        {
+          "character_id": "16",
+          "character_name": "Coréia do Sul",
+          "character_picture": "https://i.imgur.com/aSVhHv4.png"
+        },
+        {
+          "character_id": "17",
+          "character_name": "Costa do Marfim",
+          "character_picture": "https://i.imgur.com/dMAqdzl.png"
+        },
+        {
+          "character_id": "18",
+          "character_name": "Dinamarca",
+          "character_picture": "https://i.imgur.com/PaNaK3r.png"
+        },
+        {
+          "character_id": "19",
+          "character_name": "Egito",
+          "character_picture": "https://i.imgur.com/H4TQc6X.png"
+        },
+        {
+          "character_id": "20",
+          "character_name": "Espanha",
+          "character_picture": "https://i.imgur.com/qm5j9ZK.png"
+        },
+        {
+          "character_id": "21",
+          "character_name": "Estados Unidos",
+          "character_picture": "https://i.imgur.com/07CbOGZ.png"
+        },
+        {
+          "character_id": "22",
+          "character_name": "Filipinas",
+          "character_picture": "https://i.imgur.com/eDIuiR4.png"
+        },
+        {
+          "character_id": "23",
+          "character_name": "Finlândia",
+          "character_picture": "https://i.imgur.com/FCZT9hI.png"
+        },
+        {
+          "character_id": "24",
+          "character_name": "França",
+          "character_picture": "https://i.imgur.com/jT7l1wH.png"
+        },
+        {
+          "character_id": "25",
+          "character_name": "Grécia",
+          "character_picture": "https://i.imgur.com/wm7bUeC.png"
+        },
+        {
+          "character_id": "26",
+          "character_name": "Holanda",
+          "character_picture": "https://i.imgur.com/2uUiHit.png"
+        },
+        {
+          "character_id": "27",
+          "character_name": "Hungria",
+          "character_picture": "https://i.imgur.com/1JMsio3.png"
+        },
+        {
+          "character_id": "28",
+          "character_name": "Índia",
+          "character_picture": "https://i.imgur.com/fD8ZmQh.png"
+        },
+        {
+          "character_id": "29",
+          "character_name": "Indonésia",
+          "character_picture": "https://i.imgur.com/fNQosW5.png"
+        },
+        {
+          "character_id": "30",
+          "character_name": "Inglaterra",
+          "character_picture": "https://i.imgur.com/CrtHO9f.png"
+        },
+        {
+          "character_id": "31",
+          "character_name": "Irlanda",
+          "character_picture": "https://i.imgur.com/vzc5mvs.png"
+        },
+        {
+          "character_id": "32",
+          "character_name": "Islândia",
+          "character_picture": "https://i.imgur.com/8MZIYSO.png"
+        },
+        {
+          "character_id": "33",
+          "character_name": "Israel",
+          "character_picture": "https://i.imgur.com/gOTlq7v.png"
+        },
+        {
+          "character_id": "34",
+          "character_name": "Itália",
+          "character_picture": "https://i.imgur.com/5OlHNi4.png"
+        },
+        {
+          "character_id": "35",
+          "character_name": "Jamaica",
+          "character_picture": "https://i.imgur.com/w0dSoym.png"
+        },
+        {
+          "character_id": "36",
+          "character_name": "Japão",
+          "character_picture": "https://i.imgur.com/XKSLBm4.png"
+        },
+        {
+          "character_id": "37",
+          "character_name": "Malásia",
+          "character_picture": "https://i.imgur.com/y6BcUCF.png"
+        },
+        {
+          "character_id": "38",
+          "character_name": "México",
+          "character_picture": "https://i.imgur.com/Wxccfgr.png"
+        },
+        {
+          "character_id": "39",
+          "character_name": "Nigéria",
+          "character_picture": "https://i.imgur.com/PxSqTx8.png"
+        },
+        {
+          "character_id": "40",
+          "character_name": "Noruega",
+          "character_picture": "https://i.imgur.com/0nSPOYl.png"
+        },
+        {
+          "character_id": "41",
+          "character_name": "Nova Zelândia",
+          "character_picture": "https://i.imgur.com/F28bUd6.png"
+        },
+        {
+          "character_id": "42",
+          "character_name": "Palestina",
+          "character_picture": "https://i.imgur.com/4s9Yths.png"
+        },
+        {
+          "character_id": "43",
+          "character_name": "Paquistão",
+          "character_picture": "https://i.imgur.com/Iu4Kwrj.png"
+        },
+        {
+          "character_id": "44",
+          "character_name": "Paraguai",
+          "character_picture": "https://i.imgur.com/ePiO53A.png"
+        },
+        {
+          "character_id": "45",
+          "character_name": "Peru",
+          "character_picture": "https://i.imgur.com/tF5sTsW.png"
+        },
+        {
+          "character_id": "46",
+          "character_name": "Polônia",
+          "character_picture": "https://i.imgur.com/vfWHpDC.png"
+        },
+        {
+          "character_id": "47",
+          "character_name": "Porto Rico",
+          "character_picture": "https://i.imgur.com/HC3l83m.png"
+        },
+        {
+          "character_id": "48",
+          "character_name": "Portugal",
+          "character_picture": "https://i.imgur.com/uiHkk6N.png"
+        },
+        {
+          "character_id": "49",
+          "character_name": "República Tcheca",
+          "character_picture": "https://i.imgur.com/4lv7qgS.png"
+        },
+        {
+          "character_id": "50",
+          "character_name": "Romênia",
+          "character_picture": "https://i.imgur.com/20fszdM.png"
+        },
+        {
+          "character_id": "51",
+          "character_name": "Rússia",
+          "character_picture": "https://i.imgur.com/kIBygtG.png"
+        },
+        {
+          "character_id": "52",
+          "character_name": "Singapura",
+          "character_picture": "https://i.imgur.com/l7QEFiQ.png"
+        },
+        {
+          "character_id": "53",
+          "character_name": "Suécia",
+          "character_picture": "https://i.imgur.com/sozBsc5.png"
+        },
+        {
+          "character_id": "54",
+          "character_name": "Suíça",
+          "character_picture": "https://i.imgur.com/JF9Xs7K.png"
+        },
+        {
+          "character_id": "55",
+          "character_name": "Tailândia",
+          "character_picture": "https://i.imgur.com/KNLjtPj.png"
+        },
+        {
+          "character_id": "56",
+          "character_name": "Uruguai",
+          "character_picture": "https://i.imgur.com/vgQmzAO.png"
         }
       ]
     }
