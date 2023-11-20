@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.card
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,8 +45,9 @@ class CardViewModel @Inject constructor(
                 _cardState.value = CardState.Ready(
                     currentTheme = theme,
                     themeCharacters = characters,
-                    drawnCharacters = shuffleCharacters(characters),
-                    currentUser = user?.userName.orEmpty()
+                    drawnCharacters = shuffleCharacters(characters, CardSize.LARGE.characterAmount),
+                    currentUser = user?.userName.orEmpty(),
+                    cardSize = CardSize.LARGE
                 )
             }
         }
@@ -55,7 +58,7 @@ class CardViewModel @Inject constructor(
         when (val state = cardState.value) {
             is CardState.Ready -> {
                 _cardState.value = state.copy(
-                    drawnCharacters = shuffleCharacters(state.themeCharacters)
+                    drawnCharacters = shuffleCharacters(state.themeCharacters, state.cardSize.characterAmount)
                 )
             }
 
@@ -86,8 +89,23 @@ class CardViewModel @Inject constructor(
         }
     }
 
-    private fun shuffleCharacters(characters: List<Character>): List<Character> {
-        return characters.shuffled().subList(0, 9)
+    fun changeCardSize(boolean: Boolean) {
+        val cardSize: CardSize
+
+        when (val state = cardState.value) {
+            is CardState.Ready -> {
+                cardSize = if (boolean) CardSize.LARGE else CardSize.MEDIUM
+                _cardState.value = state.copy(cardSize = cardSize)
+                drawNewCard()
+            }
+
+            else -> return
+        }
+
+    }
+
+    private fun shuffleCharacters(characters: List<Character>, amount: Int): List<Character> {
+        return characters.shuffled().subList(0, amount)
     }
 
     private suspend fun getThemeById(themeId: String): Theme? {

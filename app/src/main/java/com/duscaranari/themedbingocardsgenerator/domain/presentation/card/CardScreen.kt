@@ -38,7 +38,8 @@ fun CardScreen(
                             navController.navigate(
                                 "${AppScreens.Character.name}/${state.currentTheme.themeId}"
                             )
-                        }
+                        },
+                        onChangeCardSize = { cardViewModel.changeCardSize(it) }
                     )
 
                 else ->
@@ -50,7 +51,8 @@ fun CardScreen(
                             navController.navigate(
                                 "${AppScreens.Character.name}/${state.currentTheme.themeId}"
                             )
-                        }
+                        },
+                        onChangeCardSize = { cardViewModel.changeCardSize(it) }
                     )
             }
         }
@@ -75,11 +77,13 @@ fun PortraitPreview() {
             ),
             currentUser = "Dwight Schrute",
             drawnCharacters = characters,
-            themeCharacters = characters
+            themeCharacters = characters,
+            cardSize = CardSize.MEDIUM
         ),
         onUpdateCurrentUser = { },
         onDrawNewCard = { },
         onNavToCharactersScreen = { },
+        onChangeCardSize = { }
     )
 }
 
@@ -101,7 +105,9 @@ fun LandscapePreview() {
             ),
             currentUser = "Dwight Schrute",
             drawnCharacters = characters,
-            themeCharacters = characters
-        )
+            themeCharacters = characters,
+            cardSize = CardSize.LARGE
+        ),
+        onChangeCardSize = { }
     )
 }

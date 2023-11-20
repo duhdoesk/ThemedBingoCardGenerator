@@ -7,15 +7,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -28,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -45,7 +42,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import coil.request.ImageRequest
@@ -53,6 +49,7 @@ import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.CardSize
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingImage
 import kotlin.random.Random
 
@@ -84,60 +81,47 @@ fun CardScreenHeader(
 }
 
 @Composable
-fun CardScreenLazyVerticalGrid(
+fun CardScreenGrid(
     characters: List<Character>,
-    columns: Int,
+    cardSize: CardSize,
     modifier: Modifier = Modifier,
 ) {
 
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(6.dp)
+    ) {
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(columns),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(8.dp)
-        ) {
+        val rows = cardSize.characterAmount / 3
+        var index = 0
 
-            for (character in characters) {
-                item {
-                    CardScreenCards(
-                        character,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(0.9f)
-                    )
-                }
-            }
-        }
-    }
-}
+        for (row in 1..rows) {
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                CardScreenCards(
+                    characters[index],
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(0.9f)
+                        .weight(1f)
+                )
 
-@Composable
-fun CardScreenLazyHorizontalGrid(
-    characters: List<Character>,
-    rows: Int,
-    modifier: Modifier = Modifier,
-    cardModifier: Modifier = Modifier,
-    spacing: Dp
-) {
+                CardScreenCards(
+                    characters[index + 1],
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(0.9f)
+                        .weight(1f)
+                )
 
-    Column(modifier = modifier) {
+                CardScreenCards(
+                    characters[index + 2],
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(0.9f)
+                        .weight(1f)
+                )
 
-        LazyHorizontalGrid(
-            rows = GridCells.Fixed(rows),
-            horizontalArrangement = Arrangement.spacedBy(spacing),
-            verticalArrangement = Arrangement.spacedBy(spacing),
-            contentPadding = PaddingValues(spacing)
-        ) {
-
-            for (character in characters) {
-                item {
-                    CardScreenCards(
-                        character = character,
-                        modifier = cardModifier
-                    )
-                }
+                index += 3
             }
         }
     }
@@ -333,6 +317,39 @@ fun NameDialog(
                     Text("OK")
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun SizeSelectorSwitchButton(
+    optionSelected: CardSize,
+    onClick: (Boolean) -> Unit
+) {
+    val checkedState = remember { mutableStateOf(optionSelected == CardSize.LARGE) }
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = stringResource(id = R.string.card_size))
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Text(
+                text = stringResource(id = R.string.medium_card)
+            )
+
+            Switch(
+                checked = checkedState.value,
+                onCheckedChange = {
+                    checkedState.value = !checkedState.value
+                    onClick(checkedState.value)
+                })
+
+            Text(
+                text = stringResource(id = R.string.large_card)
+            )
         }
     }
 }

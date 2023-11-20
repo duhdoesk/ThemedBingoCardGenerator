@@ -11,6 +11,12 @@ sealed class CardState {
         var currentTheme: Theme,
         var themeCharacters: List<Character>,
         var drawnCharacters: List<Character>,
-        var currentUser: String = ""
+        var currentUser: String = "",
+        var cardSize: CardSize
     ) : CardState()
+}
+
+enum class CardSize(val characterAmount: Int) {
+    MEDIUM(6),
+    LARGE(9)
 }
