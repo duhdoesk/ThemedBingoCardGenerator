@@ -5,6 +5,7 @@
     <string name="logo">Logo</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="no_internet_connection">"No internet connection.\nPlease, connect to the internet to proceed."</string>
 
 
     <!--    SCREENS -->

@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.android.billingclient.api.ProductDetails
@@ -19,6 +20,8 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.L
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.Subscription
+import com.duscaranari.themedbingocardsgenerator.util.connectivity.ConnectivityObserver
+import com.duscaranari.themedbingocardsgenerator.util.connectivity.NetworkConnectivityObserver
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +34,8 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var dataUpdate: DataUpdate
+    private lateinit var connectivityObserver: ConnectivityObserver
+
     override fun onResume() {
         super.onResume()
         val billingHelper = BillingHelper(this)
@@ -40,6 +45,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        connectivityObserver = NetworkConnectivityObserver(applicationContext)
 
         /**
          * Ads Config
@@ -64,6 +70,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
+                    val connectivity by connectivityObserver.observe().collectAsState(
+                        initial = ConnectivityObserver.Status.Unavailable
+                    )
+
                     /**
                      * Subscription check
                      */
@@ -80,28 +90,39 @@ class MainActivity : ComponentActivity() {
                         dataUpdate.checkForUpdates()
                     }
 
-                    when (subscribed) {
-                        is Subscription.Checked -> {
+                    when (connectivity) {
+                        ConnectivityObserver.Status.Available -> {
+                            when (subscribed) {
+                                is Subscription.Checked -> {
 
-                            /**
-                             * App calling
-                             */
-                            ThemedBingoApp(
-                                billingHelper = billingHelper,
-                                subscribed = subscribed.subscribed,
-                                offerDetails = subscribed.offerDetails
-                            )
-                        }
+                                    /**
+                                     * App calling
+                                     */
+                                    ThemedBingoApp(
+                                        billingHelper = billingHelper,
+                                        subscribed = subscribed.subscribed,
+                                        offerDetails = subscribed.offerDetails
+                                    )
+                                }
 
-                        is Subscription.Error -> {
-                            ErrorScreen(
-                                errorMessage = R.string.billing_error,
-                                onTryAgain = { billingHelper.billingSetup() }
-                            )
+                                is Subscription.Error -> {
+                                    ErrorScreen(
+                                        errorMessage = R.string.billing_error,
+                                        onTryAgain = { billingHelper.billingSetup() }
+                                    )
+                                }
+
+                                else -> {
+                                    LoadingScreen()
+                                }
+                            }
                         }
 
                         else -> {
-                            LoadingScreen()
+                            ErrorScreen(
+                                errorMessage = R.string.no_internet_connection,
+                                onTryAgain = { }
+                            )
                         }
                     }
                 }
