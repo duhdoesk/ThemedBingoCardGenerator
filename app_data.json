@@ -1,6 +1,6 @@
 {
   "app_name": "Themed Bingo Cards Generator",
-  "app_data_version": "1.4",
+  "app_data_version": "1.5",
   "app_data": [
     {
       "theme_id": "1",
@@ -1631,6 +1631,243 @@
           "character_id": "56",
           "character_name": "Uruguai",
           "character_picture": "https://i.imgur.com/vgQmzAO.png"
+        }
+      ]
+    },
+    {
+      "theme_id": "7",
+      "theme_name": "Natal",
+      "theme_picture": "https://i.imgur.com/gSGgUHn.jpg",
+      "theme_characters": [
+        {
+          "character_id": "1",
+          "character_name": "Amigo Secreto",
+          "character_picture": "https://i.imgur.com/6HS1oMd.jpg"
+        },
+        {
+          "character_id": "2",
+          "character_name": "Amizades",
+          "character_picture": "https://i.imgur.com/eYdX150.jpg"
+        },
+        {
+          "character_id": "3",
+          "character_name": "Anjinhos de Natal",
+          "character_picture": "https://i.imgur.com/DBJi6Rf.jpg"
+        },
+        {
+          "character_id": "4",
+          "character_name": "Arroz com Passas",
+          "character_picture": "https://i.imgur.com/5WL6cRB.jpg"
+        },
+        {
+          "character_id": "5",
+          "character_name": "Arroz Doce",
+          "character_picture": "https://i.imgur.com/MORYPLU.jpg"
+        },
+        {
+          "character_id": "6",
+          "character_name": "Árvore de Natal",
+          "character_picture": "https://i.imgur.com/gSGgUHn.jpg"
+        },
+        {
+          "character_id": "7",
+          "character_name": "Bacalhau",
+          "character_picture": "https://i.imgur.com/1sGOAie.jpg"
+        },
+        {
+          "character_id": "8",
+          "character_name": "Biscoitos",
+          "character_picture": "https://i.imgur.com/FiHd2fU.jpg"
+        },
+        {
+          "character_id": "9",
+          "character_name": "Bolinhas de Natal",
+          "character_picture": "https://i.imgur.com/EyfRtgW.jpg"
+        },
+        {
+          "character_id": "10",
+          "character_name": "Bolo de Chocolate",
+          "character_picture": "https://i.imgur.com/OdoFjpE.jpg"
+        },
+        {
+          "character_id": "11",
+          "character_name": "Bombom de Travessa",
+          "character_picture": "https://i.imgur.com/WF23MOx.jpg"
+        },
+        {
+          "character_id": "12",
+          "character_name": "Boneco de Neve",
+          "character_picture": "https://i.imgur.com/7TIaNyj.jpg"
+        },
+        {
+          "character_id": "13",
+          "character_name": "Canções de Natal",
+          "character_picture": "https://i.imgur.com/N7bnzR0.jpg"
+        },
+        {
+          "character_id": "14",
+          "character_name": "Cartão de Natal",
+          "character_picture": "https://i.imgur.com/q6bEFJw.jpg"
+        },
+        {
+          "character_id": "15",
+          "character_name": "Casa do Papai Noel",
+          "character_picture": "https://i.imgur.com/JzPTwOt.jpg"
+        },
+        {
+          "character_id": "16",
+          "character_name": "Ceia",
+          "character_picture": "https://i.imgur.com/v1fw1A1.jpg"
+        },
+        {
+          "character_id": "17",
+          "character_name": "Chaminé",
+          "character_picture": "https://i.imgur.com/OOJOGFz.jpg"
+        },
+        {
+          "character_id": "18",
+          "character_name": "Champanhe",
+          "character_picture": "https://i.imgur.com/6m70YDF.jpg"
+        },
+        {
+          "character_id": "19",
+          "character_name": "Chocotone",
+          "character_picture": "https://i.imgur.com/7H80NSO.jpg"
+        },
+        {
+          "character_id": "20",
+          "character_name": "Cidade Natal",
+          "character_picture": "https://i.imgur.com/aDmW1fG.jpg"
+        },
+        {
+          "character_id": "21",
+          "character_name": "Elfos do Papai Noel",
+          "character_picture": "https://i.imgur.com/pjXpFVF.jpg"
+        },
+        {
+          "character_id": "22",
+          "character_name": "Estrela de Natal",
+          "character_picture": "https://i.imgur.com/6IEZaXc.jpg"
+        },
+        {
+          "character_id": "23",
+          "character_name": "Expresso Polar",
+          "character_picture": "https://i.imgur.com/A1q6H1g.jpg"
+        },
+        {
+          "character_id": "24",
+          "character_name": "Família",
+          "character_picture": "https://i.imgur.com/4i2ytMO.jpg"
+        },
+        {
+          "character_id": "25",
+          "character_name": "Guirlanda",
+          "character_picture": "https://i.imgur.com/ryLbfmb.jpg"
+        },
+        {
+          "character_id": "26",
+          "character_name": "Lareira",
+          "character_picture": "https://i.imgur.com/Sen3TJy.jpg"
+        },
+        {
+          "character_id": "27",
+          "character_name": "Lombo",
+          "character_picture": "https://i.imgur.com/N9FVmO3.jpg"
+        },
+        {
+          "character_id": "28",
+          "character_name": "Mamãe Noel",
+          "character_picture": "https://i.imgur.com/JmaiUYp.jpg"
+        },
+        {
+          "character_id": "29",
+          "character_name": "O Grinch",
+          "character_picture": "https://i.imgur.com/FrMibXF.jpg"
+        },
+        {
+          "character_id": "30",
+          "character_name": "Os Três Reis Magos",
+          "character_picture": "https://i.imgur.com/0lCmvjx.jpg"
+        },
+        {
+          "character_id": "31",
+          "character_name": "Panetone",
+          "character_picture": "https://i.imgur.com/amdjW1h.jpg"
+        },
+        {
+          "character_id": "32",
+          "character_name": "Papai Noel",
+          "character_picture": "https://i.imgur.com/olW5UcL.jpg"
+        },
+        {
+          "character_id": "33",
+          "character_name": "Pavê",
+          "character_picture": "https://i.imgur.com/POIdfuI.jpg"
+        },
+        {
+          "character_id": "34",
+          "character_name": "Pernil",
+          "character_picture": "https://i.imgur.com/mjYUQeU.jpg"
+        },
+        {
+          "character_id": "35",
+          "character_name": "Peru",
+          "character_picture": "https://i.imgur.com/qfrUpmu.jpg"
+        },
+        {
+          "character_id": "36",
+          "character_name": "Pisca-pisca",
+          "character_picture": "https://i.imgur.com/sfy1PCO.jpg"
+        },
+        {
+          "character_id": "37",
+          "character_name": "Polo Norte",
+          "character_picture": "https://i.imgur.com/Coc7T1n.jpg"
+        },
+        {
+          "character_id": "38",
+          "character_name": "Presentes",
+          "character_picture": "https://i.imgur.com/fKeQXJy.jpg"
+        },
+        {
+          "character_id": "39",
+          "character_name": "Presépio",
+          "character_picture": "https://i.imgur.com/5AfT0bI.jpg"
+        },
+        {
+          "character_id": "40",
+          "character_name": "Rabanada",
+          "character_picture": "https://i.imgur.com/8hN2cSe.jpg"
+        },
+        {
+          "character_id": "41",
+          "character_name": "Renas do Papai Noel",
+          "character_picture": "https://i.imgur.com/RKYnAr2.jpg"
+        },
+        {
+          "character_id": "42",
+          "character_name": "Rudolph, a Rena do Nariz Vermelho",
+          "character_picture": "https://i.imgur.com/2BWMYVI.jpg"
+        },
+        {
+          "character_id": "43",
+          "character_name": "Sininhos de Natal",
+          "character_picture": "https://i.imgur.com/ZRe7QLH.jpg"
+        },
+        {
+          "character_id": "44",
+          "character_name": "Tábua de Frutas",
+          "character_picture": "https://i.imgur.com/a8ZPbWc.jpg"
+        },
+        {
+          "character_id": "45",
+          "character_name": "Trenó do Papai Noel",
+          "character_picture": "https://i.imgur.com/DHIhm52.jpg"
+        },
+        {
+          "character_id": "46",
+          "character_name": "Visco",
+          "character_picture": "https://i.imgur.com/CAHpaig.jpg"
         }
       ]
     }
