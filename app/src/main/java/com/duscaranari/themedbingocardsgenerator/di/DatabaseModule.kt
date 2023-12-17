@@ -30,6 +30,7 @@ class DatabaseModule {
                 "appDatabase"
             )
             .createFromAsset("db.db")
+            .addMigrations(MIGRATION_1_2)
             .build()
 
     @Singleton
