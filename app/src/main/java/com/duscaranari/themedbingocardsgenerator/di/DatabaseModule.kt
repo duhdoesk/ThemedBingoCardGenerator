@@ -29,6 +29,7 @@ class DatabaseModule {
                 "appDatabase"
             )
             .createFromAsset("db.db")
+            .addMigrations(MIGRATION_2_1)
             .build()
 
     @Singleton
