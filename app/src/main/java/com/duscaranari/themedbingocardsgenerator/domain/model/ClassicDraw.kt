@@ -11,6 +11,9 @@ data class ClassicDraw (
     @ColumnInfo(name = "draw_id")
     val drawId: Long = 0L,
 
+    @ColumnInfo(name = "numbers")
+    val numbers: Int,
+
     @ColumnInfo(name = "drawn_numbers")
     val drawnNumbers: String,
 

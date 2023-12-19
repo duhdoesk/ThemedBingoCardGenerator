@@ -28,5 +28,5 @@ sealed class ClassicDrawerUiState {
         val numbers: List<Int>,
         val drawnNumbers: List<Int>,
         val availableNumbers: List<Int>
-    )
+    ) : ClassicDrawerUiState()
 }
