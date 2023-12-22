@@ -21,6 +21,7 @@ import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.about.AboutScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.CardScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.characters.CharacterScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.ClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.themed.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
@@ -96,6 +97,10 @@ fun AppNavigation(
                     billingHelper,
                     offerDetails
                 )
+            }
+
+            composable(AppScreens.ClassicDrawer.name) {
+                ClassicDrawerScreen()
             }
         }
     }
