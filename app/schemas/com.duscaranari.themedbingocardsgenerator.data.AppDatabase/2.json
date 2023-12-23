@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "eb2ca2b1e978a99a6b45b1b4948a1db6",
+    "identityHash": "045d743a45af0e0ae5684c5a12092f04",
     "entities": [
       {
         "tableName": "data_table",
@@ -172,11 +172,17 @@
       },
       {
         "tableName": "classic_draw_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`draw_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `drawn_numbers` TEXT NOT NULL, `is_completed` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`draw_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `numbers` INTEGER NOT NULL, `drawn_numbers` TEXT NOT NULL, `is_completed` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "drawId",
             "columnName": "draw_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numbers",
+            "columnName": "numbers",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -206,7 +212,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb2ca2b1e978a99a6b45b1b4948a1db6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '045d743a45af0e0ae5684c5a12092f04')"
     ]
   }
 }
