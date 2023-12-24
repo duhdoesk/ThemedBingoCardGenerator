@@ -40,7 +40,15 @@ fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltVie
                     LandscapeClassicDrawerScreen()
 
                 else ->
-                    PortraitClassicDrawerScreen()
+                    PortraitClassicDrawerScreen(
+                        uiState = ClassicDrawerUiState.Success(
+                            drawId = 1,
+                            isFinished = true,
+                            drawnNumbers = (1..75).toList().shuffled().subList(0, 12),
+                            availableNumbers = (1..75).toList().shuffled().subList(0, 12),
+                            numbers = (1..75).toList().shuffled().subList(0, 12)
+                        )
+                    )
             }
     }
 
@@ -52,24 +60,4 @@ fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltVie
                 showDialog = false
             })
     }
-}
-
-
-/**
- * PORTRAIT PREVIEWS
- */
-@PortraitPreviews
-@Composable
-fun PortraitPreview() {
-    PortraitClassicDrawerScreen()
-}
-
-
-/**
- * LANDSCAPE PREVIEWS
- */
-@PortraitPreviews
-@Composable
-fun LandscapePreview() {
-    LandscapeClassicDrawerScreen()
 }
