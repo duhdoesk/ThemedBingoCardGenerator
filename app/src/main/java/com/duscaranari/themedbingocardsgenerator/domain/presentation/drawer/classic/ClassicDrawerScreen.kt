@@ -12,12 +12,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.RotateScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.LandscapeClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.PortraitClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.common.FinishDrawConfirmationDialog
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 
 @Composable
 fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltViewModel()) {
@@ -32,7 +35,22 @@ fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltVie
         is ClassicDrawerUiState.Success ->
             when (rememberDeviceOrientation()) {
                 is DeviceOrientation.Landscape ->
-                    LandscapeClassicDrawerScreen()
+
+                    when (rememberWindowInfo().screenHeightInfo) {
+                        is WindowInfo.WindowType.Compact -> {
+                            RotateScreen()
+                        }
+
+                        else -> {
+                            LandscapeClassicDrawerScreen(
+                                uiState = state,
+                                onDrawNextCharacter = { classicDrawerViewModel.drawNextNumber() },
+                                onFinishDraw = { classicDrawerViewModel.finishDraw() },
+                                onStartNewDraw = { classicDrawerViewModel.startNewDraw(75) }
+                            )
+                        }
+                    }
+
 
                 else ->
                     PortraitClassicDrawerScreen(
