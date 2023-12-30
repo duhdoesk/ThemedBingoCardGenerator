@@ -52,4 +52,5 @@
     <string name="large_card">G</string>
     <string name="no_internet_connection">"Sem conexão.\nPor favor, contecte-se à internet para prosseguir."</string>
     <string name="classic_drawer_screen">Sorteador Clássico</string>
+    <string name="classic_bingo">"Classic Bingo"</string>
 </resources>

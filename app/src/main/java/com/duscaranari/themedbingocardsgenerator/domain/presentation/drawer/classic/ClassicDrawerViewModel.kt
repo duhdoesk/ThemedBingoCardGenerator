@@ -5,14 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.model.ClassicDraw
 import com.duscaranari.themedbingocardsgenerator.domain.repository.ClassicDrawRepository
 import com.duscaranari.themedbingocardsgenerator.util.funLogger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ClassicDrawerViewModel @Inject constructor(private val classicDrawRepository: ClassicDrawRepository) :
-    ViewModel() {
+@HiltViewModel
+class ClassicDrawerViewModel @Inject constructor(
+    private val classicDrawRepository: ClassicDrawRepository
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ClassicDrawerUiState>(ClassicDrawerUiState.Loading)
     val uiState = _uiState.asStateFlow()
@@ -32,7 +35,7 @@ class ClassicDrawerViewModel @Inject constructor(private val classicDrawReposito
         viewModelScope.launch(Dispatchers.IO) {
 
             when (val lastDraw = getLastDraw()) {
-                null -> _uiState.value = ClassicDrawerUiState.NotStarted
+                null -> startNewDraw(75)
                 else -> refreshDrawState(lastDraw.drawId)
             }
         }
@@ -44,7 +47,13 @@ class ClassicDrawerViewModel @Inject constructor(private val classicDrawReposito
         val draw = getDrawById(drawId)!!
 
         val numbers = (1..draw.numbers).toList()
-        val drawnNumbers = draw.drawnNumbers.split(",").map { it.toInt() }
+
+        val drawnNumbers =
+            if (draw.drawnNumbers == "") { emptyList() }
+            else {
+                println(draw.drawnNumbers)
+                draw.drawnNumbers.split(",").filterNot { it == "" }.map { it.toInt() }
+            }
         val availableNumbers = numbers.filterNot { it in drawnNumbers }
 
         _uiState.value = ClassicDrawerUiState.Success(
@@ -71,8 +80,10 @@ class ClassicDrawerViewModel @Inject constructor(private val classicDrawReposito
 
                     setDrawnNumbers(
                         drawId = state.drawId,
-                        drawnNumbers = "${getDrawnNumbers(state.drawId)},$nextNumber"
+                        drawnNumbers = "${getDrawnNumbers(state.drawId)}$nextNumber,"
                     )
+
+                    refreshDrawState(state.drawId)
                 }
 
                 else -> return@launch

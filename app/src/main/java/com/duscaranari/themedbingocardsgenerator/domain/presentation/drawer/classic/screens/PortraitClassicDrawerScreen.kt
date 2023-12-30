@@ -1,36 +1,39 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.ClassicDrawerUiState
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.component.BingoSphere
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.component.DrawnSpheresLazyRow
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.component.ClassicBingoHeadline
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.component.DrawingCounter
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.component.DrawnSpheresLazyGrid
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.component.DrawnText
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.themed.DrawerButtons
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 
 @Composable
 fun PortraitClassicDrawerScreen(
-    uiState: ClassicDrawerUiState.Success
+    uiState: ClassicDrawerUiState.Success,
+    onDrawNextCharacter: () -> Unit,
+    onFinishDraw: () -> Unit,
+    onStartNewDraw: () -> Unit
 ) {
 
     Box(
@@ -38,54 +41,65 @@ fun PortraitClassicDrawerScreen(
         modifier = Modifier.fillMaxSize()
     ) {
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(Color.Blue)
-                .align(Alignment.TopCenter)
-        ) {}
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .sizeIn(maxWidth = 600.dp, maxHeight = 1000.dp)
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Text(
-                text = "Bingo Clássico",
-                fontFamily = FontFamily.Cursive,
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold)
+            ClassicBingoHeadline()
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            Text(text = "${uiState.drawnNumbers.size} de 75")
+            DrawingCounter(
+                total = uiState.numbers.size.toString(),
+                drawn = uiState.drawnNumbers.size.toString()
+            )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            if (uiState.drawnNumbers.isEmpty()) {
+                Image(
+                    painter = painterResource(id = R.drawable.waving_octopus),
+                    contentDescription = "Waving Octopus.",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .aspectRatio(1f))
 
-            BingoSphere(
-                sphereSize = 120.dp,
-                canvasRadius = 108f,
-                canvasStroke = 12f,
-                fontSize = 48.sp,
-                number = uiState.drawnNumbers.last().toString())
+            } else {
+                BingoSphere(
+                    sphereSize = 120.dp,
+                    canvasRadius = 108f,
+                    canvasStroke = 12f,
+                    fontSize = 48.sp,
+                    number = uiState.drawnNumbers.last().toString()
+                )
+            }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            val numbers = uiState.drawnNumbers.dropLast(1).reversed()
-            DrawnSpheresLazyRow(
-                drawnNumbers = numbers,
-                modifier = Modifier.padding(horizontal = 8.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                DrawnText()
+                if (uiState.drawnNumbers.isNotEmpty()) {
+                    val numbers = uiState.drawnNumbers.dropLast(1).reversed()
 
-            Spacer(modifier = Modifier.height(32.dp))
+                    DrawnSpheresLazyGrid(
+                        drawnNumbers = numbers,
+                        minSize = 48.dp,
+                        itemsSpacing = 2.dp,
+                        modifier = Modifier
+                            .height(160.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             DrawerButtons(
                 isFinished = uiState.isFinished,
-                onDrawNextCharacter = { },
-                onFinishDraw = { },
-                onStartNewDraw = { })
+                onDrawNextCharacter = { onDrawNextCharacter() },
+                onFinishDraw = { onFinishDraw() },
+                onStartNewDraw = { onStartNewDraw() })
         }
     }
 }
@@ -100,10 +114,12 @@ fun PortraitPreview() {
     PortraitClassicDrawerScreen(
         uiState = ClassicDrawerUiState.Success(
             drawId = 1,
-            isFinished = false,
-            drawnNumbers = (1..75).toList().shuffled().subList(0, 12),
-            availableNumbers = (1..75).toList().shuffled().subList(0, 12),
-            numbers = (1..75).toList().shuffled().subList(0, 12)
-        )
-    )
+            isFinished = true,
+            drawnNumbers = (1..75).toList().shuffled().subList(0, 40),
+            availableNumbers = (1..75).toList().shuffled().subList(0, 35),
+            numbers = (1..75).toList()
+        ),
+        onDrawNextCharacter = { },
+        onFinishDraw = { },
+        onStartNewDraw = { })
 }

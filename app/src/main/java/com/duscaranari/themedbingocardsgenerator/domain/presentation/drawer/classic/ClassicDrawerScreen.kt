@@ -29,27 +29,24 @@ fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltVie
         is ClassicDrawerUiState.Loading ->
             LoadingScreen()
 
-        is ClassicDrawerUiState.Error ->
-            ErrorScreen(
-                errorMessage = R.string.draw_error,
-                onTryAgain = { })
-
-        else ->
+        is ClassicDrawerUiState.Success ->
             when (rememberDeviceOrientation()) {
                 is DeviceOrientation.Landscape ->
                     LandscapeClassicDrawerScreen()
 
                 else ->
                     PortraitClassicDrawerScreen(
-                        uiState = ClassicDrawerUiState.Success(
-                            drawId = 1,
-                            isFinished = true,
-                            drawnNumbers = (1..75).toList().shuffled().subList(0, 12),
-                            availableNumbers = (1..75).toList().shuffled().subList(0, 12),
-                            numbers = (1..75).toList().shuffled().subList(0, 12)
-                        )
+                        uiState = state,
+                        onDrawNextCharacter = { classicDrawerViewModel.drawNextNumber() },
+                        onFinishDraw = { classicDrawerViewModel.finishDraw() },
+                        onStartNewDraw = { classicDrawerViewModel.startNewDraw(75) }
                     )
             }
+
+        else ->
+            ErrorScreen(
+                errorMessage = R.string.draw_error,
+                onTryAgain = { })
     }
 
     if (showDialog) {
