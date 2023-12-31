@@ -5,7 +5,11 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.classi
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 
 @Composable
-fun LandscapeClassicCardScreen(uiState: ClassicCardUiState.Ready) {
+fun LandscapeClassicCardScreen(
+    uiState: ClassicCardUiState.Ready,
+    onDrawNewCard: () -> Unit,
+    onUpdateCurrentUser: (user: String) -> Unit
+) {
 
 }
 
@@ -15,7 +19,10 @@ fun LandscapeClassicCardScreen(uiState: ClassicCardUiState.Ready) {
 fun LandscapeClassicCardScreenPreview() {
     LandscapeClassicCardScreen(
         uiState = ClassicCardUiState.Ready(
-            numbers = (0..75).toList().shuffled().subList(0, 24)
-        )
+            numbers = (0..75).toList().shuffled().subList(0, 24),
+            currentUser = "Ronaldo"
+        ),
+        onDrawNewCard = { },
+        onUpdateCurrentUser = { }
     )
 }

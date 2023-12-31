@@ -5,7 +5,12 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.classi
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 
 @Composable
-fun PortraitClassicCardScreen(uiState: ClassicCardUiState.Ready) {
+fun PortraitClassicCardScreen(
+    uiState: ClassicCardUiState.Ready,
+    onDrawNewCard: () -> Unit,
+    onUpdateCurrentUser: (user: String) -> Unit
+) {
+
 }
 
 
@@ -14,7 +19,10 @@ fun PortraitClassicCardScreen(uiState: ClassicCardUiState.Ready) {
 fun PortraitClassicCardScreenPreview() {
     PortraitClassicCardScreen(
         uiState = ClassicCardUiState.Ready(
-            numbers = (0..75).toList().shuffled().subList(0, 24)
-        )
+            numbers = (0..75).toList().shuffled().subList(0, 24),
+            currentUser = "Ronaldo"
+        ),
+        onDrawNewCard = { },
+        onUpdateCurrentUser = { }
     )
 }
