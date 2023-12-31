@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.screens
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -49,7 +49,7 @@ import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.CardSize
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.CardSize
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingImage
 import kotlin.random.Random
 

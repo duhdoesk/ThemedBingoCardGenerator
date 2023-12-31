@@ -26,5 +26,8 @@ enum class AppScreens (val stringResource: Int) {
         stringResource = R.string.subs_screen),
 
     ClassicDrawer(
-        stringResource = R.string.classic_drawer_screen)
+        stringResource = R.string.classic_drawer_screen),
+
+    ClassicCard(
+        stringResource = R.string.classic_card_screen)
 }

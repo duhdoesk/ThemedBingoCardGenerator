@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.screens
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.CardState
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.CardState
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.RotateScreen
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo

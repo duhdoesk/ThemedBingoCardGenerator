@@ -16,6 +16,7 @@
     <string name="character_screen">Theme Characters</string>
     <string name="drawer_screen">Drawer</string>
     <string name="classic_drawer_screen">Classic Drawer</string>
+    <string name="classic_card_screen">Classic Card</string>
 
 
     <!--    HOME SCREEN -->
