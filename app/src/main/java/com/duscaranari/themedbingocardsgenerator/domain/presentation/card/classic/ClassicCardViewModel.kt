@@ -43,7 +43,15 @@ class ClassicCardViewModel @Inject constructor(
     }
 
     private fun getRandomCard(): List<Int> {
-        return (0..75).toList().shuffled().subList(0, 24)
+
+        val numbers= mutableListOf<Int>()
+        numbers.addAll(0, (61..75).toList().shuffled().subList(0, 5))
+        numbers.addAll(0, (46..60).toList().shuffled().subList(0, 5))
+        numbers.addAll(0, (31..45).toList().shuffled().subList(0, 4))
+        numbers.addAll(0, (16..30).toList().shuffled().subList(0, 5))
+        numbers.addAll(0, (1..15).toList().shuffled().subList(0, 5))
+
+        return numbers
     }
 
 

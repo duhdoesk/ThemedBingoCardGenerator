@@ -2,7 +2,11 @@ package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.class
 
 import androidx.compose.runtime.Composable
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.classic.ClassicCardUiState
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.classic.screens.component.getRandomCard
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.RotateScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
+import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
+import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 
 @Composable
 fun LandscapeClassicCardScreen(
@@ -10,6 +14,16 @@ fun LandscapeClassicCardScreen(
     onDrawNewCard: () -> Unit,
     onUpdateCurrentUser: (user: String) -> Unit
 ) {
+
+    when (rememberWindowInfo().screenHeightInfo) {
+        is WindowInfo.WindowType.Compact -> {
+            RotateScreen()
+        }
+
+        else -> {
+
+        }
+    }
 
 }
 
@@ -19,7 +33,7 @@ fun LandscapeClassicCardScreen(
 fun LandscapeClassicCardScreenPreview() {
     LandscapeClassicCardScreen(
         uiState = ClassicCardUiState.Ready(
-            numbers = (0..75).toList().shuffled().subList(0, 24),
+            numbers = getRandomCard(),
             currentUser = "Ronaldo"
         ),
         onDrawNewCard = { },
