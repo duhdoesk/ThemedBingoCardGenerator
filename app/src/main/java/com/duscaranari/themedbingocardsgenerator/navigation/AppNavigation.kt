@@ -1,5 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.navigation
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -11,17 +15,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.about.AboutScreen
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.CardScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.classic.ClassicCardScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.CardScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.characters.CharacterScreen
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.DrawerScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.ClassicDrawerScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.themed.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.themes.ThemesScreen
@@ -53,7 +61,7 @@ fun AppNavigation(
         },
         bottomBar = {
             if (!subscribed && rememberDeviceOrientation() == DeviceOrientation.Portrait) {
-                AdmobBanner()
+                BottomBar()
             }
         }
     ) { innerPadding ->
@@ -97,6 +105,14 @@ fun AppNavigation(
                     offerDetails
                 )
             }
+
+            composable(AppScreens.ClassicDrawer.name) {
+                ClassicDrawerScreen()
+            }
+
+            composable(AppScreens.ClassicCard.name) {
+                ClassicCardScreen()
+            }
         }
     }
 
@@ -126,4 +142,17 @@ fun ThemedBingoAppBar(
             }
         }
     )
+}
+
+@Composable
+fun BottomBar() {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 50.dp, max = 80.dp)
+    ) {
+        AdmobBanner()
+    }
 }

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.duscaranari.themedbingocardsgenerator.data.AppDataDao
 import com.duscaranari.themedbingocardsgenerator.data.AppDatabase
 import com.duscaranari.themedbingocardsgenerator.data.CharacterDao
+import com.duscaranari.themedbingocardsgenerator.data.ClassicDrawDao
 import com.duscaranari.themedbingocardsgenerator.data.DrawDao
 import com.duscaranari.themedbingocardsgenerator.data.ThemeDao
 import com.duscaranari.themedbingocardsgenerator.data.UserDao
@@ -29,7 +30,7 @@ class DatabaseModule {
                 "appDatabase"
             )
             .createFromAsset("db.db")
-            .addMigrations(MIGRATION_2_1)
+            .addMigrations(MIGRATION_1_2)
             .build()
 
     @Singleton
@@ -56,4 +57,9 @@ class DatabaseModule {
     @Provides
     fun provideDrawDao(appDatabase: AppDatabase): DrawDao =
         appDatabase.drawDao()
+
+    @Singleton
+    @Provides
+    fun provideClassicDrawDao(appDatabase: AppDatabase): ClassicDrawDao =
+        appDatabase.classicDrawDao()
 }

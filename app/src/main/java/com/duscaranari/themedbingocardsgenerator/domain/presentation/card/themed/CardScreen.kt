@@ -1,12 +1,12 @@
-package com.duscaranari.themedbingocardsgenerator.domain.presentation.card
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.screens.LandscapeCardScreen
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.screens.PortraitCardScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.screens.LandscapeCardScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.screens.PortraitCardScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens

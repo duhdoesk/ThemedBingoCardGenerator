@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.navigation
 
-import androidx.compose.ui.res.stringResource
 import com.duscaranari.themedbingocardsgenerator.R
 
 enum class AppScreens (val stringResource: Int) {
@@ -24,5 +23,11 @@ enum class AppScreens (val stringResource: Int) {
         stringResource = R.string.drawer_screen),
 
     Subs(
-        stringResource = R.string.subs_screen)
+        stringResource = R.string.subs_screen),
+
+    ClassicDrawer(
+        stringResource = R.string.classic_drawer_screen),
+
+    ClassicCard(
+        stringResource = R.string.classic_card_screen)
 }

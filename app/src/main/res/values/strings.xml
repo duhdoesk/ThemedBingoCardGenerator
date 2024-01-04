@@ -6,6 +6,7 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="no_internet_connection">"No internet connection.\nPlease, connect to the internet to proceed."</string>
+    <string name="waving_octopus">"Waving Octopus."</string>
 
 
     <!--    SCREENS -->
@@ -15,6 +16,8 @@
     <string name="card_screen">Card</string>
     <string name="character_screen">Theme Characters</string>
     <string name="drawer_screen">Drawer</string>
+    <string name="classic_drawer_screen">Classic Drawer</string>
+    <string name="classic_card_screen">Classic Card</string>
 
 
     <!--    HOME SCREEN -->
@@ -58,6 +61,9 @@
     <string name="finish_draw_dialog_title">Are you sure you want to finish the current draw?</string>
     <string name="finish_draw_dialog_body">This action cannot be undone.</string>
     <string name="start_drawing">"Click Draw to start."</string>
+
+    <!--    CLASSIC DRAWER SCREEN -->
+    <string name="classic_bingo">"Classic Bingo"</string>
 
 
     <!--    LOADING SCREEN -->

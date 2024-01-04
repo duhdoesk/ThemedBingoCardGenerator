@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.themed
 
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme

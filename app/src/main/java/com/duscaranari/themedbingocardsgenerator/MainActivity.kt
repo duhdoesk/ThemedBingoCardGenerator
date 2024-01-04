@@ -54,7 +54,9 @@ class MainActivity : ComponentActivity() {
 
         val req = RequestConfiguration
             .Builder()
-            .setTestDeviceIds(listOf("BFD15F0D985847E95433306355594EE5"))
+            .setTestDeviceIds(listOf(
+                "BFD15F0D985847E95433306355594EE5",
+                "B76809184C69354B79EFE2122687CDA5"))
             .build()
 
         MobileAds.setRequestConfiguration(req)
