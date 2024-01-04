@@ -46,7 +46,7 @@ fun LogoPicture(
 }
 
 @Composable
-fun HeaderLabels() {
+fun ThemedLabels() {
     Text(
         text = stringResource(id = R.string.app_name),
         textAlign = TextAlign.Center,
@@ -65,7 +65,18 @@ fun HeaderLabels() {
 }
 
 @Composable
-fun HomeButtons(
+fun ClassicLabels() {
+    Text(
+        text = stringResource(id = R.string.classic_bingo),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier
+            .fillMaxWidth()
+    )
+}
+
+@Composable
+fun ThemedBingoButtons(
     modifier: Modifier = Modifier,
     onNavigate: (route: String) -> Unit,
     subscribed: Boolean
@@ -92,8 +103,11 @@ fun HomeButtons(
 
         Button(
             onClick = {
-                if (subscribed) { onNavigate(AppScreens.Drawer.name) }
-                else { onNavigate(AppScreens.Subs.name) }
+                if (subscribed) {
+                    onNavigate(AppScreens.Drawer.name)
+                } else {
+                    onNavigate(AppScreens.Subs.name)
+                }
             },
             modifier = buttonModifier,
             colors = ButtonDefaults.buttonColors(
@@ -111,12 +125,48 @@ fun HomeButtons(
 
             Text(text = stringResource(id = AppScreens.Drawer.stringResource))
         }
+    }
+}
 
-        TextButton(
-            onClick = { onNavigate(AppScreens.About.name) },
-            modifier = buttonModifier
+@Composable
+fun ClassicBingoButtons(
+    modifier: Modifier = Modifier,
+    onNavigate: (route: String) -> Unit,
+) {
+
+    val buttonModifier = Modifier
+        .widthIn(min = 160.dp, max = 240.dp)
+
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Button(
+            onClick = { onNavigate(AppScreens.ClassicCard.name) },
+            modifier = buttonModifier,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.tertiary
+            )
         ) {
-            Text(text = stringResource(id = AppScreens.About.stringResource))
+            Text(
+                text = stringResource(id = AppScreens.ClassicCard.stringResource),
+                color = MaterialTheme.colorScheme.onTertiary
+            )
+        }
+
+        Button(
+            onClick = { onNavigate(AppScreens.ClassicDrawer.name) },
+            modifier = buttonModifier,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer
+            )
+        ) {
+            Text(
+                text = stringResource(id = AppScreens.ClassicDrawer.stringResource),
+                color = MaterialTheme.colorScheme.onTertiaryContainer
+            )
         }
     }
 }

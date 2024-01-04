@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -13,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.RotateScreen
+import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 
@@ -44,7 +47,7 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean
                         .padding(horizontal = 16.dp)
                 ) {
 
-                    HeaderLabels()
+                    ThemedLabels()
 
                     Row(
                         horizontalArrangement = Arrangement.SpaceAround,
@@ -53,10 +56,27 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean
                             .padding(top = 16.dp)
                     ) {
 
-                        HomeButtons(
+                        ThemedBingoButtons(
                             modifier = Modifier.fillMaxWidth(),
                             onNavigate = { onNavigate(it) },
                             subscribed = subscribed
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(40.dp))
+
+                    ClassicLabels()
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp)
+                    ) {
+
+                        ClassicBingoButtons(
+                            modifier = Modifier.fillMaxWidth(),
+                            onNavigate = { onNavigate(it) }
                         )
                     }
 
@@ -67,4 +87,11 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean
             }
         }
     }
+}
+
+
+@LandscapePreviews
+@Composable
+fun LandscapeHomeScreenPreview() {
+    LandscapeHomeScreen(onNavigate = { }, subscribed = true)
 }
