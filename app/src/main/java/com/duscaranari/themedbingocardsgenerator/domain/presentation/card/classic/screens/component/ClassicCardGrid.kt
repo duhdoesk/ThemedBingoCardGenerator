@@ -32,10 +32,13 @@ import com.duscaranari.themedbingocardsgenerator.R
 import kotlin.random.Random
 
 @Composable
-fun ClassicCardGrid(numbers: List<Int>) {
+fun ClassicCardGrid(
+    numbers: List<Int>,
+    modifier: Modifier = Modifier
+) {
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 16.dp)
     ) {
         Row(
