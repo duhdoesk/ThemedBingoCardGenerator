@@ -3,6 +3,7 @@ package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.cla
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.model.ClassicDraw
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.themed.DrawerUiState
 import com.duscaranari.themedbingocardsgenerator.domain.repository.ClassicDrawRepository
 import com.duscaranari.themedbingocardsgenerator.util.funLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,12 +50,20 @@ class ClassicDrawerViewModel @Inject constructor(
         val numbers = (1..draw.numbers).toList()
 
         val drawnNumbers =
-            if (draw.drawnNumbers == "") { emptyList() }
-            else {
-                println(draw.drawnNumbers)
-                draw.drawnNumbers.split(",").filterNot { it == "" }.map { it.toInt() }
-            }
+            if (draw.drawnNumbers == "") emptyList()
+            else draw.drawnNumbers.split(",").filterNot { it == "" }.map { it.toInt() }
+
         val availableNumbers = numbers.filterNot { it in drawnNumbers }
+
+        when (val state = _uiState.value) {
+            is ClassicDrawerUiState.Success -> {
+                if (!state.isFinished && drawnNumbers.size == numbers.size) {
+                    finishDraw()
+                }
+            }
+
+            else -> {}
+        }
 
         _uiState.value = ClassicDrawerUiState.Success(
             drawId = draw.drawId,
