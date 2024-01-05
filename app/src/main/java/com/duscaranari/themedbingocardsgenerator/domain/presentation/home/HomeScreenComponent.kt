@@ -1,6 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -65,13 +67,12 @@ fun ThemedLabels() {
 }
 
 @Composable
-fun ClassicLabels() {
+fun ClassicLabels(modifier: Modifier = Modifier) {
     Text(
         text = stringResource(id = R.string.classic_bingo),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
     )
 }
 
@@ -79,11 +80,9 @@ fun ClassicLabels() {
 fun ThemedBingoButtons(
     modifier: Modifier = Modifier,
     onNavigate: (route: String) -> Unit,
-    subscribed: Boolean
+    subscribed: Boolean,
+    buttonModifier: Modifier = Modifier
 ) {
-
-    val buttonModifier = Modifier
-        .widthIn(min = 160.dp, max = 240.dp)
 
     Column(
         modifier = modifier,
@@ -132,10 +131,8 @@ fun ThemedBingoButtons(
 fun ClassicBingoButtons(
     modifier: Modifier = Modifier,
     onNavigate: (route: String) -> Unit,
+    buttonModifier: Modifier = Modifier
 ) {
-
-    val buttonModifier = Modifier
-        .widthIn(min = 160.dp, max = 240.dp)
 
     Column(
         modifier = modifier,
@@ -151,7 +148,7 @@ fun ClassicBingoButtons(
             )
         ) {
             Text(
-                text = stringResource(id = AppScreens.ClassicCard.stringResource),
+                text = stringResource(id = AppScreens.Card.stringResource),
                 color = MaterialTheme.colorScheme.onTertiary
             )
         }
@@ -164,7 +161,7 @@ fun ClassicBingoButtons(
             )
         ) {
             Text(
-                text = stringResource(id = AppScreens.ClassicDrawer.stringResource),
+                text = stringResource(id = AppScreens.Drawer.stringResource),
                 color = MaterialTheme.colorScheme.onTertiaryContainer
             )
         }

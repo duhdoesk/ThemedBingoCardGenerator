@@ -60,18 +60,3 @@ fun HomeScreen(
             )
     }
 }
-
-
-// PREVIEWS
-
-@PortraitPreviews
-@Composable
-fun ScreenPreview() {
-    PortraitHomeScreen(onNavigate = { }, subscribed = true)
-}
-
-@LandscapePreviews
-@Composable
-fun LandscapePreviews() {
-    LandscapeHomeScreen(onNavigate = { }, subscribed = true)
-}
