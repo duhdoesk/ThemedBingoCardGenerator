@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.home
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,19 +14,26 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.RotateScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 
 @Composable
-fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean) {
+fun LandscapeHomeScreen(
+    onNavigate: (route: String) -> Unit,
+    subscribed: Boolean,
+    context: Context
+) {
 
     when (rememberWindowInfo().screenHeightInfo) {
         is WindowInfo.WindowType.Compact -> {
             RotateScreen()
         }
+
         else -> {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -76,7 +84,12 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean
 
                         ClassicBingoButtons(
                             modifier = Modifier.fillMaxWidth(),
-                            onNavigate = { onNavigate(it) }
+                            onNavigate = {
+                                if (!subscribed) {
+                                    showInterstitialAd(context)
+                                }
+                                onNavigate(it)
+                            }
                         )
                     }
 
@@ -93,5 +106,6 @@ fun LandscapeHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean
 @LandscapePreviews
 @Composable
 fun LandscapeHomeScreenPreview() {
-    LandscapeHomeScreen(onNavigate = { }, subscribed = true)
+    val context = LocalContext.current
+    LandscapeHomeScreen(onNavigate = { }, subscribed = true, context = context)
 }
