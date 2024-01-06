@@ -1,8 +1,8 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.screens.LandscapeCardScreen
@@ -21,7 +21,7 @@ fun CardScreen(
     cardViewModel: CardViewModel = hiltViewModel()
 ) {
 
-    when (val state = cardViewModel.cardState.collectAsState().value) {
+    when (val state = cardViewModel.cardState.collectAsStateWithLifecycle().value) {
         is CardState.Loading ->
             LoadingScreen()
 

@@ -16,7 +16,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
@@ -51,7 +51,7 @@ fun DrawerScreen(
 
     var showDialog by remember { mutableStateOf(false) }
 
-    when (val state = drawerViewModel.uiState.collectAsState().value) {
+    when (val state = drawerViewModel.uiState.collectAsStateWithLifecycle().value) {
 
         is DrawerUiState.Loading ->
             LoadingScreen()

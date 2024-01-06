@@ -1,7 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -9,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
@@ -16,7 +16,6 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.R
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.LandscapeClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.screens.PortraitClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.common.FinishDrawConfirmationDialog
-import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
@@ -28,7 +27,7 @@ fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltVie
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     var showDialog by remember { mutableStateOf(false) }
 
-    when (val state = classicDrawerViewModel.uiState.collectAsState().value) {
+    when (val state = classicDrawerViewModel.uiState.collectAsStateWithLifecycle().value) {
         is ClassicDrawerUiState.Loading ->
             LoadingScreen()
 

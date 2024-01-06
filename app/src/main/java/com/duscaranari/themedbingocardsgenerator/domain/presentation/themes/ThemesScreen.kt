@@ -1,9 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.themes
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getRawListOfThemes
@@ -25,7 +25,7 @@ fun ThemesScreen(
 
     val context = LocalContext.current
 
-    when (val state = themesViewModel.themesState.collectAsState().value) {
+    when (val state = themesViewModel.themesState.collectAsStateWithLifecycle().value) {
 
         is ThemesState.Loading ->
             LoadingScreen()
