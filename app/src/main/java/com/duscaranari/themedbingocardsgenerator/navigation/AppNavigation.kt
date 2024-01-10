@@ -34,7 +34,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeSc
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.themes.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
-import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -48,7 +48,7 @@ fun AppNavigation(
 
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentScreen = AppScreens.values().find {
+    val currentScreen = AppScreens.entries.find {
         it.name == backStackEntry?.destination?.route?.substringBefore("/")
     } ?: AppScreens.Home
 
@@ -102,7 +102,8 @@ fun AppNavigation(
             composable(AppScreens.Subs.name) {
                 SubsScreen(
                     billingHelper,
-                    offerDetails
+                    offerDetails,
+                    navController
                 )
             }
 

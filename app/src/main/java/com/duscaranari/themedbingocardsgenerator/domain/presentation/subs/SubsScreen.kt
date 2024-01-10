@@ -11,20 +11,24 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.billing.SubscriptionState
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
 fun SubsScreen(
     billingHelper: BillingHelper,
-    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
+    navController: NavController
 ) {
 
     Box(
@@ -32,12 +36,23 @@ fun SubsScreen(
         modifier = Modifier.fillMaxSize()
     ) {
 
-        when (rememberDeviceOrientation()) {
-            is DeviceOrientation.Portrait -> PortraitSubsScreen(billingHelper, offerDetails)
-            else -> LandscapeSubsScreen(billingHelper, offerDetails)
+        when (val s = billingHelper.subscribed.collectAsState().value) {
+            is SubscriptionState.Checked -> {
+                if (s.subscribed) {
+                    navController.navigateUp()
+                }
+
+                else {
+                    when (rememberDeviceOrientation()) {
+                        is DeviceOrientation.Portrait -> PortraitSubsScreen(billingHelper, offerDetails)
+                        else -> LandscapeSubsScreen(billingHelper, offerDetails)
+                    }
+                }
+            }
+
+            else -> { }
         }
     }
-
 }
 
 @Composable

@@ -18,8 +18,8 @@ import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
-import com.duscaranari.themedbingocardsgenerator.util.BillingHelper
-import com.duscaranari.themedbingocardsgenerator.util.Subscription
+import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.billing.SubscriptionState
 import com.duscaranari.themedbingocardsgenerator.util.connectivity.ConnectivityObserver
 import com.duscaranari.themedbingocardsgenerator.util.connectivity.NetworkConnectivityObserver
 import com.google.android.gms.ads.MobileAds
@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                     when (connectivity) {
                         ConnectivityObserver.Status.Available -> {
                             when (subscribed) {
-                                is Subscription.Checked -> {
+                                is SubscriptionState.Checked -> {
 
                                     /**
                                      * App calling
@@ -107,7 +107,7 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
 
-                                is Subscription.Error -> {
+                                is SubscriptionState.Error -> {
                                     ErrorScreen(
                                         errorMessage = R.string.billing_error,
                                         onTryAgain = { billingHelper.billingSetup() }
