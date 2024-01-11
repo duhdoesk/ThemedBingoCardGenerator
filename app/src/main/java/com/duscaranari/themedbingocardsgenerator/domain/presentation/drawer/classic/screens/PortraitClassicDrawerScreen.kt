@@ -34,7 +34,8 @@ fun PortraitClassicDrawerScreen(
     uiState: ClassicDrawerUiState.Success,
     onDrawNextCharacter: () -> Unit,
     onFinishDraw: () -> Unit,
-    onStartNewDraw: () -> Unit
+    onStartNewDraw: () -> Unit,
+    onCopyDrawn: () -> Unit
 ) {
 
     Box(
@@ -88,6 +89,7 @@ fun PortraitClassicDrawerScreen(
                         drawnNumbers = numbers,
                         minSize = 48.dp,
                         itemsSpacing = 2.dp,
+                        onClick = { onCopyDrawn() },
                         modifier = Modifier
                             .height(160.dp)
                     )
@@ -122,5 +124,6 @@ fun PortraitPreview() {
         ),
         onDrawNextCharacter = { },
         onFinishDraw = { },
-        onStartNewDraw = { })
+        onStartNewDraw = { },
+        onCopyDrawn = { })
 }

@@ -3,6 +3,7 @@ package com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.cla
 import android.graphics.drawable.shapes.Shape
 import android.provider.CalendarContract.Colors
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,7 +28,8 @@ fun DrawnSpheresLazyGrid(
     modifier: Modifier = Modifier,
     drawnNumbers: List<Int>,
     minSize: Dp,
-    itemsSpacing: Dp
+    itemsSpacing: Dp,
+    onClick: () -> Unit
 ) {
 
     Row(
@@ -38,6 +40,7 @@ fun DrawnSpheresLazyGrid(
                 width = 2.dp,
                 color = SphereBrown,
                 shape = RoundedCornerShape(12.dp))
+            .clickable { onClick() }
     ) {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = minSize),

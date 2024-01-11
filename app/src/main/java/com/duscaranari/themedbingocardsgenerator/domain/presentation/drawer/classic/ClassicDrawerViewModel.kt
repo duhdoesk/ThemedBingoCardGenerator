@@ -135,15 +135,11 @@ class ClassicDrawerViewModel @Inject constructor(
 
     fun getStringOfDrawnNumbers(): String {
         var drawnString = "*CONFERÊNCIA*\n"
-        var count = 1
 
         when (val state = uiState.value) {
             is ClassicDrawerUiState.Success -> {
-                for (number in state.drawnNumbers) {
-                    drawnString = drawnString + "\n" +
-                            "*$count* - Pedra $number"
-
-                    count += 1
+                for (number in state.drawnNumbers.sorted()) {
+                    drawnString = "$drawnString$number, "
                 }
             }
 

@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.duscaranari.themedbingocardsgenerator.R
@@ -45,7 +46,9 @@ fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltVie
                                 uiState = state,
                                 onDrawNextCharacter = { classicDrawerViewModel.drawNextNumber() },
                                 onFinishDraw = { classicDrawerViewModel.finishDraw() },
-                                onStartNewDraw = { classicDrawerViewModel.startNewDraw(75) }
+                                onStartNewDraw = { classicDrawerViewModel.startNewDraw(75) },
+                                onCopyDrawn = { clipboardManager.setText(
+                                    AnnotatedString(classicDrawerViewModel.getStringOfDrawnNumbers())) }
                             )
                         }
                     }
@@ -56,7 +59,9 @@ fun ClassicDrawerScreen(classicDrawerViewModel: ClassicDrawerViewModel = hiltVie
                         uiState = state,
                         onDrawNextCharacter = { classicDrawerViewModel.drawNextNumber() },
                         onFinishDraw = { classicDrawerViewModel.finishDraw() },
-                        onStartNewDraw = { classicDrawerViewModel.startNewDraw(75) }
+                        onStartNewDraw = { classicDrawerViewModel.startNewDraw(75) },
+                        onCopyDrawn = { clipboardManager.setText(
+                            AnnotatedString(classicDrawerViewModel.getStringOfDrawnNumbers())) }
                     )
             }
 

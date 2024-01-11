@@ -37,7 +37,8 @@ fun LandscapeClassicDrawerScreen(
     uiState: ClassicDrawerUiState.Success,
     onDrawNextCharacter: () -> Unit,
     onFinishDraw: () -> Unit,
-    onStartNewDraw: () -> Unit
+    onStartNewDraw: () -> Unit,
+    onCopyDrawn: () -> Unit
 ) {
 
     Box(
@@ -104,6 +105,7 @@ fun LandscapeClassicDrawerScreen(
                         drawnNumbers = numbers,
                         minSize = 48.dp,
                         itemsSpacing = 2.dp,
+                        onClick = { onCopyDrawn() },
                         modifier = Modifier.height(260.dp)
                     )
                 }
@@ -130,6 +132,7 @@ fun LandscapePreview() {
         ),
         onDrawNextCharacter = { },
         onFinishDraw = { },
-        onStartNewDraw = { }
+        onStartNewDraw = { },
+        onCopyDrawn = { }
     )
 }
