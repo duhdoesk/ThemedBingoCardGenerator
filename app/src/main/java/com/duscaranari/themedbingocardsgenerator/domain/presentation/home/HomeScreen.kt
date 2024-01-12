@@ -3,6 +3,8 @@ package com.duscaranari.themedbingocardsgenerator.domain.presentation.home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.LandscapeHomeScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.PortraitHomeScreen
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 

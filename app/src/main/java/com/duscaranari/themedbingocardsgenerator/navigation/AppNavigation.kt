@@ -87,7 +87,7 @@ fun AppNavigation(
                 )
             }
 
-            composable("${AppScreens.Themes.name}/{screen}") {
+            composable(AppScreens.Themes.name) {
                 ThemesScreen(navController, subscribed)
             }
 

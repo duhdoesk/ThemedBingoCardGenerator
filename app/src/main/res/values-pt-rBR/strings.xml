@@ -55,4 +55,7 @@
     <string name="classic_bingo">"Bingo Tradicional"</string>
     <string name="classic_card_screen">"Bingo Tradicional"</string>
     <string name="waving_octopus">"Waving Octopus."</string>
+    <string name="themed">Temático</string>
+    <string name="classic">Numérico</string>
+    <string name="online">Online</string>
 </resources>
