@@ -31,6 +31,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.characters.
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.classic.ClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.themed.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.themes.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
@@ -43,7 +44,8 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 fun AppNavigation(
     billingHelper: BillingHelper,
     subscribed: Boolean,
-    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
+    onBingoTypeChange: (bingoType: BingoType) -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -83,7 +85,8 @@ fun AppNavigation(
             composable(AppScreens.Home.name) {
                 HomeScreen(
                     navController,
-                    subscribed
+                    subscribed,
+                    onBingoTypeChange = { onBingoTypeChange(it) }
                 )
             }
 

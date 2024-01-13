@@ -26,11 +26,16 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.Classi
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.SubscriptionButton
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.ThemedBingoButtons
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.ThemedLabels
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 
 @Composable
-fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean, context: Context) {
+fun PortraitHomeScreen(
+    onNavigate: (route: String) -> Unit,
+    subscribed: Boolean, context: Context,
+    onBingoTypeChange: (bingoType: BingoType) -> Unit
+) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -77,6 +82,7 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean,
                     if (!subscribed) {
                         showInterstitialAd(context)
                     }
+                    onBingoTypeChange(BingoType.CLASSIC)
                     onNavigate(it) },
                 buttonModifier = Modifier.width(200.dp),
                 modifier = Modifier.padding(top = 8.dp)
@@ -94,5 +100,9 @@ fun PortraitHomeScreen(onNavigate: (route: String) -> Unit, subscribed: Boolean,
 @Composable
 fun PortraitHomeScreenPreview() {
     val context = LocalContext.current
-    PortraitHomeScreen(onNavigate = { }, subscribed = true, context = context)
+    PortraitHomeScreen(
+        onNavigate = { },
+        subscribed = true,
+        context = context,
+        onBingoTypeChange = { })
 }

@@ -1,33 +1,41 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component
 
+import androidx.compose.material3.ColorScheme
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
+import com.duscaranari.themedbingocardsgenerator.ui.theme.bingoColorSchemes.ThemedBingoLightColorScheme
+import com.duscaranari.themedbingocardsgenerator.ui.theme.bingoColorSchemes.getThemedBingoColorScheme
 
 enum class BingoType(
-    name: Int,
     val drawerDestination: AppScreens,
     val cardDestination: AppScreens,
-    val picture: Int
+    val avatar: Int,
+    val background: Int
 ) {
 
     THEMED(
-        name = R.string.themed,
         drawerDestination = AppScreens.Drawer,
         cardDestination = AppScreens.Card,
-        picture = R.drawable.smiling_squirrel
+        avatar = R.drawable.smiling_squirrel,
+        background = R.drawable.green_water
     ),
 
     CLASSIC(
-        name = R.string.classic,
         drawerDestination = AppScreens.ClassicDrawer,
         cardDestination = AppScreens.ClassicCard,
-        picture = R.drawable.sphere
+        avatar = R.drawable.sphere,
+        background = R.drawable.orange_water
     ),
 
     ONLINE(
-        name = R.string.online,
         drawerDestination = AppScreens.ClassicDrawer,
         cardDestination = AppScreens.ClassicCard,
-        picture = R.drawable.smiling_monkey
-    )
+        avatar = R.drawable.smiling_monkey,
+        background = R.drawable.blue_water
+    );
+
+
+    companion object {
+        fun getBingoTypes() = entries.toList()
+    }
 }

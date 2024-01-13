@@ -23,6 +23,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.LogoPi
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.SubscriptionButton
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.ThemedBingoButtons
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.ThemedLabels
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
@@ -32,7 +33,8 @@ import com.duscaranari.themedbingocardsgenerator.util.showInterstitialAd
 fun LandscapeHomeScreen(
     onNavigate: (route: String) -> Unit,
     subscribed: Boolean,
-    context: Context
+    context: Context,
+    onBingoTypeChange: (bingoType: BingoType) -> Unit
 ) {
 
     when (rememberWindowInfo().screenHeightInfo) {
@@ -113,5 +115,9 @@ fun LandscapeHomeScreen(
 @Composable
 fun LandscapeHomeScreenPreview() {
     val context = LocalContext.current
-    LandscapeHomeScreen(onNavigate = { }, subscribed = true, context = context)
+    LandscapeHomeScreen(
+        onNavigate = { },
+        subscribed = true,
+        context = context,
+        onBingoTypeChange = { })
 }

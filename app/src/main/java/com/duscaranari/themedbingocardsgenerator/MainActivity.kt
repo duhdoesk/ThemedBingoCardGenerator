@@ -10,13 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.network.util.DataUpdate
 import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.billing.SubscriptionState
@@ -65,7 +68,9 @@ class MainActivity : ComponentActivity() {
          * Composable setup
          */
         setContent {
-            ThemedBingoCardsGeneratorTheme {
+            val bingoType = remember { mutableStateOf(BingoType.ONLINE) }
+
+            ThemedBingoCardsGeneratorTheme(bingoType = bingoType.value) {
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -103,7 +108,8 @@ class MainActivity : ComponentActivity() {
                                     ThemedBingoApp(
                                         billingHelper = billingHelper,
                                         subscribed = subscribed.subscribed,
-                                        offerDetails = subscribed.offerDetails
+                                        offerDetails = subscribed.offerDetails,
+                                        onBingoTypeChange = { bingoType.value = it }
                                     )
                                 }
 
@@ -137,11 +143,13 @@ class MainActivity : ComponentActivity() {
 fun ThemedBingoApp(
     billingHelper: BillingHelper,
     subscribed: Boolean,
-    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
+    onBingoTypeChange: (bingoType: BingoType) -> Unit
 ) {
     AppNavigation(
         billingHelper,
         subscribed,
-        offerDetails
+        offerDetails,
+        onBingoTypeChange = { onBingoTypeChange(it) }
     )
 }
