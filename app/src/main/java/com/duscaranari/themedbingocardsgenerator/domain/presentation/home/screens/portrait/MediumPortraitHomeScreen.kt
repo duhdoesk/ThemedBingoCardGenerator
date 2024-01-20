@@ -1,0 +1,63 @@
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.portrait
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.SubscriptionButton
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoTypePager
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.HomeScreenHeader
+
+@Composable
+fun MediumPortraitHomeScreen(
+    onNavigate: (route: String) -> Unit,
+    subscribed: Boolean,
+    bingoTypes: List<BingoType>,
+    onBingoTypeChange: (bingoType: BingoType) -> Unit
+) {
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .weight(1f)
+                .padding(16.dp)
+        ) {
+
+            HomeScreenHeader()
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            BingoTypePager(
+                bingoTypes = bingoTypes,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .widthIn(max = 480.dp),
+                onBingoTypeChange = { onBingoTypeChange(it) },
+                onNavigate = { onNavigate(it) },
+                isSubscribed = subscribed
+            )
+        }
+
+        if (!subscribed) {
+            SubscriptionButton(onNavigate = { onNavigate(it) })
+        }
+    }
+}

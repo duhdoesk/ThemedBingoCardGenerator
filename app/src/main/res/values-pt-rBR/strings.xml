@@ -59,4 +59,7 @@
     <string name="classic">Numérico</string>
     <string name="online">Online</string>
     <string name="soon">Em Breve!</string>
+    <string name="game_mode">Modo de jogo</string>
+    <string name="host">Criar Sala</string>
+    <string name="join">Juntar-se</string>
 </resources>

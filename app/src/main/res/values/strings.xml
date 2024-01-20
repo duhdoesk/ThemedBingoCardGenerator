@@ -7,6 +7,7 @@
     <string name="cancel">Cancel</string>
     <string name="no_internet_connection">"No internet connection.\nPlease, connect to the internet to proceed."</string>
     <string name="waving_octopus">"Waving Octopus."</string>
+    <string name="hot_water_software" translatable="false">"hot water software"</string>
 
 
     <!--    SCREENS -->
@@ -29,6 +30,7 @@
     <string name="themed">Themed</string>
     <string name="classic">Classic</string>
     <string name="soon">Soon!</string>
+    <string name="game_mode">Game mode</string>
 
 
     <!--    ABOUT SCREEN -->
@@ -95,4 +97,9 @@
     <string name="trimester_plan_desc">"Get access to drawer feature and stay free of ads for three months"</string>
     <string name="yearly_plan_desc">"Get access to drawer feature and stay free of ads for a year"</string>
     <string name="best_option">"BEST OPTION"</string>
+
+
+    <!--    ONLINE SCREEN -->
+    <string name="host">Host</string>
+    <string name="join">Join</string>
 </resources>

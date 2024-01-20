@@ -37,18 +37,18 @@ fun AdmobBanner(modifier: Modifier = Modifier) {
 }
 
 fun showInterstitialAd(context: Context) {
-    InterstitialAd.load(
-        context,
-        "ca-app-pub-8989134422683893/5668291581",
-        AdRequest.Builder().build(),
-
-        object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                interstitialAd.show(context as Activity)
-            }
-        }
-    )
+//    InterstitialAd.load(
+//        context,
+//        "ca-app-pub-8989134422683893/5668291581",
+//        AdRequest.Builder().build(),
+//
+//        object : InterstitialAdLoadCallback() {
+//            override fun onAdFailedToLoad(adError: LoadAdError) {
+//            }
+//
+//            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+//                interstitialAd.show(context as Activity)
+//            }
+//        }
+//    )
 }

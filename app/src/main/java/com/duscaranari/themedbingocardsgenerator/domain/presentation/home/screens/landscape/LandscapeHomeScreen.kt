@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens
+package com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.landscape
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -34,6 +34,7 @@ fun LandscapeHomeScreen(
     onNavigate: (route: String) -> Unit,
     subscribed: Boolean,
     context: Context,
+    bingoTypes: List<BingoType>,
     onBingoTypeChange: (bingoType: BingoType) -> Unit
 ) {
 
@@ -119,5 +120,6 @@ fun LandscapeHomeScreenPreview() {
         onNavigate = { },
         subscribed = true,
         context = context,
-        onBingoTypeChange = { })
+        onBingoTypeChange = { },
+        bingoTypes = BingoType.getBingoTypes())
 }
