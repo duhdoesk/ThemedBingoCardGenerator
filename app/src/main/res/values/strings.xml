@@ -31,6 +31,7 @@
     <string name="classic">Classic</string>
     <string name="soon">Soon!</string>
     <string name="game_mode">Game mode</string>
+    <string name="unbable_to_load">Unable to load data.</string>
 
 
     <!--    ABOUT SCREEN -->

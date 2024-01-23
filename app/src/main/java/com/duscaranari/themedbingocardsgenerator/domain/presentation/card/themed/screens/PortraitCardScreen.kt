@@ -14,13 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.CardState
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.state.CardUiState
 
 @Composable
 fun PortraitCardScreen(
     onUpdateCurrentUser: (user: String) -> Unit,
     onDrawNewCard: () -> Unit,
-    state: CardState.Ready,
+    state: CardUiState.Success,
     onNavToCharactersScreen: () -> Unit,
     onChangeCardSize: (boolean: Boolean) -> Unit
 ) {

@@ -49,7 +49,7 @@ import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.CardSize
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.state.CardSize
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingImage
 import kotlin.random.Random
 

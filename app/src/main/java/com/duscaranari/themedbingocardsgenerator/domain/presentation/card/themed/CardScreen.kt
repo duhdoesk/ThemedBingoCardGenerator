@@ -7,7 +7,11 @@ import androidx.navigation.NavHostController
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.screens.LandscapeCardScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.screens.PortraitCardScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.state.CardSize
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.state.CardUiState
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
@@ -21,12 +25,22 @@ fun CardScreen(
     cardViewModel: CardViewModel = hiltViewModel()
 ) {
 
-    when (val state = cardViewModel.cardState.collectAsStateWithLifecycle().value) {
-        is CardState.Loading ->
-            LoadingScreen()
+    when (val state = cardViewModel.cardUiState.collectAsStateWithLifecycle().value) {
+        is CardUiState.Loading -> LoadingScreen()
 
-        is CardState.Ready -> {
+        is CardUiState.PendingTheme -> {
+            ThemesScreen(
+                themes = state.themes,
+                onClick = { cardViewModel.selectTheme(it) }
+            )
+        }
 
+        is CardUiState.Error -> ErrorScreen(
+            errorMessage = state.errorMessage,
+            onTryAgain = { cardViewModel.resetState() }
+        )
+        
+        is CardUiState.Success -> {
             when (rememberDeviceOrientation()) {
 
                 is DeviceOrientation.Landscape ->
@@ -69,7 +83,7 @@ fun PortraitPreview() {
     val characters = getRawListOfCharacters()
 
     PortraitCardScreen(
-        state = CardState.Ready(
+        state = CardUiState.Success(
             currentTheme = Theme(
                 themeId = "1",
                 themeName = "Bears",
@@ -97,7 +111,7 @@ fun LandscapePreview() {
         onUpdateCurrentUser = { },
         onDrawNewCard = { },
         onNavToCharactersScreen = { },
-        state = CardState.Ready(
+        state = CardUiState.Success(
             currentTheme = Theme(
                 themeId = "1",
                 themeName = "Bears",

@@ -33,7 +33,6 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.drawer.them
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.themes.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
@@ -78,7 +77,7 @@ fun AppNavigation(
                 AboutScreen()
             }
 
-            composable("${AppScreens.Card.name}/{themeId}") {
+            composable(AppScreens.Card.name) {
                 CardScreen(navController)
             }
 
@@ -88,10 +87,6 @@ fun AppNavigation(
                     subscribed,
                     onBingoTypeChange = { onBingoTypeChange(it) }
                 )
-            }
-
-            composable(AppScreens.Themes.name) {
-                ThemesScreen(navController, subscribed)
             }
 
             composable("${AppScreens.Character.name}/{themeId}") {

@@ -1,11 +1,13 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.model.Theme
 import com.duscaranari.themedbingocardsgenerator.domain.model.User
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.state.CardSize
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.card.themed.state.CardUiState
 import com.duscaranari.themedbingocardsgenerator.domain.repository.CharacterRepository
 import com.duscaranari.themedbingocardsgenerator.domain.repository.ThemeRepository
 import com.duscaranari.themedbingocardsgenerator.domain.repository.UserRepository
@@ -13,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,54 +23,75 @@ import javax.inject.Inject
 class CardViewModel @Inject constructor(
     private val themeRepository: ThemeRepository,
     private val characterRepository: CharacterRepository,
-    private val userRepository: UserRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _cardState = MutableStateFlow<CardState>(CardState.Loading)
-    val cardState = _cardState.asStateFlow()
+    private val _cardUiState = MutableStateFlow<CardUiState>(CardUiState.Loading)
+    val cardUiState = _cardUiState.asStateFlow()
 
-    init { loadData() }
+    init {
+        loadInitialData()
+    }
 
-    private fun loadData() {
+    private fun loadInitialData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val themes = getAllThemes()
 
-        val themeId = checkNotNull(savedStateHandle["themeId"]).toString()
+            if (themes.isEmpty()) {
+                _cardUiState.value = CardUiState.Error(R.string.unbable_to_load)
+            } else {
+                _cardUiState.value = CardUiState.PendingTheme(getAllThemes())
+            }
+        }
+    }
 
+    fun resetState() {
+        loadInitialData()
+    }
+
+    fun selectTheme(themeId: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
             val theme = getThemeById(themeId)
             val characters = getThemeCharacters(themeId)
-            val user = getCurrentUser()
+            val user = getCurrentUser()?.userName.orEmpty()
 
             if (theme != null && characters != null) {
-                _cardState.value = CardState.Ready(
+
+                _cardUiState.value = CardUiState.Success(
                     currentTheme = theme,
                     themeCharacters = characters,
-                    drawnCharacters = shuffleCharacters(characters, CardSize.LARGE.characterAmount),
-                    currentUser = user?.userName.orEmpty(),
-                    cardSize = CardSize.LARGE
+                    currentUser = user,
+                    drawnCharacters = characters.shuffled().subList(0, 9)
                 )
+            }
+
+            else {
+                _cardUiState.value = CardUiState.Error(R.string.unbable_to_load)
             }
         }
     }
 
     fun drawNewCard() {
 
-        when (val state = cardState.value) {
-            is CardState.Ready -> {
-                _cardState.value = state.copy(
-                    drawnCharacters = shuffleCharacters(state.themeCharacters, state.cardSize.characterAmount)
-                )
+        when (val state = cardUiState.value) {
+            is CardUiState.Success -> {
+                _cardUiState.update {
+                    state.copy(
+                        drawnCharacters = shuffleCharacters(
+                            state.themeCharacters,
+                            state.cardSize.characterAmount
+                        )
+                    )
+                }
             }
 
-            else -> { loadData() }
+            else -> return
         }
     }
 
     fun updateCurrentUser(userName: String) {
-
         viewModelScope.launch(Dispatchers.IO) {
-
             setCurrentUser(
                 User(
                     userId = "1",
@@ -75,31 +99,35 @@ class CardViewModel @Inject constructor(
                 )
             )
 
-            when (val state = cardState.value) {
-                is CardState.Ready -> {
-                    _cardState.value = state.copy(
-                        currentUser = getCurrentUser()?.userName.orEmpty()
-                    )
+            when (val state = cardUiState.value) {
+                is CardUiState.Success -> {
+                    _cardUiState.update {
+                        state.copy(
+                            currentUser = getCurrentUser()?.userName.orEmpty()
+                        )
+                    }
                 }
 
-                else -> { loadData() }
+                else -> return@launch
             }
         }
     }
 
     fun changeCardSize(boolean: Boolean) {
-        val cardSize: CardSize
 
-        when (val state = cardState.value) {
-            is CardState.Ready -> {
-                cardSize = if (boolean) CardSize.LARGE else CardSize.MEDIUM
-                _cardState.value = state.copy(cardSize = cardSize)
-                drawNewCard()
+        when (val state = cardUiState.value) {
+            is CardUiState.Success -> {
+                _cardUiState.update {
+                    state.copy(
+                        cardSize = if (boolean) CardSize.LARGE else CardSize.MEDIUM
+                    )
+                }
             }
 
             else -> return
         }
 
+        drawNewCard()
     }
 
     private fun shuffleCharacters(characters: List<Character>, amount: Int): List<Character> {
@@ -120,5 +148,9 @@ class CardViewModel @Inject constructor(
 
     private suspend fun setCurrentUser(user: User) {
         userRepository.insertUser(user)
+    }
+
+    private suspend fun getAllThemes(): List<Theme> {
+        return themeRepository.getAllThemes()
     }
 }

@@ -63,11 +63,13 @@ class MainActivity : ComponentActivity() {
 
         MobileAds.setRequestConfiguration(req)
 
+        val bingoType =  mutableStateOf(BingoType.ONLINE)
+
         /**
          * Composable setup
          */
         setContent {
-            val bingoType = remember { mutableStateOf(BingoType.ONLINE) }
+//            val bingoType = remember { mutableStateOf(BingoType.ONLINE) }
 
             ThemedBingoCardsGeneratorTheme(bingoType = bingoType.value) {
 
