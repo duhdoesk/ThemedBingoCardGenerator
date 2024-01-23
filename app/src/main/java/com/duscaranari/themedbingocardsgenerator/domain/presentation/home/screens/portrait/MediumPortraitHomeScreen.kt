@@ -38,7 +38,7 @@ fun MediumPortraitHomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .weight(1f)
-                .padding(16.dp)
+                .padding(vertical = 4.dp)
         ) {
 
             HomeScreenHeader()
@@ -48,7 +48,6 @@ fun MediumPortraitHomeScreen(
             BingoTypePager(
                 bingoTypes = bingoTypes,
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
                     .widthIn(max = 480.dp),
                 onBingoTypeChange = { onBingoTypeChange(it) },
                 onNavigate = { onNavigate(it) },

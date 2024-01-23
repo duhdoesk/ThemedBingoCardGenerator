@@ -55,7 +55,7 @@ fun BingoTypePager(
         HorizontalPager(
             state = pagerState,
             pageSpacing = 12.dp,
-            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
+            contentPadding = PaddingValues(horizontal = 28.dp, vertical = 8.dp),
             modifier = modifier
         ) { page ->
             BingoTypeCard(
