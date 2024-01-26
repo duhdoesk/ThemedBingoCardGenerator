@@ -22,13 +22,16 @@ INTERSTITIAL: "ca-app-pub-3940256099942544/1033173712"
  */
 
 @Composable
-fun AdmobBanner(modifier: Modifier = Modifier) {
+fun AdmobBanner(
+    modifier: Modifier = Modifier,
+    adSize: AdSize
+) {
     AndroidView(
         modifier = modifier.fillMaxWidth(),
 
         factory = { context ->
             AdView(context).apply {
-                setAdSize(AdSize.BANNER)
+                setAdSize(adSize)
                 adUnitId = "ca-app-pub-8989134422683893/9629649525"
                 loadAd(AdRequest.Builder().build())
             }

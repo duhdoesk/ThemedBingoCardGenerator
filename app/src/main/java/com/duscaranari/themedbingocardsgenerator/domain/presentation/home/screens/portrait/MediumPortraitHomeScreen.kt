@@ -56,7 +56,10 @@ fun MediumPortraitHomeScreen(
         }
 
         if (!subscribed) {
-            SubscriptionButton(onNavigate = { onNavigate(it) })
+            SubscriptionButton(
+                onNavigate = { onNavigate(it) },
+                modifier = Modifier.padding(8.dp)
+            )
         }
     }
 }

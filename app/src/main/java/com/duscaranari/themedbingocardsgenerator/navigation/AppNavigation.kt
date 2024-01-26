@@ -34,11 +34,13 @@ import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.HomeSc
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
-import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import com.google.android.gms.ads.AdSize
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavigation(
     billingHelper: BillingHelper,
@@ -61,7 +63,7 @@ fun AppNavigation(
                 navigateUp = { navController.navigateUp() })
         },
         bottomBar = {
-            if (!subscribed && rememberDeviceOrientation() == DeviceOrientation.Portrait) {
+            if (!subscribed) {
                 BottomBar()
             }
         }
@@ -93,7 +95,7 @@ fun AppNavigation(
                 CharacterScreen()
             }
 
-            composable(AppScreens.Drawer.name){
+            composable(AppScreens.Drawer.name) {
                 DrawerScreen(navController)
             }
 
@@ -152,6 +154,21 @@ fun BottomBar() {
             .fillMaxWidth()
             .heightIn(min = 50.dp, max = 80.dp)
     ) {
-        AdmobBanner()
+        AdmobBanner(
+            adSize =
+            if (rememberDeviceOrientation() == DeviceOrientation.Portrait) {
+                when (rememberWindowInfo().screenHeightInfo) {
+                    is WindowInfo.WindowType.Expanded -> AdSize.LEADERBOARD
+                    else -> AdSize.BANNER
+                }
+            }
+
+            else {
+                when (rememberWindowInfo().screenHeightInfo) {
+                    is WindowInfo.WindowType.Compact -> AdSize.BANNER
+                    else -> AdSize.LEADERBOARD
+                }
+            }
+        )
     }
 }

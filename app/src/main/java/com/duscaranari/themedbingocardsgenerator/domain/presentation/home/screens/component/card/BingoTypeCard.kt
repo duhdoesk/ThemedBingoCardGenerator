@@ -60,6 +60,7 @@ fun BingoTypeCard(
     ) {
 
         Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .paint(
                     painterResource(id = bingoType.background),

@@ -32,153 +32,18 @@ import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.navigation.AppScreens
 
 @Composable
-fun LogoPicture(
-    maxWidth: Float,
-    maxHeight: Float
-) {
-    Image(
-        painter = painterResource(id = R.drawable.compact_screen_logo),
-        contentDescription = stringResource(id = R.string.logo),
-        contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .fillMaxWidth(maxWidth)
-            .fillMaxHeight(maxHeight)
-            .shadow(16.dp)
-    )
-}
-
-@Composable
-fun ThemedLabels() {
-    Text(
-        text = stringResource(id = R.string.app_name),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier
-            .fillMaxWidth()
-    )
-
-    Text(
-        text = stringResource(id = R.string.built_by),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.labelLarge,
-        modifier = Modifier
-            .fillMaxWidth()
-    )
-}
-
-@Composable
-fun ClassicLabels(modifier: Modifier = Modifier) {
-    Text(
-        text = stringResource(id = R.string.classic_bingo),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.titleLarge,
-        modifier = modifier
-    )
-}
-
-@Composable
-fun ThemedBingoButtons(
-    modifier: Modifier = Modifier,
+fun SubscriptionButton(
     onNavigate: (route: String) -> Unit,
-    subscribed: Boolean,
-    buttonModifier: Modifier = Modifier
+    modifier: Modifier = Modifier
 ) {
-
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        Button(
-            onClick = { onNavigate("${AppScreens.Themes.name}/${AppScreens.Card.name}") },
-            modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            )
-        ) {
-            Text(text = stringResource(id = AppScreens.Card.stringResource))
-        }
-
-        Button(
-            onClick = {
-                if (subscribed) {
-                    onNavigate(AppScreens.Drawer.name)
-                } else {
-                    onNavigate(AppScreens.Subs.name)
-                }
-            },
-            modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            )
-        ) {
-            if (!subscribed) {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = "Lock",
-                    modifier = Modifier.padding(end = 6.dp)
-                )
-            }
-
-            Text(text = stringResource(id = AppScreens.Drawer.stringResource))
-        }
-    }
-}
-
-@Composable
-fun ClassicBingoButtons(
-    modifier: Modifier = Modifier,
-    onNavigate: (route: String) -> Unit,
-    buttonModifier: Modifier = Modifier
-) {
-
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        Button(
-            onClick = { onNavigate(AppScreens.ClassicCard.name) },
-            modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.tertiary
-            )
-        ) {
-            Text(
-                text = stringResource(id = AppScreens.Card.stringResource),
-                color = MaterialTheme.colorScheme.onTertiary
-            )
-        }
-
-        Button(
-            onClick = { onNavigate(AppScreens.ClassicDrawer.name) },
-            modifier = buttonModifier,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer
-            )
-        ) {
-            Text(
-                text = stringResource(id = AppScreens.Drawer.stringResource),
-                color = MaterialTheme.colorScheme.onTertiaryContainer
-            )
-        }
-    }
-}
-
-@Composable
-fun SubscriptionButton(onNavigate: (route: String) -> Unit) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxWidth()
     ) {
         TextButton(
             onClick = { onNavigate(AppScreens.Subs.name) },
-            modifier = Modifier
+            modifier = modifier
                 .widthIn(min = 160.dp, max = 240.dp)
-                .padding(8.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.ShoppingCart,

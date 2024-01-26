@@ -1,11 +1,10 @@
 package com.duscaranari.themedbingocardsgenerator.domain.presentation.home
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.landscape.LandscapeHomeScreen
 import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.portrait.PortraitHomeScreen
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -16,7 +15,6 @@ fun HomeScreen(
     onBingoTypeChange: (bingoType: BingoType) -> Unit
 ) {
 
-    val context = LocalContext.current
     val bingoTypes = BingoType.getBingoTypes()
 
     when (rememberDeviceOrientation()) {
@@ -32,7 +30,6 @@ fun HomeScreen(
             LandscapeHomeScreen(
                 onNavigate = { navController.navigate(it) },
                 subscribed,
-                context = context,
                 bingoTypes = bingoTypes,
                 onBingoTypeChange = { onBingoTypeChange(it) }
             )
