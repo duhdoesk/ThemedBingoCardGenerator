@@ -10,7 +10,6 @@ sealed class ThemesScreenUiState {
 
     data class Success(
         val themes: List<Theme>,
-        val themesDisplayFormat: ThemesDisplayFormat,
         val themesDisplayOrder: ThemesDisplayOrder
     ) : ThemesScreenUiState()
 }

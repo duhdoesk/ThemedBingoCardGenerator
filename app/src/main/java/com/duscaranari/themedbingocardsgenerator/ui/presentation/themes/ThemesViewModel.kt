@@ -3,8 +3,8 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.theme.repository.ThemeRepository
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayFormat
+import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllThemesUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetThemesByNameUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ThemesViewModel @Inject constructor(
-    private val themeRepository: ThemeRepository
+    private val getAllThemesUseCase: GetAllThemesUseCase,
+    private val getThemesByNameUseCase: GetThemesByNameUseCase
 ) : ViewModel() {
 
     private val _themesScreenUiState =
@@ -25,7 +26,28 @@ class ThemesViewModel @Inject constructor(
     val themesScreenUiState = _themesScreenUiState.asStateFlow()
 
     init {
-        orderThemesById()
+        getAllThemes()
+    }
+
+    fun getAllThemes() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val themes = getAllThemesUseCase.invoke(
+                displayOrder = getDisplayOrder()
+            )
+
+            updateUiListOfThemes(themes)
+        }
+    }
+
+    fun filterThemesByName(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val themes = getThemesByNameUseCase.invoke(
+                name = name,
+                displayOrder = getDisplayOrder()
+            )
+
+            updateUiListOfThemes(themes)
+        }
     }
 
     private fun updateUiListOfThemes(themes: List<Theme>) {
@@ -44,11 +66,11 @@ class ThemesViewModel @Inject constructor(
                         )
                     }
                 }
+
                 else -> {
                     _themesScreenUiState.update {
                         ThemesScreenUiState.Success(
                             themes = themes,
-                            themesDisplayFormat = ThemesDisplayFormat.GRID,
                             themesDisplayOrder = ThemesDisplayOrder.ID
                         )
                     }
@@ -57,49 +79,10 @@ class ThemesViewModel @Inject constructor(
         }
     }
 
-    private fun updateUiDisplayFormat(format: ThemesDisplayFormat) {
-        when (val state = themesScreenUiState.value) {
-            is ThemesScreenUiState.Success -> {
-                _themesScreenUiState.update {
-                    state.copy(
-                        themesDisplayFormat = format
-                    )
-                }
-            }
-            else -> return
+    private fun getDisplayOrder(): ThemesDisplayOrder {
+        return when (val state = themesScreenUiState.value) {
+            is ThemesScreenUiState.Success -> state.themesDisplayOrder
+            else -> ThemesDisplayOrder.ID
         }
-    }
-
-    fun orderThemesById() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val themes = getThemesOrderedById()
-            updateUiListOfThemes(themes)
-        }
-    }
-
-    fun orderThemesByName() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val themes = getThemesOrderedByName()
-            updateUiListOfThemes(themes)
-        }
-    }
-
-    fun filterThemesByName(name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val themes = getThemeByName(name)
-            updateUiListOfThemes(themes)
-        }
-    }
-
-    private suspend fun getThemesOrderedById(): List<Theme> {
-        TODO()
-    }
-
-    private suspend fun getThemesOrderedByName(): List<Theme> {
-        TODO()
-    }
-
-    private suspend fun getThemeByName(name: String): List<Theme> {
-        TODO()
     }
 }
