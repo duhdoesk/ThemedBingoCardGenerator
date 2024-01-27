@@ -10,10 +10,10 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType.CLASSIC
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType.ONLINE
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType.THEMED
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType.CLASSIC
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType.ONLINE
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType.THEMED
 import com.duscaranari.themedbingocardsgenerator.ui.theme.bingoColorSchemes.getClassicBingoColorScheme
 import com.duscaranari.themedbingocardsgenerator.ui.theme.bingoColorSchemes.getOnlineBingoColorScheme
 import com.duscaranari.themedbingocardsgenerator.ui.theme.bingoColorSchemes.getThemedBingoColorScheme

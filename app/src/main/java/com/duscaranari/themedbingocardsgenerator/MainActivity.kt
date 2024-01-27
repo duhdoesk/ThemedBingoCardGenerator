@@ -14,11 +14,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.android.billingclient.api.ProductDetails
-import com.duscaranari.themedbingocardsgenerator.network.util.DataUpdate
-import com.duscaranari.themedbingocardsgenerator.navigation.AppNavigation
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.ErrorScreen
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.component.LoadingScreen
-import com.duscaranari.themedbingocardsgenerator.domain.presentation.home.screens.component.BingoType
+import com.duscaranari.themedbingocardsgenerator.data.network.util.DataUpdate
+import com.duscaranari.themedbingocardsgenerator.ui.navigation.AppNavigation
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.billing.SubscriptionState

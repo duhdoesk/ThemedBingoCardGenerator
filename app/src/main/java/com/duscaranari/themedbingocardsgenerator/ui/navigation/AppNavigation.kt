@@ -1,0 +1,174 @@
+package com.duscaranari.themedbingocardsgenerator.ui.navigation
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.android.billingclient.api.ProductDetails
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.about.AboutScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.ClassicCardScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.CardScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.characters.CharacterScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.classic.ClassicDrawerScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.DrawerScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
+import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
+import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
+import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
+import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
+import com.google.android.gms.ads.AdSize
+
+@Composable
+fun AppNavigation(
+    billingHelper: BillingHelper,
+    subscribed: Boolean,
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
+    onBingoTypeChange: (bingoType: BingoType) -> Unit
+) {
+
+    val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentScreen = AppScreens.entries.find {
+        it.name == backStackEntry?.destination?.route?.substringBefore("/")
+    } ?: AppScreens.Home
+
+    Scaffold(
+        topBar = {
+            ThemedBingoAppBar(
+                currentScreen = currentScreen,
+                canNavigateBack = navController.previousBackStackEntry != null,
+                navigateUp = { navController.navigateUp() })
+        },
+        bottomBar = {
+            if (!subscribed) {
+                BottomBar()
+            }
+        }
+    ) { innerPadding ->
+
+        NavHost(
+            navController = navController,
+            startDestination = AppScreens.Home.name,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+
+            composable(AppScreens.About.name) {
+                AboutScreen()
+            }
+
+            composable(AppScreens.Card.name) {
+                CardScreen(navController)
+            }
+
+            composable(AppScreens.Home.name) {
+                HomeScreen(
+                    navController,
+                    subscribed,
+                    onBingoTypeChange = { onBingoTypeChange(it) }
+                )
+            }
+
+            composable("${AppScreens.Character.name}/{themeId}") {
+                CharacterScreen()
+            }
+
+            composable(AppScreens.Drawer.name) {
+                DrawerScreen(navController)
+            }
+
+            composable(AppScreens.Subs.name) {
+                SubsScreen(
+                    billingHelper,
+                    offerDetails,
+                    navController
+                )
+            }
+
+            composable(AppScreens.ClassicDrawer.name) {
+                ClassicDrawerScreen()
+            }
+
+            composable(AppScreens.ClassicCard.name) {
+                ClassicCardScreen()
+            }
+        }
+    }
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ThemedBingoAppBar(
+    currentScreen: AppScreens,
+    canNavigateBack: Boolean,
+    navigateUp: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    TopAppBar(
+        title = {
+            Text(stringResource(id = currentScreen.stringResource))
+        },
+        modifier = modifier,
+        navigationIcon = {
+            if (canNavigateBack) {
+                IconButton(onClick = navigateUp) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back Button"
+                    )
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun BottomBar() {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 50.dp, max = 80.dp)
+    ) {
+        AdmobBanner(
+            adSize =
+            if (rememberDeviceOrientation() == DeviceOrientation.Portrait) {
+                when (rememberWindowInfo().screenHeightInfo) {
+                    is WindowInfo.WindowType.Expanded -> AdSize.LEADERBOARD
+                    else -> AdSize.BANNER
+                }
+            }
+
+            else {
+                when (rememberWindowInfo().screenHeightInfo) {
+                    is WindowInfo.WindowType.Compact -> AdSize.BANNER
+                    else -> AdSize.LEADERBOARD
+                }
+            }
+        )
+    }
+}

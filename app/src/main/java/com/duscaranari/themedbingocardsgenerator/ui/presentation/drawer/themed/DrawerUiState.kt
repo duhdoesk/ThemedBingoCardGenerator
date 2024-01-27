@@ -1,0 +1,41 @@
+package com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed
+
+import com.duscaranari.themedbingocardsgenerator.domain.character.Character
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
+
+/**
+ * Interface to handle Drawer Screen Ui State
+ */
+sealed class DrawerUiState {
+
+    /**
+     * When there is no Draw running
+     */
+    data class NotStarted(
+        val themes: List<Theme>
+    ) : DrawerUiState()
+
+    /**
+     * When is loading data to set up the Ui State
+     */
+    object Loading : DrawerUiState()
+
+    /**
+     * When there's an error while loading data
+     */
+    data class Error(
+        val errorMessage: Int
+    ) : DrawerUiState()
+
+    /**
+     * When data was successfully loaded
+     */
+    data class Success(
+        val drawId: Long,
+        val isFinished: Boolean = false,
+        val theme: Theme?,
+        val themeCharacters: List<Character>,
+        val drawnCharacters: List<Character>,
+        val availableCharacters: List<Character>
+    ) : DrawerUiState()
+}
