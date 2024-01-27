@@ -11,7 +11,7 @@ interface ThemeDao {
 
 //    QUERY
 
-    @Query("SELECT * from theme_table order by theme_id")
+    @Query("SELECT * from theme_table order by theme_id ASC")
     suspend fun getAllThemesOrderById(): List<Theme>
 
     @Query("SELECT * from theme_table order by theme_name ASC")
