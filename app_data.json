@@ -1870,6 +1870,263 @@
           "character_picture": "https://i.imgur.com/CAHpaig.jpg"
         }
       ]
+    },
+    {
+      "theme_id": "8",
+      "theme_name": "Flores",
+      "theme_picture": "https://i.imgur.com/Rf38Dv3.jpg",
+      "theme_characters": [
+        {
+          "character_id": "1",
+          "character_name": "Cravina",
+          "character_picture": "https://i.imgur.com/qaCmxq5.jpg"
+        },
+        {
+          "character_id": "2",
+          "character_name": "Cacto",
+          "character_picture": "https://i.imgur.com/RAFgDxI.jpg"
+        },
+        {
+          "character_id": "3",
+          "character_name": "Narciso",
+          "character_picture": "https://i.imgur.com/OxmYM5Q.jpg"
+        },
+        {
+          "character_id": "4",
+          "character_name": "Tulipa",
+          "character_picture": "https://i.imgur.com/zsUHl09.jpg"
+        },
+        {
+          "character_id": "5",
+          "character_name": "Agapanto",
+          "character_picture": "https://i.imgur.com/gXmKMO7.jpg"
+        },
+        {
+          "character_id": "6",
+          "character_name": "Prímula",
+          "character_picture": "https://i.imgur.com/CkBpuAO.jpg"
+        },
+        {
+          "character_id": "7",
+          "character_name": "Antúrio",
+          "character_picture": "https://i.imgur.com/PUOhY79.jpg"
+        },
+        {
+          "character_id": "8",
+          "character_name": "Copo-de-leite",
+          "character_picture": "https://i.imgur.com/vUJF9WG.jpg"
+        },
+        {
+          "character_id": "9",
+          "character_name": "Lavanda",
+          "character_picture": "https://i.imgur.com/P86OJa5.jpg"
+        },
+        {
+          "character_id": "10",
+          "character_name": "Amor-perfeito",
+          "character_picture": "https://i.imgur.com/GvqnJBw.jpg"
+        },
+        {
+          "character_id": "11",
+          "character_name": "Não-me-esqueças",
+          "character_picture": "https://i.imgur.com/fi5HuY2.jpg"
+        },
+        {
+          "character_id": "12",
+          "character_name": "Bastão-do-imperador",
+          "character_picture": "https://i.imgur.com/lL7Hzow.jpg"
+        },
+        {
+          "character_id": "13",
+          "character_name": "Amarílis",
+          "character_picture": "https://i.imgur.com/Pz8Spic.jpg"
+        },
+        {
+          "character_id": "14",
+          "character_name": "Papoula",
+          "character_picture": "https://i.imgur.com/1fVyCHZ.jpg"
+        },
+        {
+          "character_id": "15",
+          "character_name": "Astromélia",
+          "character_picture": "https://i.imgur.com/kaRIhW5.jpg"
+        },
+        {
+          "character_id": "16",
+          "character_name": "Hibisco",
+          "character_picture": "https://i.imgur.com/MHnsW7l.jpg"
+        },
+        {
+          "character_id": "17",
+          "character_name": "Botão-de-ouro",
+          "character_picture": "https://i.imgur.com/AGr8Gn1.jpg"
+        },
+        {
+          "character_id": "18",
+          "character_name": "Camélia",
+          "character_picture": "https://i.imgur.com/SSyvfCA.jpg"
+        },
+        {
+          "character_id": "19",
+          "character_name": "Perpétua",
+          "character_picture": "https://i.imgur.com/nKxEiMY.jpg"
+        },
+        {
+          "character_id": "20",
+          "character_name": "Verbena",
+          "character_picture": "https://i.imgur.com/oTgibYE.jpg"
+        },
+        {
+          "character_id": "21",
+          "character_name": "Peônia",
+          "character_picture": "https://i.imgur.com/IJX7ThS.jpg"
+        },
+        {
+          "character_id": "22",
+          "character_name": "Violeta",
+          "character_picture": "https://i.imgur.com/qYSaUBL.jpg"
+        },
+        {
+          "character_id": "23",
+          "character_name": "Lótus",
+          "character_picture": "https://i.imgur.com/0NDB9ob.jpg"
+        },
+        {
+          "character_id": "24",
+          "character_name": "Ciclame",
+          "character_picture": "https://i.imgur.com/sg1lhIp.jpg"
+        },
+        {
+          "character_id": "25",
+          "character_name": "Dália",
+          "character_picture": "https://i.imgur.com/KrPyYj7.jpg"
+        },
+        {
+          "character_id": "26",
+          "character_name": "Dente-de-leão",
+          "character_picture": "https://i.imgur.com/DPG9R7l.jpg"
+        },
+        {
+          "character_id": "27",
+          "character_name": "Calêndula",
+          "character_picture": "https://i.imgur.com/vJCUrKt.jpg"
+        },
+        {
+          "character_id": "28",
+          "character_name": "Azaléia",
+          "character_picture": "https://i.imgur.com/YA9gOKT.jpg"
+        },
+        {
+          "character_id": "29",
+          "character_name": "Boca-de-leão",
+          "character_picture": "https://i.imgur.com/yz3rjB4.jpg"
+        },
+        {
+          "character_id": "30",
+          "character_name": "Tagetes",
+          "character_picture": "https://i.imgur.com/5zTTaAP.jpg"
+        },
+        {
+          "character_id": "31",
+          "character_name": "Ninféia",
+          "character_picture": "https://i.imgur.com/PIcT6xX.jpg"
+        },
+        {
+          "character_id": "32",
+          "character_name": "Rosa-negra",
+          "character_picture": "https://i.imgur.com/K6hV389.jpg"
+        },
+        {
+          "character_id": "33",
+          "character_name": "Magnólia",
+          "character_picture": "https://i.imgur.com/eJn6Qea.jpg"
+        },
+        {
+          "character_id": "34",
+          "character_name": "Begônia",
+          "character_picture": "https://i.imgur.com/sGyvl02.jpg"
+        },
+        {
+          "character_id": "35",
+          "character_name": "Rosa-do-deserto",
+          "character_picture": "https://i.imgur.com/4j5w7Pa.jpg"
+        },
+        {
+          "character_id": "36",
+          "character_name": "Jasmim",
+          "character_picture": "https://i.imgur.com/mKlutwf.jpg"
+        },
+        {
+          "character_id": "37",
+          "character_name": "Nemésia",
+          "character_picture": "https://i.imgur.com/ZSHzlgW.jpg"
+        },
+        {
+          "character_id": "38",
+          "character_name": "Rosa",
+          "character_picture": "https://i.imgur.com/1fXcSEW.jpg"
+        },
+        {
+          "character_id": "39",
+          "character_name": "Torênia",
+          "character_picture": "https://i.imgur.com/OEnsxaD.jpg"
+        },
+        {
+          "character_id": "40",
+          "character_name": "Girassol",
+          "character_picture": "https://i.imgur.com/kL4RCrv.jpg"
+        },
+        {
+          "character_id": "41",
+          "character_name": "Lírio",
+          "character_picture": "https://i.imgur.com/Qvh075d.jpg"
+        },
+        {
+          "character_id": "42",
+          "character_name": "Petúnia",
+          "character_picture": "https://i.imgur.com/NBpo27W.jpg"
+        },
+        {
+          "character_id": "43",
+          "character_name": "Crisântemo",
+          "character_picture": "https://i.imgur.com/FRdgWJJ.jpg"
+        },
+        {
+          "character_id": "44",
+          "character_name": "Margarida",
+          "character_picture": "https://i.imgur.com/CbEIOK6.jpg"
+        },
+        {
+          "character_id": "45",
+          "character_name": "Lantana",
+          "character_picture": "https://i.imgur.com/3rP91WK.jpg"
+        },
+        {
+          "character_id": "46",
+          "character_name": "Orquídea",
+          "character_picture": "https://i.imgur.com/ht09Ta8.jpg"
+        },
+        {
+          "character_id": "47",
+          "character_name": "Gérbera",
+          "character_picture": "https://i.imgur.com/fZZjzVO.jpg"
+        },
+        {
+          "character_id": "48",
+          "character_name": "Gardênia",
+          "character_picture": "https://i.imgur.com/ZrnHRjT.jpg"
+        },
+        {
+          "character_id": "49",
+          "character_name": "Íris",
+          "character_picture": "https://i.imgur.com/3AA1CiD.jpg"
+        },
+        {
+          "character_id": "50",
+          "character_name": "Hortênsia",
+          "character_picture": "https://i.imgur.com/vijyzB2.jpg"
+        }
+      ]
     }
   ]
 }
