@@ -63,7 +63,7 @@ fun DrawerScreen(
             )
 
         is DrawerUiState.NotStarted -> {
-            ThemesScreen(themes = state.themes, onClick = { drawerViewModel.startNewDraw(it) })
+            ThemesScreen(onThemePick = { drawerViewModel.startNewDraw(it) })
         }
 
         is DrawerUiState.Success -> {

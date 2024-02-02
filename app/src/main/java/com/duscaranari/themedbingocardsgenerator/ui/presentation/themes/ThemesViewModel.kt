@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
@@ -8,81 +9,87 @@ import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetThemes
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
 class ThemesViewModel @Inject constructor(
     private val getAllThemesUseCase: GetAllThemesUseCase,
     private val getThemesByNameUseCase: GetThemesByNameUseCase
 ) : ViewModel() {
 
-    private val _themesScreenUiState =
-        MutableStateFlow<ThemesScreenUiState>(ThemesScreenUiState.Loading)
-    val themesScreenUiState = _themesScreenUiState.asStateFlow()
+    private val _isSearching = MutableStateFlow(false)
+    val isSearching = _isSearching.asStateFlow()
 
-    init {
-        getAllThemes()
-    }
+    private val _query = MutableStateFlow("")
+    val query = _query.asStateFlow()
 
-    fun getAllThemes() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val themes = getAllThemesUseCase.invoke(
-                displayOrder = getDisplayOrder()
+    private val _displayOrder = MutableStateFlow(ThemesDisplayOrder.ID)
+
+    val uiState = combine(
+        query
+            .debounce(500L)
+            .distinctUntilChanged(),
+        _displayOrder
+    ) { query, displayOrder ->
+
+        if (query.isBlank()) {
+            ThemesScreenUiState.Success(
+                themes = getThemes(),
+                themesDisplayOrder = displayOrder
             )
-
-            updateUiListOfThemes(themes)
-        }
-    }
-
-    fun filterThemesByName(name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val themes = getThemesByNameUseCase.invoke(
-                name = name,
-                displayOrder = getDisplayOrder()
-            )
-
-            updateUiListOfThemes(themes)
-        }
-    }
-
-    private fun updateUiListOfThemes(themes: List<Theme>) {
-        if (themes.isEmpty()) {
-            _themesScreenUiState.update {
-                ThemesScreenUiState.Error(
-                    message = "Unable to load data"
-                )
-            }
         } else {
-            when (val state = themesScreenUiState.value) {
-                is ThemesScreenUiState.Success -> {
-                    _themesScreenUiState.update {
-                        state.copy(
-                            themes = themes
-                        )
-                    }
-                }
+            ThemesScreenUiState.Success(
+                themes = getThemesByName(query),
+                themesDisplayOrder = displayOrder
+            )
+        }
+    }
+        .onEach { _isSearching.update { false } }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            ThemesScreenUiState.Loading
+        )
 
-                else -> {
-                    _themesScreenUiState.update {
-                        ThemesScreenUiState.Success(
-                            themes = themes,
-                            themesDisplayOrder = ThemesDisplayOrder.ID
-                        )
-                    }
-                }
+    fun onQueryChange(query: String) {
+        _query.value = query
+        _isSearching.update { true }
+    }
+
+    fun onChangeDisplayOrder() {
+        Log.d("CALLED", "onChangeDisplayOrder")
+        _displayOrder.update {
+            when (_displayOrder.value) {
+                ThemesDisplayOrder.ID -> ThemesDisplayOrder.NAME
+                ThemesDisplayOrder.NAME -> ThemesDisplayOrder.ID
             }
         }
     }
 
-    private fun getDisplayOrder(): ThemesDisplayOrder {
-        return when (val state = themesScreenUiState.value) {
-            is ThemesScreenUiState.Success -> state.themesDisplayOrder
-            else -> ThemesDisplayOrder.ID
+    private fun getThemes(): List<Theme> {
+        return runBlocking {
+            getAllThemesUseCase.invoke(displayOrder = _displayOrder.value)
+        }
+    }
+
+    private fun getThemesByName(name: String): List<Theme> {
+        return runBlocking {
+            getThemesByNameUseCase.invoke(
+                name = name,
+                displayOrder = _displayOrder.value
+            )
         }
     }
 }

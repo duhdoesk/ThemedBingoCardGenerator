@@ -30,8 +30,7 @@ fun CardScreen(
 
         is CardUiState.PendingTheme -> {
             ThemesScreen(
-                themes = state.themes,
-                onClick = { cardViewModel.selectTheme(it) }
+                onThemePick = { cardViewModel.selectTheme(it) }
             )
         }
 
