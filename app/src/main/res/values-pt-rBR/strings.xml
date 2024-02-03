@@ -63,4 +63,5 @@
     <string name="host">Criar Sala</string>
     <string name="join">Juntar-se</string>
     <string name="unbable_to_load">"Não foi possível carregar os dados."</string>
+    <string name="sorting_by">Mostrando por</string>
 </resources>

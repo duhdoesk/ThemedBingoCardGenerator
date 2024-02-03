@@ -2,11 +2,7 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.portrai
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.material3.CircularProgressIndicator
@@ -14,41 +10,45 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.DisplayOrderInfo
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.ThemesScreenLazyVerticalGrid
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.ThemesScreenSearchBar
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 
 @Composable
 fun CompactPortraitThemesScreen(
-    themes: List<Theme>,
+    uiState: ThemesScreenUiState.Success,
     onThemePick: (themeId: String) -> Unit,
     isSearching: Boolean,
     query: String,
-    onQueryChange: (query: String) -> Unit
+    onQueryChange: (query: String) -> Unit,
+    onDisplayOrderChange: () -> Unit
 ) {
 
-    Box(
-        modifier = Modifier
-            .imePadding()
-            .fillMaxSize()
-    ) {
-        Column {
+    Box {
+
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+            DisplayOrderInfo(
+                displayOrder = uiState.themesDisplayOrder,
+                onDisplayOrderChange = { onDisplayOrderChange() }
+            )
+
+            ThemesScreenLazyVerticalGrid(
+                themes = uiState.themes,
+                columns = GridCells.Adaptive(minSize = 120.dp),
+                contentSpacing = 4.dp,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .weight(1f),
+                onThemePick = { onThemePick(it) }
+            )
 
             ThemesScreenSearchBar(
                 query = query,
                 onQuery = { onQueryChange(it) },
                 modifier = Modifier.fillMaxWidth()
             )
-
-            ThemesScreenLazyVerticalGrid(
-                themes = themes,
-                columns = GridCells.Fixed(2),
-                contentSpacing = 12.dp,
-                modifier = Modifier
-                    .padding(12.dp)
-                    .weight(1f)
-                ,
-                onThemePick = { onThemePick(it) })
         }
 
         if (isSearching) {
@@ -57,5 +57,4 @@ fun CompactPortraitThemesScreen(
             )
         }
     }
-
 }

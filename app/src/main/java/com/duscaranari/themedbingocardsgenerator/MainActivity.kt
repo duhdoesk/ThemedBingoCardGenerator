@@ -3,7 +3,9 @@ package com.duscaranari.themedbingocardsgenerator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -68,13 +70,17 @@ class MainActivity : ComponentActivity() {
         /**
          * Composable setup
          */
+
+        enableEdgeToEdge()
         setContent {
 //            val bingoType = remember { mutableStateOf(BingoType.ONLINE) }
 
             ThemedBingoCardsGeneratorTheme(bingoType = bingoType.value) {
 
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .safeDrawingPadding(),
                     color = MaterialTheme.colorScheme.background
                 ) {
 

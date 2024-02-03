@@ -23,9 +23,10 @@ fun ThemesScreen(
         is ThemesScreenUiState.Success -> {
             when (rememberDeviceOrientation()) {
                 is DeviceOrientation.Portrait -> PortraitThemesScreen(
-                    themes = uiState.themes,
+                    uiState = uiState,
                     onThemePick = { onThemePick(it) },
                     onQueryChange = themesViewModel::onQueryChange,
+                    onDisplayOrderChange = themesViewModel::onDisplayOrderChange,
                     isSearching = isSearching,
                     query = query
                 )

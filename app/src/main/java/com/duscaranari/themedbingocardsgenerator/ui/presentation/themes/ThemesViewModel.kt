@@ -68,10 +68,9 @@ class ThemesViewModel @Inject constructor(
         _isSearching.update { true }
     }
 
-    fun onChangeDisplayOrder() {
-        Log.d("CALLED", "onChangeDisplayOrder")
+    fun onDisplayOrderChange() {
         _displayOrder.update {
-            when (_displayOrder.value) {
+            when (it) {
                 ThemesDisplayOrder.ID -> ThemesDisplayOrder.NAME
                 ThemesDisplayOrder.NAME -> ThemesDisplayOrder.ID
             }

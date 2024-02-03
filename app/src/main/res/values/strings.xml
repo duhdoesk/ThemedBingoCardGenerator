@@ -45,6 +45,7 @@
     <string name="no_data_message">"Ops! We haven't been able to download the themes library. Please, connect to the Internet and click Refresh to try again."</string>
     <string name="sad_cartoon_tiger_caption">Sad Cartoon Tiger</string>
     <string name="refresh">Refresh</string>
+    <string name="sorting_by">Sorting by</string>
 
 
     <!--    CARD SCREEN -->
