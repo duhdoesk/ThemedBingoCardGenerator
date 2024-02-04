@@ -13,16 +13,15 @@ import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.DisplayOrderInfo
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.ThemesScreenLazyVerticalGrid
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.ThemesScreenSearchBar
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.event.ThemesUiEvent
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 
 @Composable
 fun CompactPortraitThemesScreen(
     uiState: ThemesScreenUiState.Success,
-    onThemePick: (themeId: String) -> Unit,
     isSearching: Boolean,
     query: String,
-    onQueryChange: (query: String) -> Unit,
-    onDisplayOrderChange: () -> Unit
+    onEvent: (event: ThemesUiEvent) -> Unit
 ) {
 
     Box {
@@ -31,7 +30,7 @@ fun CompactPortraitThemesScreen(
 
             DisplayOrderInfo(
                 displayOrder = uiState.themesDisplayOrder,
-                onDisplayOrderChange = { onDisplayOrderChange() }
+                onDisplayOrderChange = { onEvent(ThemesUiEvent.OnDisplayOrderChange) }
             )
 
             ThemesScreenLazyVerticalGrid(
@@ -41,12 +40,12 @@ fun CompactPortraitThemesScreen(
                 modifier = Modifier
                     .padding(8.dp)
                     .weight(1f),
-                onThemePick = { onThemePick(it) }
+                onThemePick = { onEvent(ThemesUiEvent.OnThemePick(it)) }
             )
 
             ThemesScreenSearchBar(
                 query = query,
-                onQuery = { onQueryChange(it) },
+                onQuery = { onEvent(ThemesUiEvent.OnQueryChange(it)) },
                 modifier = Modifier.fillMaxWidth()
             )
         }

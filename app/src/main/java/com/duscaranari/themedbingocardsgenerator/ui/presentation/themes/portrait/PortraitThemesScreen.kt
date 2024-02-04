@@ -3,6 +3,7 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.portrai
 import androidx.compose.runtime.Composable
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.getThemes
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.event.ThemesUiEvent
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
@@ -12,11 +13,9 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 @Composable
 fun PortraitThemesScreen(
     uiState: ThemesScreenUiState.Success,
-    onThemePick: (themeId: String) -> Unit,
     isSearching: Boolean,
     query: String,
-    onQueryChange: (query: String) -> Unit,
-    onDisplayOrderChange: () -> Unit
+    onEvent: (event: ThemesUiEvent) -> Unit
 ) {
 
     when (rememberWindowInfo().screenWidthInfo) {
@@ -24,18 +23,14 @@ fun PortraitThemesScreen(
         is WindowInfo.WindowType.Compact ->
             CompactPortraitThemesScreen(
                 uiState = uiState,
-                onThemePick = { onThemePick(it) },
-                onQueryChange = { onQueryChange(it) },
-                onDisplayOrderChange = { onDisplayOrderChange() },
+                onEvent = { onEvent(it) },
                 isSearching = isSearching,
                 query = query)
 
         else ->
             ExpandedPortraitThemesScreen(
                 uiState = uiState,
-                onThemePick = { onThemePick(it) },
-                onQueryChange = { onQueryChange(it) },
-                onDisplayOrderChange = { onDisplayOrderChange() },
+                onEvent = { onEvent(it) },
                 isSearching = isSearching,
                 query = query)
     }
@@ -49,10 +44,8 @@ fun PortraitThemesScreenPreview() {
             themes = getThemes(9),
             themesDisplayOrder = ThemesDisplayOrder.ID
         ),
-        onThemePick = {  },
+        onEvent = {  },
         isSearching = true,
         query = "",
-        onQueryChange = {  },
-        onDisplayOrderChange = {  }
     )
 }
