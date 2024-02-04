@@ -52,8 +52,8 @@ fun ThemesScreenLazyVerticalGridPreview() {
         )
 }
 
-fun getThemes(): List<Theme> {
-    return List(4) {
+fun getThemes(amount: Int = 4): List<Theme> {
+    return List(amount) {
         Theme(
             themeId = "1",
             themeName = "Halloween",

@@ -32,8 +32,10 @@ fun PortraitThemesScreen(
 
         else ->
             ExpandedPortraitThemesScreen(
+                uiState = uiState,
                 onThemePick = { onThemePick(it) },
                 onQueryChange = { onQueryChange(it) },
+                onDisplayOrderChange = { onDisplayOrderChange() },
                 isSearching = isSearching,
                 query = query)
     }
@@ -44,11 +46,11 @@ fun PortraitThemesScreen(
 fun PortraitThemesScreenPreview() {
     PortraitThemesScreen(
         uiState = ThemesScreenUiState.Success(
-            themes = getThemes(),
+            themes = getThemes(9),
             themesDisplayOrder = ThemesDisplayOrder.ID
         ),
         onThemePick = {  },
-        isSearching = false,
+        isSearching = true,
         query = "",
         onQueryChange = {  },
         onDisplayOrderChange = {  }

@@ -27,9 +27,8 @@ fun DisplayOrderInfo(
 
     Row(modifier = modifier) {
 
-        OutlinedButton(
-            onClick = { onDisplayOrderChange() },
-            modifier = Modifier.width(200.dp)
+        TextButton(
+            onClick = { onDisplayOrderChange() }
         ) {
             Text(
                 text = stringResource(id = R.string.sorting_by).uppercase(),
