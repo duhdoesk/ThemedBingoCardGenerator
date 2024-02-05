@@ -2,6 +2,7 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.landsca
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -18,24 +19,16 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.event.Th
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 
 @Composable
-fun ExpandedLandscapeThemesScreen(
+fun MediumLandscapeThemesScreen(
     uiState: ThemesScreenUiState.Success,
     isSearching: Boolean,
     query: String,
     onEvent: (event: ThemesUiEvent) -> Unit
 ) {
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
+    Box {
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .widthIn(max = 1200.dp)
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
             DisplayOrderInfo(
                 displayOrder = uiState.themesDisplayOrder,
@@ -45,12 +38,12 @@ fun ExpandedLandscapeThemesScreen(
 
             ThemesScreenLazyVerticalGrid(
                 themes = uiState.themes,
-                columns = GridCells.Adaptive(minSize = 200.dp),
-                contentSpacing = 12.dp,
+                columns = GridCells.Adaptive(minSize = 160.dp),
+                contentSpacing = 4.dp,
                 modifier = Modifier
                     .padding(12.dp)
                     .weight(1f)
-                    .fillMaxWidth(),
+                    .widthIn(max = 1000.dp),
                 onThemePick = { onEvent(ThemesUiEvent.OnThemePick(it)) }
             )
 
