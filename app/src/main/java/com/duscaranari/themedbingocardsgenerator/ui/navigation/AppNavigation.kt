@@ -34,7 +34,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.D
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
-import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
+import com.duscaranari.themedbingocardsgenerator.util.ads.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper

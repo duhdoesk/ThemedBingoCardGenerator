@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                      * Connectivity check
                      */
                     val connectivity by viewModel
-                        .connectivityObserver
+                        .networkConnectivityObserver
                         .observe()
                         .collectAsState(
                             initial = ConnectivityObserver.Status.Unavailable

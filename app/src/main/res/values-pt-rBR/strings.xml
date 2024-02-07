@@ -34,7 +34,7 @@
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="subs_screen">Assinaturas</string>
-    <string name="drawer_unlock">Libere o Sorteador</string>
+    <string name="unlock_full_access">Obtenha Acesso Total</string>
     <string name="plan">Planos</string>
     <string name="plan_desc">"Escolha um plano de assinatura e aproveite o acesso ao Sorteador, além de ficar livre de anúncios."</string>
     <string name="monthly_plan">Mensal</string>
