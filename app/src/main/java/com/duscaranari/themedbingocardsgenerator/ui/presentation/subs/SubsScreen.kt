@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.subs
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.billing.SubscriptionState
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -28,7 +29,8 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 fun SubsScreen(
     billingHelper: BillingHelper,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
-    navController: NavController
+    navController: NavController,
+    activity: Activity
 ) {
 
     Box(
@@ -44,8 +46,8 @@ fun SubsScreen(
 
                 else {
                     when (rememberDeviceOrientation()) {
-                        is DeviceOrientation.Portrait -> PortraitSubsScreen(billingHelper, offerDetails)
-                        else -> LandscapeSubsScreen(billingHelper, offerDetails)
+                        is DeviceOrientation.Portrait -> PortraitSubsScreen(billingHelper, offerDetails, activity)
+                        else -> LandscapeSubsScreen(billingHelper, offerDetails, activity)
                     }
                 }
             }
@@ -58,7 +60,8 @@ fun SubsScreen(
 @Composable
 fun PortraitSubsScreen(
     billingHelper: BillingHelper,
-    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
+    activity: Activity
 ) {
 
     Column(
@@ -84,7 +87,7 @@ fun PortraitSubsScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         SubsPlanCardsColumn(
-            onClick = { billingHelper.querySubscriptionPlans(it) },
+            onClick = { billingHelper.querySubscriptionPlans(it, activity) },
             offerDetails = offerDetails
         )
 
@@ -95,7 +98,8 @@ fun PortraitSubsScreen(
 @Composable
 fun LandscapeSubsScreen(
     billingHelper: BillingHelper,
-    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?
+    offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
+    activity: Activity
 ) {
 
     Row(
@@ -120,7 +124,7 @@ fun LandscapeSubsScreen(
 
         Column(Modifier.weight(0.7f)) {
             SubsPlanCardsColumn(
-                onClick = { billingHelper.querySubscriptionPlans(it) },
+                onClick = { billingHelper.querySubscriptionPlans(it, activity) },
                 offerDetails = offerDetails
             )
         }

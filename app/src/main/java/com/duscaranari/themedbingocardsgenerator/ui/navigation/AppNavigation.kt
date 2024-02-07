@@ -1,12 +1,13 @@
 package com.duscaranari.themedbingocardsgenerator.ui.navigation
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,8 +36,8 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.co
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.util.AdmobBanner
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
-import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
+import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 import com.google.android.gms.ads.AdSize
@@ -46,7 +47,8 @@ fun AppNavigation(
     billingHelper: BillingHelper,
     subscribed: Boolean,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
-    onBingoTypeChange: (bingoType: BingoType) -> Unit
+    onBingoTypeChange: (bingoType: BingoType) -> Unit,
+    activity: Activity
 ) {
 
     val navController = rememberNavController()
@@ -103,7 +105,8 @@ fun AppNavigation(
                 SubsScreen(
                     billingHelper,
                     offerDetails,
-                    navController
+                    navController,
+                    activity
                 )
             }
 
@@ -136,7 +139,7 @@ fun ThemedBingoAppBar(
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back Button"
                     )
                 }

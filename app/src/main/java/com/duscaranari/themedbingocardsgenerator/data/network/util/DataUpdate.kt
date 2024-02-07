@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class DataUpdate@Inject constructor(
+class DataUpdate @Inject constructor(
     private val themeRepository: ThemeRepository,
     private val networkRepository: NetworkRepository,
     private val appDataRepository: AppDataRepository,
