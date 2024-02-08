@@ -3,16 +3,18 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.LandscapeClassicCardScreen
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.PortraitClassicCardScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.event.ClassicCardUiEvent
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.landscape.LandscapeClassicCardScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.portrait.PortraitClassicCardScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.state.ClassicCardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
-fun ClassicCardScreen(classicCardViewModel: ClassicCardViewModel = hiltViewModel()) {
+fun ClassicCardScreen(viewModel: ClassicCardViewModel = hiltViewModel()) {
 
-    when (val uiState = classicCardViewModel.uiState.collectAsStateWithLifecycle().value) {
+    when (val uiState = viewModel.uiState.collectAsStateWithLifecycle().value) {
         is ClassicCardUiState.Loading -> LoadingScreen()
 
         is ClassicCardUiState.Ready -> {
@@ -21,16 +23,23 @@ fun ClassicCardScreen(classicCardViewModel: ClassicCardViewModel = hiltViewModel
                 is DeviceOrientation.Portrait -> {
                     PortraitClassicCardScreen(
                         uiState = uiState,
-                        onDrawNewCard = { classicCardViewModel.drawNewCard() },
-                        onUpdateCurrentUser = { classicCardViewModel.updateCurrentUser(it) }
+                        onEvent = { event ->
+                            when (event) {
+                                is ClassicCardUiEvent.OnDrawNewCard ->
+                                    viewModel.drawNewCard()
+
+                                is ClassicCardUiEvent.OnUpdateCurrentUser ->
+                                    viewModel.updateCurrentUser(event.user)
+                            }
+                        }
                     )
                 }
 
                 is DeviceOrientation.Landscape -> {
                     LandscapeClassicCardScreen(
                         uiState = uiState,
-                        onDrawNewCard = { classicCardViewModel.drawNewCard() },
-                        onUpdateCurrentUser = { classicCardViewModel.updateCurrentUser(it) }
+                        onDrawNewCard = { viewModel.drawNewCard() },
+                        onUpdateCurrentUser = { viewModel.updateCurrentUser(it) }
                     )
                 }
             }

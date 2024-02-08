@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens
+package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.landscape
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.ClassicCardUiState
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.state.ClassicCardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.component.ClassicCardGrid
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.component.getRandomCard
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.CardScreenName

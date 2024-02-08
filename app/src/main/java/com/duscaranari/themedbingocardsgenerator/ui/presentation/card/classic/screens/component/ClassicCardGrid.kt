@@ -39,7 +39,6 @@ fun ClassicCardGrid(
 
     Column(
         modifier = modifier
-            .padding(horizontal = 16.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -102,7 +101,6 @@ fun ClassicCardGrid(
                     painter = painterResource(id = R.drawable.hot_water_logo),
                     contentDescription = stringResource(id = R.string.waving_octopus),
                     modifier = Modifier
-//                        .padding(1.dp)
                         .fillMaxHeight()
                         .aspectRatio(1f)
                 )
@@ -131,7 +129,6 @@ fun ClassicCardGridItem(number: Int) {
                     Random.nextInt(220, 245)
                 )
             )
-//            .border(1.dp, Color.White)
     ) {
         Text(
             text = number.toString(),
