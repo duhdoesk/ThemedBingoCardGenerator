@@ -52,7 +52,7 @@ fun ClassicCardGrid(
                         bottomStart = 0.dp
                     )
                 )
-                .background(color = MaterialTheme.colorScheme.primaryContainer)
+                .background(color = MaterialTheme.colorScheme.primary)
         ) {
             val letters = listOf("B", "I", "N", "G", "O")
             for (letter in letters) {
@@ -62,7 +62,7 @@ fun ClassicCardGrid(
                     style = MaterialTheme.typography.headlineLarge,
                     fontFamily = FontFamily.Cursive,
                     fontWeight = FontWeight.Black,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier
                         .weight(1f)
                         .padding(vertical = 8.dp)
@@ -112,30 +112,5 @@ fun ClassicCardGrid(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun ClassicCardGridItem(number: Int) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f)
-            .background(
-                color = Color(
-                    Random.nextInt(220, 245),
-                    Random.nextInt(220, 245),
-                    Random.nextInt(220, 245)
-                )
-            )
-    ) {
-        Text(
-            text = number.toString(),
-            style = MaterialTheme.typography.headlineSmall,
-            fontFamily = FontFamily.Cursive,
-            fontWeight = FontWeight.Black,
-            color = Color.Black
-        )
     }
 }

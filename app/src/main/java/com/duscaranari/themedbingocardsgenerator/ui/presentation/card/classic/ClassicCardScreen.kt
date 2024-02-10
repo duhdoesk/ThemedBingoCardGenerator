@@ -38,8 +38,15 @@ fun ClassicCardScreen(viewModel: ClassicCardViewModel = hiltViewModel()) {
                 is DeviceOrientation.Landscape -> {
                     LandscapeClassicCardScreen(
                         uiState = uiState,
-                        onDrawNewCard = { viewModel.drawNewCard() },
-                        onUpdateCurrentUser = { viewModel.updateCurrentUser(it) }
+                        onEvent = { event ->
+                            when (event) {
+                                is ClassicCardUiEvent.OnDrawNewCard ->
+                                    viewModel.drawNewCard()
+
+                                is ClassicCardUiEvent.OnUpdateCurrentUser ->
+                                    viewModel.updateCurrentUser(event.user)
+                            }
+                        }
                     )
                 }
             }

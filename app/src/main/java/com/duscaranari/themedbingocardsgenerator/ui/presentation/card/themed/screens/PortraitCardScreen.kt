@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.CardScreenUserButton
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.NewCardButton
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardUiState
 
 @Composable
@@ -51,7 +53,7 @@ fun PortraitCardScreen(
                     .clickable { onNavToCharactersScreen() }
             )
 
-            CardScreenName(
+            CardScreenUserButton(
                 onChange = { onUpdateCurrentUser(it) },
                 currentUser = state.currentUser,
             )

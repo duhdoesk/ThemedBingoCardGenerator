@@ -10,11 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.event.ClassicCardUiEvent
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.state.ClassicCardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.component.ClassicCardGrid
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.component.getRandomCard
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.CardScreenName
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.NewCardButton
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.CardScreenUserButton
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.NewCardButton
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.RotateScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo
@@ -23,56 +24,22 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 @Composable
 fun LandscapeClassicCardScreen(
     uiState: ClassicCardUiState.Ready,
-    onDrawNewCard: () -> Unit,
-    onUpdateCurrentUser: (user: String) -> Unit
+    onEvent: (event: ClassicCardUiEvent) -> Unit
 ) {
 
     when (rememberWindowInfo().screenHeightInfo) {
-        is WindowInfo.WindowType.Compact -> {
+        is WindowInfo.WindowType.Compact ->
             RotateScreen()
-        }
 
-        else -> {
+        is WindowInfo.WindowType.Medium ->
+            MediumLandscapeClassicScreen(
+                uiState = uiState,
+                onEvent = { onEvent(it) })
 
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .sizeIn(maxWidth = 1000.dp, maxHeight = 600.dp)
-                ) {
-
-                    ClassicCardGrid(
-                        numbers = uiState.numbers,
-                        modifier = Modifier
-                            .weight(1f)
-                    )
-
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(
-                            alignment = Alignment.CenterVertically,
-                            space = 32.dp
-                        ),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.weight(1f)
-                    ) {
-
-                        CardScreenName(
-                            onChange = { onUpdateCurrentUser(it) },
-                            currentUser = uiState.currentUser
-                        )
-
-                        NewCardButton(
-                            onClick = { onDrawNewCard() }
-                        )
-                    }
-                }
-            }
-        }
+        else ->
+            ExpandedLandscapeClassicScreen(
+                uiState = uiState,
+                onEvent = { onEvent(it) })
     }
 }
 
@@ -85,7 +52,6 @@ fun LandscapeClassicCardScreenPreview() {
             numbers = getRandomCard(),
             currentUser = "Ronaldo"
         ),
-        onDrawNewCard = { },
-        onUpdateCurrentUser = { }
+        onEvent = { }
     )
 }

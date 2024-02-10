@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +15,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.ev
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.component.ClassicCardGrid
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.state.ClassicCardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.CardScreenUserButton
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.NewCardButton
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.NewCardButton
 
 @Composable
 fun ExpandedPortraitClassicCardScreen(

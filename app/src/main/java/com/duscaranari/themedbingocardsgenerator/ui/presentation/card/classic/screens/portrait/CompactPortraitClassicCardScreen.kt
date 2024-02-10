@@ -1,14 +1,12 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.portrait
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +16,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.ev
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.screens.component.ClassicCardGrid
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.state.ClassicCardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.CardScreenUserButton
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.NewCardButton
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.NewCardButton
 
 @Composable
 fun CompactPortraitClassicCardScreen(
