@@ -201,60 +201,6 @@ fun CardScreenCards(
 }
 
 @Composable
-fun NameDialog(
-    currentUser: String,
-    onChange: (newUsername: String) -> Unit,
-    onDismiss: (boolean: Boolean) -> Unit
-) {
-
-    Dialog(
-        onDismissRequest = { onDismiss(false) }
-    ) {
-
-        var newUser by remember { mutableStateOf(currentUser) }
-
-        Card {
-
-            Column(
-                horizontalAlignment = Alignment.End,
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp)
-            ) {
-
-                TextField(
-                    value = newUser,
-
-                    onValueChange = {
-                        if (it.length <= 20) {
-                            newUser = it
-                        }
-                    },
-
-                    label = { Text(text = stringResource(id = R.string.insert_your_name)) },
-
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Done
-                    ),
-
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            onChange(newUser)
-                            onDismiss(false)
-                        })
-                )
-
-                TextButton(onClick = {
-                    onChange(newUser)
-                    onDismiss(false)
-                }) {
-
-                    Text("OK")
-                }
-            }
-        }
-    }
-}
-
-@Composable
 fun SizeSelectorSwitchButton(
     optionSelected: CardSize,
     onClick: (Boolean) -> Unit

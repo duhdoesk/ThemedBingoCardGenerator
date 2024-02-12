@@ -4,18 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.LandscapeCardScreen
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.PortraitCardScreen
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardSize
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.landscape.LandscapeCardScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.portrait.PortraitCardScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.ThemesScreen
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.getRawListOfCharacters
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.AppScreens
-import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
-import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.event.ThemedCardUiEvent
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -38,7 +34,7 @@ fun CardScreen(
             errorMessage = state.errorMessage,
             onTryAgain = { cardViewModel.resetState() }
         )
-        
+
         is CardUiState.Success -> {
             when (rememberDeviceOrientation()) {
 
@@ -52,75 +48,31 @@ fun CardScreen(
                                 "${AppScreens.Character.name}/${state.currentTheme.themeId}"
                             )
                         },
-                        onChangeCardSize = { cardViewModel.changeCardSize(it) }
+                        onChangeCardSize = { cardViewModel.onChangeCardSize(it) }
                     )
 
                 else ->
                     PortraitCardScreen(
                         state = state,
-                        onUpdateCurrentUser = { cardViewModel.updateCurrentUser(it) },
-                        onDrawNewCard = { cardViewModel.drawNewCard() },
-                        onNavToCharactersScreen = {
-                            navController.navigate(
-                                "${AppScreens.Character.name}/${state.currentTheme.themeId}"
-                            )
-                        },
-                        onChangeCardSize = { cardViewModel.changeCardSize(it) }
+                        event = { event ->
+                            when (event) {
+                                is ThemedCardUiEvent.OnChangeCardSize ->
+                                    cardViewModel.onChangeCardSize()
+
+                                is ThemedCardUiEvent.OnDrawNewCard ->
+                                    cardViewModel.drawNewCard()
+
+                                is ThemedCardUiEvent.OnUpdateCurrentUser ->
+                                    cardViewModel.updateCurrentUser(event.user)
+
+                                is ThemedCardUiEvent.OnNavigateToCharactersScreen ->
+                                    navController.navigate(
+                                        "${AppScreens.Character.name}/${state.currentTheme.themeId}"
+                                    )
+                            }
+                        }
                     )
             }
         }
     }
-}
-
-
-// PREVIEWS
-
-@PortraitPreviews
-@Composable
-fun PortraitPreview() {
-
-    val characters = getRawListOfCharacters()
-
-    PortraitCardScreen(
-        state = CardUiState.Success(
-            currentTheme = Theme(
-                themeId = "1",
-                themeName = "Bears",
-                themePicture = ""
-            ),
-            currentUser = "Dwight Schrute",
-            drawnCharacters = characters,
-            themeCharacters = characters,
-            cardSize = CardSize.MEDIUM
-        ),
-        onUpdateCurrentUser = { },
-        onDrawNewCard = { },
-        onNavToCharactersScreen = { },
-        onChangeCardSize = { }
-    )
-}
-
-@LandscapePreviews
-@Composable
-fun LandscapePreview() {
-
-    val characters = getRawListOfCharacters()
-
-    LandscapeCardScreen(
-        onUpdateCurrentUser = { },
-        onDrawNewCard = { },
-        onNavToCharactersScreen = { },
-        state = CardUiState.Success(
-            currentTheme = Theme(
-                themeId = "1",
-                themeName = "Bears",
-                themePicture = ""
-            ),
-            currentUser = "Dwight Schrute",
-            drawnCharacters = characters,
-            themeCharacters = characters,
-            cardSize = CardSize.LARGE
-        ),
-        onChangeCardSize = { }
-    )
 }

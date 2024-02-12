@@ -48,8 +48,8 @@
     <string name="rotate_your_device">"Por favor, vire seu dispositivo."</string>
     <string name="start_drawing">"Clique em Sortear para começar."</string>
     <string name="card_size">Tamanho da Cartela</string>
-    <string name="medium_card">M</string>
-    <string name="large_card">G</string>
+    <string name="medium_card">Cartela de 6</string>
+    <string name="large_card">Cartela de 9</string>
     <string name="no_internet_connection">"Sem conexão.\nPor favor, contecte-se à internet para prosseguir."</string>
     <string name="classic_drawer_screen">Sorteador Tradicional</string>
     <string name="classic_bingo">"Bingo Tradicional"</string>

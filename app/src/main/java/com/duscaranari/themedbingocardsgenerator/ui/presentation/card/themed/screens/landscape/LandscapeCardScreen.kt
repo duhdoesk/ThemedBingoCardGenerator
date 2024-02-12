@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens
+package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.landscape
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.CardScreenUserButton
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common.NewCardButton
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.CardScreenGrid
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.CardScreenHeader
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.SizeSelectorSwitchButton
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.RotateScreen
 import com.duscaranari.themedbingocardsgenerator.util.WindowInfo

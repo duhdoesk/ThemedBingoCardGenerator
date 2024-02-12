@@ -1,11 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.common
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.NameDialog
 
 @Composable
 fun CardScreenUserButton(
@@ -49,7 +46,7 @@ fun CardScreenUserButton(
         )
 
         if (showDialog.value) {
-            NameDialog(
+            UserNameDialog(
                 currentUser = currentUser,
                 onChange = { onChange(it) },
                 onDismiss = { showDialog.value = false })

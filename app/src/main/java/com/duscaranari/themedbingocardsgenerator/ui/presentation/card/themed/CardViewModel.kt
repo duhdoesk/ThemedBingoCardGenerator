@@ -113,7 +113,21 @@ class CardViewModel @Inject constructor(
         }
     }
 
-    fun changeCardSize(boolean: Boolean) {
+    fun onChangeCardSize() {
+        when (val state = cardUiState.value) {
+            is CardUiState.Success -> {
+                _cardUiState.update {
+                    state.copy(
+                        cardSize = state.cardSize.next()
+                    )
+                }
+            }
+
+            else -> return
+        }
+    }
+
+    fun onChangeCardSize(boolean: Boolean) {
 
         when (val state = cardUiState.value) {
             is CardUiState.Success -> {
