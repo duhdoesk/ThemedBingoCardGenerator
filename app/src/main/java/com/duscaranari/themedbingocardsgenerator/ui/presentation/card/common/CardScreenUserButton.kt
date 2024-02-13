@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.duscaranari.themedbingocardsgenerator.R
 
 @Composable
 fun CardScreenUserButton(
@@ -32,7 +34,7 @@ fun CardScreenUserButton(
     ) {
 
         Text(
-            text = "Nome:",
+            text = "${stringResource(id = R.string.name)}: ",
             style = MaterialTheme.typography.labelLarge
         )
 

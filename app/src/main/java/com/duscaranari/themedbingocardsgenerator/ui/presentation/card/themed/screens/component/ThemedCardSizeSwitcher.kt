@@ -51,7 +51,7 @@ fun ThemedCardSizeSwitcher(
         modifier = modifier
             .clip(shape = parentShape)
             .clickable { onClick() }
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
     ) {
 
         val offset by animateDpAsState(
@@ -70,7 +70,7 @@ fun ThemedCardSizeSwitcher(
                 .offset(x = offset)
                 .padding(all = 2.dp)
                 .clip(shape = toggleShape)
-                .background(MaterialTheme.colorScheme.primary)
+                .background(MaterialTheme.colorScheme.secondary)
         )
 
         Row(
@@ -79,7 +79,7 @@ fun ThemedCardSizeSwitcher(
                 .border(
                     border = BorderStroke(
                         width = borderWidth,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.secondary
                     ),
                     shape = parentShape
                 )
@@ -92,8 +92,8 @@ fun ThemedCardSizeSwitcher(
             ) {
 
                 val color by animateColorAsState(
-                    targetValue = if (cardSize == CardSize.LARGE) MaterialTheme.colorScheme.onPrimaryContainer
-                    else MaterialTheme.colorScheme.onPrimary,
+                    targetValue = if (cardSize == CardSize.LARGE) MaterialTheme.colorScheme.onSecondaryContainer
+                    else MaterialTheme.colorScheme.onSecondary,
                     animationSpec = tween(animationDuration),
                     label = "Color"
                 )
@@ -110,8 +110,8 @@ fun ThemedCardSizeSwitcher(
             ) {
 
                 val color by animateColorAsState(
-                    targetValue = if (cardSize != CardSize.LARGE) MaterialTheme.colorScheme.onPrimaryContainer
-                    else MaterialTheme.colorScheme.onPrimary,
+                    targetValue = if (cardSize != CardSize.LARGE) MaterialTheme.colorScheme.onSecondaryContainer
+                    else MaterialTheme.colorScheme.onSecondary,
                     animationSpec = tween(animationDuration),
                     label = "Color"
                 )

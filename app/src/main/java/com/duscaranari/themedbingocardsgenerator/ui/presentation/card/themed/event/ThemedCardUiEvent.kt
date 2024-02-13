@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.event
+package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.event
 
 sealed class ThemedCardUiEvent {
     data object OnDrawNewCard: ThemedCardUiEvent()

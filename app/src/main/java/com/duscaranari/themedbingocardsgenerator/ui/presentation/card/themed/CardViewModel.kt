@@ -4,13 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetThemeCharactersUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllThemesUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetThemeByIdUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
+import com.duscaranari.themedbingocardsgenerator.domain.user.use_case.GetUserUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.user.use_case.SetUserUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardSize
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardUiState
-import com.duscaranari.themedbingocardsgenerator.domain.character.repository.CharacterRepository
-import com.duscaranari.themedbingocardsgenerator.domain.theme.repository.ThemeRepository
-import com.duscaranari.themedbingocardsgenerator.domain.user.repository.UserRepository
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,9 +23,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CardViewModel @Inject constructor(
-    private val themeRepository: ThemeRepository,
-    private val characterRepository: CharacterRepository,
-    private val userRepository: UserRepository
+    private val getThemeByIdUseCase: GetThemeByIdUseCase,
+    private val getAllThemesUseCase: GetAllThemesUseCase,
+    private val getThemeCharactersUseCase: GetThemeCharactersUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val setUserUseCase: SetUserUseCase
+
 ) : ViewModel() {
 
     private val _cardUiState = MutableStateFlow<CardUiState>(CardUiState.Loading)
@@ -35,12 +40,11 @@ class CardViewModel @Inject constructor(
 
     private fun loadInitialData() {
         viewModelScope.launch(Dispatchers.IO) {
-            val themes = getAllThemes()
+            val themes = getAllThemesUseCase(ThemesDisplayOrder.ID)
 
-            if (themes.isEmpty()) {
-                _cardUiState.value = CardUiState.Error(R.string.unbable_to_load)
-            } else {
-                _cardUiState.value = CardUiState.PendingTheme(getAllThemes())
+            when (themes.isEmpty()) {
+                true -> _cardUiState.value = CardUiState.Error(R.string.unbable_to_load)
+                else -> _cardUiState.value = CardUiState.PendingTheme(themes)
             }
         }
     }
@@ -52,9 +56,9 @@ class CardViewModel @Inject constructor(
     fun selectTheme(themeId: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            val theme = getThemeById(themeId)
-            val characters = getThemeCharacters(themeId)
-            val user = getCurrentUser()?.userName.orEmpty()
+            val theme = getThemeByIdUseCase(themeId)
+            val characters = getThemeCharactersUseCase(themeId)
+            val user = getUserUseCase("1")?.userName.orEmpty()
 
             if (theme != null && characters != null) {
 
@@ -92,7 +96,7 @@ class CardViewModel @Inject constructor(
 
     fun updateCurrentUser(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            setCurrentUser(
+            setUserUseCase(
                 User(
                     userId = "1",
                     userName = userName
@@ -103,7 +107,7 @@ class CardViewModel @Inject constructor(
                 is CardUiState.Success -> {
                     _cardUiState.update {
                         state.copy(
-                            currentUser = getCurrentUser()?.userName.orEmpty()
+                            currentUser = getUserUseCase("1")?.userName.orEmpty()
                         )
                     }
                 }
@@ -121,6 +125,8 @@ class CardViewModel @Inject constructor(
                         cardSize = state.cardSize.next()
                     )
                 }
+
+                drawNewCard()
             }
 
             else -> return
@@ -146,25 +152,5 @@ class CardViewModel @Inject constructor(
 
     private fun shuffleCharacters(characters: List<Character>, amount: Int): List<Character> {
         return characters.shuffled().subList(0, amount)
-    }
-
-    private suspend fun getThemeById(themeId: String): Theme? {
-        return themeRepository.getThemeById(themeId)
-    }
-
-    private suspend fun getThemeCharacters(themeId: String): List<Character>? {
-        return characterRepository.getThemeCharacters(themeId)
-    }
-
-    private suspend fun getCurrentUser(userId: String = "1"): User? {
-        return userRepository.getUser(userId)
-    }
-
-    private suspend fun setCurrentUser(user: User) {
-        userRepository.insertUser(user)
-    }
-
-    private suspend fun getAllThemes(): List<Theme> {
-        return themeRepository.getAllThemesOrderById()
     }
 }

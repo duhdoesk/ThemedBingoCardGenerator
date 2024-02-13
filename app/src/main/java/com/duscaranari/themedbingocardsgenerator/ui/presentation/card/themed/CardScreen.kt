@@ -11,7 +11,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.Error
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.ThemesScreen
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.AppScreens
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.event.ThemedCardUiEvent
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.event.ThemedCardUiEvent
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
