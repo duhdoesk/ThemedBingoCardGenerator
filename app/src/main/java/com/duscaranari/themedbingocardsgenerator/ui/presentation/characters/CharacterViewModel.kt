@@ -3,8 +3,8 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.characters
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.domain.character.Character
-import com.duscaranari.themedbingocardsgenerator.domain.character.CharacterRepository
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.character.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

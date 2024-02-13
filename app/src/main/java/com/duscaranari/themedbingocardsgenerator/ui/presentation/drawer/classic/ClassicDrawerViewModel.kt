@@ -2,8 +2,8 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.classic
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.ClassicDraw
-import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.ClassicDrawRepository
+import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.model.ClassicDraw
+import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.repository.ClassicDrawRepository
 import com.duscaranari.themedbingocardsgenerator.util.funLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

@@ -1,6 +1,7 @@
-package com.duscaranari.themedbingocardsgenerator.domain.classic_draw
+package com.duscaranari.themedbingocardsgenerator.domain.classic_draw.repository
 
 import com.duscaranari.themedbingocardsgenerator.data.local.dao.ClassicDrawDao
+import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.model.ClassicDraw
 import javax.inject.Inject
 
 class ClassicDrawRepository @Inject constructor(

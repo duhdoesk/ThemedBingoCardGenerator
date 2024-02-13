@@ -1,6 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.component
 
-import com.duscaranari.themedbingocardsgenerator.domain.character.Character
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 
 fun getRawTheme(): Theme {

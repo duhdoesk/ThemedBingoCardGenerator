@@ -1,6 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state
 
-import com.duscaranari.themedbingocardsgenerator.domain.character.Character
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 
 sealed class CardUiState {

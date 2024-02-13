@@ -1,6 +1,7 @@
-package com.duscaranari.themedbingocardsgenerator.domain.user
+package com.duscaranari.themedbingocardsgenerator.domain.user.repository
 
 import com.duscaranari.themedbingocardsgenerator.data.local.dao.UserDao
+import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(

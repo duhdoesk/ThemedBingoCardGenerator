@@ -1,6 +1,7 @@
-package com.duscaranari.themedbingocardsgenerator.domain.character
+package com.duscaranari.themedbingocardsgenerator.domain.character.repository
 
 import com.duscaranari.themedbingocardsgenerator.data.local.dao.CharacterDao
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import javax.inject.Inject
 
 class CharacterRepository @Inject constructor(

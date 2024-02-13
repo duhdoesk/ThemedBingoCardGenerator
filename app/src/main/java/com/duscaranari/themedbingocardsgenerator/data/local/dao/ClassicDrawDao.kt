@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.ClassicDraw
+import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.model.ClassicDraw
 
 @Dao
 interface ClassicDrawDao {

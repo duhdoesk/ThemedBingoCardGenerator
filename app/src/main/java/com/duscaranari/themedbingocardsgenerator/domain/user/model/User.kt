@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.domain.user
+package com.duscaranari.themedbingocardsgenerator.domain.user.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

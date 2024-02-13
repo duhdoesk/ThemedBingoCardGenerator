@@ -1,6 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed
 
-import com.duscaranari.themedbingocardsgenerator.domain.character.Character
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 
 /**

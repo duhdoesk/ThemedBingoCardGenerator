@@ -3,11 +3,11 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.character.Character
-import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.Draw
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.model.Draw
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.character.CharacterRepository
-import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.DrawRepository
+import com.duscaranari.themedbingocardsgenerator.domain.character.repository.CharacterRepository
+import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.repository.DrawRepository
 import com.duscaranari.themedbingocardsgenerator.domain.theme.repository.ThemeRepository
 import com.duscaranari.themedbingocardsgenerator.util.funLogger
 import dagger.hilt.android.lifecycle.HiltViewModel

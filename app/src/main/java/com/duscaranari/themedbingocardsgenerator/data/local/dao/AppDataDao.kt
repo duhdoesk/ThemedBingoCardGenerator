@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.duscaranari.themedbingocardsgenerator.domain.app_data.AppData
+import com.duscaranari.themedbingocardsgenerator.domain.app_data.model.AppData
 
 
 @Dao
