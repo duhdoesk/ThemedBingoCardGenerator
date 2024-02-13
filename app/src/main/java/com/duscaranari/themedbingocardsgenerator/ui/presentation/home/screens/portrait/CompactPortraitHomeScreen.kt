@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +20,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.co
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.HomeScreenHeader
 
 @Composable
-fun MediumPortraitHomeScreen(
+fun CompactPortraitHomeScreen(
     onNavigate: (route: String) -> Unit,
     subscribed: Boolean,
     bingoTypes: List<BingoType>,
@@ -53,9 +52,7 @@ fun MediumPortraitHomeScreen(
                     .fillMaxWidth(),
                 onBingoTypeChange = { onBingoTypeChange(it) },
                 onNavigate = { onNavigate(it) },
-                isSubscribed = subscribed,
-                pageSpacing = 24.dp,
-                contentPadding = PaddingValues(horizontal = 80.dp, vertical = 8.dp)
+                isSubscribed = subscribed
             )
         }
 

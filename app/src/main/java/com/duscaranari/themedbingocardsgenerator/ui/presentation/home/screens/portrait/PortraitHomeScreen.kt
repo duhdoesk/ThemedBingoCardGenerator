@@ -14,8 +14,8 @@ fun PortraitHomeScreen(
     onBingoTypeChange: (bingoType: BingoType) -> Unit
 ) {
 
-    when (rememberWindowInfo().screenHeightInfo) {
-        is WindowInfo.WindowType.Expanded -> ExpandedPortraitHomeScreen(
+    when (rememberWindowInfo().screenWidthInfo) {
+        is WindowInfo.WindowType.Compact -> CompactPortraitHomeScreen(
             onNavigate = { onNavigate(it) },
             subscribed = subscribed,
             bingoTypes = bingoTypes,

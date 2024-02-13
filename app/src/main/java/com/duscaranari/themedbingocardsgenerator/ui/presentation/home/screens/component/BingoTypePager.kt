@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.card.BingoTypeCard
 
@@ -37,7 +39,9 @@ fun BingoTypePager(
     onNavigate: (route: String) -> Unit,
     onBingoTypeChange: (bingoType: BingoType) -> Unit,
     modifier: Modifier = Modifier,
-    isSubscribed: Boolean
+    isSubscribed: Boolean,
+    pageSpacing: Dp = 12.dp,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 28.dp, vertical = 8.dp)
 ) {
 
     val pagerState = rememberPagerState(
@@ -54,8 +58,8 @@ fun BingoTypePager(
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         HorizontalPager(
             state = pagerState,
-            pageSpacing = 12.dp,
-            contentPadding = PaddingValues(horizontal = 28.dp, vertical = 8.dp),
+            pageSpacing = pageSpacing,
+            contentPadding = contentPadding,
             modifier = modifier
         ) { page ->
             BingoTypeCard(
@@ -93,6 +97,7 @@ fun BingoTypePager(
                         .padding(2.dp)
                         .clip(CircleShape)
                         .background(color)
+                        .animateContentSize()
                         .size(size)
                 )
             }
