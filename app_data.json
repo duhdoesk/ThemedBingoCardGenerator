@@ -1,6 +1,6 @@
 {
   "app_name": "Themed Bingo Cards Generator",
-  "app_data_version": "1.6",
+  "app_data_version": "1.6.1",
   "app_data": [
     {
       "theme_id": "1",
@@ -9,283 +9,283 @@
       "theme_characters": [
         {
           "character_id": "1",
-          "character_name": "Formiga",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/ant.png"
+          "character_name": "Abelha",
+          "character_picture": "https://i.imgur.com/6lIjOzg.jpg"
         },
         {
           "character_id": "2",
-          "character_name": "Morcego",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bat.png"
+          "character_name": "Água-viva",
+          "character_picture": "https://i.imgur.com/hbEhtXV.jpg"
         },
         {
           "character_id": "3",
-          "character_name": "Abelha",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bee.png"
+          "character_name": "Baleia",
+          "character_picture": "https://i.imgur.com/Qtp9gDv.jpg"
         },
         {
           "character_id": "4",
           "character_name": "Besouro",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/beetle.png"
+          "character_picture": "https://i.imgur.com/MUFvDhQ.jpg"
         },
         {
           "character_id": "5",
-          "character_name": "Passarinho",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bullfinch.png"
+          "character_name": "Borboleta",
+          "character_picture": "https://i.imgur.com/YJ2kB68.jpg"
         },
         {
           "character_id": "6",
-          "character_name": "Borboleta",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/butterfly.png"
+          "character_name": "Cachorro",
+          "character_picture": "https://i.imgur.com/N6nrZYS.jpg"
         },
         {
           "character_id": "7",
-          "character_name": "Gato",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/cat.png"
+          "character_name": "Camaleão",
+          "character_picture": "https://i.imgur.com/zEErppQ.jpg"
         },
         {
           "character_id": "8",
-          "character_name": "Camaleão",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/chameleon.png"
+          "character_name": "Canguru",
+          "character_picture": "https://i.imgur.com/m8W7y8R.jpg"
         },
         {
           "character_id": "9",
-          "character_name": "Peixe Palhaço",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/clown-fish.png"
+          "character_name": "Capivara",
+          "character_picture": "https://i.imgur.com/6bQfybQ.jpg"
         },
         {
           "character_id": "10",
-          "character_name": "Vaquinha",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/cow.png"
+          "character_name": "Caramujo",
+          "character_picture": "https://i.imgur.com/Hjtpo4K.jpg"
         },
         {
           "character_id": "11",
           "character_name": "Carangueijo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/crab.png"
+          "character_picture": "https://i.imgur.com/cb0gwds.jpg"
         },
         {
           "character_id": "12",
-          "character_name": "Crocodilo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/crocodile.png"
+          "character_name": "Cavalo",
+          "character_picture": "https://i.imgur.com/3iHYtJJ.jpg"
         },
         {
           "character_id": "13",
-          "character_name": "Cervo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/deer.png"
+          "character_name": "Cavalo Marinho",
+          "character_picture": "https://i.imgur.com/QGnV8tl.jpg"
         },
         {
           "character_id": "14",
-          "character_name": "Dinossauro",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/dinosaur.png"
+          "character_name": "Cervo",
+          "character_picture": "https://i.imgur.com/b0VzqYU.jpg"
         },
         {
           "character_id": "15",
-          "character_name": "Cachorro",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/dog.png"
+          "character_name": "Coala",
+          "character_picture": "https://i.imgur.com/zkYnGof.jpg"
         },
         {
           "character_id": "16",
-          "character_name": "Golfinho",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/dolphin.png"
+          "character_name": "Cobra",
+          "character_picture": "https://i.imgur.com/dIJVSlx.jpg"
         },
         {
           "character_id": "17",
-          "character_name": "Pato",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/ducky.png"
+          "character_name": "Coelho",
+          "character_picture": "https://i.imgur.com/sFLktTM.jpg"
         },
         {
           "character_id": "18",
-          "character_name": "Gafanhoto",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/earwig.png"
+          "character_name": "Coruja",
+          "character_picture": "https://i.imgur.com/2W2zDVt.jpg"
         },
         {
           "character_id": "19",
-          "character_name": "Elefante",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/elephant.png"
+          "character_name": "Crocodilo",
+          "character_picture": "https://i.imgur.com/c66zZ59.jpg"
         },
         {
           "character_id": "20",
-          "character_name": "Vagalume",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/firefly.png"
+          "character_name": "Dinossauro",
+          "character_picture": "https://i.imgur.com/AiBqRJO.jpg"
         },
         {
           "character_id": "21",
-          "character_name": "Flamingo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/flamingo.png"
+          "character_name": "Elefante",
+          "character_picture": "https://i.imgur.com/tz6o0JP.jpg"
         },
         {
           "character_id": "22",
-          "character_name": "Raposa",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/fox.png"
+          "character_name": "Esquilo",
+          "character_picture": "https://i.imgur.com/5zvk5Pe.jpg"
         },
         {
           "character_id": "23",
-          "character_name": "Sapo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/frog.png"
+          "character_name": "Estrela do Mar",
+          "character_picture": "https://i.imgur.com/e7WskTC.jpg"
         },
         {
           "character_id": "24",
-          "character_name": "Girafa",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/giraffe.png"
+          "character_name": "Flamingo",
+          "character_picture": "https://i.imgur.com/x1FA3r1.jpg"
         },
         {
           "character_id": "25",
-          "character_name": "Galinha",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/hen.png"
+          "character_name": "Formiga",
+          "character_picture": "https://i.imgur.com/SLa8g9Y.jpg"
         },
         {
           "character_id": "26",
-          "character_name": "Hipopótamo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/hippo.png"
+          "character_name": "Gafanhoto",
+          "character_picture": "https://i.imgur.com/KWeKWph.jpg"
         },
         {
           "character_id": "27",
-          "character_name": "Cavalo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/horse.png"
+          "character_name": "Galinha",
+          "character_picture": "https://i.imgur.com/4VlAfYN.jpg"
         },
         {
           "character_id": "28",
-          "character_name": "Água-viva",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/jellyfish.png"
+          "character_name": "Gato",
+          "character_picture": "https://i.imgur.com/FwIlXRB.jpg"
         },
         {
           "character_id": "29",
-          "character_name": "Coala",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/koala.png"
+          "character_name": "Girafa",
+          "character_picture": "https://i.imgur.com/Ezf6yVK.jpg"
         },
         {
           "character_id": "30",
-          "character_name": "Joaninha",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/ladybug.png"
+          "character_name": "Golfinho",
+          "character_picture": "https://i.imgur.com/sIjiDuj.jpg"
         },
         {
           "character_id": "31",
-          "character_name": "Leão",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/lion.png"
+          "character_name": "Hipopótamo",
+          "character_picture": "https://i.imgur.com/LGISH8Q.jpg"
         },
         {
           "character_id": "32",
-          "character_name": "Lagarto",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/lizard.png"
+          "character_name": "Joaninha",
+          "character_picture": "https://i.imgur.com/EIZNbch.jpg"
         },
         {
           "character_id": "33",
-          "character_name": "Lagosta",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/lobster.png"
+          "character_name": "Lagarto",
+          "character_picture": "https://i.imgur.com/gJzWyZL.jpg"
         },
         {
           "character_id": "34",
-          "character_name": "Macaco",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/monkey.png"
+          "character_name": "Lagosta",
+          "character_picture": "https://i.imgur.com/fkNdcDo.jpg"
         },
         {
           "character_id": "35",
-          "character_name": "Rato",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/mouse.png"
+          "character_name": "Leão",
+          "character_picture": "https://i.imgur.com/c5H2Pqx.jpg"
         },
         {
           "character_id": "36",
-          "character_name": "Polvo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/octopus.png"
+          "character_name": "Lobo",
+          "character_picture": "https://i.imgur.com/xaCYivp.jpg"
         },
         {
           "character_id": "37",
-          "character_name": "Coruja",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/owl.png"
+          "character_name": "Macaco",
+          "character_picture": "https://i.imgur.com/lcPHrJc.jpg"
         },
         {
           "character_id": "38",
-          "character_name": "Panda",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/panda.png"
+          "character_name": "Morcego",
+          "character_picture": "https://i.imgur.com/ijPRFrX.jpg"
         },
         {
           "character_id": "39",
-          "character_name": "Pinguim",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/penguin.png"
+          "character_name": "Ovelha",
+          "character_picture": "https://i.imgur.com/mXJNRsi.jpg"
         },
         {
           "character_id": "40",
-          "character_name": "Porquinho",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/pig.png"
+          "character_name": "Panda",
+          "character_picture": "https://i.imgur.com/vwd0LoA.jpg"
         },
         {
           "character_id": "41",
-          "character_name": "Coelho",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/bunny.png"
+          "character_name": "Passarinho",
+          "character_picture": "https://i.imgur.com/H6ggRSM.jpg"
         },
         {
           "character_id": "42",
-          "character_name": "Cavalo Marinho",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/seahorse.png"
+          "character_name": "Pato",
+          "character_picture": "https://i.imgur.com/Ta0zWXI.jpg"
         },
         {
           "character_id": "43",
-          "character_name": "Tubarão",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/shark.png"
+          "character_name": "Peixe Palhaço",
+          "character_picture": "https://i.imgur.com/pVDE4u0.jpg"
         },
         {
           "character_id": "44",
-          "character_name": "Ovelha",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/sheep.png"
+          "character_name": "Pinguim",
+          "character_picture": "https://i.imgur.com/OzLeMBg.jpg"
         },
         {
           "character_id": "45",
-          "character_name": "Preguiça",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/sloth.png"
+          "character_name": "Polvo",
+          "character_picture": "https://i.imgur.com/3yL3PcZ.jpg"
         },
         {
           "character_id": "46",
-          "character_name": "Caramujo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/snail.png"
+          "character_name": "Porquinho",
+          "character_picture": "https://i.imgur.com/zxdClDF.jpg"
         },
         {
           "character_id": "47",
-          "character_name": "Cobra",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/snake.png"
+          "character_name": "Preguiça",
+          "character_picture": "https://i.imgur.com/weRSA1D.jpg"
         },
         {
           "character_id": "48",
-          "character_name": "Esquilo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/squirrel.png"
+          "character_name": "Raposa",
+          "character_picture": "https://i.imgur.com/K71gi6P.jpg"
         },
         {
           "character_id": "49",
-          "character_name": "Estrela do Mar",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/starfish.png"
+          "character_name": "Rato",
+          "character_picture": "https://i.imgur.com/iUW5j1C.jpg"
         },
         {
           "character_id": "50",
-          "character_name": "Tigresa",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/tiger.png"
+          "character_name": "Sapo",
+          "character_picture": "https://i.imgur.com/SRK3stx.jpg"
         },
         {
           "character_id": "51",
-          "character_name": "Tucano",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/toucan.png"
+          "character_name": "Tartaruga",
+          "character_picture": "https://i.imgur.com/e3XJtuv.jpg"
         },
         {
           "character_id": "52",
-          "character_name": "Tartaruga",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/turtle.png"
+          "character_name": "Tigresa",
+          "character_picture": "https://i.imgur.com/DujcYDE.jpg"
         },
         {
           "character_id": "53",
-          "character_name": "Baleia",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/whale.png"
+          "character_name": "Tubarão",
+          "character_picture": "https://i.imgur.com/igst7wZ.jpg"
         },
         {
           "character_id": "54",
-          "character_name": "Lobo",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/wolf.png"
+          "character_name": "Tucano",
+          "character_picture": "https://i.imgur.com/Cqfk3jL.jpg"
         },
         {
           "character_id": "55",
-          "character_name": "Capivara",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/capivara.png"
+          "character_name": "Vagalume",
+          "character_picture": "https://i.imgur.com/biqUwkP.jpg"
         },
         {
           "character_id": "56",
-          "character_name": "Canguru",
-          "character_picture": "https://duhdoesk.github.io/bingo-bichinhos/img/kangaroo.png"
+          "character_name": "Vaquinha",
+          "character_picture": "https://i.imgur.com/n7FzflI.jpg"
         }
       ]
     },
