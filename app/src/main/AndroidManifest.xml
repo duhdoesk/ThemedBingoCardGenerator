@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThemedBingoCardsGenerator"
         tools:targetApi="31"
-        android:name=".di.BaseApplication">
+        android:name=".data.local.di.BaseApplication"
+        android:windowSoftInputMode="adjustResize">
         <activity
             android:name=".MainActivity"
             android:exported="true"

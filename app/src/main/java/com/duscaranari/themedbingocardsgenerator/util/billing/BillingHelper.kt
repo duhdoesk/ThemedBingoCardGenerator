@@ -1,7 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.util.billing
 
 import android.app.Activity
-import android.util.Log
+import android.content.Context
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClient.BillingResponseCode
@@ -11,13 +11,11 @@ import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.ConsumeResponseListener
 import com.android.billingclient.api.ProductDetails
-import com.android.billingclient.api.ProductDetails.SubscriptionOfferDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.queryProductDetails
-import com.duscaranari.themedbingocardsgenerator.TAG
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +26,7 @@ import kotlinx.coroutines.withContext
 
 const val SUBS_ID = "drawer_access"
 
-class BillingHelper(private val activity: Activity) {
+class BillingHelper(context: Context) {
 
     private val _subscription = MutableStateFlow<SubscriptionState>(SubscriptionState.Loading)
     val subscribed = _subscription.asStateFlow()
@@ -38,25 +36,15 @@ class BillingHelper(private val activity: Activity) {
             for (purchase in purchases) {
                 handlePurchase(purchase)
             }
-        } else if (result.responseCode == BillingResponseCode.USER_CANCELED) {
-            // User canceled the purchase
-            Log.d(TAG, "User canceled the purchase")
-        } else {
-            // Handle other error cases
-            Log.d(TAG, result.debugMessage)
         }
     }
 
-    private var billingClient: BillingClient = BillingClient.newBuilder(activity)
+    private var billingClient: BillingClient = BillingClient.newBuilder(context)
         .setListener(purchaseUpdateListener)
         .enablePendingPurchases()
         .build()
 
     private fun handlePurchase(purchase: Purchase) {
-
-        Log.d("Purchase", "Iniciando fluxo.")
-        Log.d("Purchase State", purchase.purchaseState.toString())
-        Log.d("Purchase Acknowledged", purchase.isAcknowledged.toString())
 
         val consumeParams = ConsumeParams.newBuilder()
             .setPurchaseToken(purchase.purchaseToken)
@@ -67,11 +55,6 @@ class BillingHelper(private val activity: Activity) {
         billingClient.consumeAsync(consumeParams, listener)
 
         if (!purchase.isAcknowledged) {
-
-            Log.d("Purchase", "Iniciando fluxo nao reconhecido.")
-            Log.d("Purchase State", purchase.purchaseState.toString())
-            Log.d("Purchase Acknowledged", purchase.isAcknowledged.toString())
-
             val acknowledgePurchaseParams = AcknowledgePurchaseParams
                 .newBuilder()
                 .setPurchaseToken(purchase.purchaseToken)
@@ -81,23 +64,16 @@ class BillingHelper(private val activity: Activity) {
                 if (billingResult.responseCode == BillingResponseCode.OK) {
                     _subscription.value = SubscriptionState.Checked(true, null)
                 }
-
-                Log.d("Purchase", "Terminando fluxo - dentro do metodo acknowledge.")
-                Log.d("Purchase State", purchase.purchaseState.toString())
-                Log.d("Purchase Acknowledged", purchase.isAcknowledged.toString())
             }
         }
     }
 
     fun billingSetup() {
-        Log.d(TAG, "billingSetup called")
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(result: BillingResult) {
                 if (result.responseCode == BillingResponseCode.OK) {
-                    Log.d(TAG, "billingSetup success")
                     isSubscribed()
                 } else {
-                    Log.d(TAG, result.debugMessage)
                     _subscription.value = SubscriptionState.Error
                 }
             }
@@ -124,7 +100,6 @@ class BillingHelper(private val activity: Activity) {
                         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
                             purchase.products.contains(SUBS_ID)
                         ) {
-                            Log.d(TAG, "purchase success")
                             _subscription.value = SubscriptionState.Checked(true, null)
                             return@queryPurchasesAsync
                         }
@@ -133,12 +108,10 @@ class BillingHelper(private val activity: Activity) {
 
                 BillingResponseCode.USER_CANCELED -> {
                     // User canceled the purchase
-                    Log.d(TAG, result.debugMessage)
                 }
 
                 else -> {
                     // Handle other error cases
-                    Log.d(TAG, result.debugMessage)
                 }
             }
 
@@ -151,6 +124,7 @@ class BillingHelper(private val activity: Activity) {
 
     fun querySubscriptionPlans(
         subscriptionPlanId: String,
+        activity: Activity
     ) {
         val queryProductDetailsParams =
             QueryProductDetailsParams.newBuilder()

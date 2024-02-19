@@ -7,6 +7,7 @@
     <string name="cancel">Cancel</string>
     <string name="no_internet_connection">"No internet connection.\nPlease, connect to the internet to proceed."</string>
     <string name="waving_octopus">"Waving Octopus."</string>
+    <string name="hot_water_software" translatable="false">"hot water software"</string>
 
 
     <!--    SCREENS -->
@@ -18,13 +19,19 @@
     <string name="drawer_screen">Drawer</string>
     <string name="classic_drawer_screen">Classic Drawer</string>
     <string name="classic_card_screen">Classic Card</string>
+    <string name="online">Online</string>
 
 
     <!--    HOME SCREEN -->
     <string name="built_by">Developed by ES apps</string>
     <string name="about_us">About</string>
     <string name="play">Play</string>
-    <string name="drawer_unlock">Unlock Drawer Access</string>
+    <string name="unlock_full_access">Unlock Full Access</string>
+    <string name="themed">Themed</string>
+    <string name="classic">Classic</string>
+    <string name="soon">Soon!</string>
+    <string name="game_mode">Game mode</string>
+    <string name="unbable_to_load">Unable to load data.</string>
 
 
     <!--    ABOUT SCREEN -->
@@ -38,6 +45,7 @@
     <string name="no_data_message">"Ops! We haven't been able to download the themes library. Please, connect to the Internet and click Refresh to try again."</string>
     <string name="sad_cartoon_tiger_caption">Sad Cartoon Tiger</string>
     <string name="refresh">Refresh</string>
+    <string name="sorting_by">Sorting by</string>
 
 
     <!--    CARD SCREEN -->
@@ -45,8 +53,9 @@
     <string name="new_card">New Card</string>
     <string name="insert_your_name">Insert your name</string>
     <string name="card_size">Card Size</string>
-    <string name="medium_card">M</string>
-    <string name="large_card">L</string>
+    <string name="medium_card">Card of 6</string>
+    <string name="large_card">Card of 9</string>
+    <string name="name">Name</string>
 
 
     <!--    CHARACTER SCREEN -->
@@ -91,4 +100,9 @@
     <string name="trimester_plan_desc">"Get access to drawer feature and stay free of ads for three months"</string>
     <string name="yearly_plan_desc">"Get access to drawer feature and stay free of ads for a year"</string>
     <string name="best_option">"BEST OPTION"</string>
+
+
+    <!--    ONLINE SCREEN -->
+    <string name="host">Host</string>
+    <string name="join">Join</string>
 </resources>
