@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.data.network.model
+package com.duscaranari.themedbingocardsgenerator.data.network.retrofit.model
 
 import com.google.gson.annotations.SerializedName
 

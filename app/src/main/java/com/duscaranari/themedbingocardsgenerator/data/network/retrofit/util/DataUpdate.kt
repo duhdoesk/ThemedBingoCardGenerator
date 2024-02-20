@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.data.network.util
+package com.duscaranari.themedbingocardsgenerator.data.network.retrofit.util
 
 import com.duscaranari.themedbingocardsgenerator.domain.app_data.model.AppData
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
@@ -6,8 +6,8 @@ import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 import com.duscaranari.themedbingocardsgenerator.domain.app_data.repository.AppDataRepository
 import com.duscaranari.themedbingocardsgenerator.domain.character.repository.CharacterRepository
 import com.duscaranari.themedbingocardsgenerator.domain.theme.repository.ThemeRepository
-import com.duscaranari.themedbingocardsgenerator.data.network.model.DataNetworkEntity
-import com.duscaranari.themedbingocardsgenerator.data.network.repository.NetworkRepository
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.model.DataNetworkEntity
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.repository.NetworkRepository
 import com.duscaranari.themedbingocardsgenerator.util.funLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

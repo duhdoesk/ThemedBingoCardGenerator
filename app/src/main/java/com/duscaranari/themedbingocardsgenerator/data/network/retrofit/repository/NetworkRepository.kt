@@ -1,6 +1,6 @@
-package com.duscaranari.themedbingocardsgenerator.data.network.repository
+package com.duscaranari.themedbingocardsgenerator.data.network.retrofit.repository
 
-import com.duscaranari.themedbingocardsgenerator.data.network.ApiHelper
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.ApiHelper
 import javax.inject.Inject
 
 class NetworkRepository @Inject constructor(

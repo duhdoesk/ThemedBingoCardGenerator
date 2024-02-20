@@ -1,4 +1,4 @@
-package com.duscaranari.themedbingocardsgenerator.data.network.util
+package com.duscaranari.themedbingocardsgenerator.data.network.retrofit.util
 
 data class Resource<out T>(
     val status: Status,

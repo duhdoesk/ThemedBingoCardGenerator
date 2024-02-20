@@ -1,9 +1,9 @@
-package com.duscaranari.themedbingocardsgenerator.data.network.di
+package com.duscaranari.themedbingocardsgenerator.data.network.retrofit.di
 
-import com.duscaranari.themedbingocardsgenerator.data.network.ApiHelper
-import com.duscaranari.themedbingocardsgenerator.data.network.ApiHelperImpl
-import com.duscaranari.themedbingocardsgenerator.data.network.ApiService
-import com.duscaranari.themedbingocardsgenerator.data.network.util.DomainModelMapper
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.ApiHelper
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.ApiHelperImpl
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.ApiService
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.util.DomainModelMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

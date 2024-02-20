@@ -3,7 +3,7 @@ package com.duscaranari.themedbingocardsgenerator
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.data.local.di.BaseApplication
-import com.duscaranari.themedbingocardsgenerator.data.network.util.DataUpdate
+import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.util.DataUpdate
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.util.ads.adsSetup
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
