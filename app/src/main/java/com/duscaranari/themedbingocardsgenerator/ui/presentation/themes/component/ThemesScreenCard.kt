@@ -24,12 +24,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.getImageLoader
 
 @Composable
 fun ThemesScreenCard(
-    theme: Theme,
+    theme: BingoTheme,
     modifier: Modifier = Modifier,
     onThemePick: () -> Unit
 ) {
@@ -43,7 +44,7 @@ fun ThemesScreenCard(
 
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(theme.themePicture)
+                    .data(theme.picture)
                     .crossfade(true)
                     .scale(Scale.FILL)
                     .build(),
@@ -65,7 +66,7 @@ fun ThemesScreenCard(
             ) {
 
                 Text(
-                    text = theme.themeName,
+                    text = theme.name,
                     color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.padding(2.dp)
                 )
@@ -73,20 +74,4 @@ fun ThemesScreenCard(
         }
 
     }
-}
-
-@Preview
-@Composable
-fun ThemesScreenCardPreview() {
-    ThemesScreenCard(
-        theme = Theme(
-            themeId = "1",
-            themeName = "Halloween",
-            themePicture = "https://i.imgur.com/emkvM5I.jpg"
-        ),
-        modifier = Modifier
-            .aspectRatio(2f)
-            .width(400.dp),
-        onThemePick = {  }
-    )
 }

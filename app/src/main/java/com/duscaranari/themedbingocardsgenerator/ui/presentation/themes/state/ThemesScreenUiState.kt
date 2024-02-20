@@ -1,6 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state
 
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 
 sealed class ThemesScreenUiState {
 
@@ -9,7 +9,7 @@ sealed class ThemesScreenUiState {
     data class Error(val message: String) : ThemesScreenUiState()
 
     data class Success(
-        val themes: List<Theme>,
+        val themes: List<BingoTheme>,
         val themesDisplayOrder: ThemesDisplayOrder
     ) : ThemesScreenUiState()
 }

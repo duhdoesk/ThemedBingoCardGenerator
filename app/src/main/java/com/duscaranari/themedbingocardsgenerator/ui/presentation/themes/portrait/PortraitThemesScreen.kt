@@ -1,7 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.portrait
 
 import androidx.compose.runtime.Composable
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.component.getThemes
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.event.ThemesUiEvent
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
