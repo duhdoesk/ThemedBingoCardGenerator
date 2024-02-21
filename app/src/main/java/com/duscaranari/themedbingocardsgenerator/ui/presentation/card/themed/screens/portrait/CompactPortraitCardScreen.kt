@@ -40,7 +40,7 @@ fun CompactPortraitCardScreen(
         ) {
 
             CardScreenHeader(
-                themeName = state.currentTheme.themeName,
+                themeName = state.currentTheme.name,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 4.dp)

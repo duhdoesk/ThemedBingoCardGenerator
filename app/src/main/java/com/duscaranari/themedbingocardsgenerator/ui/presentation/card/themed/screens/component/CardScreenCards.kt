@@ -29,13 +29,14 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingImage
 import kotlin.random.Random
 
 @Composable
 fun CardScreenCards(
-    character: Character,
+    character: BingoCharacter,
     modifier: Modifier = Modifier
 ) {
 
@@ -66,7 +67,7 @@ fun CardScreenCards(
                 ) {
                     val painter = ImageRequest
                         .Builder(LocalContext.current)
-                        .data(character.characterPicture)
+                        .data(character.picture)
                         .crossfade(true)
                         .scale(Scale.FILL)
                         .build()
@@ -93,7 +94,7 @@ fun CardScreenCards(
             ) {
 
                 Text(
-                    text = character.characterName,
+                    text = character.name,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,

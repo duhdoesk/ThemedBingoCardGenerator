@@ -10,12 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardSize
 
 @Composable
 fun CardScreenGrid(
-    characters: List<Character>,
+    characters: List<BingoCharacter>,
     cardSize: CardSize,
     modifier: Modifier = Modifier,
     spaceBetween: Dp = 4.dp

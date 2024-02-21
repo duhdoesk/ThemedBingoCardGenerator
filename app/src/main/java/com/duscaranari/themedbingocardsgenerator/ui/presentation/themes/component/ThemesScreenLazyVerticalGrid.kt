@@ -18,7 +18,7 @@ fun ThemesScreenLazyVerticalGrid(
     themes: List<BingoTheme>,
     modifier: Modifier = Modifier,
     columns: GridCells,
-    onThemePick: (themeId: String) -> Unit,
+    onThemePick: (theme: BingoTheme) -> Unit,
     contentSpacing: Dp
 ) {
 
@@ -34,7 +34,7 @@ fun ThemesScreenLazyVerticalGrid(
                     theme = theme,
                     modifier = Modifier
                         .aspectRatio(1f),
-                    onThemePick = { onThemePick(theme.id) }
+                    onThemePick = { onThemePick(theme) }
                 )
             }
         }

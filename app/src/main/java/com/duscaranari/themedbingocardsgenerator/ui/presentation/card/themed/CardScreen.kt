@@ -55,7 +55,7 @@ fun CardScreen(
 
                                 is ThemedCardUiEvent.OnNavigateToCharactersScreen ->
                                     navController.navigate(
-                                        "${AppScreens.Character.name}/${state.currentTheme.themeId}"
+                                        "${AppScreens.Character.name}/${state.currentTheme.id}"
                                     )
                             }
                         }
@@ -77,7 +77,7 @@ fun CardScreen(
 
                                 is ThemedCardUiEvent.OnNavigateToCharactersScreen ->
                                     navController.navigate(
-                                        "${AppScreens.Character.name}/${state.currentTheme.themeId}"
+                                        "${AppScreens.Character.name}/${state.currentTheme.id}"
                                     )
                             }
                         }

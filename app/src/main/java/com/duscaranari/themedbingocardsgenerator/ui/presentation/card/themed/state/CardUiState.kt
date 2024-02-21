@@ -1,6 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state
 
-import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 
 sealed class CardUiState {
@@ -9,12 +10,11 @@ sealed class CardUiState {
 
     data class Error(val errorMessage: Int) : CardUiState()
 
-    data class PendingTheme(val themes: List<Theme>) : CardUiState()
+    data class PendingTheme(val themes: List<BingoTheme>) : CardUiState()
 
     data class Success(
-        val currentTheme: Theme,
-        val themeCharacters: List<Character>,
-        val drawnCharacters: List<Character>,
+        val currentTheme: BingoTheme,
+        val drawnCharacters: List<BingoCharacter>,
         val currentUser: String = "",
         val cardSize: CardSize = CardSize.LARGE
     ) : CardUiState()

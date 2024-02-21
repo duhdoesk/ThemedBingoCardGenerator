@@ -78,7 +78,7 @@ fun LandscapeCardScreen(
                         modifier = Modifier
                     ) {
 
-                        CardScreenHeader(themeName = state.currentTheme.themeName)
+                        CardScreenHeader(themeName = state.currentTheme.name)
 
                         NewCardButton(
                             onClick = { onDrawNewCard() }

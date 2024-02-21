@@ -9,15 +9,21 @@ import javax.inject.Inject
 
 class ThemeRepository @Inject constructor(private val database: FirebaseFirestore) {
 
+    private val collection = database.collection("themes")
+
     fun getAllThemes() =
-        database
-            .collection("themes")
+        collection
+            .snapshots()
+            .map { it.toObjects<BingoTheme>() }
+
+    fun getThemeById(id: String) =
+        collection
+            .whereEqualTo("id", id)
             .snapshots()
             .map { it.toObjects<BingoTheme>() }
 
     fun getThemeByName(name: String) =
-        database
-            .collection("themes")
+        collection
             .whereEqualTo("name", name)
             .snapshots()
             .map { it.toObjects<BingoTheme>() }

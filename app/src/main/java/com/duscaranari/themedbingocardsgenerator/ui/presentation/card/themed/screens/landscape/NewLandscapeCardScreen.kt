@@ -35,25 +35,3 @@ fun NewLandscapeCardScreen(
             )
     }
 }
-
-@LandscapePreviews
-@Composable
-fun LandscapePreview() {
-
-    val characters = getRawListOfCharacters()
-
-    NewLandscapeCardScreen(
-        state = CardUiState.Success(
-            currentTheme = Theme(
-                themeId = "1",
-                themeName = "Bears",
-                themePicture = ""
-            ),
-            currentUser = "Dwight Schrüte",
-            drawnCharacters = characters,
-            themeCharacters = characters,
-            cardSize = CardSize.LARGE
-        ),
-        event = { }
-    )
-}
