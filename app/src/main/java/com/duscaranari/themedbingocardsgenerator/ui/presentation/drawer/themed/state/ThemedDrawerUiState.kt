@@ -11,9 +11,7 @@ sealed class ThemedDrawerUiState {
     /**
      * When there is no Draw running
      */
-    data class NotStarted(
-        val themes: List<BingoTheme>
-    ) : ThemedDrawerUiState()
+    data object NotStarted : ThemedDrawerUiState()
 
     /**
      * When is loading data to set up the Ui State
@@ -34,6 +32,7 @@ sealed class ThemedDrawerUiState {
         val drawId: Long,
         val isFinished: Boolean = false,
         val theme: BingoTheme,
+        val characters: List<BingoCharacter>,
         val drawnCharacters: List<BingoCharacter>,
         val availableCharacters: List<BingoCharacter>
     ) : ThemedDrawerUiState()

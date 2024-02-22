@@ -6,7 +6,7 @@ sealed class ThemesScreenUiState {
 
     data object Loading: ThemesScreenUiState()
 
-    data class Error(val message: String) : ThemesScreenUiState()
+    data class Error(val errorMessage: Int) : ThemesScreenUiState()
 
     data class Success(
         val themes: List<BingoTheme>,

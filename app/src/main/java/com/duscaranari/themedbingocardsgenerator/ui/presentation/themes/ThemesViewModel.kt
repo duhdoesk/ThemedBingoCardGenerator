@@ -1,13 +1,11 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes
 
-import android.util.Log
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllBingoThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetThemesByNameUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +19,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
@@ -53,16 +50,23 @@ class ThemesViewModel @Inject constructor(
         themes
     ) { query, displayOrder, themes ->
 
-        if (query.isBlank()) {
-            ThemesScreenUiState.Success(
-                themes = sortThemes(themes),
-                themesDisplayOrder = displayOrder
-            )
-        } else {
-            ThemesScreenUiState.Success(
-                themes = sortThemes(themes.filter { it.name.contains(query) }),
-                themesDisplayOrder = displayOrder
-            )
+        when (themes.isEmpty()) {
+            true ->
+                ThemesScreenUiState.Error(errorMessage = R.string.draw_error)
+
+            else -> {
+                if (query.isBlank()) {
+                    ThemesScreenUiState.Success(
+                        themes = sortThemes(themes),
+                        themesDisplayOrder = displayOrder
+                    )
+                } else {
+                    ThemesScreenUiState.Success(
+                        themes = sortThemes(themes.filter { it.name.contains(query) }),
+                        themesDisplayOrder = displayOrder
+                    )
+                }
+            }
         }
     }
         .onEach { _isSearching.update { false } }

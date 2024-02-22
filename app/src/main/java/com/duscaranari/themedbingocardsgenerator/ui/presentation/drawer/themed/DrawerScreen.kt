@@ -56,18 +56,18 @@ fun DrawerScreen(
         is ThemedDrawerUiState.Error ->
             ErrorScreen(
                 errorMessage = state.errorMessage,
-                onTryAgain = { drawerViewModel.checkSavedState() }
+                onTryAgain = { drawerViewModel.refreshDrawState() }
             )
 
         is ThemedDrawerUiState.NotStarted -> {
-            ThemesScreen(onThemePick = { drawerViewModel.startNewDraw(it) })
+            ThemesScreen(onThemePick = { drawerViewModel.onStartNewDraw(it) })
         }
 
         is ThemedDrawerUiState.Success -> {
             when (rememberDeviceOrientation()) {
                 is DeviceOrientation.Portrait -> PortraitDrawerScreen(
-                    onNavigate = { },
-                    onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
+                    onNavigate = {  },
+                    onDrawNextCharacter = { drawerViewModel.onDrawNextCharacter() },
                     onFinishDraw = { showDialog = true },
                     onStartNewDraw = { drawerViewModel.stateNotStarted() },
                     onCopyString = {
@@ -77,8 +77,8 @@ fun DrawerScreen(
                 )
 
                 is DeviceOrientation.Landscape -> LandscapeDrawerScreen(
-                    onNavigate = { },
-                    onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
+                    onNavigate = {  },
+                    onDrawNextCharacter = { drawerViewModel.onDrawNextCharacter() },
                     onFinishDraw = { showDialog = true },
                     onStartNewDraw = { drawerViewModel.stateNotStarted() },
                     onCopyString = {
@@ -97,7 +97,7 @@ fun DrawerScreen(
             text = { Text(stringResource(id = R.string.finish_draw_dialog_body)) },
             confirmButton = {
                 TextButton(onClick = {
-                    drawerViewModel.finishDraw()
+                    drawerViewModel.onFinishDraw()
                     showDialog = false
                 }) {
                     Text(stringResource(id = R.string.confirm).uppercase())
@@ -161,7 +161,7 @@ fun PortraitDrawerScreen(
                 Spacer(Modifier.height(16.dp))
 
                 DrawerCounterText(
-                    text = "${state.drawnCharacters.size} / ${state.theme.characters.size}",
+                    text = "${state.drawnCharacters.size} / ${state.characters.size}",
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -251,7 +251,7 @@ fun LandscapeDrawerScreen(
             ) {
 
                 DrawerCounterText(
-                    text = "${state.drawnCharacters.size} / ${state.theme.characters.size}",
+                    text = "${state.drawnCharacters.size} / ${state.characters.size}",
                     modifier = Modifier.fillMaxWidth()
                 )
 

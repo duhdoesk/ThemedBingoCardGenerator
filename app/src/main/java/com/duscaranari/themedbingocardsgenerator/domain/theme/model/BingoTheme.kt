@@ -1,10 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.domain.theme.model
 
-import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
+import com.google.firebase.firestore.DocumentId
 
 data class BingoTheme (
-    val id: String = "",
+    @DocumentId val id: String = "",
     val name: String = "",
-    val picture: String = "",
-    val characters: List<BingoCharacter> = emptyList()
+    val picture: String = ""
 )
