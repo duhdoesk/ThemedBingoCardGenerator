@@ -57,8 +57,7 @@ fun getThemes(amount: Int = 4): List<BingoTheme> {
     return List(amount) {
         BingoTheme(
             name = "Halloween",
-            picture = "https://i.imgur.com/emkvM5I.jpg",
-            characters = emptyList()
+            picture = "https://i.imgur.com/emkvM5I.jpg"
         )
     }
 }

@@ -10,7 +10,7 @@ sealed class CardUiState {
 
     data class Error(val errorMessage: Int) : CardUiState()
 
-    data class PendingTheme(val themes: List<BingoTheme>) : CardUiState()
+    data object PendingTheme : CardUiState()
 
     data class Success(
         val currentTheme: BingoTheme,

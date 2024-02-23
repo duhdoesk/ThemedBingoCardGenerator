@@ -46,7 +46,7 @@ class DrawerViewModel @Inject constructor(
     }
 
     private val _theme = getBingoThemeByIdUseCase
-        .invoke(_themeId)
+        .invoke("1")
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(),
@@ -54,7 +54,7 @@ class DrawerViewModel @Inject constructor(
         )
 
     private val _characters = getCharactersFromThemeIdUseCase
-        .invoke(_themeId)
+        .invoke("1")
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(),

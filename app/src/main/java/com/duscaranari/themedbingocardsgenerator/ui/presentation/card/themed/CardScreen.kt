@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.landscape.LandscapeCardScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.screens.portrait.PortraitCardScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardUiState
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
@@ -22,18 +21,18 @@ fun CardScreen(
     cardViewModel: CardViewModel = hiltViewModel()
 ) {
 
-    when (val state = cardViewModel.cardUiState.collectAsStateWithLifecycle().value) {
+    when (val state = cardViewModel.uiState.collectAsStateWithLifecycle().value) {
         is CardUiState.Loading -> LoadingScreen()
 
         is CardUiState.PendingTheme -> {
             ThemesScreen(
-                onThemePick = { cardViewModel.selectTheme(it) }
+                onThemePick = { cardViewModel.onSelectTheme(it) }
             )
         }
 
         is CardUiState.Error -> ErrorScreen(
             errorMessage = state.errorMessage,
-            onTryAgain = { cardViewModel.resetState() }
+            onTryAgain = { cardViewModel.onResetState() }
         )
 
         is CardUiState.Success -> {
@@ -48,10 +47,10 @@ fun CardScreen(
                                     cardViewModel.onChangeCardSize()
 
                                 is ThemedCardUiEvent.OnDrawNewCard ->
-                                    cardViewModel.drawNewCard()
+                                    cardViewModel.onDrawNewCard()
 
                                 is ThemedCardUiEvent.OnUpdateCurrentUser ->
-                                    cardViewModel.updateCurrentUser(event.user)
+                                    cardViewModel.onUpdateCurrentUser(event.user)
 
                                 is ThemedCardUiEvent.OnNavigateToCharactersScreen ->
                                     navController.navigate(
@@ -70,10 +69,10 @@ fun CardScreen(
                                     cardViewModel.onChangeCardSize()
 
                                 is ThemedCardUiEvent.OnDrawNewCard ->
-                                    cardViewModel.drawNewCard()
+                                    cardViewModel.onDrawNewCard()
 
                                 is ThemedCardUiEvent.OnUpdateCurrentUser ->
-                                    cardViewModel.updateCurrentUser(event.user)
+                                    cardViewModel.onUpdateCurrentUser(event.user)
 
                                 is ThemedCardUiEvent.OnNavigateToCharactersScreen ->
                                     navController.navigate(
