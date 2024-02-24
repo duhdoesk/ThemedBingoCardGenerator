@@ -17,10 +17,14 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.s
 import com.duscaranari.themedbingocardsgenerator.util.funLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -40,21 +44,27 @@ class DrawerViewModel @Inject constructor(
     private val _draw =
         MutableStateFlow<Draw?>(null)
 
-    private val _themeId = when (_draw.value) {
-        null -> ""
-        else -> _draw.value!!.themeId
-    }
-
-    private val _theme = getBingoThemeByIdUseCase
-        .invoke("1")
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val _theme = _draw
+        .filterNotNull()
+        .flatMapLatest { draw ->
+            getBingoThemeByIdUseCase.invoke(
+                draw.themeId
+            )
+        }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(),
             null
         )
 
-    private val _characters = getCharactersFromThemeIdUseCase
-        .invoke("1")
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val _characters = _draw
+        .filterNotNull()
+        .flatMapLatest { draw ->
+            getCharactersFromThemeIdUseCase
+                .invoke(draw.themeId)
+        }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(),
@@ -80,26 +90,34 @@ class DrawerViewModel @Inject constructor(
 
     private fun setUiState(
         draw: Draw?, theme: BingoTheme?, characters: List<BingoCharacter>
-    ) {
-        when (draw) {
+    ): ThemedDrawerUiState {
+        return when (draw) {
             null ->
                 ThemedDrawerUiState.NotStarted
 
             else -> {
-                when (theme) {
-                    null ->
-                        ThemedDrawerUiState.Error(errorMessage = R.string.draw_error)
+                if (theme == null || characters.isEmpty())
+                    ThemedDrawerUiState.Error(errorMessage = R.string.draw_error)
+                else {
+                    val drawn = mutableListOf<BingoCharacter>()
 
-                    else -> {
-                        ThemedDrawerUiState.Success(
-                            drawId = draw.drawId,
-                            isFinished = draw.drawCompleted,
-                            theme = theme,
-                            characters = characters,
-                            drawnCharacters = characters,
-                            availableCharacters = characters
-                        )
-                    }
+                    draw
+                        .drawnCharactersIdList.split(",")
+                        .toList()
+                        .forEach { id ->
+                            characters.find { it.id == id }?.let { drawn.add(it) }
+                        }
+
+                    ThemedDrawerUiState.Success(
+                        drawId = draw.drawId,
+                        isFinished = draw.drawCompleted,
+                        theme = theme,
+                        characters = characters,
+                        drawnCharacters = drawn,
+                        availableCharacters = characters.filterNot {
+                            it.id in draw.drawnCharactersIdList.split(",").toList()
+                        }
+                    )
                 }
             }
         }
