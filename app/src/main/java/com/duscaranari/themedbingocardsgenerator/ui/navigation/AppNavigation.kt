@@ -28,6 +28,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.classic.
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.SessionsScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
@@ -80,7 +81,7 @@ fun AppNavigation(
 
             NavHost(
                 navController = navController,
-                startDestination = AppScreens.Home.name,
+                startDestination = AppScreens.Sessions.name,
                 modifier = Modifier.weight(1f)
             ) {
 
@@ -123,6 +124,10 @@ fun AppNavigation(
 
                 composable(AppScreens.ClassicCard.name) {
                     ClassicCardScreen()
+                }
+
+                composable(AppScreens.Sessions.name) {
+                    SessionsScreen()
                 }
             }
         }

@@ -32,5 +32,8 @@ enum class AppScreens (val stringResource: Int) {
         stringResource = R.string.classic_card_screen),
 
     Online(
-        stringResource = R.string.online)
+        stringResource = R.string.online),
+
+    Sessions(
+        stringResource = R.string.sessions)
 }

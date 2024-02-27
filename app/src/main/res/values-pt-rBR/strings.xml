@@ -65,4 +65,5 @@
     <string name="unbable_to_load">"Não foi possível carregar os dados."</string>
     <string name="sorting_by">Mostrando por</string>
     <string name="name">Nome</string>
+    <string name="sessions">Sessões</string>
 </resources>
