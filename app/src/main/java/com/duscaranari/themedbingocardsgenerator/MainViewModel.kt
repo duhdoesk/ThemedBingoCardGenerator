@@ -1,11 +1,17 @@
 package com.duscaranari.themedbingocardsgenerator
 
+import android.app.Activity
+import android.content.Context
+import android.content.IntentSender
+import android.util.Log
+import androidx.core.app.ActivityCompat.startIntentSenderForResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.data.local.di.BaseApplication
 import com.duscaranari.themedbingocardsgenerator.data.network.retrofit.util.DataUpdate
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.util.ads.adsSetup
+import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.connectivity.NetworkConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +26,7 @@ class MainViewModel @Inject constructor(
     private val baseApplication: BaseApplication,
     val billingHelper: BillingHelper,
     val networkConnectivityObserver: NetworkConnectivityObserver,
+    val authHelper: AuthHelper,
     dataUpdate: DataUpdate
 ) : ViewModel() {
 

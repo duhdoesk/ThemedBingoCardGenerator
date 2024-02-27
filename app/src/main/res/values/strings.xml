@@ -106,4 +106,8 @@
     <!--    ONLINE SCREEN -->
     <string name="host">Host</string>
     <string name="join">Join</string>
+
+
+    <!--    OTHERS -->
+    <string name="auth_key" translatable="false">"746232526782-mnq2lnm9fp2sunpopk0cfp7pu6v9trcu.apps.googleusercontent.com"</string>
 </resources>
