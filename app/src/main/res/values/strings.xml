@@ -21,6 +21,7 @@
     <string name="classic_card_screen">Classic Card</string>
     <string name="online">Online</string>
     <string name="sessions">Sessions</string>
+    <string name="sign_in">Sign In</string>
 
 
     <!--    HOME SCREEN -->
@@ -109,5 +110,5 @@
 
 
     <!--    OTHERS -->
-    <string name="auth_key" translatable="false">"746232526782-mnq2lnm9fp2sunpopk0cfp7pu6v9trcu.apps.googleusercontent.com"</string>
+    <string name="auth_key" translatable="false">746232526782-mnq2lnm9fp2sunpopk0cfp7pu6v9trcu.apps.googleusercontent.com</string>
 </resources>

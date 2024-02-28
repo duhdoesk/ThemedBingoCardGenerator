@@ -82,7 +82,7 @@ class AuthHelper(private val context: Context) {
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
-                    .setFilterByAuthorizedAccounts(true)
+                    .setFilterByAuthorizedAccounts(false)
                     .setServerClientId(context.getString(R.string.auth_key))
                     .build()
             )

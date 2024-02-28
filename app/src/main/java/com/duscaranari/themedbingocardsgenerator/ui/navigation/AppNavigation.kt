@@ -4,14 +4,11 @@ import android.app.Activity
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -29,14 +26,17 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.D
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.SessionsScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.sign_in.SignInScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
 fun AppNavigation(
     billingHelper: BillingHelper,
+    authHelper: AuthHelper,
     subscribed: Boolean,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
     onBingoTypeChange: (bingoType: BingoType) -> Unit,
@@ -81,7 +81,7 @@ fun AppNavigation(
 
             NavHost(
                 navController = navController,
-                startDestination = AppScreens.Sessions.name,
+                startDestination = AppScreens.SignIn.name,
                 modifier = Modifier.weight(1f)
             ) {
 
@@ -128,6 +128,13 @@ fun AppNavigation(
 
                 composable(AppScreens.Sessions.name) {
                     SessionsScreen()
+                }
+
+                composable(AppScreens.SignIn.name) {
+                    SignInScreen(
+                        authHelper = authHelper,
+                        navController = navController
+                    )
                 }
             }
         }
