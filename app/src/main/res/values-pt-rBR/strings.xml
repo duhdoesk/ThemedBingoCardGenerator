@@ -67,4 +67,8 @@
     <string name="name">Nome</string>
     <string name="sessions">Sessões</string>
     <string name="sign_in">Entrar</string>
+    <string name="profile">Perfil</string>
+    <string name="sign_out">Sair</string>
+    <string name="profile_picture">Foto do Perfil</string>
+    <string name="welcome">Bem-vindo</string>
 </resources>

@@ -41,5 +41,5 @@ enum class AppScreens (val stringResource: Int) {
         stringResource = R.string.sign_in),
 
     Profile(
-        stringResource = R.string.join)
+        stringResource = R.string.profile)
 }

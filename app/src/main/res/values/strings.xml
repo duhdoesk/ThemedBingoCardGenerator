@@ -22,6 +22,7 @@
     <string name="online">Online</string>
     <string name="sessions">Sessions</string>
     <string name="sign_in">Sign In</string>
+    <string name="profile">Profile</string>
 
 
     <!--    HOME SCREEN -->
@@ -107,6 +108,15 @@
     <!--    ONLINE SCREEN -->
     <string name="host">Host</string>
     <string name="join">Join</string>
+
+
+    <!--    PROFILE SCREEN -->
+    <string name="sign_out">Sign Out</string>
+    <string name="profile_picture">Profile Picture</string>
+
+
+    <!--    SIGN IN SCREEN -->
+    <string name="welcome">Welcome</string>
 
 
     <!--    OTHERS -->

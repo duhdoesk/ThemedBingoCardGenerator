@@ -15,6 +15,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.sign_in.state.S
 import com.duscaranari.themedbingocardsgenerator.util.ads.adsSetup
 import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
 import com.duscaranari.themedbingocardsgenerator.util.auth.SignInResult
+import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.connectivity.NetworkConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,11 +41,15 @@ class MainViewModel @Inject constructor(
     private val _bingoType = MutableStateFlow(BingoType.ONLINE)
     val bingoType = _bingoType.asStateFlow()
 
+    private val _googleUser = MutableStateFlow(authHelper.getSignedInUser())
+    val googleUser = _googleUser.asStateFlow()
+
     init {
         viewModelScope.launch {
             billingSetup()
             adsSetup(baseApplication)
             dataUpdate.checkForUpdates()
+            Log.d("SIGN IN", googleUser.value.toString())
         }
     }
 
@@ -55,5 +60,17 @@ class MainViewModel @Inject constructor(
 
     fun setBingoType(bingoType: BingoType) {
         _bingoType.update { bingoType }
+    }
+
+    fun onSignInResult(result: SignInResult) {
+        Log.d("SIGN IN", result.data.toString())
+        _googleUser.update { result.data }
+    }
+
+    fun onSignOut() {
+        viewModelScope.launch {
+            authHelper.signOut()
+            _googleUser.update { authHelper.getSignedInUser() }
+        }
     }
 }

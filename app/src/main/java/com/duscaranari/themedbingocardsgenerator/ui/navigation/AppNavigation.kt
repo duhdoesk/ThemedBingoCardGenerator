@@ -1,6 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.ui.navigation
 
 import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -25,11 +26,13 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.classic.
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.profile.ProfileScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.SessionsScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sign_in.SignInScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
+import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -40,7 +43,10 @@ fun AppNavigation(
     subscribed: Boolean,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
     onBingoTypeChange: (bingoType: BingoType) -> Unit,
-    activity: Activity
+    activity: Activity,
+    googleUser: UserData?,
+    onSignIn: () -> Unit,
+    onSignOut: () -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -56,7 +62,9 @@ fun AppNavigation(
                 TopBar(
                     currentScreen = currentScreen,
                     canNavigateBack = navController.previousBackStackEntry != null,
-                    navigateUp = { navController.navigateUp() })
+                    navigateUp = { navController.navigateUp() },
+                    navigateToProfile = { navController.navigate(AppScreens.Profile.name) },
+                    googleUser = googleUser)
             }
         },
         bottomBar = {
@@ -79,10 +87,14 @@ fun AppNavigation(
                 )
             }
 
+            val startDestination =
+                if (googleUser == null) AppScreens.SignIn.name
+                else AppScreens.Home.name
+
             NavHost(
                 navController = navController,
-                startDestination = AppScreens.SignIn.name,
-                modifier = Modifier.weight(1f)
+                startDestination = startDestination,
+                modifier = Modifier.weight(1f),
             ) {
 
                 composable(AppScreens.About.name) {
@@ -131,10 +143,11 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.SignIn.name) {
-                    SignInScreen(
-                        authHelper = authHelper,
-                        navController = navController
-                    )
+                    SignInScreen(onSignIn = onSignIn)
+                }
+
+                composable(AppScreens.Profile.name) {
+                    ProfileScreen(onSignOut = onSignOut)
                 }
             }
         }
