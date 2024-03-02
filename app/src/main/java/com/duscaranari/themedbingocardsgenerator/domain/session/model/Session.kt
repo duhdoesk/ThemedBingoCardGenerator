@@ -12,7 +12,7 @@ data class Session(
     val password: String? = null,
     val themeId: String = "",
     val listOfDrawnCharactersIds: List<String> = emptyList(),
-    val limitOfWinners: Int = 0,
+    val limitOfWinners: Int = 1,
     val host: Host? = null,
     val participants: List<Participant> = emptyList()
 )

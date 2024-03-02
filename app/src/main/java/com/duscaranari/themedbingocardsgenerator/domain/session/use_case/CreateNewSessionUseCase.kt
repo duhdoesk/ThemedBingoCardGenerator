@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class CreateNewSessionUseCase @Inject constructor(private val sessionRepository: SessionRepository) {
 
-    operator fun invoke(session: Session) =
+    operator fun invoke(session: Session): String =
         sessionRepository.createNewSession(session)
 }

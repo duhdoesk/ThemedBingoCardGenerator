@@ -22,6 +22,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.about.AboutScre
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.ClassicCardScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.CardScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.characters.CharacterScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.CreateSessionScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.classic.ClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
@@ -148,6 +149,10 @@ fun AppNavigation(
 
                 composable(AppScreens.Profile.name) {
                     ProfileScreen(onSignOut = onSignOut)
+                }
+
+                composable(AppScreens.CreateSession.name) {
+                    CreateSessionScreen()
                 }
             }
         }

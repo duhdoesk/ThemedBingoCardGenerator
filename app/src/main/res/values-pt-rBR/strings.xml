@@ -71,4 +71,5 @@
     <string name="sign_out">Sair</string>
     <string name="profile_picture">Foto do Perfil</string>
     <string name="welcome">Bem-vindo</string>
+    <string name="create_session">Criar Sala</string>
 </resources>
