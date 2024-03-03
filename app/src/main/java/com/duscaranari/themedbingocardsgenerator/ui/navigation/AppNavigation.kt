@@ -40,7 +40,6 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 @Composable
 fun AppNavigation(
     billingHelper: BillingHelper,
-    authHelper: AuthHelper,
     subscribed: Boolean,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
     onBingoTypeChange: (bingoType: BingoType) -> Unit,
@@ -103,7 +102,7 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.Card.name) {
-                    CardScreen(navController)
+                    CardScreen(navController = navController)
                 }
 
                 composable(AppScreens.Home.name) {
@@ -119,7 +118,7 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.Drawer.name) {
-                    DrawerScreen(navController)
+                    DrawerScreen(navController = navController)
                 }
 
                 composable(AppScreens.Subs.name) {
@@ -152,7 +151,7 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.CreateSession.name) {
-                    CreateSessionScreen()
+                    CreateSessionScreen(navController = navController)
                 }
             }
         }

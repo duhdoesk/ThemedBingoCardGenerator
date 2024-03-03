@@ -8,3 +8,6 @@ data class CreateSessionUiState(
     val passwordErrors: List<String> = emptyList(),
     val themeId: String = "1"
 )
+
+fun mockSessionUiState(): CreateSessionUiState =
+    CreateSessionUiState()

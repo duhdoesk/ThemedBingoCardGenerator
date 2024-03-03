@@ -72,4 +72,12 @@
     <string name="profile_picture">Foto do Perfil</string>
     <string name="welcome">Bem-vindo</string>
     <string name="create_session">Criar Sala</string>
+    <string name="create_session_button">Criar</string>
+    <string name="name_textField">Nome</string>
+    <string name="theme_textField">Tema</string>
+    <string name="password_textField">Senha</string>
+    <string name="private_session_checkbox">Sala Privada</string>
+    <string name="limit_of_winners">Quantidade de Vencedores</string>
+    <string name="theme_picture">Foto do Tema</string>
+    <string name="key_icon">Ícone de chave</string>
 </resources>

@@ -110,7 +110,6 @@ class MainActivity : ComponentActivity() {
                                      */
                                     ThemedBingoApp(
                                         billingHelper = viewModel.billingHelper,
-                                        authHelper = viewModel.authHelper,
                                         subscribed = subscribed.subscribed,
                                         offerDetails = subscribed.offerDetails,
                                         onBingoTypeChange = { viewModel.setBingoType(it) },

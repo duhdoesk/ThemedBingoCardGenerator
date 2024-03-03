@@ -2,22 +2,18 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session
 
 import android.content.Context
 import android.widget.Toast
+import androidx.navigation.NavController
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.CreateSessionViewModel
 
 fun createSessionScreenEventHandler(
     event: CreateSessionEvent,
     viewModel: CreateSessionViewModel,
-    context: Context
+    navController: NavController
 ) {
     when (event) {
         is CreateSessionEvent.OnCreateNewSession -> {
             val sessionId = viewModel.onCreateNewSession()
-
-            Toast.makeText(
-                context,
-                "Session ID: $sessionId",
-                Toast.LENGTH_LONG
-            ).show()
+            navController.navigate("")
         }
 
         is CreateSessionEvent.OnUpdateName ->

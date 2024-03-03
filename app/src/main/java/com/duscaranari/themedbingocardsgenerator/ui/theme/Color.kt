@@ -1,6 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.ui.theme
 
 import androidx.compose.ui.graphics.Color
+import kotlin.random.Random
 
 val SphereDetail = Color(0xB3855F45)
 val SphereBrown = Color(0xB3240E04)
@@ -34,3 +35,12 @@ val ClassicDarkPrimary = Color(0xffffb68f)
 val ClassicDarkOnPrimary = Color(0xff542100)
 val ClassicDarkPrimaryContainer = Color(0xff773200)
 val ClassicDarkOnPrimaryContainer = Color(0xffffdbca)
+
+
+fun getRandomLightColor() =
+    Color(
+        blue = Random.nextInt(160, 256),
+        red = Random.nextInt(160, 256),
+        green = Random.nextInt(160, 256),
+        alpha = 255
+    )

@@ -20,10 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.state.CreateSessionUiState
-import kotlin.random.Random
+import com.duscaranari.themedbingocardsgenerator.ui.theme.getRandomLightColor
 
 @Composable
 fun SessionNameComponent(
@@ -34,16 +35,7 @@ fun SessionNameComponent(
 ) {
     Row(modifier = modifier) {
 
-        val color by remember {
-            mutableStateOf(
-                Color(
-                    blue = Random.nextInt(160, 256),
-                    red = Random.nextInt(160, 256),
-                    green = Random.nextInt(160, 256),
-                    alpha = 255
-                )
-            )
-        }
+        val color by remember { mutableStateOf(getRandomLightColor()) }
 
         Box(modifier = leadingIconModifier) {
             Surface(
@@ -67,7 +59,7 @@ fun SessionNameComponent(
         Column(modifier = Modifier.weight(1f)) {
             TextField(
                 value = uiState.name,
-                label = { Text(text = "name") },
+                label = { Text(text = stringResource(id = R.string.name_textField)) },
                 onValueChange = { onUpdateName(it) },
                 singleLine = true,
                 modifier = Modifier

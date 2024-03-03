@@ -1,9 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.event.CreateSessionEvent
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.event.createSessionScreenEventHandler
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.screens.landscape.LandscapeCreateSessionScreen
@@ -12,7 +12,10 @@ import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
-fun CreateSessionScreen(createSessionViewModel: CreateSessionViewModel = hiltViewModel()) {
+fun CreateSessionScreen(
+    createSessionViewModel: CreateSessionViewModel = hiltViewModel(),
+    navController: NavController
+) {
     val uiState =
         createSessionViewModel.uiState.collectAsStateWithLifecycle().value
 
@@ -22,13 +25,11 @@ fun CreateSessionScreen(createSessionViewModel: CreateSessionViewModel = hiltVie
     val themes =
         createSessionViewModel.themes.collectAsStateWithLifecycle().value.sortedBy { it.name }
 
-    val context =
-        LocalContext.current
 
     fun eventHandler(event: CreateSessionEvent) = createSessionScreenEventHandler(
         event = event,
         viewModel = createSessionViewModel,
-        context = context)
+        navController = navController)
 
     when (rememberDeviceOrientation()) {
         DeviceOrientation.Landscape ->

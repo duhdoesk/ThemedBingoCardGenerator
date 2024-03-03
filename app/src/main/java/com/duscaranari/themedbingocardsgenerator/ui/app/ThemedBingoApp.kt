@@ -12,7 +12,6 @@ import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 @Composable
 fun ThemedBingoApp(
     billingHelper: BillingHelper,
-    authHelper: AuthHelper,
     subscribed: Boolean,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
     onBingoTypeChange: (bingoType: BingoType) -> Unit,
@@ -23,7 +22,6 @@ fun ThemedBingoApp(
 ) {
     AppNavigation(
         billingHelper = billingHelper,
-        authHelper = authHelper,
         subscribed = subscribed,
         offerDetails = offerDetails,
         onBingoTypeChange = { onBingoTypeChange(it) },

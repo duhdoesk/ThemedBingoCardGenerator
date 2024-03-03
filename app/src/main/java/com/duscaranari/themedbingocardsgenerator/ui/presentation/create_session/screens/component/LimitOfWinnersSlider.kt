@@ -1,6 +1,5 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.screens.component
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,10 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
@@ -24,16 +20,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.R
+import com.duscaranari.themedbingocardsgenerator.ui.theme.getRandomLightColor
 import kotlin.math.roundToInt
-import kotlin.random.Random
 
 @Composable
 fun LimitOfWinnersSlider(
@@ -42,17 +36,7 @@ fun LimitOfWinnersSlider(
     leadingIconModifier: Modifier
 ) {
 
-    val color by remember {
-        mutableStateOf(
-            Color(
-                blue = Random.nextInt(160, 256),
-                red = Random.nextInt(160, 256),
-                green = Random.nextInt(160, 256),
-                alpha = 255
-            )
-        )
-    }
-
+    val color by remember { mutableStateOf(getRandomLightColor()) }
     var sliderPosition by remember { mutableFloatStateOf(1f) }
 
     Row(modifier = modifier) {
@@ -79,41 +63,26 @@ fun LimitOfWinnersSlider(
 
         Column(modifier = Modifier.weight(1f)) {
 
-
             Text(
-                text = "Limit of Winners",
+                text = stringResource(id = R.string.limit_of_winners),
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth()
             )
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
+                horizontalArrangement = Arrangement.Center
             ) {
-
-                Text(
-                    text = "1",
-                    textAlign = TextAlign.Center
-                )
-
                 Slider(
                     value = sliderPosition,
                     onValueChange = {
                         sliderPosition = it
-                        Log.d("SliderPos", sliderPosition.roundToInt().toString())
                     },
-                    valueRange = 1f..16f,
-                    modifier = Modifier.weight(1f),
+                    valueRange = 1f..20f,
+                    modifier = Modifier.fillMaxWidth(),
                     onValueChangeFinished = { onValueChangeFinished(sliderPosition) }
-                )
-
-                Text(
-                    text = "16",
-                    textAlign = TextAlign.Center
                 )
             }
         }
     }
-
 }

@@ -23,10 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.state.CreateSessionUiState
-import kotlin.random.Random
+import com.duscaranari.themedbingocardsgenerator.ui.theme.getRandomLightColor
 
 @Composable
 fun SessionPasswordComponent(
@@ -46,21 +47,12 @@ fun SessionPasswordComponent(
             Checkbox(
                 checked = uiState.locked,
                 onCheckedChange = { onUpdateLockedState(it) })
-            Text(text = "Private Session")
+            Text(text = stringResource(id = R.string.private_session_checkbox))
         }
 
         Row {
 
-            val color by remember {
-                mutableStateOf(
-                    Color(
-                        blue = Random.nextInt(160, 256),
-                        red = Random.nextInt(160, 256),
-                        green = Random.nextInt(160, 256),
-                        alpha = 255
-                    )
-                )
-            }
+            val color by remember { mutableStateOf(getRandomLightColor()) }
 
             Box(modifier = leadingIconModifier) {
                 Surface(
@@ -73,7 +65,7 @@ fun SessionPasswordComponent(
                     Icon(
                         painter = painterResource(id = icon),
                         tint = Color.Black,
-                        contentDescription = "Key",
+                        contentDescription = stringResource(id = R.string.key_icon),
                         modifier = Modifier
                             .padding(12.dp)
                             .fillMaxSize()
@@ -87,7 +79,7 @@ fun SessionPasswordComponent(
                 TextField(
                     value = uiState.password,
                     enabled = uiState.locked,
-                    label = { Text(text = "password") },
+                    label = { Text(text = stringResource(id = R.string.password_textField)) },
                     onValueChange = { onUpdatePassword(it) },
                     singleLine = true,
                     modifier = Modifier
