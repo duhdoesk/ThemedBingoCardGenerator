@@ -16,3 +16,17 @@ data class Session(
     val host: Host? = null,
     val participants: List<Participant> = emptyList()
 )
+
+fun mockSession() =
+    Session(
+        id = "orci",
+        name = "Tigresas",
+        state = "NOT_STARTED",
+        locked = true,
+        password = null,
+        themeId = "ut",
+        listOfDrawnCharactersIds = listOf(),
+        limitOfWinners = 12,
+        host = null,
+        participants = listOf()
+    )

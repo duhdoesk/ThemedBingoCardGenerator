@@ -80,4 +80,6 @@
     <string name="limit_of_winners">Quantidade de Vencedores</string>
     <string name="theme_picture">Foto do Tema</string>
     <string name="key_icon">Ícone de chave</string>
+    <string name="number_of_participants">Number of participants</string>
+    <string name="lock_icon">Ícone de Cadeado</string>
 </resources>

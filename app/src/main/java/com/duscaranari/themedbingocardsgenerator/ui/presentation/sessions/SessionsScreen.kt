@@ -6,10 +6,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import com.duscaranari.themedbingocardsgenerator.ui.navigation.AppScreens
 
 @Composable
 fun SessionsScreen(
-    sessionsViewModel: SessionsViewModel = hiltViewModel()
+    sessionsViewModel: SessionsViewModel = hiltViewModel(),
+    navController: NavController
 ) {
 
     Column {
@@ -19,7 +22,7 @@ fun SessionsScreen(
             Text(text = session.id)
         }
 
-        Button(onClick = { sessionsViewModel.onCreateNewSession() }) {
+        Button(onClick = { navController.navigate(AppScreens.CreateSession.name) }) {
             Text(text = "Criar Sessão")
         }
     }

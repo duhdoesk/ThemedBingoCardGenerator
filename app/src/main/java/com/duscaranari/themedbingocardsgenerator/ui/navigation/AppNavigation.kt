@@ -139,7 +139,7 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.Sessions.name) {
-                    SessionsScreen()
+                    SessionsScreen(navController = navController)
                 }
 
                 composable(AppScreens.SignIn.name) {

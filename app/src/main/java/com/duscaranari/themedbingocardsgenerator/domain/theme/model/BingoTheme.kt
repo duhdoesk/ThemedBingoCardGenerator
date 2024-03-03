@@ -7,3 +7,6 @@ data class BingoTheme (
     val name: String = "",
     val picture: String = ""
 )
+
+fun mockBingoTheme() =
+    BingoTheme(id = "bibendum", name = "Bichos", picture = "https://i.imgur.com/K71gi6P.jpg")
