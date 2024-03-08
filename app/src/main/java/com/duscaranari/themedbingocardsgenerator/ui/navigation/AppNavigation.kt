@@ -1,7 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.navigation
 
 import android.app.Activity
-import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -32,7 +31,6 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.Sessio
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sign_in.SignInScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
-import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
 import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
@@ -139,7 +137,10 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.Sessions.name) {
-                    SessionsScreen(navController = navController)
+                    SessionsScreen(
+                        navController = navController,
+                        googleUser = googleUser
+                    )
                 }
 
                 composable(AppScreens.SignIn.name) {

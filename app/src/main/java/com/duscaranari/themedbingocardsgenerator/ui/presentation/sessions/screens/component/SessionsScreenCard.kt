@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -38,12 +40,14 @@ import com.duscaranari.themedbingocardsgenerator.domain.theme.model.mockBingoThe
 fun SessionsScreenCard(
     session: Session,
     theme: BingoTheme,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onJoinSession: (session: Session) -> Unit
 ) {
 
-    val expanded by remember { mutableStateOf(false) }
-
-    Card(modifier = modifier.clickable { expanded != expanded }) {
+    Card(
+        elevation = CardDefaults.cardElevation(4.dp),
+        modifier = modifier.clickable { onJoinSession(session) }
+    ) {
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -56,19 +60,19 @@ fun SessionsScreenCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .padding(8.dp)
-                    .size(80.dp)
+                    .size(68.dp)
                     .clip(RoundedCornerShape(8.dp))
             )
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = session.name,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold
                 )
 
                 Text(
-                    text = "${stringResource(id = R.string.selected_theme)}: ${theme.name}",
+                    text = theme.name,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -77,11 +81,10 @@ fun SessionsScreenCard(
             if (session.locked) {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_lock_24),
-                    tint = Color.Black,
                     contentDescription = stringResource(id = R.string.lock_icon),
                     modifier = Modifier
                         .padding(8.dp)
-                        .size(32.dp)
+                        .size(28.dp)
                 )
             }
         }
@@ -95,6 +98,7 @@ fun Preview() {
         session = mockSession(),
         theme = mockBingoTheme(),
         modifier = Modifier
-            .width(400.dp)
+            .width(400.dp),
+        onJoinSession = {  }
     )
 }

@@ -82,4 +82,6 @@
     <string name="key_icon">Ícone de chave</string>
     <string name="number_of_participants">Number of participants</string>
     <string name="lock_icon">Ícone de Cadeado</string>
+    <string name="tap_in_a_session_to_join_it">Clique em uma sessão para juntar-se.</string>
+    <string name="login_needed">É necessário fazer login.</string>
 </resources>

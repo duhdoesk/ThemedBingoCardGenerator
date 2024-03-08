@@ -2,6 +2,8 @@ package com.duscaranari.themedbingocardsgenerator.data.network.firestore.reposit
 
 import android.util.Log
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
+import com.duscaranari.themedbingocardsgenerator.domain.user.model.Participant
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.snapshots
 import com.google.firebase.firestore.toObject
@@ -15,6 +17,12 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
 
     fun getAllSessions() =
         collection
+            .snapshots()
+            .map { it.toObjects<Session>() }
+
+    fun getNotStartedSessions() =
+        collection
+            .whereEqualTo("state", "NOT_STARTED")
             .snapshots()
             .map { it.toObjects<Session>() }
 
@@ -33,5 +41,15 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
             .addOnFailureListener { e -> Log.d("FIRESTORE", e.message.toString()) }
 
         return reference.id
+    }
+
+    fun joinSession(
+        sessionId: String,
+        participant: Participant
+    ) {
+        val reference = collection.document(sessionId)
+
+        reference
+            .update("participants", FieldValue.arrayUnion(participant))
     }
 }

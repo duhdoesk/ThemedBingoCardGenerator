@@ -134,6 +134,8 @@
     <!--    SESSIONS SCREEN -->
     <string name="number_of_participants">Number of participants</string>
     <string name="lock_icon">Lock Icon</string>
+    <string name="tap_in_a_session_to_join_it">Tap in a session to join it.</string>
+    <string name="login_needed">Login needed.</string>
 
 
     <!--    OTHERS -->
