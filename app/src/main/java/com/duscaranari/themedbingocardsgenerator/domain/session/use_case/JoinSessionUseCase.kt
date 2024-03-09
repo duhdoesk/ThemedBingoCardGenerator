@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.domain.session.use_case
 
+import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.repository.SessionRepository
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
 import com.duscaranari.themedbingocardsgenerator.domain.user.model.Participant
@@ -17,16 +18,14 @@ class JoinSessionUseCase @Inject constructor(private val sessionRepository: Sess
                     sessionId = session.id,
                     participant = participant
                 )
-
                 JoinResult.Success
             }
-            else JoinResult.Error(
-                message = "Incorrect Password."
-            )
+
+            else JoinResult.Error(message = R.string.incorrect_password)
     }
 }
 
 sealed class JoinResult {
     data object Success: JoinResult()
-    data class Error(val message: String): JoinResult()
+    data class Error(val message: Int): JoinResult()
 }

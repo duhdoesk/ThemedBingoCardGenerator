@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +35,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.mockSession
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.mockBingoTheme
+import com.duscaranari.themedbingocardsgenerator.ui.theme.getRandomLightColor
 
 @Composable
 fun SessionsScreenCard(
@@ -49,43 +50,50 @@ fun SessionsScreenCard(
         modifier = modifier.clickable { onJoinSession(session) }
     ) {
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        val color by remember { mutableStateOf(getRandomLightColor()) }
 
-            AsyncImage(
-                model = theme.picture,
-                contentDescription = stringResource(id = R.string.theme_picture),
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .size(68.dp)
-                    .clip(RoundedCornerShape(8.dp))
-            )
+        Surface(color = color) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
 
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = session.name,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold
-                )
-
-                Text(
-                    text = theme.name,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-
-            if (session.locked) {
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_lock_24),
-                    contentDescription = stringResource(id = R.string.lock_icon),
+                AsyncImage(
+                    model = theme.picture,
+                    contentDescription = stringResource(id = R.string.theme_picture),
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(8.dp)
-                        .size(28.dp)
+                        .size(68.dp)
+                        .clip(RoundedCornerShape(8.dp))
                 )
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = session.name,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.Black
+                    )
+
+                    Text(
+                        text = theme.name,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.Black
+                    )
+                }
+
+                if (session.locked) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_lock_24),
+                        contentDescription = stringResource(id = R.string.lock_icon),
+                        tint = Color.Black,
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .size(28.dp)
+                    )
+                }
             }
         }
     }

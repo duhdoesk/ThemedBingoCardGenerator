@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.component
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,7 @@ fun SessionsScreenLazyGrid(
     Column(modifier = modifier) {
         LazyVerticalGrid(
             columns = columns,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.fillMaxSize()
         ) {
             for (session in sessions) {
@@ -33,7 +35,7 @@ fun SessionsScreenLazyGrid(
                             session = session,
                             theme = theme,
                             modifier = Modifier
-                                .padding(vertical = 4.dp)
+                                .padding(vertical = 8.dp)
                                 .fillMaxWidth(),
                             onJoinSession = { onJoinSession(it) })
                     }

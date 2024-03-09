@@ -27,7 +27,11 @@ import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinRes
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.component.JoinSessionDialog
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.component.SessionsScreenLazyGrid
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.landscape.LandscapeSessionsScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.portrait.PortraitSessionsScreen
+import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
+import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
 fun SessionsScreen(
@@ -47,87 +51,69 @@ fun SessionsScreen(
     val context = LocalContext.current
 
     var showJoinSessionDialog by remember { mutableStateOf(false) }
-    var currentSession: MutableState<Session?> = remember {
+    val currentSession: MutableState<Session?> = remember {
         mutableStateOf(null)
     }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxSize()
-    ) {
-
-        Text(
-            text = stringResource(R.string.tap_in_a_session_to_join_it),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        SessionsScreenLazyGrid(
-            sessions = sessions,
-            themes = themes,
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-                .fillMaxWidth()
-                .weight(1f),
-            onJoinSession = { session ->
-
-                when (googleUser) {
-                    null -> {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.login_needed),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                    else -> {
-                        currentSession.value = session
-                        showJoinSessionDialog = true
-                    }
+    when (rememberDeviceOrientation()) {
+        is DeviceOrientation.Landscape -> {
+            LandscapeSessionsScreen(
+                sessions = sessions,
+                themes = themes,
+                onPickASession = {
+                    currentSession.value = it
+                    showJoinSessionDialog = true
+                },
+                onNavigateToCreateASession = {
+                    navController.navigate(AppScreens.CreateSession.name)
                 }
-            }
-        )
-
-        Button(
-            onClick = { navController.navigate(AppScreens.CreateSession.name) }
-        ) {
-            Text(text = stringResource(id = R.string.create_session_button))
+            )
         }
 
-        if (showJoinSessionDialog) {
+        is DeviceOrientation.Portrait ->
+            PortraitSessionsScreen(
+                sessions = sessions,
+                themes = themes,
+                onPickASession = {
+                    currentSession.value = it
+                    showJoinSessionDialog = true
+                },
+                onNavigateToCreateASession = {
+                    navController.navigate(AppScreens.CreateSession.name)
+                }
+            )
+    }
 
-            if (currentSession.value != null) {
-                JoinSessionDialog(
-                    onDismiss = { showJoinSessionDialog = false },
-                    session = currentSession.value!!,
-                    onJoinSession = { password ->
+    if (showJoinSessionDialog) {
+        currentSession.value?.let { session ->
+            JoinSessionDialog(
+                onDismiss = { showJoinSessionDialog = false },
+                session = session,
+                onJoinSession = { password ->
 
-                        when (
-                            val joinResult = sessionsViewModel.onJoinSession(
-                                session = currentSession.value,
-                                userData = googleUser,
-                                password = password
-                            )
-                        ) {
-                            is JoinResult.Success ->
-                                navController.navigate(AppScreens.Home.name)
+                    when (
+                        val joinResult = sessionsViewModel.onJoinSession(
+                            session = session,
+                            userData = googleUser,
+                            password = password
+                        )
+                    ) {
+                        is JoinResult.Success ->
+                            navController.navigate(AppScreens.Home.name)
 
-                            is JoinResult.Error -> {
-                                showJoinSessionDialog = false
+                        is JoinResult.Error -> {
+                            showJoinSessionDialog = false
 
-                                Toast.makeText(
-                                    context,
-                                    joinResult.message,
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
+                            Toast.makeText(
+                                context,
+                                context.getString(joinResult.message),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
-

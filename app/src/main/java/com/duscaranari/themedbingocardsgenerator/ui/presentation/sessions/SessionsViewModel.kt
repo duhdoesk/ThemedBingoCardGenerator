@@ -1,8 +1,8 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetNotStartedSessionsUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinResult
@@ -37,15 +37,13 @@ class SessionsViewModel @Inject constructor(
         emptyList()
     )
 
-    val showDialog = mutableStateOf(false)
-
     fun onJoinSession(
-        session: Session?,
+        session: Session,
         userData: UserData?,
         password: String? = null
     ): JoinResult {
 
-        if (session != null && userData != null) {
+        if (userData != null) {
             val participant = Participant(
                 id = userData.id,
                 name = userData.name ?: "",
@@ -60,7 +58,7 @@ class SessionsViewModel @Inject constructor(
         }
 
         else return JoinResult.Error(
-            message = "Missing session or user."
+            message = R.string.login_needed
         )
     }
 }

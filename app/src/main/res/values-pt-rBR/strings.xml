@@ -61,7 +61,7 @@
     <string name="soon">Em Breve!</string>
     <string name="game_mode">Modo de jogo</string>
     <string name="host">Criar Sala</string>
-    <string name="join">Juntar-se</string>
+    <string name="join">Entrar</string>
     <string name="unbable_to_load">"Não foi possível carregar os dados."</string>
     <string name="sorting_by">Mostrando por</string>
     <string name="name">Nome</string>
@@ -80,8 +80,11 @@
     <string name="limit_of_winners">Quantidade de Vencedores</string>
     <string name="theme_picture">Foto do Tema</string>
     <string name="key_icon">Ícone de chave</string>
-    <string name="number_of_participants">Number of participants</string>
+    <string name="number_of_participants">Número de participantes</string>
     <string name="lock_icon">Ícone de Cadeado</string>
-    <string name="tap_in_a_session_to_join_it">Clique em uma sessão para juntar-se.</string>
+    <string name="tap_in_a_session_to_join_it">Clique em uma sessão para entrar.</string>
     <string name="login_needed">É necessário fazer login.</string>
+    <string name="insert_the_password">Insira a senha para entrar na sala.</string>
+    <string name="tap_confirm">Deseja entrar na sala?</string>
+    <string name="incorrect_password">Senha inválida.</string>
 </resources>

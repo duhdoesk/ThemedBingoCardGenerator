@@ -136,6 +136,9 @@
     <string name="lock_icon">Lock Icon</string>
     <string name="tap_in_a_session_to_join_it">Tap in a session to join it.</string>
     <string name="login_needed">Login needed.</string>
+    <string name="insert_the_password">Please, insert the password to join the session.</string>
+    <string name="tap_confirm">Tap confirm to join the session.</string>
+    <string name="incorrect_password">Incorrect Password.</string>
 
 
     <!--    OTHERS -->

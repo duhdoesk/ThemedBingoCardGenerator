@@ -39,8 +39,8 @@ val ClassicDarkOnPrimaryContainer = Color(0xffffdbca)
 
 fun getRandomLightColor() =
     Color(
-        blue = Random.nextInt(160, 256),
-        red = Random.nextInt(160, 256),
-        green = Random.nextInt(160, 256),
+        blue = Random.nextInt(180, 256),
+        red = Random.nextInt(180, 256),
+        green = Random.nextInt(180, 256),
         alpha = 255
     )
