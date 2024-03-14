@@ -17,4 +17,16 @@ class CharacterRepository @Inject constructor(database: FirebaseFirestore) {
             .collection("characters")
             .snapshots()
             .map { it.toObjects<BingoCharacter>() }
+
+    fun uploadThemeCharacters(
+        themeId: String,
+        characters: List<BingoCharacter>
+    ) {
+        characters.forEach() {
+            collection
+                .document(themeId)
+                .collection("characters")
+                .add(it)
+        }
+    }
 }

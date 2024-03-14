@@ -31,18 +31,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.mockSession
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.mockSession
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.mockBingoTheme
 import com.duscaranari.themedbingocardsgenerator.ui.theme.getRandomLightColor
 
 @Composable
 fun SessionsScreenCard(
-    session: Session,
+    session: SessionDTO,
     theme: BingoTheme,
     modifier: Modifier = Modifier,
-    onJoinSession: (session: Session) -> Unit
+    onJoinSession: (session: SessionDTO) -> Unit
 ) {
 
     Card(

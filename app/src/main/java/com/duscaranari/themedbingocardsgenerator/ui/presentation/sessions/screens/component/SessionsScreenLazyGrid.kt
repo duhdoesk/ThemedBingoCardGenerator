@@ -10,16 +10,16 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 
 @Composable
 fun SessionsScreenLazyGrid(
-    sessions: List<Session>,
+    sessions: List<SessionDTO>,
     themes: List<BingoTheme>,
     modifier: Modifier = Modifier,
     columns: GridCells = GridCells.Fixed(1),
-    onJoinSession: (session: Session) -> Unit
+    onJoinSession: (session: SessionDTO) -> Unit
 ) {
 
     Column(modifier = modifier) {

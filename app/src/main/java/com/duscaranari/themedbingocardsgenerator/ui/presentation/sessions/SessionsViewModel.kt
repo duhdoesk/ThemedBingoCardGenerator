@@ -3,7 +3,7 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetNotStartedSessionsUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinResult
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinSessionUseCase
@@ -38,7 +38,7 @@ class SessionsViewModel @Inject constructor(
     )
 
     fun onJoinSession(
-        session: Session,
+        session: SessionDTO,
         userData: UserData?,
         password: String? = null
     ): JoinResult {

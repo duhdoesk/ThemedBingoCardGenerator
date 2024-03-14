@@ -9,10 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.component.AppNavigationRail
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.component.BottomBar
@@ -27,6 +29,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.D
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.profile.ProfileScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.SessionScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.SessionsScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sign_in.SignInScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
@@ -141,6 +144,14 @@ fun AppNavigation(
                         navController = navController,
                         googleUser = googleUser
                     )
+                }
+
+                composable(
+                    "${AppScreens.Session.name}/{sessionId}"
+                ) { backStackEntry ->
+                    backStackEntry.arguments?.getString("sessionId")?.let {
+                        SessionScreen()
+                    }
                 }
 
                 composable(AppScreens.SignIn.name) {

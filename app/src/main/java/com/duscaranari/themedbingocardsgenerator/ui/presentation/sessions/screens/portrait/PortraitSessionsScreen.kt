@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.mockSession
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.mockSession
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.mockBingoTheme
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.component.SessionsScreenLazyGrid
@@ -23,9 +23,9 @@ import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
 
 @Composable
 fun PortraitSessionsScreen(
-    sessions: List<Session>,
+    sessions: List<SessionDTO>,
     themes: List<BingoTheme>,
-    onPickASession: (session: Session) -> Unit,
+    onPickASession: (session: SessionDTO) -> Unit,
     onNavigateToCreateASession: () -> Unit
 ) {
 

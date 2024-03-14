@@ -4,12 +4,12 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
 
 @Composable
 fun JoinSessionHandler(
-    session: Session,
+    session: SessionDTO,
     googleUser: UserData?,
     context: Context
 ) {

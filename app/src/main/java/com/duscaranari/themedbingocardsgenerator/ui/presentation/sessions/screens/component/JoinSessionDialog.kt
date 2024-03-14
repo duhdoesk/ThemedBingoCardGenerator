@@ -20,11 +20,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 
 @Composable
 fun JoinSessionDialog(
-    session: Session,
+    session: SessionDTO,
     onDismiss: () -> Unit,
     onJoinSession: (password: String?) -> Unit,
     modifier: Modifier = Modifier

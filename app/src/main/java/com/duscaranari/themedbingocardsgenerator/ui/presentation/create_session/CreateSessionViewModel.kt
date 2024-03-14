@@ -1,16 +1,12 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session
 
 import android.util.Log
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.CreateNewSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllBingoThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllThemesUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.user.model.Host
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.state.CreateSessionUiState
 import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
@@ -18,7 +14,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -109,7 +104,7 @@ class CreateSessionViewModel @Inject constructor(
     fun onCreateNewSession(): String {
         uiState.value.run {
             return createNewSessionUseCase.invoke(
-                Session(
+                SessionDTO(
                     name = name,
                     state = "NOT_STARTED",
                     locked = locked,
@@ -123,8 +118,7 @@ class CreateSessionViewModel @Inject constructor(
                             name = name ?: "",
                             picture = picture ?: ""
                         )
-                    },
-                    participants = emptyList()
+                    }
                 )
             )
         }
