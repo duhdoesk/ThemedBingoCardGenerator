@@ -6,6 +6,5 @@ data class Participant(
     @DocumentId val id: String = "",
     val name: String = "",
     val picture: String = "",
-    val card: List<String> = emptyList(),
-    val winner: Boolean = false
+    val card: List<String> = emptyList()
 )
