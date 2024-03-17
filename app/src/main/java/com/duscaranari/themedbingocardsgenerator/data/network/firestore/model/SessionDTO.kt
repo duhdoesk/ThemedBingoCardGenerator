@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentId
 class SessionDTO(
     @DocumentId val id: String = "",
     val name: String = "",
+    val host: String = "",
     val state: String = "",
     val locked: Boolean = false,
     val password: String? = null,
@@ -27,6 +28,7 @@ class SessionDTO(
             Session(
                 id = id,
                 name = name,
+                host = host,
                 state = state,
                 locked = locked,
                 password = password,
@@ -42,6 +44,7 @@ class SessionDTO(
         session.run {
             SessionDTO(
                 name = name,
+                host = host,
                 state = state.name,
                 locked = locked,
                 password = password,

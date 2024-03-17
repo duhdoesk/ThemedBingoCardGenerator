@@ -5,6 +5,7 @@ import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.Se
 data class Session(
     val id: String = "",
     val name: String = "",
+    val host: String = "",
     val state: SessionState = SessionState.NOT_STARTED,
     val locked: Boolean = false,
     val password: String? = null,
@@ -18,6 +19,7 @@ data class Session(
         this.run {
             SessionDTO(
                 name = name,
+                host = host,
                 state = state.name,
                 locked = locked,
                 password = password,

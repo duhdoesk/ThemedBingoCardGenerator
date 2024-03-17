@@ -5,29 +5,31 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state.SessionUiState
 
 @Composable
 fun SessionScreen(
     sessionViewModel: SessionViewModel = hiltViewModel()
 ) {
 
-    val session = sessionViewModel.session
+    val session = sessionViewModel.sessionUiState
         .collectAsStateWithLifecycle()
         .value
 
     when (session) {
-        null ->
-            LoadingScreen()
 
-        else -> {
+        is SessionUiState.Success -> {
             Column {
-                Text(text = session.name)
-                Text(text = session.host?.name ?: "host")
-                Text(text = session.state)
+                Text(text = session.sessionName)
+                Text(text = session.isHost.toString())
                 Text(text = session.limitOfWinners.toString())
+                Text(text = session.state.name)
+                Text(text = session.participants.firstOrNull()?.name ?: "name")
             }
         }
+
+        else ->
+            LoadingScreen()
     }
 }

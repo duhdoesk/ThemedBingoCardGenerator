@@ -52,7 +52,7 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
         val document = collection
             .document(sessionId)
             .collection("participants")
-            .document()
+            .document(networkUser.id)
 
         document
             .set(networkUser)
