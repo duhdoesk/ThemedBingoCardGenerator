@@ -2,8 +2,6 @@ package com.duscaranari.themedbingocardsgenerator.data.network.firestore.model
 
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.Session
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.SessionState
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.Host
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.Participant
 import com.google.firebase.firestore.DocumentId
 
 class SessionDTO(
@@ -14,8 +12,8 @@ class SessionDTO(
     val password: String? = null,
     val themeId: String = "",
     val listOfDrawnCharactersIds: List<String> = emptyList(),
-    val limitOfWinners: Int = 1,
-    val host: Host? = null
+    val listOfWinnersIds: List<String> = emptyList(),
+    val limitOfWinners: Int = 1
 ) {
 
     fun toObject(): Session {
@@ -34,8 +32,8 @@ class SessionDTO(
                 password = password,
                 themeId = themeId,
                 listOfDrawnCharactersIds = listOfDrawnCharactersIds,
+                listOfWinnersIds = listOfWinnersIds,
                 limitOfWinners = limitOfWinners,
-                host = host
             )
         }
     }
@@ -49,8 +47,8 @@ class SessionDTO(
                 password = password,
                 themeId = themeId,
                 listOfDrawnCharactersIds = listOfDrawnCharactersIds,
-                limitOfWinners = limitOfWinners,
-                host = host
+                listOfWinnersIds = listOfWinnersIds,
+                limitOfWinners = limitOfWinners
             )
         }
 }
@@ -64,6 +62,6 @@ fun mockSession() =
         password = null,
         themeId = "ut",
         listOfDrawnCharactersIds = listOf(),
+        listOfWinnersIds = listOf(),
         limitOfWinners = 12,
-        host = null
     )

@@ -3,20 +3,20 @@ package com.duscaranari.themedbingocardsgenerator.domain.session.use_case
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.repository.SessionRepository
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.Participant
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
 import javax.inject.Inject
 
 class JoinSessionUseCase @Inject constructor(private val sessionRepository: SessionRepository) {
 
     operator fun invoke(
         session: SessionDTO,
-        participant: Participant,
+        networkUser: NetworkUser,
         password: String?
     ): JoinResult {
         return if (!session.locked || session.password == password) {
                 sessionRepository.joinSession(
                     sessionId = session.id,
-                    participant = participant
+                    networkUser = networkUser
                 )
                 JoinResult.Success
             }

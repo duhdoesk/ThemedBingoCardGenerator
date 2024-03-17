@@ -8,7 +8,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetNotS
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinResult
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllBingoThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.Participant
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
 import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -44,7 +44,7 @@ class SessionsViewModel @Inject constructor(
     ): JoinResult {
 
         if (userData != null) {
-            val participant = Participant(
+            val networkUser = NetworkUser(
                 id = userData.id,
                 name = userData.name ?: "",
                 picture = userData.picture ?: ""
@@ -52,7 +52,7 @@ class SessionsViewModel @Inject constructor(
 
             return joinSessionUseCase.invoke(
                 session = session,
-                participant = participant,
+                networkUser = networkUser,
                 password = password
             )
         }

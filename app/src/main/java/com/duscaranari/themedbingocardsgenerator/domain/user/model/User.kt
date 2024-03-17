@@ -1,16 +1,30 @@
 package com.duscaranari.themedbingocardsgenerator.domain.user.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.duscaranari.themedbingocardsgenerator.data.local.model.LocalUser
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
 
-@Entity(tableName = "user_table")
-data class User(
+class User(
+    val id: String,
+    val name: String,
+    val picture: String,
+    val card: List<String>
+) {
 
-    @PrimaryKey
-    @ColumnInfo(name = "user_id")
-    val userId: String,
+    fun toLocalUser() =
+        this.run {
+            LocalUser(
+                userId = id,
+                userName = name
+            )
+        }
 
-    @ColumnInfo(name = "user_name")
-    val userName: String?,
-)
+    fun toNetworkUser() =
+        this.run {
+            NetworkUser(
+                id = id,
+                name = name,
+                picture = picture,
+                card = card
+            )
+        }
+}

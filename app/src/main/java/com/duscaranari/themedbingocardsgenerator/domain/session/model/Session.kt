@@ -1,6 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.domain.session.model
 
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.Host
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 
 data class Session(
     val id: String = "",
@@ -10,6 +10,21 @@ data class Session(
     val password: String? = null,
     val themeId: String = "",
     val listOfDrawnCharactersIds: List<String> = emptyList(),
+    val listOfWinnersIds: List<String> = emptyList(),
     val limitOfWinners: Int = 1,
-    val host: Host? = null
-)
+) {
+
+    fun toDTO(): SessionDTO =
+        this.run {
+            SessionDTO(
+                name = name,
+                state = state.name,
+                locked = locked,
+                password = password,
+                themeId = themeId,
+                listOfDrawnCharactersIds = listOfDrawnCharactersIds,
+                listOfWinnersIds = listOfWinnersIds,
+                limitOfWinners = limitOfWinners
+            )
+        }
+}

@@ -2,7 +2,7 @@ package com.duscaranari.themedbingocardsgenerator.data.network.firestore.reposit
 
 import android.util.Log
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.Participant
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.snapshots
 import com.google.firebase.firestore.toObject
@@ -33,25 +33,39 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
             .map { it.toObject<SessionDTO>() }
 
     fun createNewSession(session: SessionDTO): String {
-        val reference = collection.document()
+        val document = collection.document()
 
-        reference
+        document
             .set(session)
             .addOnSuccessListener { Log.d("FIRESTORE", "SUCCESS") }
             .addOnFailureListener { e -> Log.d("FIRESTORE", e.message.toString()) }
 
-        return reference.id
+        return document.id
     }
 
     fun joinSession(
         sessionId: String,
-        participant: Participant
-    ) {
-        val reference = collection
+        networkUser: NetworkUser
+    ): String {
+        var result = ""
+
+        val document = collection
             .document(sessionId)
             .collection("participants")
+            .document()
 
-        reference
-            .add(participant)
+        document
+            .set(networkUser)
+            .addOnSuccessListener { result = document.id }
+            .addOnFailureListener { e -> result = e.message.toString() }
+
+        return result
     }
+
+    fun getParticipantsFromSessionId(sessionId: String) =
+        collection
+            .document(sessionId)
+            .collection("participants")
+            .snapshots()
+            .map { it.toObjects<NetworkUser>() }
 }

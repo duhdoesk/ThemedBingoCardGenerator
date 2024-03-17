@@ -1,14 +1,10 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetBingoThemeByIdUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
+import com.duscaranari.themedbingocardsgenerator.data.local.model.LocalUser
 import com.duscaranari.themedbingocardsgenerator.domain.user.use_case.GetUserUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.user.use_case.SetUserUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardSize
@@ -16,27 +12,14 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.sta
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.WhileSubscribed
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import okhttp3.internal.notifyAll
-import okhttp3.internal.wait
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,7 +29,7 @@ class CardViewModel @Inject constructor(
     getCharactersFromThemeIdUseCase: GetCharactersFromThemeIdUseCase
 ) : ViewModel() {
 
-    private val _user = MutableStateFlow<User?>(null)
+    private val _Local_user = MutableStateFlow<LocalUser?>(null)
     private val _cardSize = MutableStateFlow(CardSize.LARGE)
     private val _theme = MutableStateFlow<BingoTheme?>(null)
     private val _newCard = MutableStateFlow(false)
@@ -77,7 +60,7 @@ class CardViewModel @Inject constructor(
     }
 
     val uiState = combine(
-        _user,
+        _Local_user,
         _cardSize,
         _theme,
         _drawnCharacters
@@ -113,7 +96,7 @@ class CardViewModel @Inject constructor(
 
     private fun getUserName() {
         viewModelScope.launch(Dispatchers.IO) {
-            _user.update { getUserUseCase.invoke("1") }
+            _Local_user.update { getUserUseCase.invoke("1") }
         }
     }
 
@@ -132,7 +115,7 @@ class CardViewModel @Inject constructor(
     fun onUpdateCurrentUser(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             setUserUseCase(
-                User(
+                LocalUser(
                     userId = "1",
                     userName = userName
                 )

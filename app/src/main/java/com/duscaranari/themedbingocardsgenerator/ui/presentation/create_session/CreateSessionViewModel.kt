@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.CreateNewSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllBingoThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.Host
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.state.CreateSessionUiState
 import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -111,14 +110,8 @@ class CreateSessionViewModel @Inject constructor(
                     password = password,
                     themeId = themeId,
                     listOfDrawnCharactersIds = emptyList(),
+                    listOfWinnersIds = emptyList(),
                     limitOfWinners = _limitOfWinners.floatValue.roundToInt(),
-                    host = user.run {
-                        Host(
-                            id = id,
-                            name = name ?: "",
-                            picture = picture ?: ""
-                        )
-                    }
                 )
             )
         }
