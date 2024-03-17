@@ -28,7 +28,7 @@ class SessionViewModel @Inject constructor(
     authHelper: AuthHelper,
     private val getBingoThemeByIdUseCase: GetBingoThemeByIdUseCase,
     private val getCharactersFromThemeByIdUseCase: GetCharactersFromThemeIdUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _session = getSessionByIdUseCase
         .invoke(checkNotNull(savedStateHandle["sessionId"]))
