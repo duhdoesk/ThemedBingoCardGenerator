@@ -12,7 +12,7 @@ sealed class SessionUiState {
     data class Success(
         val sessionName: String = "",
         val isHost: Boolean = false,
-        val state: SessionState = SessionState.NOT_STARTED,
+        val sessionState: SessionState = SessionState.NOT_STARTED,
         val participants: List<User> = emptyList(),
         val limitOfWinners: Int = 1,
         val listOfDrawnCharacters: List<BingoCharacter> = emptyList(),
@@ -25,8 +25,27 @@ fun mockSessionUiState() =
     SessionUiState.Success(
         sessionName = "Lyle Steele",
         isHost = false,
-        state = SessionState.DRAWING,
-        participants = listOf(),
+        sessionState = SessionState.NOT_STARTED,
+        participants = listOf(
+            User(
+                id = "populo",
+                name = "Della Booth",
+                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
+                card = listOf()
+            ),
+            User(
+                id = "delenit",
+                name = "Glenna Camacho",
+                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
+                card = listOf()
+            ),
+            User(
+                id = "voluptatibus",
+                name = "Nicole Kirkland",
+                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
+                card = listOf()
+            )
+        ),
         limitOfWinners = 7521,
         listOfDrawnCharacters = listOf(),
         listOfWinners = listOf(),

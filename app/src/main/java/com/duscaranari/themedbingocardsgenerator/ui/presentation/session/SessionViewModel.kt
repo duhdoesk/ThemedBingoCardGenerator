@@ -4,10 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.session.model.SessionState
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetParticipantsFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetSessionByIdUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetBingoThemeByIdUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state.SessionUiState
 import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
@@ -15,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -90,7 +87,7 @@ class SessionViewModel @Inject constructor(
                         SessionUiState.Success(
                             sessionName = session.name,
                             isHost = isHost,
-                            state = session.state,
+                            sessionState = session.state,
                             participants = players,
                             limitOfWinners = session.limitOfWinners,
                             listOfDrawnCharacters = drawnCharacters.value,
