@@ -5,7 +5,7 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.event.S
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state.SessionUiState
 
 @Composable
-fun ExpandedPortraitSessionScreen(
+fun PortraitHostSessionScreenDrawing(
     state: SessionUiState.Success,
     event: (event: SessionUiEvent) -> Unit
 ) {

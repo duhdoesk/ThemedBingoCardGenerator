@@ -141,6 +141,14 @@
     <string name="incorrect_password">Incorrect Password.</string>
 
 
+    <!--    HOST SESSION SCREEN -->
+    <string name="start_drawing_button">Start Drawing</string>
+    <string name="close_session_button">Close Session</string>
+    <string name="session_card">Session</string>
+    <string name="theme_card">Theme</string>
+    <string name="winners_card">Winners</string>
+    <string name="players_card">Players</string>
+
     <!--    OTHERS -->
     <string name="auth_key" translatable="false">746232526782-mnq2lnm9fp2sunpopk0cfp7pu6v9trcu.apps.googleusercontent.com</string>
 

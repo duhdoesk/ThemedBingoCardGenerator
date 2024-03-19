@@ -1,5 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -17,12 +18,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.window.layout.WindowMetricsCalculator
 import com.duscaranari.themedbingocardsgenerator.ui.app.ThemedBingoApp
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
 import com.duscaranari.themedbingocardsgenerator.util.billing.SubscriptionState
 import com.duscaranari.themedbingocardsgenerator.util.connectivity.ConnectivityObserver
+import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,6 +36,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+        val width = metrics.bounds.width()
+        val height = metrics.bounds.height()
+
+        requestedOrientation =
+            if (width > height) ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+            else ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
 
         enableEdgeToEdge()
 

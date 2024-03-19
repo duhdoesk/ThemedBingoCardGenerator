@@ -87,4 +87,10 @@
     <string name="insert_the_password">Insira a senha para entrar na sala.</string>
     <string name="tap_confirm">Deseja entrar na sala?</string>
     <string name="incorrect_password">Senha inválida.</string>
+    <string name="start_drawing_button">Iniciar</string>
+    <string name="close_session_button">Fechar Sala</string>
+    <string name="session_card">Sala</string>
+    <string name="theme_card">Tema</string>
+    <string name="winners_card">Ganhadores</string>
+    <string name="players_card">Jogadores</string>
 </resources>
