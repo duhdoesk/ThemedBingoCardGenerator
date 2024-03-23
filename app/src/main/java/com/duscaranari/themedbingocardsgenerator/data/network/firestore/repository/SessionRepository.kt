@@ -68,4 +68,9 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
             .collection("participants")
             .snapshots()
             .map { it.toObjects<NetworkUser>() }
+
+    fun startDrawing(sessionId: String) =
+        collection
+            .document(sessionId)
+            .update("state", "DRAWING")
 }

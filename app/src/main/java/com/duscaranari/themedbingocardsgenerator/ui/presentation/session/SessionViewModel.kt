@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetParticipantsFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetSessionByIdUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.StartDrawingUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetBingoThemeByIdUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state.SessionUiState
 import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
@@ -24,7 +25,8 @@ class SessionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     authHelper: AuthHelper,
     private val getBingoThemeByIdUseCase: GetBingoThemeByIdUseCase,
-    private val getCharactersFromThemeByIdUseCase: GetCharactersFromThemeIdUseCase
+    private val getCharactersFromThemeByIdUseCase: GetCharactersFromThemeIdUseCase,
+    private val startDrawingUseCase: StartDrawingUseCase
 ) : ViewModel() {
 
     private val _session = getSessionByIdUseCase
@@ -104,4 +106,9 @@ class SessionViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(),
             SessionUiState.Loading
         )
+
+    fun startDrawing() =
+        _session.value?.let {
+            startDrawingUseCase.invoke(it.id)
+        }
 }

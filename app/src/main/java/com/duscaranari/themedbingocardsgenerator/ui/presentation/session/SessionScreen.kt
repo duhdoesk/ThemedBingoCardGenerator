@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.event.handleSessionScreenEvent
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screens.host.HostSessionScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screens.player.PlayerSessionScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state.SessionUiState
@@ -23,13 +24,19 @@ fun SessionScreen(
         is SessionUiState.Success -> {
             if (state.isHost) {
                 HostSessionScreen(state = state) {
-
+                    handleSessionScreenEvent(
+                        event = it,
+                        viewModel = sessionViewModel
+                    )
                 }
             }
 
             else {
                 PlayerSessionScreen(state = state) {
-
+                    handleSessionScreenEvent(
+                        event = it,
+                        viewModel = sessionViewModel
+                    )
                 }
             }
         }
