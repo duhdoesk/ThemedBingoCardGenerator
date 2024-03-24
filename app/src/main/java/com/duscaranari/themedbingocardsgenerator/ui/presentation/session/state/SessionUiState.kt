@@ -25,7 +25,7 @@ fun mockSessionUiState() =
     SessionUiState.Success(
         sessionName = "Lyle Steele",
         isHost = false,
-        sessionState = SessionState.NOT_STARTED,
+        sessionState = SessionState.DRAWING,
         participants = listOf(
             User(
                 id = "populo",
@@ -47,8 +47,32 @@ fun mockSessionUiState() =
             )
         ),
         limitOfWinners = 7521,
-        listOfDrawnCharacters = listOf(),
-        listOfWinners = listOf(),
+        listOfDrawnCharacters = listOf(
+            BingoCharacter(id = "luptatum", name = "Francis Albert", picture = "ludus"),
+            BingoCharacter(id = "eius", name = "Antonia Wilkinson", picture = "vituperata"),
+            BingoCharacter(id = "sem", name = "Dale Swanson", picture = "fermentum"),
+            BingoCharacter(id = "omittam", name = "Clint Mejia", picture = "ultricies")
+        ),
+        listOfWinners = listOf(
+            User(
+                id = "populo",
+                name = "Della Booth",
+                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
+                card = listOf()
+            ),
+            User(
+                id = "delenit",
+                name = "Glenna Camacho",
+                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
+                card = listOf()
+            ),
+            User(
+                id = "voluptatibus",
+                name = "Nicole Kirkland",
+                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
+                card = listOf()
+            )
+        ),
         theme = BingoTheme(
             id = "mucius",
             name = "Valarie Franks",

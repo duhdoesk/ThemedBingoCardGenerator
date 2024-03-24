@@ -1,8 +1,8 @@
 package com.duscaranari.themedbingocardsgenerator.data.network.firestore.repository
 
 import android.util.Log
-import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.snapshots
 import com.google.firebase.firestore.toObject
@@ -23,6 +23,12 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
         collection
             .orderBy("name")
             .whereEqualTo("state", "NOT_STARTED")
+            .snapshots()
+            .map { it.toObjects<SessionDTO>() }
+
+    fun getSessions() =
+        collection
+            .orderBy("name")
             .snapshots()
             .map { it.toObjects<SessionDTO>() }
 

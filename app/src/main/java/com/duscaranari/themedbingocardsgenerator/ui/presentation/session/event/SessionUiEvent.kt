@@ -1,10 +1,11 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.session.event
 
-import android.content.Context
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.SessionViewModel
 
 sealed class SessionUiEvent {
     data object OnStartDrawing : SessionUiEvent()
+    data object OnFinishSession: SessionUiEvent()
+    data object OnDrawNextCharacter: SessionUiEvent()
 }
 
 fun handleSessionScreenEvent(
@@ -15,5 +16,13 @@ fun handleSessionScreenEvent(
     when (event) {
         is SessionUiEvent.OnStartDrawing ->
             viewModel.startDrawing()
+
+        is SessionUiEvent.OnFinishSession -> {
+            /*todo*/
+        }
+
+        is SessionUiEvent.OnDrawNextCharacter -> {
+            /*todo*/
+        }
     }
 }

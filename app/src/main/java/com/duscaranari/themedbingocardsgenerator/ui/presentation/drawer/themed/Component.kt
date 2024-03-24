@@ -185,11 +185,12 @@ fun DrawerButtons(
 fun DrawerLazyGrid(
     characters: List<BingoCharacter>,
     modifier: Modifier = Modifier,
+    columns: GridCells = GridCells.Adaptive(minSize = 120.dp),
     onClick: () -> Unit
 ) {
 
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 120.dp),
+        columns = columns,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier.clickable { onClick() }
