@@ -292,237 +292,237 @@
     {
       "theme_id": "2",
       "theme_name": "Frutas",
-      "theme_picture": "https://img.freepik.com/free-vector/tropical-fruits-background_24908-60487.jpg?w=2000",
+      "theme_picture": "https://i.imgur.com/uBThWgI.jpg",
       "theme_characters": [
         {
           "character_id": "1",
-          "character_name": "Abacaxi",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866518.png"
+          "character_name": "Abacate",
+          "character_picture": "https://i.imgur.com/BySf1Gz.jpg"
         },
         {
           "character_id": "2",
-          "character_name": "Abacate",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/2079/2079249.png"
+          "character_name": "Abacaxi",
+          "character_picture": "https://i.imgur.com/2Y3r453.jpg"
         },
         {
           "character_id": "3",
-          "character_name": "Amora",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791358.png"
+          "character_name": "Açaí",
+          "character_picture": "https://i.imgur.com/MxtISpR.jpg"
         },
         {
           "character_id": "4",
-          "character_name": "Banana",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/2909/2909808.png"
+          "character_name": "Acerola",
+          "character_picture": "https://i.imgur.com/S38eANr.jpg"
         },
         {
           "character_id": "5",
-          "character_name": "Caju",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5501/5501125.png"
+          "character_name": "Amora",
+          "character_picture": "https://i.imgur.com/H3Q9T9C.jpg"
         },
         {
           "character_id": "6",
-          "character_name": "Carambola",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3137/3137132.png"
+          "character_name": "Avelã",
+          "character_picture": "https://i.imgur.com/sX2ZTuI.jpg"
         },
         {
           "character_id": "7",
-          "character_name": "Cacau",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5080/5080856.png"
+          "character_name": "Banana",
+          "character_picture": "https://i.imgur.com/nB4jDE2.jpg"
         },
         {
           "character_id": "8",
-          "character_name": "Avelã",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/2079/2079309.png"
+          "character_name": "Cacau",
+          "character_picture": "https://i.imgur.com/MbmkpgB.jpg"
         },
         {
           "character_id": "9",
-          "character_name": "Figo",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/4055/4055142.png"
+          "character_name": "Caju",
+          "character_picture": "https://i.imgur.com/BNynJDE.jpg"
         },
         {
           "character_id": "10",
-          "character_name": "Framboesa",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791310.png"
+          "character_name": "Caqui",
+          "character_picture": "https://i.imgur.com/0qfkbkm.jpg"
         },
         {
           "character_id": "11",
-          "character_name": "Goiaba",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5402/5402118.png"
+          "character_name": "Carambola",
+          "character_picture": "https://i.imgur.com/lrbwr69.jpg"
         },
         {
           "character_id": "12",
-          "character_name": "Graviola",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5854/5854055.png"
+          "character_name": "Cereja",
+          "character_picture": "https://i.imgur.com/wG2fNfW.jpg"
         },
         {
           "character_id": "13",
-          "character_name": "Jabuticaba",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6136/6136104.png"
+          "character_name": "Coco",
+          "character_picture": "https://i.imgur.com/sWRAir4.jpg"
         },
         {
           "character_id": "14",
-          "character_name": "Kiwi",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/415/415756.png"
+          "character_name": "Figo",
+          "character_picture": "https://i.imgur.com/boa2ZIm.jpg"
         },
         {
           "character_id": "15",
-          "character_name": "Laranja",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791312.png"
+          "character_name": "Framboesa",
+          "character_picture": "https://i.imgur.com/p5sMc9B.jpg"
         },
         {
           "character_id": "16",
-          "character_name": "Limão",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866584.png"
+          "character_name": "Fruta do Conde",
+          "character_picture": "https://i.imgur.com/PKA0xDv.jpg"
         },
         {
           "character_id": "17",
-          "character_name": "Lichia",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/2548/2548555.png"
+          "character_name": "Goiaba",
+          "character_picture": "https://i.imgur.com/XjZm3Ju.jpg"
         },
         {
           "character_id": "18",
-          "character_name": "Mamão",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866557.png"
+          "character_name": "Graviola",
+          "character_picture": "https://i.imgur.com/BxLNn7F.jpg"
         },
         {
           "character_id": "19",
-          "character_name": "Melancia",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791301.png"
+          "character_name": "Groselha",
+          "character_picture": "https://i.imgur.com/MJc3dHd.jpg"
         },
         {
           "character_id": "20",
-          "character_name": "Marmelo",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3944/3944226.png"
+          "character_name": "Guaraná",
+          "character_picture": "https://i.imgur.com/VCfmEgc.jpg"
         },
         {
           "character_id": "21",
-          "character_name": "Nectarina",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791317.png"
+          "character_name": "Jabuticaba",
+          "character_picture": "https://i.imgur.com/lcWaN8e.jpg"
         },
         {
           "character_id": "22",
-          "character_name": "Nêspera",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/4891/4891255.png"
+          "character_name": "Jaca",
+          "character_picture": "https://i.imgur.com/IAlQB8X.jpg"
         },
         {
           "character_id": "23",
-          "character_name": "Pera",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3944/3944178.png"
+          "character_name": "Kiwi",
+          "character_picture": "https://i.imgur.com/h2hWEG5.jpg"
         },
         {
           "character_id": "24",
-          "character_name": "Pêssego",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6866/6866552.png"
+          "character_name": "Laranja",
+          "character_picture": "https://i.imgur.com/2Pv161N.jpg"
         },
         {
           "character_id": "25",
-          "character_name": "Romã",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/4031/4031074.png"
+          "character_name": "Lichia",
+          "character_picture": "https://i.imgur.com/oYsEgx2.jpg"
         },
         {
           "character_id": "26",
-          "character_name": "Tâmara",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3944/3944223.png"
+          "character_name": "Limão",
+          "character_picture": "https://i.imgur.com/kZev2AZ.jpg"
         },
         {
           "character_id": "27",
-          "character_name": "Tangerina",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6458/6458109.png"
+          "character_name": "Maçã",
+          "character_picture": "https://i.imgur.com/8GMrjJF.jpg"
         },
         {
           "character_id": "28",
-          "character_name": "Uva",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3620/3620931.png"
+          "character_name": "Mamão",
+          "character_picture": "https://i.imgur.com/1ymUgBe.jpg"
         },
         {
           "character_id": "29",
-          "character_name": "Açaí",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5917/5917321.png"
+          "character_name": "Manga",
+          "character_picture": "https://i.imgur.com/7pTKqEK.jpg"
         },
         {
           "character_id": "30",
-          "character_name": "Acerola",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3137/3137057.png"
+          "character_name": "Maracujá",
+          "character_picture": "https://i.imgur.com/I6nLuFN.jpg"
         },
         {
           "character_id": "31",
-          "character_name": "Caqui",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5402/5402252.png"
+          "character_name": "Marmelo",
+          "character_picture": "https://i.imgur.com/VsHrbQO.jpg"
         },
         {
           "character_id": "32",
-          "character_name": "Fruta do Conde",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/8645/8645393.png"
+          "character_name": "Melancia",
+          "character_picture": "https://i.imgur.com/vxb7W1A.jpg"
         },
         {
           "character_id": "33",
-          "character_name": "Cereja",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/2460/2460503.png"
+          "character_name": "Melão",
+          "character_picture": "https://i.imgur.com/jHvXNDk.jpg"
         },
         {
           "character_id": "34",
-          "character_name": "Coco",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3167/3167391.png"
+          "character_name": "Morango",
+          "character_picture": "https://i.imgur.com/mLPNgsk.jpg"
         },
         {
           "character_id": "35",
-          "character_name": "Pistache",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5501/5501281.png"
+          "character_name": "Nectarina",
+          "character_picture": "https://i.imgur.com/oHHQAf0.jpg"
         },
         {
           "character_id": "36",
-          "character_name": "Groselha",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6106/6106859.png"
+          "character_name": "Nêspera",
+          "character_picture": "https://i.imgur.com/UQqqRD9.jpg"
         },
         {
           "character_id": "37",
-          "character_name": "Jaca",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6135/6135896.png"
+          "character_name": "Pera",
+          "character_picture": "https://i.imgur.com/FQCMvMq.jpg"
         },
         {
           "character_id": "38",
-          "character_name": "Maçã",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/415/415733.png"
+          "character_name": "Pêssego",
+          "character_picture": "https://i.imgur.com/avDsOSr.jpg"
         },
         {
           "character_id": "39",
-          "character_name": "Manga",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1135/1135559.png"
+          "character_name": "Pistache",
+          "character_picture": "https://i.imgur.com/9Vx9wEP.jpg"
         },
         {
           "character_id": "40",
-          "character_name": "Maracujá",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1791/1791364.png"
+          "character_name": "Pitanga",
+          "character_picture": "https://i.imgur.com/BsdTuME.jpg"
         },
         {
           "character_id": "41",
-          "character_name": "Melão",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/1515/1515045.png"
+          "character_name": "Pitaya",
+          "character_picture": "https://i.imgur.com/ZiIuezl.jpg"
         },
         {
           "character_id": "42",
-          "character_name": "Morango",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/590/590772.png"
+          "character_name": "Romã",
+          "character_picture": "https://i.imgur.com/SdzueEr.jpg"
         },
         {
           "character_id": "43",
-          "character_name": "Pitanga",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/6498/6498613.png"
+          "character_name": "Tâmara",
+          "character_picture": "https://i.imgur.com/dzpuOlT.jpg"
         },
         {
           "character_id": "44",
-          "character_name": "Pitaya",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/7875/7875204.png"
+          "character_name": "Tangerina",
+          "character_picture": "https://i.imgur.com/yy4pJLm.jpg"
         },
         {
           "character_id": "45",
-          "character_name": "Guaraná",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/5854/5854040.png"
+          "character_name": "Uva",
+          "character_picture": "https://i.imgur.com/9V9RRQo.jpg"
         },
         {
           "character_id": "46",
           "character_name": "Uva Verde",
-          "character_picture": "https://cdn-icons-png.flaticon.com/512/3347/3347414.png"
+          "character_picture": "https://i.imgur.com/iKcSmeH.jpg"
         }
       ]
     },
@@ -2125,6 +2125,293 @@
           "character_id": "50",
           "character_name": "Hortênsia",
           "character_picture": "https://i.imgur.com/vijyzB2.jpg"
+        }
+      ]
+    },
+    {
+      "theme_id": "2r0b01hkrbXeWXPHal3w",
+      "theme_name": "Cores",
+      "theme_picture": "https://i.imgur.com/PHkyfMq.jpg",
+      "theme_characters": [
+        {
+          "character_id": "1",
+          "character_name": "Abóbora",
+          "character_picture": "https://i.imgur.com/Tl473hu.png"
+        },
+        {
+          "character_id": "2",
+          "character_name": "Amarelo",
+          "character_picture": "https://i.imgur.com/ArcE35i.png"
+        },
+        {
+          "character_id": "3",
+          "character_name": "Âmbar",
+          "character_picture": "https://i.imgur.com/ksVlhA8.png"
+        },
+        {
+          "character_id": "4",
+          "character_name": "Ameixa",
+          "character_picture": "https://i.imgur.com/cd1kINY.png"
+        },
+        {
+          "character_id": "5",
+          "character_name": "Amêndoa",
+          "character_picture": "https://i.imgur.com/Sm99CXi.png"
+        },
+        {
+          "character_id": "6",
+          "character_name": "Ametista",
+          "character_picture": "https://i.imgur.com/6S4LQNO.png"
+        },
+        {
+          "character_id": "7",
+          "character_name": "Azul",
+          "character_picture": "https://i.imgur.com/5TSFgWc.png"
+        },
+        {
+          "character_id": "8",
+          "character_name": "Azul Celeste",
+          "character_picture": "https://i.imgur.com/YXBz5qO.png"
+        },
+        {
+          "character_id": "9",
+          "character_name": "Bege",
+          "character_picture": "https://i.imgur.com/k83xbkx.png"
+        },
+        {
+          "character_id": "10",
+          "character_name": "Bordô",
+          "character_picture": "https://i.imgur.com/rGpTMJ2.png"
+        },
+        {
+          "character_id": "11",
+          "character_name": "Branco",
+          "character_picture": "https://i.imgur.com/PEFTgwK.png"
+        },
+        {
+          "character_id": "12",
+          "character_name": "Bronze",
+          "character_picture": "https://i.imgur.com/O5VaVPK.png"
+        },
+        {
+          "character_id": "13",
+          "character_name": "Cáqui",
+          "character_picture": "https://i.imgur.com/d7Y5SLe.png"
+        },
+        {
+          "character_id": "14",
+          "character_name": "Caramelo",
+          "character_picture": "https://i.imgur.com/Ag9Oe8i.png"
+        },
+        {
+          "character_id": "15",
+          "character_name": "Carmesim",
+          "character_picture": "https://i.imgur.com/FVjK76Y.png"
+        },
+        {
+          "character_id": "16",
+          "character_name": "Carmim",
+          "character_picture": "https://i.imgur.com/mr3ZuZG.png"
+        },
+        {
+          "character_id": "17",
+          "character_name": "Castanho",
+          "character_picture": "https://i.imgur.com/5yXB8u4.png"
+        },
+        {
+          "character_id": "18",
+          "character_name": "Chocolate",
+          "character_picture": "https://i.imgur.com/wpH6csD.png"
+        },
+        {
+          "character_id": "19",
+          "character_name": "Ciano",
+          "character_picture": "https://i.imgur.com/qCYadHy.png"
+        },
+        {
+          "character_id": "20",
+          "character_name": "Cinza",
+          "character_picture": "https://i.imgur.com/5TVOC4m.png"
+        },
+        {
+          "character_id": "21",
+          "character_name": "Cobre",
+          "character_picture": "https://i.imgur.com/UFYzisy.png"
+        },
+        {
+          "character_id": "22",
+          "character_name": "Coral",
+          "character_picture": "https://i.imgur.com/UAGXUOX.png"
+        },
+        {
+          "character_id": "23",
+          "character_name": "Creme",
+          "character_picture": "https://i.imgur.com/d2vKRbQ.png"
+        },
+        {
+          "character_id": "24",
+          "character_name": "Dourado",
+          "character_picture": "https://i.imgur.com/uoRBVdp.png"
+        },
+        {
+          "character_id": "25",
+          "character_name": "Escarlate",
+          "character_picture": "https://i.imgur.com/9kZ2iP0.png"
+        },
+        {
+          "character_id": "26",
+          "character_name": "Esmeralda",
+          "character_picture": "https://i.imgur.com/f1GFul4.png"
+        },
+        {
+          "character_id": "27",
+          "character_name": "Ferrugem",
+          "character_picture": "https://i.imgur.com/6Ex0Ua8.png"
+        },
+        {
+          "character_id": "28",
+          "character_name": "Fúcsia",
+          "character_picture": "https://i.imgur.com/AuJpWsK.png"
+        },
+        {
+          "character_id": "29",
+          "character_name": "Goiaba",
+          "character_picture": "https://i.imgur.com/LGBkxp0.png"
+        },
+        {
+          "character_id": "30",
+          "character_name": "Grená",
+          "character_picture": "https://i.imgur.com/HWAC31q.png"
+        },
+        {
+          "character_id": "31",
+          "character_name": "Índigo",
+          "character_picture": "https://i.imgur.com/IB6CZq9.png"
+        },
+        {
+          "character_id": "32",
+          "character_name": "Jade",
+          "character_picture": "https://i.imgur.com/veI8hKf.png"
+        },
+        {
+          "character_id": "33",
+          "character_name": "Jambo",
+          "character_picture": "https://i.imgur.com/rQCGTcM.png"
+        },
+        {
+          "character_id": "34",
+          "character_name": "Kiwi",
+          "character_picture": "https://i.imgur.com/5COiir2.png"
+        },
+        {
+          "character_id": "35",
+          "character_name": "Laranja",
+          "character_picture": "https://i.imgur.com/POd6eqM.png"
+        },
+        {
+          "character_id": "36",
+          "character_name": "Lilás",
+          "character_picture": "https://i.imgur.com/DsKln3V.png"
+        },
+        {
+          "character_id": "37",
+          "character_name": "Limão",
+          "character_picture": "https://i.imgur.com/oNchc4C.png"
+        },
+        {
+          "character_id": "38",
+          "character_name": "Magenta",
+          "character_picture": "https://i.imgur.com/ZAkaJ14.png"
+        },
+        {
+          "character_id": "39",
+          "character_name": "Marrom",
+          "character_picture": "https://i.imgur.com/912bbuC.png"
+        },
+        {
+          "character_id": "40",
+          "character_name": "Oliva",
+          "character_picture": "https://i.imgur.com/lAtNfvA.png"
+        },
+        {
+          "character_id": "41",
+          "character_name": "Ouro",
+          "character_picture": "https://i.imgur.com/Rl8wXKO.png"
+        },
+        {
+          "character_id": "42",
+          "character_name": "Pêssego",
+          "character_picture": "https://i.imgur.com/qMENiUx.png"
+        },
+        {
+          "character_id": "43",
+          "character_name": "Prata",
+          "character_picture": "https://i.imgur.com/GbC2A4J.png"
+        },
+        {
+          "character_id": "44",
+          "character_name": "Preto",
+          "character_picture": "https://i.imgur.com/im97B3s.png"
+        },
+        {
+          "character_id": "45",
+          "character_name": "Púrpura",
+          "character_picture": "https://i.imgur.com/snKqksi.png"
+        },
+        {
+          "character_id": "46",
+          "character_name": "Rosa",
+          "character_picture": "https://i.imgur.com/l4Ii6eL.png"
+        },
+        {
+          "character_id": "47",
+          "character_name": "Rosa Brilhante",
+          "character_picture": "https://i.imgur.com/5hOaB2K.png"
+        },
+        {
+          "character_id": "48",
+          "character_name": "Rosa Choque",
+          "character_picture": "https://i.imgur.com/YU30V0r.png"
+        },
+        {
+          "character_id": "49",
+          "character_name": "Roxo",
+          "character_picture": "https://i.imgur.com/cRkHrw1.png"
+        },
+        {
+          "character_id": "50",
+          "character_name": "Salmão",
+          "character_picture": "https://i.imgur.com/czx5sLl.png"
+        },
+        {
+          "character_id": "51",
+          "character_name": "Sépia",
+          "character_picture": "https://i.imgur.com/OfZLfUQ.png"
+        },
+        {
+          "character_id": "52",
+          "character_name": "Turquesa",
+          "character_picture": "https://i.imgur.com/lJwGsDW.png"
+        },
+        {
+          "character_id": "53",
+          "character_name": "Uva",
+          "character_picture": "https://i.imgur.com/HoSn3TT.png"
+        },
+        {
+          "character_id": "54",
+          "character_name": "Verde",
+          "character_picture": "https://i.imgur.com/4rfp4RY.png"
+        },
+        {
+          "character_id": "55",
+          "character_name": "Vermelho",
+          "character_picture": "https://i.imgur.com/KwvnsP4.png"
+        },
+        {
+          "character_id": "56",
+          "character_name": "Violeta",
+          "character_picture": "https://i.imgur.com/UZd5BW6.png"
         }
       ]
     }
