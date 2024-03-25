@@ -14,10 +14,11 @@ import com.duscaranari.themedbingocardsgenerator.ui.theme.getRandomLightColor
 
 @Composable
 fun HostSessionScreenCard(
-    text: String
+    text: String,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors().copy(
             containerColor = getRandomLightColor(),
             contentColor = Color.Black
