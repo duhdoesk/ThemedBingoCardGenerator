@@ -17,7 +17,8 @@ sealed class SessionUiState {
         val limitOfWinners: Int = 1,
         val listOfDrawnCharacters: List<BingoCharacter> = emptyList(),
         val listOfWinners: List<User> = emptyList(),
-        val theme: BingoTheme
+        val theme: BingoTheme,
+        val characters: List<BingoCharacter>
     ) : SessionUiState()
 }
 
@@ -77,5 +78,6 @@ fun mockSessionUiState() =
             id = "mucius",
             name = "Valarie Franks",
             picture = "torquent"
-        )
+        ),
+        characters = emptyList()
     )

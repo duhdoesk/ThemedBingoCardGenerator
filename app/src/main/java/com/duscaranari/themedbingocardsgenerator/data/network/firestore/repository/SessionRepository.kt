@@ -3,6 +3,7 @@ package com.duscaranari.themedbingocardsgenerator.data.network.firestore.reposit
 import android.util.Log
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.snapshots
 import com.google.firebase.firestore.toObject
@@ -79,4 +80,14 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
         collection
             .document(sessionId)
             .update("state", "DRAWING")
+
+    fun finishSession(sessionId: String) =
+        collection
+            .document(sessionId)
+            .update("state", "FINISHED")
+
+    fun drawNextCharacter(sessionId: String, characterId: String) =
+        collection
+            .document(sessionId)
+            .update("listOfDrawnCharactersIds", FieldValue.arrayUnion(characterId))
 }

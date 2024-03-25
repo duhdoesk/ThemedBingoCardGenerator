@@ -93,4 +93,5 @@
     <string name="theme_card">Tema</string>
     <string name="winners_card">Ganhadores</string>
     <string name="players_card">Jogadores</string>
+    <string name="session_finished">Sessão Encerrada</string>
 </resources>

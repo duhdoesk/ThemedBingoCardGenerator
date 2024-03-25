@@ -37,7 +37,7 @@ fun DrawnAndWinnersGrids(
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "${stringResource(id = R.string.drawn)} (${state.listOfDrawnCharacters.size})",
+                text = "${stringResource(id = R.string.drawn)} (${state.listOfDrawnCharacters.size}/${state.characters.size})",
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -45,7 +45,7 @@ fun DrawnAndWinnersGrids(
             )
 
             DrawerLazyGrid(
-                characters = state.listOfDrawnCharacters,
+                characters = state.listOfDrawnCharacters.reversed(),
                 onClick = { }
             )
         }
@@ -54,7 +54,7 @@ fun DrawnAndWinnersGrids(
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "${stringResource(id = R.string.winners_card)} (${state.listOfWinners.size})",
+                text = "${stringResource(id = R.string.winners_card)} (${state.listOfWinners.size}/${state.limitOfWinners})",
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()

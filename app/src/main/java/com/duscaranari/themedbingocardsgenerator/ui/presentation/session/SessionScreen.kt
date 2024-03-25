@@ -1,13 +1,17 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.session
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.event.handleSessionScreenEvent
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screens.host.HostSessionScreen
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screens.player.PlayerSessionScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.common.FinishDrawConfirmationDialog
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.event.SessionUiEvent
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screens.HostOrPlayerSessionScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state.SessionUiState
 
 @Composable
@@ -19,24 +23,22 @@ fun SessionScreen(
         .collectAsStateWithLifecycle()
         .value
 
+    var showDialog by remember { mutableStateOf(false) }
+
     when (state) {
 
         is SessionUiState.Success -> {
-            if (state.isHost) {
-                HostSessionScreen(state = state) {
-                    handleSessionScreenEvent(
-                        event = it,
-                        viewModel = sessionViewModel
-                    )
-                }
-            }
+            HostOrPlayerSessionScreen(state = state) { event ->
+                when (event) {
+                    is SessionUiEvent.OnStartDrawing ->
+                        sessionViewModel.startDrawing()
 
-            else {
-                PlayerSessionScreen(state = state) {
-                    handleSessionScreenEvent(
-                        event = it,
-                        viewModel = sessionViewModel
-                    )
+                    is SessionUiEvent.OnFinishSession ->
+                        showDialog = true
+
+
+                    is SessionUiEvent.OnDrawNextCharacter ->
+                        sessionViewModel.drawNextCharacter()
                 }
             }
         }
@@ -44,9 +46,19 @@ fun SessionScreen(
         is SessionUiState.Error ->
             ErrorScreen(
                 errorMessage = state.message,
-                onTryAgain = {  })
+                onTryAgain = { })
 
         else ->
             LoadingScreen()
+    }
+
+    if (showDialog) {
+        FinishDrawConfirmationDialog(
+            onConfirm = {
+                showDialog = false
+                sessionViewModel.finishSession()
+            },
+            onDismiss = { showDialog = false }
+        )
     }
 }

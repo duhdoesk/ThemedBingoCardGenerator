@@ -31,14 +31,8 @@ fun PortraitHostSessionScreen(
                         event = { event(it) }
                     )
 
-                SessionState.DRAWING ->
+                else ->
                     PortraitHostSessionScreenDrawing(
-                        state = state,
-                        event = { event(it) }
-                    )
-
-                SessionState.FINISHED ->
-                    PortraitHostSessionScreenFinished(
                         state = state,
                         event = { event(it) }
                     )

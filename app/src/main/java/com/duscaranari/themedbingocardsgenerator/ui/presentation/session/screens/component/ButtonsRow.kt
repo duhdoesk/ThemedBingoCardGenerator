@@ -35,7 +35,7 @@ fun ButtonsRow(
         Spacer(modifier = Modifier.width(8.dp))
 
         Button(
-            onClick = { event(SessionUiEvent.OnFinishSession) },
+            onClick = { event(SessionUiEvent.OnDrawNextCharacter) },
             modifier = buttonsModifier
         ) {
             Text(text = stringResource(id = R.string.draw_next_character))
