@@ -26,7 +26,7 @@ fun mockSessionUiState() =
     SessionUiState.Success(
         sessionName = "Lyle Steele",
         isHost = false,
-        sessionState = SessionState.NOT_STARTED,
+        sessionState = SessionState.DRAWING,
         participants = listOf(
             User(
                 id = "populo",
