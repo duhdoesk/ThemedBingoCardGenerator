@@ -111,7 +111,7 @@ class SessionViewModel @Inject constructor(
                         val allDrawn = (drawnCharacters.size == _characters.value.size)
                         val allWins = (session.listOfWinnersIds.size == session.limitOfWinners)
                         val state =
-                            if (allDrawn || allWins) SessionState.FINISHED else SessionState.DRAWING
+                            if (allDrawn || allWins) SessionState.FINISHED else session.state
 
                         SessionUiState.Success(
                             sessionName = session.name,
