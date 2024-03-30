@@ -5,20 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.participant.model.Participant
+import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.GetParticipantFromSessionUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.GetParticipantsFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.SessionState
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.DrawNextCharacterUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.FinishSessionUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetParticipantsFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetSessionByIdUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.StartDrawingUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetBingoThemeByIdUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state.SessionUiState
 import com.duscaranari.themedbingocardsgenerator.util.auth.AuthHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -31,6 +33,7 @@ import javax.inject.Inject
 class SessionViewModel @Inject constructor(
     getSessionByIdUseCase: GetSessionByIdUseCase,
     getParticipantsFromSessionUseCase: GetParticipantsFromSessionUseCase,
+    getParticipantFromSessionUseCase: GetParticipantFromSessionUseCase,
     savedStateHandle: SavedStateHandle,
     authHelper: AuthHelper,
     private val getBingoThemeByIdUseCase: GetBingoThemeByIdUseCase,
@@ -40,9 +43,13 @@ class SessionViewModel @Inject constructor(
     private val drawNextCharacterUseCase: DrawNextCharacterUseCase
 ) : ViewModel() {
 
+    private val googleUser = authHelper.getSignedInUser()
+
     private val _theme = MutableStateFlow<BingoTheme?>(null)
+    val theme = _theme.asStateFlow()
+
     private val _characters = MutableStateFlow<List<BingoCharacter>>(emptyList())
-    private val _players = MutableStateFlow<List<User>>(emptyList())
+    val characters = _characters.asStateFlow()
 
     private val _session = getSessionByIdUseCase
         .invoke(checkNotNull(savedStateHandle["sessionId"]))
@@ -66,13 +73,31 @@ class SessionViewModel @Inject constructor(
 
     private val _participants = getParticipantsFromSessionUseCase
         .invoke(checkNotNull(savedStateHandle["sessionId"]))
+        .map { list ->
+            list.map { participant ->
+                participant.toObject()
+            }
+        }
+
+    val participants = _participants
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(),
             null
         )
 
-    private val googleUser = authHelper.getSignedInUser()
+    private val _participant = getParticipantFromSessionUseCase.invoke(
+        sessionId = checkNotNull(savedStateHandle["sessionId"]),
+        participantId = googleUser?.id ?: ""
+    )
+        .map { it?.toObject() }
+
+    val participant = _participant
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            null
+        )
 
     val sessionUiState = combine(
         _session, _participants
@@ -94,12 +119,10 @@ class SessionViewModel @Inject constructor(
                             }
                         }
 
-                        val listOfWinners = mutableListOf<User>()
+                        val listOfWinners = mutableListOf<Participant>()
 
                         val players = participants
-                            ?.map { it.toObject() }
-                            ?.filterNot { it.id == session.host }
-                            ?: emptyList()
+                            .filterNot { it.id == session.host }
 
                         session.listOfWinnersIds.forEach { winnerId ->
                             players.find { it.id == winnerId }?.let { winner ->

@@ -1,24 +1,15 @@
-package com.duscaranari.themedbingocardsgenerator.domain.user.model
+package com.duscaranari.themedbingocardsgenerator.domain.participant.model
 
-import com.duscaranari.themedbingocardsgenerator.data.local.model.LocalUser
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.ParticipantDTO
 
-class User(
+class Participant(
     val id: String,
     val name: String,
     val picture: String,
     val card: List<String>
 ) {
 
-    fun toLocalUser() =
-        this.run {
-            LocalUser(
-                userId = id,
-                userName = name
-            )
-        }
-
-    fun toNetworkUser() =
+    fun toDTO() =
         this.run {
             ParticipantDTO(
                 id = id,

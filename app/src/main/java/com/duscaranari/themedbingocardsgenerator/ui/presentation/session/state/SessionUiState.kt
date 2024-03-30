@@ -1,9 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.session.state
 
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
+import com.duscaranari.themedbingocardsgenerator.domain.participant.model.Participant
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.SessionState
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
 
 sealed class SessionUiState {
 
@@ -13,10 +13,10 @@ sealed class SessionUiState {
         val sessionName: String = "",
         val isHost: Boolean = false,
         val sessionState: SessionState = SessionState.NOT_STARTED,
-        val participants: List<User> = emptyList(),
+        val participants: List<Participant> = emptyList(),
         val limitOfWinners: Int = 1,
         val listOfDrawnCharacters: List<BingoCharacter> = emptyList(),
-        val listOfWinners: List<User> = emptyList(),
+        val listOfWinners: List<Participant> = emptyList(),
         val theme: BingoTheme,
         val characters: List<BingoCharacter>
     ) : SessionUiState()
@@ -28,19 +28,19 @@ fun mockSessionUiState() =
         isHost = false,
         sessionState = SessionState.DRAWING,
         participants = listOf(
-            User(
+            Participant(
                 id = "populo",
                 name = "Della Booth",
                 picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
                 card = listOf()
             ),
-            User(
+            Participant(
                 id = "delenit",
                 name = "Glenna Camacho",
                 picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
                 card = listOf()
             ),
-            User(
+            Participant(
                 id = "voluptatibus",
                 name = "Nicole Kirkland",
                 picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
@@ -55,19 +55,19 @@ fun mockSessionUiState() =
             BingoCharacter(id = "omittam", name = "Clint Mejia", picture = "ultricies")
         ),
         listOfWinners = listOf(
-            User(
+            Participant(
                 id = "populo",
                 name = "Della Booth",
                 picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
                 card = listOf()
             ),
-            User(
+            Participant(
                 id = "delenit",
                 name = "Glenna Camacho",
                 picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
                 card = listOf()
             ),
-            User(
+            Participant(
                 id = "voluptatibus",
                 name = "Nicole Kirkland",
                 picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",

@@ -3,11 +3,9 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -21,13 +19,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
+import com.duscaranari.themedbingocardsgenerator.domain.participant.model.Participant
 
 @Composable
 fun PlayersLazyRow(
     modifier: Modifier = Modifier,
     pictureSize: Dp = 60.dp,
-    players: List<User>
+    players: List<Participant>
 ) {
     Box(modifier = modifier) {
         LazyRow(

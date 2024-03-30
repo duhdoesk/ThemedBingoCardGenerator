@@ -14,7 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
-import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinResult
+import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.JoinResult
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.component.JoinSessionDialog
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.screens.landscape.LandscapeSessionsScreen

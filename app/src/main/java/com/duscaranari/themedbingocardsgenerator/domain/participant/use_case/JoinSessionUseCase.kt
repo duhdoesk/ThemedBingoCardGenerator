@@ -1,24 +1,24 @@
-package com.duscaranari.themedbingocardsgenerator.domain.session.use_case
+package com.duscaranari.themedbingocardsgenerator.domain.participant.use_case
 
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.data.network.firestore.repository.SessionRepository
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
-import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.ParticipantDTO
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.repository.ParticipantRepository
 import javax.inject.Inject
 
-class JoinSessionUseCase @Inject constructor(private val sessionRepository: SessionRepository) {
+class JoinSessionUseCase @Inject constructor(private val participantRepository: ParticipantRepository) {
 
     operator fun invoke(
         session: SessionDTO,
-        networkUser: NetworkUser,
+        participantDTO: ParticipantDTO,
         password: String?
     ): JoinResult {
         return if (!session.locked || session.password == password) {
-                sessionRepository.joinSession(
+                participantRepository.joinSession(
                     sessionId = session.id,
-                    networkUser = networkUser
+                    participantDTO = participantDTO
                 )
-                JoinResult.Success
+            JoinResult.Success
             }
 
             else JoinResult.Error(message = R.string.incorrect_password)

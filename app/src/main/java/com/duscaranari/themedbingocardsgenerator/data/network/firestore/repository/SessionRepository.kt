@@ -1,7 +1,6 @@
 package com.duscaranari.themedbingocardsgenerator.data.network.firestore.repository
 
 import android.util.Log
-import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,18 +16,6 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
 
     fun getAllSessions() =
         collection
-            .snapshots()
-            .map { it.toObjects<SessionDTO>() }
-
-    fun getNotStartedSessions() =
-        collection
-            .orderBy("name")
-            .whereEqualTo("state", "NOT_STARTED")
-            .snapshots()
-            .map { it.toObjects<SessionDTO>() }
-
-    fun getSessions() =
-        collection
             .orderBy("name")
             .snapshots()
             .map { it.toObjects<SessionDTO>() }
@@ -38,6 +25,13 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
             .document(id)
             .snapshots()
             .map { it.toObject<SessionDTO>() }
+
+    fun getNotStartedSessions() =
+        collection
+            .orderBy("name")
+            .whereEqualTo("state", "NOT_STARTED")
+            .snapshots()
+            .map { it.toObjects<SessionDTO>() }
 
     fun createNewSession(session: SessionDTO): String {
         val document = collection.document()
@@ -49,32 +43,6 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
 
         return document.id
     }
-
-    fun joinSession(
-        sessionId: String,
-        networkUser: NetworkUser
-    ): String {
-        var result = ""
-
-        val document = collection
-            .document(sessionId)
-            .collection("participants")
-            .document(networkUser.id)
-
-        document
-            .set(networkUser)
-            .addOnSuccessListener { result = document.id }
-            .addOnFailureListener { e -> result = e.message.toString() }
-
-        return result
-    }
-
-    fun getParticipantsFromSessionId(sessionId: String) =
-        collection
-            .document(sessionId)
-            .collection("participants")
-            .snapshots()
-            .map { it.toObjects<NetworkUser>() }
 
     fun startDrawing(sessionId: String) =
         collection

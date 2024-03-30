@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.SessionDTO
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetSessionsUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinResult
-import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.JoinSessionUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.JoinResult
+import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.JoinSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllBingoThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.NetworkUser
+import com.duscaranari.themedbingocardsgenerator.data.network.firestore.model.ParticipantDTO
 import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -44,7 +44,7 @@ class SessionsViewModel @Inject constructor(
     ): JoinResult {
 
         if (userData != null) {
-            val networkUser = NetworkUser(
+            val participantDTO = ParticipantDTO(
                 id = userData.id,
                 name = userData.name ?: "",
                 picture = userData.picture ?: ""
@@ -52,7 +52,7 @@ class SessionsViewModel @Inject constructor(
 
             return joinSessionUseCase.invoke(
                 session = session,
-                networkUser = networkUser,
+                participantDTO = participantDTO,
                 password = password
             )
         }

@@ -1,9 +1,9 @@
 package com.duscaranari.themedbingocardsgenerator.data.network.firestore.model
 
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
+import com.duscaranari.themedbingocardsgenerator.domain.participant.model.Participant
 import com.google.firebase.firestore.DocumentId
 
-class NetworkUser(
+class ParticipantDTO(
     @DocumentId val id: String = "",
     val name: String = "",
     val picture: String = "",
@@ -12,7 +12,7 @@ class NetworkUser(
 
     fun toObject() =
         this.run {
-            User(
+            Participant(
                 id = id,
                 name = name,
                 picture = picture,

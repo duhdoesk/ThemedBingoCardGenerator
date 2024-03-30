@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetSessionsUseCase @Inject constructor(private val sessionRepository: SessionRepository) {
 
     operator fun invoke() =
-        sessionRepository.getSessions()
+        sessionRepository.getAllSessions()
 }

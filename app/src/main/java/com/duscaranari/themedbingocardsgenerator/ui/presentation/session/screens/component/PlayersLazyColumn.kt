@@ -22,14 +22,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
+import com.duscaranari.themedbingocardsgenerator.domain.participant.model.Participant
 
 @Composable
 fun PlayersLazyColumn(
     modifier: Modifier = Modifier,
     columns: GridCells = GridCells.Fixed(2),
     pictureSize: Dp = 40.dp,
-    players: List<User>
+    players: List<Participant>
 ) {
     Box(modifier = modifier) {
         LazyVerticalGrid(
