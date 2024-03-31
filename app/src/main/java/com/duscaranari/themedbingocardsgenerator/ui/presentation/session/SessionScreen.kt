@@ -23,12 +23,24 @@ fun SessionScreen(
         .collectAsStateWithLifecycle()
         .value
 
+    val participant = sessionViewModel.participant
+        .collectAsStateWithLifecycle()
+        .value
+
+    val card = sessionViewModel.card
+        .collectAsStateWithLifecycle()
+        .value
+
     var showDialog by remember { mutableStateOf(false) }
 
     when (state) {
 
         is SessionUiState.Success -> {
-            HostOrPlayerSessionScreen(state = state) { event ->
+            HostOrPlayerSessionScreen(
+                state = state,
+                participant = participant,
+                card = card
+            ) { event ->
                 when (event) {
                     is SessionUiEvent.OnStartDrawing ->
                         sessionViewModel.startDrawing()
@@ -39,6 +51,9 @@ fun SessionScreen(
 
                     is SessionUiEvent.OnDrawNextCharacter ->
                         sessionViewModel.drawNextCharacter()
+
+                    is SessionUiEvent.OnDrawNewCard ->
+                        sessionViewModel.drawNewCard()
                 }
             }
         }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.participant.model.Participant
+import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.DrawNewCardUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.GetParticipantFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.GetParticipantsFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.SessionState
@@ -40,7 +41,8 @@ class SessionViewModel @Inject constructor(
     private val getCharactersFromThemeByIdUseCase: GetCharactersFromThemeIdUseCase,
     private val startDrawingUseCase: StartDrawingUseCase,
     private val finishSessionUseCase: FinishSessionUseCase,
-    private val drawNextCharacterUseCase: DrawNextCharacterUseCase
+    private val drawNextCharacterUseCase: DrawNextCharacterUseCase,
+    private val drawNewCardUseCase: DrawNewCardUseCase
 ) : ViewModel() {
 
     private val googleUser = authHelper.getSignedInUser()
@@ -97,6 +99,19 @@ class SessionViewModel @Inject constructor(
             viewModelScope,
             SharingStarted.WhileSubscribed(),
             null
+        )
+
+    val card = combine(
+        _characters, _participant
+    ) { char, part ->
+        part?.card?.map { string ->
+            char.find { it.id == string }
+        } ?: emptyList<BingoCharacter>()
+    }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            emptyList<BingoCharacter>()
         )
 
     val sessionUiState = combine(
@@ -177,6 +192,21 @@ class SessionViewModel @Inject constructor(
             if (availableCharacters.isNotEmpty()) {
                 val nextCharacter = availableCharacters.shuffled().first()
                 drawNextCharacterUseCase.invoke(session.id, nextCharacter.id)
+            }
+        }
+    }
+
+    fun drawNewCard() {
+        _session.value?.let { session ->
+            participant.value?.let { participantNotNull ->
+
+                val newCard = _characters.value.shuffled().subList(0, 9)
+
+                drawNewCardUseCase.invoke(
+                    sessionId = session.id,
+                    participantId = participantNotNull.id,
+                    card = newCard
+                )
             }
         }
     }
