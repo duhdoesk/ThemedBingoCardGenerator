@@ -27,6 +27,7 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 fun SessionsScreen(
     sessionsViewModel: SessionsViewModel = hiltViewModel(),
     navController: NavController,
+    subscribed: Boolean,
     googleUser: UserData?
 ) {
 
@@ -56,7 +57,8 @@ fun SessionsScreen(
                 },
                 onNavigateToCreateASession = {
                     navController.navigate(AppScreens.CreateSession.name)
-                }
+                },
+                subscribed = subscribed
             )
         }
 
@@ -70,7 +72,8 @@ fun SessionsScreen(
                 },
                 onNavigateToCreateASession = {
                     navController.navigate(AppScreens.CreateSession.name)
-                }
+                },
+                subscribed = subscribed
             )
     }
 

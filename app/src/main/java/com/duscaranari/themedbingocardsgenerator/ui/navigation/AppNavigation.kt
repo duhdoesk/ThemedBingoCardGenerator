@@ -142,7 +142,8 @@ fun AppNavigation(
                 composable(AppScreens.Sessions.name) {
                     SessionsScreen(
                         navController = navController,
-                        googleUser = googleUser
+                        googleUser = googleUser,
+                        subscribed = subscribed
                     )
                 }
 

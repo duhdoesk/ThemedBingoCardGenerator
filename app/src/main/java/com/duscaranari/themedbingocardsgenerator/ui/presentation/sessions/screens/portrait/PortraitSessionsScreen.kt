@@ -26,7 +26,8 @@ fun PortraitSessionsScreen(
     sessions: List<SessionDTO>,
     themes: List<BingoTheme>,
     onPickASession: (session: SessionDTO) -> Unit,
-    onNavigateToCreateASession: () -> Unit
+    onNavigateToCreateASession: () -> Unit,
+    subscribed: Boolean
 ) {
 
     Box(
@@ -56,8 +57,10 @@ fun PortraitSessionsScreen(
                     onPickASession(session)
                 })
 
-            Button(onClick = onNavigateToCreateASession) {
-                Text(text = stringResource(id = R.string.create_session))
+            if (subscribed) {
+                Button(onClick = onNavigateToCreateASession) {
+                    Text(text = stringResource(id = R.string.create_session))
+                }
             }
         }
     }
@@ -70,6 +73,7 @@ fun Preview() {
         sessions = listOf(mockSession()),
         themes = listOf(mockBingoTheme()),
         onPickASession = { },
-        onNavigateToCreateASession = { }
+        onNavigateToCreateASession = { },
+        subscribed = false
     )
 }

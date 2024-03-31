@@ -18,6 +18,7 @@ enum class BingoType(
     ONLINE(
         bottomDestination = AppScreens.CreateSession,
         bottomLabel = R.string.host,
+        bottomIsPremium = true,
         topDestination = AppScreens.Sessions,
         topLabel = R.string.join,
         avatar = R.drawable.smiling_monkey,
