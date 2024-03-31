@@ -14,6 +14,7 @@ fun createSessionScreenEventHandler(
     when (event) {
         is CreateSessionEvent.OnCreateNewSession -> {
             val sessionId = viewModel.onCreateNewSession()
+            navController.popBackStack()
             navController.navigate("${AppScreens.Session.name}/$sessionId")
         }
 
