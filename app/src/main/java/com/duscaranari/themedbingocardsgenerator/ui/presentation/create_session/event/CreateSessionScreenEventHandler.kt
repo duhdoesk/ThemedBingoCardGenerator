@@ -3,6 +3,7 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session
 import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavController
+import com.duscaranari.themedbingocardsgenerator.ui.navigation.AppScreens
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.CreateSessionViewModel
 
 fun createSessionScreenEventHandler(
@@ -13,7 +14,7 @@ fun createSessionScreenEventHandler(
     when (event) {
         is CreateSessionEvent.OnCreateNewSession -> {
             val sessionId = viewModel.onCreateNewSession()
-            navController.navigate("")
+            navController.navigate("${AppScreens.Session.name}/$sessionId")
         }
 
         is CreateSessionEvent.OnUpdateName ->

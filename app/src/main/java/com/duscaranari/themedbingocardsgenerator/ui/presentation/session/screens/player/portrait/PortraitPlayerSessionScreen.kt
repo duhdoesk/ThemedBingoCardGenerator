@@ -80,7 +80,8 @@ fun PortraitPlayerSessionScreen(
                     CharactersChipsGrid(
                         drawnCharacters = state.listOfDrawnCharacters.map { it.id },
                         card = card,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        event = { event(it) }
                     )
 
                     DrawnAndWinnersGrids(

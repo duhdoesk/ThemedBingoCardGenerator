@@ -16,7 +16,7 @@ sealed class SessionUiState {
         val participants: List<Participant> = emptyList(),
         val limitOfWinners: Int = 1,
         val listOfDrawnCharacters: List<BingoCharacter> = emptyList(),
-        val listOfWinners: List<Participant> = emptyList(),
+        val listOfWinners: List<String> = emptyList(),
         val theme: BingoTheme,
         val characters: List<BingoCharacter>
     ) : SessionUiState()
@@ -54,26 +54,7 @@ fun mockSessionUiState() =
             BingoCharacter(id = "sem", name = "Dale Swanson", picture = "fermentum"),
             BingoCharacter(id = "omittam", name = "Clint Mejia", picture = "ultricies")
         ),
-        listOfWinners = listOf(
-            Participant(
-                id = "populo",
-                name = "Della Booth",
-                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
-                card = listOf()
-            ),
-            Participant(
-                id = "delenit",
-                name = "Glenna Camacho",
-                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
-                card = listOf()
-            ),
-            Participant(
-                id = "voluptatibus",
-                name = "Nicole Kirkland",
-                picture = "https://lh3.googleusercontent.com/a/ACg8ocJRCxTnMYJ8YyCRcJhYeeJOiNdhwYfLhp6qGwVbEM3IPw=s96-c",
-                card = listOf()
-            )
-        ),
+        listOfWinners = listOf(),
         theme = BingoTheme(
             id = "mucius",
             name = "Valarie Franks",

@@ -54,6 +54,9 @@ fun SessionScreen(
 
                     is SessionUiEvent.OnDrawNewCard ->
                         sessionViewModel.drawNewCard()
+
+                    is SessionUiEvent.OnAddWinner ->
+                        sessionViewModel.addWinner()
                 }
             }
         }

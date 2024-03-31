@@ -112,6 +112,7 @@ class CreateSessionViewModel @Inject constructor(
                     listOfDrawnCharactersIds = emptyList(),
                     listOfWinnersIds = emptyList(),
                     limitOfWinners = _limitOfWinners.floatValue.roundToInt(),
+                    host = user.id
                 )
             )
         }

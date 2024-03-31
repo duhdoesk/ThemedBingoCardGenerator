@@ -1,15 +1,16 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screens.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -21,14 +22,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.event.SessionUiEvent
 
 @Composable
 fun CharactersChipsGrid(
     drawnCharacters: List<String>,
     card: List<BingoCharacter?>,
+    event: (event: SessionUiEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -40,11 +46,14 @@ fun CharactersChipsGrid(
                         if (drawnCharacters.contains(characterNotNull.id))
                             CardDefaults.cardColors()
                                 .copy(
-                                    containerColor = MaterialTheme.colorScheme.primary,
-                                    contentColor = MaterialTheme.colorScheme.onPrimary
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                                 )
                         else
-                            CardDefaults.cardColors()
+                            CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.background,
+                                contentColor = MaterialTheme.colorScheme.onBackground
+                            )
 
                     Card(
                         colors = cardColors,
@@ -53,6 +62,7 @@ fun CharactersChipsGrid(
                     ) {
                         Text(
                             text = characterNotNull.name,
+                            style = MaterialTheme.typography.bodySmall,
                             textAlign = TextAlign.Center,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
@@ -63,6 +73,25 @@ fun CharactersChipsGrid(
                     }
                 }
             }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        var buttonEnabled = true
+        card.forEach { character ->
+            character?.let { characterNotNull ->
+                if (!drawnCharacters.contains(characterNotNull.id))
+                    buttonEnabled = false
+                return@forEach
+            }
+        }
+
+        Button(
+            onClick = { event(SessionUiEvent.OnAddWinner) },
+            enabled = buttonEnabled,
+            modifier = Modifier.widthIn(320.dp)
+        ) {
+            Text(text = "BINGO!")
         }
     }
 }

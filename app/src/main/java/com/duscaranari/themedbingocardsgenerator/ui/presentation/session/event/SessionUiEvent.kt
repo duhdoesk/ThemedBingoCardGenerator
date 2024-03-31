@@ -5,4 +5,5 @@ sealed class SessionUiEvent {
     data object OnFinishSession: SessionUiEvent()
     data object OnDrawNextCharacter: SessionUiEvent()
     data object OnDrawNewCard: SessionUiEvent()
+    data object OnAddWinner: SessionUiEvent()
 }

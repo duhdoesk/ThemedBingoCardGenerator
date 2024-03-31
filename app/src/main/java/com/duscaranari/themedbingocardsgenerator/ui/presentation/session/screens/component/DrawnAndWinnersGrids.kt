@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -38,6 +39,7 @@ fun DrawnAndWinnersGrids(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = "${stringResource(id = R.string.drawn)} (${state.listOfDrawnCharacters.size}/${state.characters.size})",
+                style = MaterialTheme.typography.bodySmall,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -55,6 +57,7 @@ fun DrawnAndWinnersGrids(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = "${stringResource(id = R.string.winners_card)} (${state.listOfWinners.size}/${state.limitOfWinners})",
+                style = MaterialTheme.typography.bodySmall,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -69,7 +72,7 @@ fun DrawnAndWinnersGrids(
                 itemsIndexed(state.listOfWinners) { index, winner ->
                     OutlinedCard {
                         Text(
-                            text = "${index + 1} - ${winner.name}",
+                            text = "${index + 1} - ${state.participants.find { it.id == winner}?.name}",
                             textAlign = TextAlign.Center,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,

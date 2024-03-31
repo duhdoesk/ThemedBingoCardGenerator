@@ -117,7 +117,7 @@ fun LandscapeHostSessionScreenDrawing(
                     itemsIndexed(state.listOfWinners) { index, winner ->
                         OutlinedCard {
                             Text(
-                                text = "${index + 1} - ${winner.name}",
+                                text = "${index + 1} - ${state.participants.find { it.id == winner}}",
                                 textAlign = TextAlign.Center,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,

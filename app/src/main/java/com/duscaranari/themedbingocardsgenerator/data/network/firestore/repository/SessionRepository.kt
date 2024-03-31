@@ -58,4 +58,9 @@ class SessionRepository @Inject constructor(database: FirebaseFirestore) {
         collection
             .document(sessionId)
             .update("listOfDrawnCharactersIds", FieldValue.arrayUnion(characterId))
+
+    fun addWinner(sessionId: String, winnerId: String) =
+        collection
+            .document(sessionId)
+            .update("listOfWinnersIds", FieldValue.arrayUnion(winnerId))
 }

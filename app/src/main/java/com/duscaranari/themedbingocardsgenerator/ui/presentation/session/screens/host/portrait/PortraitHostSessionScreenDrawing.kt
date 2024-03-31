@@ -39,7 +39,7 @@ fun PortraitHostSessionScreenDrawing(
 
         DrawnCharacter(
             listOfCharacters = state.listOfDrawnCharacters,
-            maxPictureSize = 240.dp,
+            maxPictureSize = 140.dp,
             modifier = Modifier
                 .fillMaxWidth()
         )

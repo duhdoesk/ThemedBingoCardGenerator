@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.participant.model.Participant
 import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.DrawNewCardUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.GetParticipantFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.participant.use_case.GetParticipantsFromSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.model.SessionState
+import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.AddWinnerUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.DrawNextCharacterUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.FinishSessionUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.session.use_case.GetSessionByIdUseCase
@@ -42,7 +42,8 @@ class SessionViewModel @Inject constructor(
     private val startDrawingUseCase: StartDrawingUseCase,
     private val finishSessionUseCase: FinishSessionUseCase,
     private val drawNextCharacterUseCase: DrawNextCharacterUseCase,
-    private val drawNewCardUseCase: DrawNewCardUseCase
+    private val drawNewCardUseCase: DrawNewCardUseCase,
+    private val addWinnerUseCase: AddWinnerUseCase
 ) : ViewModel() {
 
     private val googleUser = authHelper.getSignedInUser()
@@ -80,13 +81,6 @@ class SessionViewModel @Inject constructor(
                 participant.toObject()
             }
         }
-
-    val participants = _participants
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(),
-            null
-        )
 
     private val _participant = getParticipantFromSessionUseCase.invoke(
         sessionId = checkNotNull(savedStateHandle["sessionId"]),
@@ -134,14 +128,14 @@ class SessionViewModel @Inject constructor(
                             }
                         }
 
-                        val listOfWinners = mutableListOf<Participant>()
+                        val listOfWinners = mutableListOf<String>()
 
                         val players = participants
                             .filterNot { it.id == session.host }
 
                         session.listOfWinnersIds.forEach { winnerId ->
                             players.find { it.id == winnerId }?.let { winner ->
-                                listOfWinners.add(winner)
+                                listOfWinners.add(winner.id)
                             }
                         }
 
@@ -206,6 +200,17 @@ class SessionViewModel @Inject constructor(
                     sessionId = session.id,
                     participantId = participantNotNull.id,
                     card = newCard
+                )
+            }
+        }
+    }
+
+    fun addWinner() {
+        _session.value?.let { session ->
+            googleUser?.let { user ->
+                addWinnerUseCase.invoke(
+                    sessionId = session.id,
+                    winnerId = user.id
                 )
             }
         }
