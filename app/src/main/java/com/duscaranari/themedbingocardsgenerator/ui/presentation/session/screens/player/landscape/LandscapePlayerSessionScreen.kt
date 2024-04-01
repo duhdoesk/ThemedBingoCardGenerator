@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -101,8 +100,9 @@ fun LandscapePlayerSessionScreen(
                         CharactersChipsGrid(
                             drawnCharacters = state.listOfDrawnCharacters.map { it.id },
                             card = card,
+                            event = { event(it) },
                             modifier = Modifier.fillMaxWidth(),
-                            event = { event(it) }
+                            state = state
                         )
                     }
                 }
