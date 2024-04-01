@@ -67,7 +67,9 @@ fun ExpandedPortraitCardScreen(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            NewCardButton { event(ThemedCardUiEvent.OnDrawNewCard) }
+            NewCardButton(
+                onClick = { event(ThemedCardUiEvent.OnDrawNewCard) }
+            )
         }
 
         Spacer(modifier = Modifier.height(32.dp))
