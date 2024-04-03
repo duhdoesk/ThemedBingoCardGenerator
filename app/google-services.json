@@ -14,19 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "746232526782-47vjp0eatral21ubjpnlip60pcg0j8e3.apps.googleusercontent.com",
+          "client_id": "746232526782-p7tgov2oog78ot4ihl4migarj4ki2kt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.duscaranari.themedbingocardsgenerator",
+            "certificate_hash": "60864e76c3f5597d8b71fa6358b70de42c554f13"
+          }
+        },
+        {
+          "client_id": "746232526782-urtmf9ka3ijtht1su4duid2jcf0r7kbs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.duscaranari.themedbingocardsgenerator",
             "certificate_hash": "305b8cbdeea09784ecbae37bdba53a286e4e3842"
-          }
-        },
-        {
-          "client_id": "746232526782-nh043ljmtclors57ekk4dndrfbippufm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.duscaranari.themedbingocardsgenerator",
-            "certificate_hash": "4b450c592c70119ec40df05be7a89978c17523ce"
           }
         },
         {
