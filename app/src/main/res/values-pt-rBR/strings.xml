@@ -94,4 +94,6 @@
     <string name="winners_card">Ganhadores</string>
     <string name="players_card">Jogadores</string>
     <string name="session_finished">Sessão Encerrada</string>
+    <string name="log_in_text">Entre com sua conta Google para prosseguir.</string>
+    <string name="sign_in_required">Entrada necessária</string>
 </resources>
