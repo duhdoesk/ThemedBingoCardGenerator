@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "746232526782-5247q1dliapebii5qg87e93lqucedgo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.duscaranari.themedbingocardsgenerator",
+            "certificate_hash": "e04df4fd1bb1240a8b7738c5246a1eeb7ea4ab8e"
+          }
+        },
+        {
           "client_id": "746232526782-p7tgov2oog78ot4ihl4migarj4ki2kt6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
