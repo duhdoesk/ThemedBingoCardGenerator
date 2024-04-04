@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.event.ThemesUiEvent
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.landscape.LandscapeThemesScreen
@@ -14,7 +15,7 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
 @Composable
 fun ThemesScreen(
-    onThemePick: (themeId: String) -> Unit,
+    onThemePick: (theme: BingoTheme) -> Unit,
     themesViewModel: ThemesViewModel = hiltViewModel()
 ) {
 
@@ -29,7 +30,7 @@ fun ThemesScreen(
                     onEvent = { event ->
                         when (event) {
                             is ThemesUiEvent.OnThemePick ->
-                                onThemePick(event.themeId)
+                                onThemePick(event.theme)
 
                             is ThemesUiEvent.OnQueryChange ->
                                 themesViewModel.onQueryChange(event.query)
@@ -47,7 +48,7 @@ fun ThemesScreen(
                     onEvent = { event ->
                         when (event) {
                             is ThemesUiEvent.OnThemePick ->
-                                onThemePick(event.themeId)
+                                onThemePick(event.theme)
 
                             is ThemesUiEvent.OnQueryChange ->
                                 themesViewModel.onQueryChange(event.query)

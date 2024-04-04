@@ -17,7 +17,8 @@ import com.duscaranari.themedbingocardsgenerator.R
 @Composable
 fun NewCardButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    compact: Boolean = false
 ) {
 
     Button(
@@ -31,11 +32,13 @@ fun NewCardButton(
                 contentDescription = "Plus Sign"
             )
 
-            Text(
-                text = stringResource(id = R.string.new_card),
-                modifier = Modifier
-                    .padding(start = 4.dp)
-            )
+            if (!compact) {
+                Text(
+                    text = stringResource(id = R.string.new_card),
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                )
+            }
         }
     }
 }

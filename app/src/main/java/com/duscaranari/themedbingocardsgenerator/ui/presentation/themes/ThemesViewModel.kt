@@ -1,11 +1,11 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.themes
 
-import android.util.Log
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetThemesByNameUseCase
+import com.duscaranari.themedbingocardsgenerator.R
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
+import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllBingoThemesUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesScreenUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,15 +19,20 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
 @HiltViewModel
 class ThemesViewModel @Inject constructor(
-    private val getAllThemesUseCase: GetAllThemesUseCase,
-    private val getThemesByNameUseCase: GetThemesByNameUseCase
+    getAllBingoThemesUseCase: GetAllBingoThemesUseCase
 ) : ViewModel() {
+
+    private val _themes = getAllBingoThemesUseCase.invoke()
+    val themes = _themes.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(),
+        emptyList()
+    )
 
     private val _isSearching = MutableStateFlow(false)
     val isSearching = _isSearching.asStateFlow()
@@ -35,25 +40,33 @@ class ThemesViewModel @Inject constructor(
     private val _query = MutableStateFlow("")
     val query = _query.asStateFlow()
 
-    private val _displayOrder = MutableStateFlow(ThemesDisplayOrder.ID)
+    private val _displayOrder = MutableStateFlow(ThemesDisplayOrder.NAME)
 
     val uiState = combine(
         query
             .debounce(500L)
             .distinctUntilChanged(),
-        _displayOrder
-    ) { query, displayOrder ->
+        _displayOrder,
+        themes
+    ) { query, displayOrder, themes ->
 
-        if (query.isBlank()) {
-            ThemesScreenUiState.Success(
-                themes = getThemes(),
-                themesDisplayOrder = displayOrder
-            )
-        } else {
-            ThemesScreenUiState.Success(
-                themes = getThemesByName(query),
-                themesDisplayOrder = displayOrder
-            )
+        when (themes.isEmpty()) {
+            true ->
+                ThemesScreenUiState.Error(errorMessage = R.string.draw_error)
+
+            else -> {
+                if (query.isBlank()) {
+                    ThemesScreenUiState.Success(
+                        themes = sortThemes(themes),
+                        themesDisplayOrder = displayOrder
+                    )
+                } else {
+                    ThemesScreenUiState.Success(
+                        themes = sortThemes(themes.filter { it.name.contains(query) }),
+                        themesDisplayOrder = displayOrder
+                    )
+                }
+            }
         }
     }
         .onEach { _isSearching.update { false } }
@@ -64,7 +77,7 @@ class ThemesViewModel @Inject constructor(
         )
 
     fun onQueryChange(query: String) {
-        _query.value = query
+        _query.update { query }
         _isSearching.update { true }
     }
 
@@ -77,18 +90,11 @@ class ThemesViewModel @Inject constructor(
         }
     }
 
-    private fun getThemes(): List<Theme> {
-        return runBlocking {
-            getAllThemesUseCase.invoke(displayOrder = _displayOrder.value)
-        }
-    }
-
-    private fun getThemesByName(name: String): List<Theme> {
-        return runBlocking {
-            getThemesByNameUseCase.invoke(
-                name = name,
-                displayOrder = _displayOrder.value
-            )
+    private fun sortThemes(themes: List<BingoTheme>): List<BingoTheme> {
+        return if (_displayOrder.value == ThemesDisplayOrder.NAME) {
+            themes.sortedBy { it.name }
+        } else {
+            themes.sortedBy { it.id }
         }
     }
 }

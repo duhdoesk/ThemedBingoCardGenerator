@@ -13,7 +13,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.app_data.model.AppData
 import com.duscaranari.themedbingocardsgenerator.domain.classic_draw.model.ClassicDraw
 import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.model.Draw
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
+import com.duscaranari.themedbingocardsgenerator.data.local.model.LocalUser
 
 @Database(
     version = 2,
@@ -21,7 +21,7 @@ import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
         AppData::class,
         Theme::class,
         Character::class,
-        User::class,
+        LocalUser::class,
         Draw::class,
         ClassicDraw::class
     ]

@@ -10,14 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
 import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
 
 @Composable
 fun ThemesScreenLazyVerticalGrid(
-    themes: List<Theme>,
+    themes: List<BingoTheme>,
     modifier: Modifier = Modifier,
     columns: GridCells,
-    onThemePick: (themeId: String) -> Unit,
+    onThemePick: (theme: BingoTheme) -> Unit,
     contentSpacing: Dp
 ) {
 
@@ -33,7 +34,7 @@ fun ThemesScreenLazyVerticalGrid(
                     theme = theme,
                     modifier = Modifier
                         .aspectRatio(1f),
-                    onThemePick = { onThemePick(theme.themeId) }
+                    onThemePick = { onThemePick(theme) }
                 )
             }
         }
@@ -52,12 +53,11 @@ fun ThemesScreenLazyVerticalGridPreview() {
         )
 }
 
-fun getThemes(amount: Int = 4): List<Theme> {
+fun getThemes(amount: Int = 4): List<BingoTheme> {
     return List(amount) {
-        Theme(
-            themeId = "1",
-            themeName = "Halloween",
-            themePicture = "https://i.imgur.com/emkvM5I.jpg"
+        BingoTheme(
+            name = "Halloween",
+            picture = "https://i.imgur.com/emkvM5I.jpg"
         )
     }
 }

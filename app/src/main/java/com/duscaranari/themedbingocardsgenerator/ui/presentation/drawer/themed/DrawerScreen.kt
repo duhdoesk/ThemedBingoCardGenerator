@@ -34,10 +34,7 @@ import com.duscaranari.themedbingocardsgenerator.R
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.ThemesScreen
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.getRawListOfCharacters
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.getRawTheme
-import com.duscaranari.themedbingocardsgenerator.ui.theme.LandscapePreviews
-import com.duscaranari.themedbingocardsgenerator.ui.theme.PortraitPreviews
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.state.ThemedDrawerUiState
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -53,24 +50,24 @@ fun DrawerScreen(
 
     when (val state = drawerViewModel.uiState.collectAsStateWithLifecycle().value) {
 
-        is DrawerUiState.Loading ->
+        is ThemedDrawerUiState.Loading ->
             LoadingScreen()
 
-        is DrawerUiState.Error ->
+        is ThemedDrawerUiState.Error ->
             ErrorScreen(
                 errorMessage = state.errorMessage,
-                onTryAgain = { drawerViewModel.checkSavedState() }
+                onTryAgain = { drawerViewModel.refreshDrawState() }
             )
 
-        is DrawerUiState.NotStarted -> {
-            ThemesScreen(onThemePick = { drawerViewModel.startNewDraw(it) })
+        is ThemedDrawerUiState.NotStarted -> {
+            ThemesScreen(onThemePick = { drawerViewModel.onStartNewDraw(it) })
         }
 
-        is DrawerUiState.Success -> {
+        is ThemedDrawerUiState.Success -> {
             when (rememberDeviceOrientation()) {
                 is DeviceOrientation.Portrait -> PortraitDrawerScreen(
-                    onNavigate = { },
-                    onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
+                    onNavigate = {  },
+                    onDrawNextCharacter = { drawerViewModel.onDrawNextCharacter() },
                     onFinishDraw = { showDialog = true },
                     onStartNewDraw = { drawerViewModel.stateNotStarted() },
                     onCopyString = {
@@ -80,8 +77,8 @@ fun DrawerScreen(
                 )
 
                 is DeviceOrientation.Landscape -> LandscapeDrawerScreen(
-                    onNavigate = { },
-                    onDrawNextCharacter = { drawerViewModel.drawNextCharacter() },
+                    onNavigate = {  },
+                    onDrawNextCharacter = { drawerViewModel.onDrawNextCharacter() },
                     onFinishDraw = { showDialog = true },
                     onStartNewDraw = { drawerViewModel.stateNotStarted() },
                     onCopyString = {
@@ -100,7 +97,7 @@ fun DrawerScreen(
             text = { Text(stringResource(id = R.string.finish_draw_dialog_body)) },
             confirmButton = {
                 TextButton(onClick = {
-                    drawerViewModel.finishDraw()
+                    drawerViewModel.onFinishDraw()
                     showDialog = false
                 }) {
                     Text(stringResource(id = R.string.confirm).uppercase())
@@ -127,7 +124,7 @@ fun PortraitDrawerScreen(
     onFinishDraw: () -> Unit,
     onStartNewDraw: () -> Unit,
     onCopyString: () -> Unit,
-    state: DrawerUiState.Success
+    state: ThemedDrawerUiState.Success
 ) {
 
     val character = state.drawnCharacters.lastOrNull()
@@ -157,14 +154,14 @@ fun PortraitDrawerScreen(
                 Spacer(Modifier.weight(0.5f))
 
                 DrawerThemeText(
-                    text = state.theme?.themeName.orEmpty(),
+                    text = state.theme.name,
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(Modifier.height(16.dp))
 
                 DrawerCounterText(
-                    text = "${state.drawnCharacters.size} / ${state.themeCharacters.size}",
+                    text = "${state.drawnCharacters.size} / ${state.characters.size}",
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -208,7 +205,7 @@ fun LandscapeDrawerScreen(
     onFinishDraw: () -> Unit,
     onStartNewDraw: () -> Unit,
     onCopyString: () -> Unit,
-    state: DrawerUiState.Success
+    state: ThemedDrawerUiState.Success
 ) {
 
     val character = state.drawnCharacters.lastOrNull()
@@ -254,7 +251,7 @@ fun LandscapeDrawerScreen(
             ) {
 
                 DrawerCounterText(
-                    text = "${state.drawnCharacters.size} / ${state.themeCharacters.size}",
+                    text = "${state.drawnCharacters.size} / ${state.characters.size}",
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -269,7 +266,7 @@ fun LandscapeDrawerScreen(
             ) {
 
                 DrawerThemeText(
-                    text = state.theme?.themeName.orEmpty(),
+                    text = state.theme.name,
                     modifier = Modifier.fillMaxWidth(0.6f)
                 )
 
@@ -286,48 +283,4 @@ fun LandscapeDrawerScreen(
             }
         }
     }
-}
-
-/**
- * PREVIEWS
- */
-
-@PortraitPreviews
-@Composable
-fun PortraitPreview() {
-    PortraitDrawerScreen(
-        onNavigate = { },
-        onDrawNextCharacter = { },
-        onFinishDraw = { },
-        onStartNewDraw = { },
-        onCopyString = { },
-        state = DrawerUiState.Success(
-            drawId = 1,
-            isFinished = true,
-            theme = getRawTheme(),
-            themeCharacters = getRawListOfCharacters(),
-            availableCharacters = getRawListOfCharacters().subList(0, 8),
-            drawnCharacters = getRawListOfCharacters().subList(0, 8)
-        )
-    )
-}
-
-@LandscapePreviews
-@Composable
-fun LandscapePreviews() {
-    LandscapeDrawerScreen(
-        onNavigate = { },
-        onDrawNextCharacter = { },
-        onFinishDraw = { },
-        onStartNewDraw = { },
-        onCopyString = { },
-        state = DrawerUiState.Success(
-            drawId = 1,
-            isFinished = true,
-            theme = getRawTheme(),
-            themeCharacters = getRawListOfCharacters(),
-            availableCharacters = getRawListOfCharacters().subList(0, 8),
-            drawnCharacters = getRawListOfCharacters().subList(0, 8)
-        )
-    )
 }

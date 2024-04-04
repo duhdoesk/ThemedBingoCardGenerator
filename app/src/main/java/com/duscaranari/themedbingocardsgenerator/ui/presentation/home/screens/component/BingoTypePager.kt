@@ -45,7 +45,7 @@ fun BingoTypePager(
 ) {
 
     val pagerState = rememberPagerState(
-        initialPage = 1,
+        initialPage = 0,
         pageCount = { bingoTypes.size }
     )
 

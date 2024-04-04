@@ -33,6 +33,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.duscaranari.themedbingocardsgenerator.R
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.getImageLoader
 
@@ -79,7 +80,7 @@ fun DrawerDrawnText(
 
 @Composable
 fun DrawerCharacterImageAndName(
-    character: Character?,
+    character: BingoCharacter?,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -113,7 +114,7 @@ fun DrawerCharacterImageAndName(
 
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(character.characterPicture)
+                    .data(character.picture)
                     .crossfade(true)
                     .scale(Scale.FILL)
                     .build(),
@@ -132,7 +133,7 @@ fun DrawerCharacterImageAndName(
             )
 
             Text(
-                text = character.characterName,
+                text = character.name,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.fillMaxWidth()
@@ -182,13 +183,14 @@ fun DrawerButtons(
 
 @Composable
 fun DrawerLazyGrid(
-    characters: List<Character>,
+    characters: List<BingoCharacter>,
     modifier: Modifier = Modifier,
+    columns: GridCells = GridCells.Adaptive(minSize = 120.dp),
     onClick: () -> Unit
 ) {
 
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 120.dp),
+        columns = columns,
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier.clickable { onClick() }
@@ -198,7 +200,7 @@ fun DrawerLazyGrid(
             item {
                 Card {
                     Text(
-                        text = c.characterName.uppercase(),
+                        text = c.name.uppercase(),
                         textAlign = TextAlign.Center,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,

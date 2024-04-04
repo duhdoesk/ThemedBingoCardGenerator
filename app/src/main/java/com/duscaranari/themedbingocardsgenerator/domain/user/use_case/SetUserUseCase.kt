@@ -1,11 +1,11 @@
 package com.duscaranari.themedbingocardsgenerator.domain.user.use_case
 
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
-import com.duscaranari.themedbingocardsgenerator.domain.user.repository.UserRepository
+import com.duscaranari.themedbingocardsgenerator.data.local.model.LocalUser
+import com.duscaranari.themedbingocardsgenerator.data.local.repository.LocalUserRepository
 import javax.inject.Inject
 
-class SetUserUseCase @Inject constructor(private val userRepository: UserRepository) {
+class SetUserUseCase @Inject constructor(private val localUserRepository: LocalUserRepository) {
 
-    suspend operator fun invoke(user: User) =
-        userRepository.insertUser(user)
+    suspend operator fun invoke(localUser: LocalUser) =
+        localUserRepository.insertUser(localUser)
 }

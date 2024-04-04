@@ -16,13 +16,13 @@ enum class BingoType(
 ) {
 
     ONLINE(
-        bottomDestination = AppScreens.ClassicDrawer,
-        bottomLabel = R.string.join,
-        topDestination = AppScreens.ClassicCard,
-        topLabel = R.string.host,
+        bottomDestination = AppScreens.CreateSession,
+        bottomLabel = R.string.host,
+        bottomIsPremium = true,
+        topDestination = AppScreens.Sessions,
+        topLabel = R.string.join,
         avatar = R.drawable.smiling_monkey,
-        background = R.drawable.blue_water,
-        enabled = false
+        background = R.drawable.blue_water
     ),
 
     THEMED(

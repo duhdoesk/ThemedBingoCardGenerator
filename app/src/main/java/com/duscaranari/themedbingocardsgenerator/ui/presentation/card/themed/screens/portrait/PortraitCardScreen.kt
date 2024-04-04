@@ -29,26 +29,3 @@ fun PortraitCardScreen(
             )
     }
 }
-
-
-@PortraitPreviews
-@Composable
-fun PortraitPreview() {
-
-    val characters = getRawListOfCharacters()
-
-    PortraitCardScreen(
-        state = CardUiState.Success(
-            currentTheme = Theme(
-                themeId = "1",
-                themeName = "Bears",
-                themePicture = ""
-            ),
-            currentUser = "Dwight Schrute",
-            drawnCharacters = characters,
-            themeCharacters = characters,
-            cardSize = CardSize.LARGE
-        ),
-        event = {  }
-    )
-}

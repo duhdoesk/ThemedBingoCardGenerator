@@ -2,155 +2,136 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
-import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetThemeCharactersUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetAllThemesUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetThemeByIdUseCase
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
+import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
+import com.duscaranari.themedbingocardsgenerator.data.local.model.LocalUser
 import com.duscaranari.themedbingocardsgenerator.domain.user.use_case.GetUserUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.user.use_case.SetUserUseCase
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardSize
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardUiState
-import com.duscaranari.themedbingocardsgenerator.ui.presentation.themes.state.ThemesDisplayOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CardViewModel @Inject constructor(
-    private val getThemeByIdUseCase: GetThemeByIdUseCase,
-    private val getAllThemesUseCase: GetAllThemesUseCase,
-    private val getThemeCharactersUseCase: GetThemeCharactersUseCase,
     private val getUserUseCase: GetUserUseCase,
-    private val setUserUseCase: SetUserUseCase
-
+    private val setUserUseCase: SetUserUseCase,
+    getCharactersFromThemeIdUseCase: GetCharactersFromThemeIdUseCase
 ) : ViewModel() {
 
-    private val _cardUiState = MutableStateFlow<CardUiState>(CardUiState.Loading)
-    val cardUiState = _cardUiState.asStateFlow()
+    private val _Local_user = MutableStateFlow<LocalUser?>(null)
+    private val _cardSize = MutableStateFlow(CardSize.LARGE)
+    private val _theme = MutableStateFlow<BingoTheme?>(null)
+    private val _newCard = MutableStateFlow(false)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val _characters = _theme
+        .filterNotNull()
+        .flatMapLatest {
+            getCharactersFromThemeIdUseCase
+                .invoke(it.id)
+        }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            emptyList()
+        )
+
+    private val _drawnCharacters = combine(
+        _characters,
+        _cardSize,
+        _newCard
+    ) { characters, cardSize, _ ->
+
+        if (characters.isEmpty())
+            emptyList()
+        else
+            characters.shuffled().subList(0, cardSize.characterAmount)
+    }
+
+    val uiState = combine(
+        _Local_user,
+        _cardSize,
+        _theme,
+        _drawnCharacters
+    ) { user, cardSize, theme, drawnCharacters ->
+
+        when (theme) {
+            null ->
+                CardUiState.PendingTheme
+
+            else -> {
+                if (drawnCharacters.isEmpty()) {
+                    CardUiState.Loading
+                }
+                else
+                    CardUiState.Success(
+                        currentTheme = theme,
+                        drawnCharacters = drawnCharacters,
+                        currentUser = user?.userName.orEmpty(),
+                        cardSize = cardSize
+                    )
+            }
+        }
+    }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            CardUiState.Loading
+        )
 
     init {
-        loadInitialData()
+        getUserName()
     }
 
-    private fun loadInitialData() {
+    private fun getUserName() {
         viewModelScope.launch(Dispatchers.IO) {
-            val themes = getAllThemesUseCase(ThemesDisplayOrder.ID)
-
-            when (themes.isEmpty()) {
-                true -> _cardUiState.value = CardUiState.Error(R.string.unbable_to_load)
-                else -> _cardUiState.value = CardUiState.PendingTheme(themes)
-            }
+            _Local_user.update { getUserUseCase.invoke("1") }
         }
     }
 
-    fun resetState() {
-        loadInitialData()
+    fun onResetState() {
+        _theme.update { null }
     }
 
-    fun selectTheme(themeId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            val theme = getThemeByIdUseCase(themeId)
-            val characters = getThemeCharactersUseCase(themeId)
-            val user = getUserUseCase("1")?.userName.orEmpty()
-
-            if (theme != null && characters != null) {
-
-                _cardUiState.value = CardUiState.Success(
-                    currentTheme = theme,
-                    themeCharacters = characters,
-                    currentUser = user,
-                    drawnCharacters = characters.shuffled().subList(0, 9)
-                )
-            }
-
-            else {
-                _cardUiState.value = CardUiState.Error(R.string.unbable_to_load)
-            }
-        }
+    fun onSelectTheme(theme: BingoTheme) {
+        _theme.update { theme }
     }
 
-    fun drawNewCard() {
-
-        when (val state = cardUiState.value) {
-            is CardUiState.Success -> {
-                _cardUiState.update {
-                    state.copy(
-                        drawnCharacters = shuffleCharacters(
-                            state.themeCharacters,
-                            state.cardSize.characterAmount
-                        )
-                    )
-                }
-            }
-
-            else -> return
-        }
+    fun onDrawNewCard() {
+        _newCard.update { !it }
     }
 
-    fun updateCurrentUser(userName: String) {
+    fun onUpdateCurrentUser(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             setUserUseCase(
-                User(
+                LocalUser(
                     userId = "1",
                     userName = userName
                 )
             )
 
-            when (val state = cardUiState.value) {
-                is CardUiState.Success -> {
-                    _cardUiState.update {
-                        state.copy(
-                            currentUser = getUserUseCase("1")?.userName.orEmpty()
-                        )
-                    }
-                }
-
-                else -> return@launch
-            }
+            getUserName()
         }
     }
 
     fun onChangeCardSize() {
-        when (val state = cardUiState.value) {
+        when (val state = uiState.value) {
             is CardUiState.Success -> {
-                _cardUiState.update {
-                    state.copy(
-                        cardSize = state.cardSize.next()
-                    )
-                }
-
-                drawNewCard()
+                _cardSize.update { state.cardSize.next() }
             }
 
             else -> return
         }
-    }
-
-    fun onChangeCardSize(boolean: Boolean) {
-
-        when (val state = cardUiState.value) {
-            is CardUiState.Success -> {
-                _cardUiState.update {
-                    state.copy(
-                        cardSize = if (boolean) CardSize.LARGE else CardSize.MEDIUM
-                    )
-                }
-            }
-
-            else -> return
-        }
-
-        drawNewCard()
-    }
-
-    private fun shuffleCharacters(characters: List<Character>, amount: Int): List<Character> {
-        return characters.shuffled().subList(0, amount)
     }
 }

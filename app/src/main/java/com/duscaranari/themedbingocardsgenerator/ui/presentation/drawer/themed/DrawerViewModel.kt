@@ -3,188 +3,186 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.duscaranari.themedbingocardsgenerator.R
-import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
+import com.duscaranari.themedbingocardsgenerator.domain.character.use_case.GetCharactersFromThemeIdUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.theme.model.BingoTheme
+import com.duscaranari.themedbingocardsgenerator.domain.theme.use_case.GetBingoThemeByIdUseCase
 import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.model.Draw
-import com.duscaranari.themedbingocardsgenerator.domain.theme.model.Theme
-import com.duscaranari.themedbingocardsgenerator.domain.character.repository.CharacterRepository
-import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.repository.DrawRepository
-import com.duscaranari.themedbingocardsgenerator.domain.theme.repository.ThemeRepository
+import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.use_case.CreateNewThemedDrawUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.use_case.FinishThemedDrawUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.use_case.GetLastThemedDrawUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.use_case.GetThemedDrawnElementsIdsUseCase
+import com.duscaranari.themedbingocardsgenerator.domain.themed_draw.use_case.SetThemedDrawnElementsIdsUseCase
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.state.ThemedDrawerUiState
 import com.duscaranari.themedbingocardsgenerator.util.funLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DrawerViewModel @Inject constructor(
-    private val drawRepository: DrawRepository,
-    private val themeRepository: ThemeRepository,
-    private val characterRepository: CharacterRepository
+    private val getLastThemedDrawUseCase: GetLastThemedDrawUseCase,
+    private val finishThemedDrawUseCase: FinishThemedDrawUseCase,
+    private val createNewThemedDrawUseCase: CreateNewThemedDrawUseCase,
+    private val getThemedDrawnElementsIdsUseCase: GetThemedDrawnElementsIdsUseCase,
+    private val setThemedDrawnElementsIdsUseCase: SetThemedDrawnElementsIdsUseCase,
+    getBingoThemeByIdUseCase: GetBingoThemeByIdUseCase,
+    getCharactersFromThemeIdUseCase: GetCharactersFromThemeIdUseCase
 ) : ViewModel() {
 
-    private val _drawerUiState = MutableStateFlow<DrawerUiState>(DrawerUiState.Loading)
-    val uiState = _drawerUiState.asStateFlow()
+    private val _draw =
+        MutableStateFlow<Draw?>(null)
 
-    init {
-        funLogger("DrawerViewModel init")
-        checkSavedState()
-    }
-
-
-    /**
-     * UI Logic
-     */
-
-    fun checkSavedState() {
-        funLogger("DrawerViewModel checkSavedState")
-        viewModelScope.launch(Dispatchers.IO) {
-
-            when (val lastDraw = getLastDraw()) {
-                null -> _drawerUiState.value = DrawerUiState.NotStarted(themes = getAllThemes())
-                else -> refreshDrawState(lastDraw.drawId)
-            }
-        }
-    }
-
-    private suspend fun refreshDrawState(drawId: Long) {
-        funLogger("refreshDrawState")
-
-        val draw = getDrawById(drawId)
-
-        if (draw != null) {
-
-            val theme = getThemeById(draw.themeId)
-            val themeCharacters = getThemeCharacters(draw.themeId)
-
-            if (theme == null || themeCharacters == null) {
-
-                _drawerUiState.value = DrawerUiState.Error(
-                    errorMessage = R.string.draw_error
-                )
-            } else {
-
-                val drawnCharactersIdList = draw.drawnCharactersIdList.split(",")
-                val drawnCharactersList = mutableListOf<Character>()
-
-                for (id in drawnCharactersIdList) {
-                    themeCharacters.find { it.characterId == id }?.let {
-                        drawnCharactersList.add(it)
-                    }
-                }
-
-                when (val state = _drawerUiState.value) {
-                    is DrawerUiState.Success -> {
-                        if (!state.isFinished &&
-                            drawnCharactersList.size == themeCharacters.size &&
-                            _drawerUiState.value !is DrawerUiState.NotStarted
-                        ) {
-                            finishDraw()
-                        }
-                    }
-
-                    else -> {}
-                }
-
-
-                _drawerUiState.value = DrawerUiState.Success(
-                    drawId = draw.drawId,
-                    isFinished = draw.drawCompleted,
-                    theme = theme,
-                    themeCharacters = themeCharacters,
-                    drawnCharacters = drawnCharactersList,
-                    availableCharacters = themeCharacters.filterNot {
-                        it in drawnCharactersList
-                    }
-                )
-            }
-        } else {
-
-            _drawerUiState.value = DrawerUiState.Error(
-                errorMessage = R.string.draw_error
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val _theme = _draw
+        .filterNotNull()
+        .flatMapLatest { draw ->
+            getBingoThemeByIdUseCase.invoke(
+                draw.themeId
             )
         }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            null
+        )
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val _characters = _draw
+        .filterNotNull()
+        .flatMapLatest { draw ->
+            getCharactersFromThemeIdUseCase
+                .invoke(draw.themeId)
+        }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            emptyList()
+        )
+
+    val uiState = combine(
+        _draw,
+        _theme,
+        _characters
+    ) { draw, theme, characters ->
+        setUiState(draw, theme, characters)
+    }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            ThemedDrawerUiState.Loading
+        )
+
+    init {
+        refreshDrawState()
     }
 
+    private fun setUiState(
+        draw: Draw?, theme: BingoTheme?, characters: List<BingoCharacter>
+    ): ThemedDrawerUiState {
+        return when (draw) {
+            null ->
+                ThemedDrawerUiState.NotStarted
 
-    /**
-     * Business Logic
-     */
+            else -> {
+                if (theme == null || characters.isEmpty())
+                    ThemedDrawerUiState.Error(errorMessage = R.string.draw_error)
+                else {
+                    val drawn = mutableListOf<BingoCharacter>()
 
-    fun drawNextCharacter() {
-        funLogger("drawNextCharacter")
-        viewModelScope.launch(Dispatchers.IO) {
+                    draw
+                        .drawnCharactersIdList.split(",")
+                        .toList()
+                        .forEach { id ->
+                            characters.find { it.id == id }?.let { drawn.add(it) }
+                        }
 
-            when (val state = uiState.value) {
-
-                is DrawerUiState.Success -> {
-
-                    val nextCharacter = state.availableCharacters.shuffled().first()
-
-                    setDrawnElementsIds(
-                        drawId = state.drawId,
-                        drawnCharactersIds = getDrawnElementsIds(state.drawId) + ",${nextCharacter.characterId}"
+                    ThemedDrawerUiState.Success(
+                        drawId = draw.drawId,
+                        isFinished = draw.drawCompleted,
+                        theme = theme,
+                        characters = characters,
+                        drawnCharacters = drawn,
+                        availableCharacters = characters.filterNot {
+                            it.id in draw.drawnCharactersIdList.split(",").toList()
+                        }
                     )
-
-                    refreshDrawState(state.drawId)
-                }
-
-                else -> {
-
-                    return@launch
                 }
             }
         }
     }
 
-    fun finishDraw() {
+    fun refreshDrawState() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _draw.update { getLastThemedDrawUseCase.invoke() }
+        }
+    }
+
+    fun onDrawNextCharacter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val state = uiState.value) {
+
+                is ThemedDrawerUiState.Success -> {
+                    val nextCharacter = state.availableCharacters.shuffled().first()
+
+                    setThemedDrawnElementsIdsUseCase(
+                        drawId = state.drawId,
+                        drawnCharactersIds = getThemedDrawnElementsIdsUseCase.invoke(state.drawId) + ",${nextCharacter.id}"
+                    )
+
+                    refreshDrawState()
+                }
+
+                else ->
+                    return@launch
+            }
+        }
+    }
+
+    fun onFinishDraw() {
         funLogger("finishDraw")
         viewModelScope.launch(Dispatchers.IO) {
             when (val state = uiState.value) {
 
-                is DrawerUiState.Success -> {
-                    finishDraw(state.drawId)
-                    refreshDrawState(state.drawId)
+                is ThemedDrawerUiState.Success -> {
+                    finishThemedDrawUseCase.invoke(state.drawId)
+                    refreshDrawState()
                 }
 
-                else -> return@launch
+                else ->
+                    return@launch
             }
         }
     }
 
     fun stateNotStarted() {
-        funLogger("stateNotStarted")
         viewModelScope.launch(Dispatchers.IO) {
-            _drawerUiState.value = DrawerUiState.Loading
-            _drawerUiState.value = DrawerUiState.NotStarted(themes = getAllThemes())
+            _draw.update { null }
         }
     }
 
-    fun startNewDraw(themeId: String) {
-        funLogger("startNewDraw")
+    fun onStartNewDraw(theme: BingoTheme) {
         viewModelScope.launch(Dispatchers.IO) {
 
-            val theme = getThemeById(themeId)
-            val themeCharacters = getThemeCharacters(themeId)
+            val draw = Draw(
+                themeId = theme.id,
+                drawnCharactersIdList = "",
+                drawCompleted = false
+            )
 
-            if (theme == null || themeCharacters == null) {
-
-                _drawerUiState.value = DrawerUiState.Error(
-                    errorMessage = R.string.draw_error
-                )
-            } else {
-
-                val draw = Draw(
-                    themeId = themeId,
-                    drawnCharactersIdList = "",
-                    drawCompleted = false
-                )
-
-                val drawId = createNewDraw(draw)
-
-                refreshDrawState(drawId)
-            }
+            createNewThemedDrawUseCase.invoke(draw)
+            refreshDrawState()
         }
     }
 
@@ -192,60 +190,15 @@ class DrawerViewModel @Inject constructor(
         var drawnString = "*CONFERÊNCIA*\n"
         var count = 1
 
-        when (val thisUiState = uiState.value) {
-            is DrawerUiState.Success -> {
-                for (character in thisUiState.drawnCharacters) {
-                    drawnString = drawnString + "\n" +
-                            "*$count* - ${character.characterName} (${character.characterCardId})"
+        if (uiState.value is ThemedDrawerUiState.Success) {
+            for (character in (uiState.value as ThemedDrawerUiState.Success).drawnCharacters) {
+                drawnString = drawnString + "\n" +
+                        "*$count* - ${character.name} (${character.id})"
 
-                    count += 1
-                }
+                count += 1
             }
-
-            else -> {}
         }
 
         return drawnString
-    }
-
-
-    /**
-     * Repository Functions
-     */
-
-    private suspend fun getDrawById(drawId: Long): Draw? {
-        return drawRepository.getDrawById(drawId)
-    }
-
-    private suspend fun getLastDraw(): Draw? {
-        return drawRepository.getLastDraw()
-    }
-
-    private suspend fun finishDraw(drawId: Long) {
-        drawRepository.finishDraw(drawId)
-    }
-
-    private suspend fun createNewDraw(draw: Draw): Long {
-        return drawRepository.createNewDraw(draw)
-    }
-
-    private suspend fun getDrawnElementsIds(drawId: Long): String {
-        return drawRepository.getDrawnElementsIds(drawId)
-    }
-
-    private suspend fun setDrawnElementsIds(drawId: Long, drawnCharactersIds: String) {
-        drawRepository.setDrawnElementsIds(drawId, drawnCharactersIds)
-    }
-
-    private suspend fun getAllThemes(): List<Theme> {
-        return themeRepository.getAllThemesOrderById()
-    }
-
-    private suspend fun getThemeById(themeId: String): Theme? {
-        return themeRepository.getThemeById(themeId)
-    }
-
-    private suspend fun getThemeCharacters(themeId: String): List<Character>? {
-        return characterRepository.getThemeCharacters(themeId)
     }
 }

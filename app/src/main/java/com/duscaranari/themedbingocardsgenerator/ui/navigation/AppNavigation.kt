@@ -4,18 +4,17 @@ import android.app.Activity
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.component.AppNavigationRail
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.component.BottomBar
@@ -24,12 +23,18 @@ import com.duscaranari.themedbingocardsgenerator.ui.presentation.about.AboutScre
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.ClassicCardScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.CardScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.characters.CharacterScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.create_session.CreateSessionScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.classic.ClassicDrawerScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.drawer.themed.DrawerScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.HomeScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.home.screens.component.BingoType
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.profile.ProfileScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.session.SessionScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.sessions.SessionsScreen
+import com.duscaranari.themedbingocardsgenerator.ui.presentation.sign_in.SignInScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.subs.SubsScreen
 import com.duscaranari.themedbingocardsgenerator.util.DeviceOrientation
+import com.duscaranari.themedbingocardsgenerator.util.auth.UserData
 import com.duscaranari.themedbingocardsgenerator.util.billing.BillingHelper
 import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 
@@ -39,7 +44,10 @@ fun AppNavigation(
     subscribed: Boolean,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
     onBingoTypeChange: (bingoType: BingoType) -> Unit,
-    activity: Activity
+    activity: Activity,
+    googleUser: UserData?,
+    onSignIn: () -> Unit,
+    onSignOut: () -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -55,7 +63,9 @@ fun AppNavigation(
                 TopBar(
                     currentScreen = currentScreen,
                     canNavigateBack = navController.previousBackStackEntry != null,
-                    navigateUp = { navController.navigateUp() })
+                    navigateUp = { navController.navigateUp() },
+                    navigateToProfile = { navController.navigate(AppScreens.Profile.name) },
+                    googleUser = googleUser)
             }
         },
         bottomBar = {
@@ -78,10 +88,14 @@ fun AppNavigation(
                 )
             }
 
+            val startDestination =
+                if (googleUser == null) AppScreens.SignIn.name
+                else AppScreens.Home.name
+
             NavHost(
                 navController = navController,
-                startDestination = AppScreens.Home.name,
-                modifier = Modifier.weight(1f)
+                startDestination = startDestination,
+                modifier = Modifier.weight(1f),
             ) {
 
                 composable(AppScreens.About.name) {
@@ -89,7 +103,7 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.Card.name) {
-                    CardScreen(navController)
+                    CardScreen(navController = navController)
                 }
 
                 composable(AppScreens.Home.name) {
@@ -105,7 +119,7 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.Drawer.name) {
-                    DrawerScreen(navController)
+                    DrawerScreen(navController = navController)
                 }
 
                 composable(AppScreens.Subs.name) {
@@ -123,6 +137,34 @@ fun AppNavigation(
 
                 composable(AppScreens.ClassicCard.name) {
                     ClassicCardScreen()
+                }
+
+                composable(AppScreens.Sessions.name) {
+                    SessionsScreen(
+                        navController = navController,
+                        googleUser = googleUser,
+                        subscribed = subscribed
+                    )
+                }
+
+                composable(
+                    "${AppScreens.Session.name}/{sessionId}"
+                ) { backStackEntry ->
+                    backStackEntry.arguments?.getString("sessionId")?.let {
+                        SessionScreen()
+                    }
+                }
+
+                composable(AppScreens.SignIn.name) {
+                    SignInScreen(onSignIn = onSignIn)
+                }
+
+                composable(AppScreens.Profile.name) {
+                    ProfileScreen(onSignOut = onSignOut)
+                }
+
+                composable(AppScreens.CreateSession.name) {
+                    CreateSessionScreen(navController = navController)
                 }
             }
         }

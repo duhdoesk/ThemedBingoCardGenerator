@@ -40,7 +40,7 @@ fun CompactPortraitCardScreen(
         ) {
 
             CardScreenHeader(
-                themeName = state.currentTheme.themeName,
+                themeName = state.currentTheme.name,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 4.dp)
@@ -68,7 +68,10 @@ fun CompactPortraitCardScreen(
 
                 Spacer(modifier = Modifier.width(12.dp))
 
-                NewCardButton { event(ThemedCardUiEvent.OnDrawNewCard) }
+                NewCardButton(
+                    compact = true,
+                    onClick = { event(ThemedCardUiEvent.OnDrawNewCard) }
+                )
             }
         }
 

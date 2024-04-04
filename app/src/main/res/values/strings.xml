@@ -20,6 +20,10 @@
     <string name="classic_drawer_screen">Classic Drawer</string>
     <string name="classic_card_screen">Classic Card</string>
     <string name="online">Online</string>
+    <string name="sessions">Sessions</string>
+    <string name="sign_in">Sign In</string>
+    <string name="profile">Profile</string>
+    <string name="create_session">Create Session</string>
 
 
     <!--    HOME SCREEN -->
@@ -105,4 +109,53 @@
     <!--    ONLINE SCREEN -->
     <string name="host">Host</string>
     <string name="join">Join</string>
+
+
+    <!--    PROFILE SCREEN -->
+    <string name="sign_out">Sign Out</string>
+    <string name="profile_picture">Profile Picture</string>
+
+
+    <!--    SIGN IN SCREEN -->
+    <string name="welcome">Welcome</string>
+
+
+    <!--    CREATE SESSION SCREEN -->
+    <string name="create_session_button">Create</string>
+    <string name="name_textField">Name</string>
+    <string name="theme_textField">Theme</string>
+    <string name="password_textField">Password</string>
+    <string name="private_session_checkbox">Private Session</string>
+    <string name="limit_of_winners">Limit of winners</string>
+    <string name="theme_picture">Theme Picture</string>
+    <string name="key_icon">Key Icon</string>
+
+
+    <!--    SESSIONS SCREEN -->
+    <string name="number_of_participants">Number of participants</string>
+    <string name="lock_icon">Lock Icon</string>
+    <string name="tap_in_a_session_to_join_it">Tap in a session to join it.</string>
+    <string name="login_needed">Login needed.</string>
+    <string name="insert_the_password">Please, insert the password to join the session.</string>
+    <string name="tap_confirm">Tap confirm to join the session.</string>
+    <string name="incorrect_password">Incorrect Password.</string>
+
+
+    <!--    HOST SESSION SCREEN -->
+    <string name="start_drawing_button">Start Drawing</string>
+    <string name="close_session_button">Close Session</string>
+    <string name="session_card">Session</string>
+    <string name="theme_card">Theme</string>
+    <string name="winners_card">Winners</string>
+    <string name="players_card">Players</string>
+    <string name="session_finished">Session Finished</string>
+
+
+    <!--    SIGN IN SCREEN -->
+    <string name="log_in_text">Sign in with your Google account to proceed.</string>
+    <string name="sign_in_required">Sign in required</string>
+
+    <!--    OTHERS -->
+    <string name="auth_key" translatable="false">"746232526782-mnq2lnm9fp2sunpopk0cfp7pu6v9trcu.apps.googleusercontent.com"</string>
+
 </resources>

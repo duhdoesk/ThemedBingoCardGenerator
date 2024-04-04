@@ -39,7 +39,7 @@ fun ExpandedPortraitCardScreen(
     ) {
 
         CardScreenHeader(
-            themeName = state.currentTheme.themeName,
+            themeName = state.currentTheme.name,
             modifier = Modifier
                 .fillMaxWidth(0.7f)
                 .padding(bottom = 4.dp)
@@ -67,7 +67,9 @@ fun ExpandedPortraitCardScreen(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            NewCardButton { event(ThemedCardUiEvent.OnDrawNewCard) }
+            NewCardButton(
+                onClick = { event(ThemedCardUiEvent.OnDrawNewCard) }
+            )
         }
 
         Spacer(modifier = Modifier.height(32.dp))

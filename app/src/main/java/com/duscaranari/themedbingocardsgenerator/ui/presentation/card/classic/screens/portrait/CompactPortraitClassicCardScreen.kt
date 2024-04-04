@@ -55,7 +55,8 @@ fun CompactPortraitClassicCardScreen(
             Spacer(modifier = Modifier.width(16.dp))
 
             NewCardButton(
-                onClick = { onEvent(ClassicCardUiEvent.OnDrawNewCard) }
+                onClick = { onEvent(ClassicCardUiEvent.OnDrawNewCard) },
+                compact = true
             )
         }
     }

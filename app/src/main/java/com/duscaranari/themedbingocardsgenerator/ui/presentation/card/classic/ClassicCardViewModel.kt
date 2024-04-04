@@ -2,8 +2,8 @@ package com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.duscaranari.themedbingocardsgenerator.domain.user.model.User
-import com.duscaranari.themedbingocardsgenerator.domain.user.repository.UserRepository
+import com.duscaranari.themedbingocardsgenerator.data.local.model.LocalUser
+import com.duscaranari.themedbingocardsgenerator.data.local.repository.LocalUserRepository
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.classic.state.ClassicCardUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClassicCardViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val localUserRepository: LocalUserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ClassicCardUiState>(ClassicCardUiState.Loading)
@@ -63,7 +63,7 @@ class ClassicCardViewModel @Inject constructor(
     fun updateCurrentUser(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             setCurrentUser(
-                User(
+                LocalUser(
                     userId = "1",
                     userName = userName
                 )
@@ -86,11 +86,11 @@ class ClassicCardViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getCurrentUser(userId: String = "1"): User? {
-        return userRepository.getUser(userId)
+    private suspend fun getCurrentUser(userId: String = "1"): LocalUser? {
+        return localUserRepository.getUser(userId)
     }
 
-    private suspend fun setCurrentUser(user: User) {
-        userRepository.insertUser(user)
+    private suspend fun setCurrentUser(localUser: LocalUser) {
+        localUserRepository.insertUser(localUser)
     }
 }

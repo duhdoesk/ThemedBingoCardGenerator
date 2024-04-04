@@ -26,7 +26,7 @@ fun HomeScreen(
                 onNavigate = {
                     navController.navigate(it)
                     if (!subscribed) {
-                        showInterstitialAd(context)
+                        showInterstitialAd(context = context)
                     }
                 },
                 subscribed,
@@ -39,7 +39,7 @@ fun HomeScreen(
                 onNavigate = {
                     navController.navigate(it)
                     if (!subscribed) {
-                        showInterstitialAd(context)
+                        showInterstitialAd(context = context)
                     }
                 },
                 subscribed,

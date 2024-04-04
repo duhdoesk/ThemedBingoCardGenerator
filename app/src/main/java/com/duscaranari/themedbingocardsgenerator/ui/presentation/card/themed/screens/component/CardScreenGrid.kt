@@ -10,12 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.duscaranari.themedbingocardsgenerator.domain.character.model.BingoCharacter
 import com.duscaranari.themedbingocardsgenerator.domain.character.model.Character
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.card.themed.state.CardSize
 
 @Composable
 fun CardScreenGrid(
-    characters: List<Character>,
+    characters: List<BingoCharacter?>,
     cardSize: CardSize,
     modifier: Modifier = Modifier,
     spaceBetween: Dp = 4.dp
@@ -32,29 +33,36 @@ fun CardScreenGrid(
 
         for (row in 1..rows) {
             Row(horizontalArrangement = Arrangement.spacedBy(spaceBetween)) {
-                CardScreenCards(
-                    characters[index],
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(0.9f)
-                        .weight(1f)
-                )
 
-                CardScreenCards(
-                    characters[index + 1],
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(0.9f)
-                        .weight(1f)
-                )
+                characters[index]?.let {
+                    CardScreenCards(
+                        it,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(0.9f)
+                            .weight(1f)
+                    )
+                }
 
-                CardScreenCards(
-                    characters[index + 2],
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(0.9f)
-                        .weight(1f)
-                )
+                characters[index + 1]?.let {
+                    CardScreenCards(
+                        it,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(0.9f)
+                            .weight(1f)
+                    )
+                }
+
+                characters[index + 2]?.let {
+                    CardScreenCards(
+                        it,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(0.9f)
+                            .weight(1f)
+                    )
+                }
 
                 index += 3
             }

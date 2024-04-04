@@ -12,7 +12,36 @@
           "package_name": "com.duscaranari.themedbingocardsgenerator"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "746232526782-5247q1dliapebii5qg87e93lqucedgo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.duscaranari.themedbingocardsgenerator",
+            "certificate_hash": "e04df4fd1bb1240a8b7738c5246a1eeb7ea4ab8e"
+          }
+        },
+        {
+          "client_id": "746232526782-p7tgov2oog78ot4ihl4migarj4ki2kt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.duscaranari.themedbingocardsgenerator",
+            "certificate_hash": "60864e76c3f5597d8b71fa6358b70de42c554f13"
+          }
+        },
+        {
+          "client_id": "746232526782-urtmf9ka3ijtht1su4duid2jcf0r7kbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.duscaranari.themedbingocardsgenerator",
+            "certificate_hash": "305b8cbdeea09784ecbae37bdba53a286e4e3842"
+          }
+        },
+        {
+          "client_id": "746232526782-mnq2lnm9fp2sunpopk0cfp7pu6v9trcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC2m926H-cTKIvGPYEGt2SxRju7iC072Tc"
@@ -20,7 +49,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746232526782-mnq2lnm9fp2sunpopk0cfp7pu6v9trcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
