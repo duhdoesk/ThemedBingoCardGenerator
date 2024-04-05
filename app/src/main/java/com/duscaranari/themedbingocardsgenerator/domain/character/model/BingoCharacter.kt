@@ -7,3 +7,9 @@ data class BingoCharacter (
     val name: String = "",
     val picture: String = ""
 )
+
+fun mockListOfBingoCharacters() : List<BingoCharacter>{
+    return List(9) {
+        BingoCharacter(id = "neglegentur", name = "Dora Wynn", picture = "nisi")
+    }
+}

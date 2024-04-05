@@ -1,9 +1,7 @@
 package com.duscaranari.themedbingocardsgenerator.ui.presentation.session.screens.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,7 +14,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -81,45 +78,6 @@ fun CharactersChipsGrid(
                         )
                     }
                 }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        if (state.sessionState == SessionState.FINISHED) {
-
-            Surface(
-                color = MaterialTheme.colorScheme.error,
-                contentColor = MaterialTheme.colorScheme.onError
-            ) {
-                Text(
-                    text = stringResource(R.string.session_finished).uppercase(),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(vertical = 8.dp)
-                        .fillMaxWidth()
-                )
-            }
-        }
-
-        else {
-            var buttonEnabled = true
-            card.forEach { character ->
-                character?.let { characterNotNull ->
-                    if (!drawnCharacters.contains(characterNotNull.id))
-                        buttonEnabled = false
-                    return@forEach
-                }
-            }
-
-            Button(
-                onClick = { event(SessionUiEvent.OnAddWinner) },
-                enabled = buttonEnabled,
-                modifier = Modifier.widthIn(320.dp)
-            ) {
-                Text(text = "BINGO!")
             }
         }
     }

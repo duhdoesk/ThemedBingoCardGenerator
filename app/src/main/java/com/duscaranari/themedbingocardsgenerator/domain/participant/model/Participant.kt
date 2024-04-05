@@ -19,3 +19,21 @@ class Participant(
             )
         }
 }
+
+fun mockParticipant() =
+    Participant(
+        id = "GDYGDQDQPMCM",
+        name = "Dana Pacheco",
+        picture = "arcu",
+        card = listOf(
+            "SASUDG",
+            "KDOADF",
+            "DKASODKA",
+            "DAGSYDA",
+            "PYTOK",
+            "KTEOREWQ",
+            "FJRIGHQPWIHGQ",
+            "JIPGJPIJG",
+            "DKPOJFIH4QNPVMVQDLPQQ"
+        )
+    )
