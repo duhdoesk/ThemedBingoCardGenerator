@@ -40,7 +40,6 @@ class MainViewModel @Inject constructor(
             billingSetup()
             adsSetup(baseApplication)
             dataUpdate.checkForUpdates()
-            Log.d("SIGN IN", googleUser.value.toString())
         }
     }
 
@@ -54,7 +53,6 @@ class MainViewModel @Inject constructor(
     }
 
     fun onSignInResult(result: SignInResult) {
-        Log.d("SIGN IN", result.data.toString())
         _googleUser.update { result.data }
     }
 

@@ -2,6 +2,7 @@ package com.duscaranari.themedbingocardsgenerator
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -23,9 +24,9 @@ import com.duscaranari.themedbingocardsgenerator.ui.app.ThemedBingoApp
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.ErrorScreen
 import com.duscaranari.themedbingocardsgenerator.ui.presentation.component.LoadingScreen
 import com.duscaranari.themedbingocardsgenerator.ui.theme.ThemedBingoCardsGeneratorTheme
+import com.duscaranari.themedbingocardsgenerator.util.auth.Result
 import com.duscaranari.themedbingocardsgenerator.util.billing.SubscriptionState
 import com.duscaranari.themedbingocardsgenerator.util.connectivity.ConnectivityObserver
-import com.duscaranari.themedbingocardsgenerator.util.rememberWindowInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -87,7 +88,7 @@ class MainActivity : ComponentActivity() {
                     val launcher = rememberLauncherForActivityResult(
                         contract = ActivityResultContracts.StartIntentSenderForResult(),
                         onResult = { result ->
-                            if(result.resultCode == RESULT_OK) {
+                            if (result.resultCode == RESULT_OK) {
                                 lifecycleScope.launch {
                                     val signInResult = viewModel.authHelper.signInWithIntent(
                                         intent = result.data ?: return@launch
@@ -115,11 +116,27 @@ class MainActivity : ComponentActivity() {
                                         googleUser = googleUser,
                                         onSignIn = {
                                             lifecycleScope.launch {
-                                                val signInIntentSender = viewModel.authHelper.signIn()
-                                                launcher.launch(
-                                                    IntentSenderRequest.Builder(signInIntentSender ?: return@launch)
-                                                        .build()
-                                                )
+                                                val signInIntentSender =
+                                                    viewModel.authHelper.signIn()
+
+                                                when (signInIntentSender) {
+                                                    is Result.Success -> {
+                                                        launcher.launch(
+                                                            IntentSenderRequest.Builder(
+                                                                signInIntentSender.intentSender
+                                                            )
+                                                                .build()
+                                                        )
+                                                    }
+
+                                                    is Result.Error -> {
+                                                        Toast.makeText(
+                                                            this@MainActivity,
+                                                            signInIntentSender.message,
+                                                            Toast.LENGTH_LONG
+                                                        ).show()
+                                                    }
+                                                }
                                             }
                                         },
                                         onSignOut = { viewModel.onSignOut() }

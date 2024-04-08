@@ -5,28 +5,45 @@ import android.content.Intent
 import android.content.IntentSender
 import com.duscaranari.themedbingocardsgenerator.R
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import java.util.concurrent.CancellationException
+import kotlin.Exception
+
+sealed class Result {
+    data class Success(val intentSender: IntentSender): Result()
+    data class Error(val message: String): Result()
+}
 
 class AuthHelper(private val context: Context) {
 
     val oneTapClient = Identity.getSignInClient(context)
     private val auth = Firebase.auth
 
-    suspend fun signIn(): IntentSender? {
+    suspend fun signIn(): Result {
         val result = try {
             oneTapClient.beginSignIn(buildSignInRequest()).await()
         } catch (e: Exception) {
             e.printStackTrace()
             if (e is CancellationException) throw e
-            null
+            e
         }
-        return result?.pendingIntent?.intentSender
+
+        return when (result) {
+            is BeginSignInResult ->
+                Result.Success(result.pendingIntent.intentSender)
+
+            is Exception ->
+                Result.Error(result.message.toString())
+
+            else ->
+                Result.Error("Unknown Error.")
+        }
+//        return result?.pendingIntent?.intentSender
     }
 
     suspend fun signInWithIntent(intent: Intent): SignInResult {

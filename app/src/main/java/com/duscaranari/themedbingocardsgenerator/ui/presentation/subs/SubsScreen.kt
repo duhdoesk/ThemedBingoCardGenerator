@@ -29,7 +29,6 @@ import com.duscaranari.themedbingocardsgenerator.util.rememberDeviceOrientation
 fun SubsScreen(
     billingHelper: BillingHelper,
     offerDetails: List<ProductDetails.SubscriptionOfferDetails>?,
-    navController: NavController,
     activity: Activity
 ) {
 
@@ -37,22 +36,14 @@ fun SubsScreen(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
+        when (rememberDeviceOrientation()) {
+            is DeviceOrientation.Portrait -> PortraitSubsScreen(
+                billingHelper,
+                offerDetails,
+                activity
+            )
 
-        when (val s = billingHelper.subscribed.collectAsState().value) {
-            is SubscriptionState.Checked -> {
-                if (s.subscribed) {
-                    navController.navigateUp()
-                }
-
-                else {
-                    when (rememberDeviceOrientation()) {
-                        is DeviceOrientation.Portrait -> PortraitSubsScreen(billingHelper, offerDetails, activity)
-                        else -> LandscapeSubsScreen(billingHelper, offerDetails, activity)
-                    }
-                }
-            }
-
-            else -> { }
+            else -> LandscapeSubsScreen(billingHelper, offerDetails, activity)
         }
     }
 }

@@ -9,12 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.android.billingclient.api.ProductDetails
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.component.AppNavigationRail
 import com.duscaranari.themedbingocardsgenerator.ui.navigation.component.BottomBar
@@ -123,12 +121,17 @@ fun AppNavigation(
                 }
 
                 composable(AppScreens.Subs.name) {
-                    SubsScreen(
-                        billingHelper,
-                        offerDetails,
-                        navController,
-                        activity
-                    )
+                    if (subscribed) {
+                        navController.navigateUp()
+                    }
+
+                    else {
+                        SubsScreen(
+                            billingHelper,
+                            offerDetails,
+                            activity
+                        )
+                    }
                 }
 
                 composable(AppScreens.ClassicDrawer.name) {
