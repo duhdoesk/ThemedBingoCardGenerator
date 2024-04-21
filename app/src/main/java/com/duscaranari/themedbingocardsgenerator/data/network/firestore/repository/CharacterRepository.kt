@@ -22,11 +22,12 @@ class CharacterRepository @Inject constructor(database: FirebaseFirestore) {
         themeId: String,
         characters: List<BingoCharacter>
     ) {
-        characters.forEach() {
+        characters.forEachIndexed { index, character ->
             collection
                 .document(themeId)
                 .collection("characters")
-                .add(it)
+                .document((index + 1).toString())
+                .set(character)
         }
     }
 }
