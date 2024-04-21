@@ -22,7 +22,7 @@ From version 2.0 (pt-BR)
 
 ##### Portrait
 
-<p float="left">
+<p float ="left">
 <img src="https://github.com/duhdoesk/ThemedBingoCardGenerator/blob/main/screenshots/home_p.png" alt="home screen" width="220"/>
 <img src="https://github.com/duhdoesk/ThemedBingoCardGenerator/blob/main/screenshots/card_p.png" alt="home screen" width="220"/>
 <img src="https://github.com/duhdoesk/ThemedBingoCardGenerator/blob/main/screenshots/drawer_p.png" alt="home screen" width="220"/>
