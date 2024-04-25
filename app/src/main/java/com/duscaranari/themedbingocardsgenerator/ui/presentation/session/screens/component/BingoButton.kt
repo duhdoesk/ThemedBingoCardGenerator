@@ -22,7 +22,7 @@ fun BingoButton(
 ) {
     var buttonEnabled = true
 
-    if (participantId in winners)
+    if (participantId in winners || card.size != 9)
         buttonEnabled = false
     else
         card.forEach { character ->
